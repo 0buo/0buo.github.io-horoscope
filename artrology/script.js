@@ -510,7 +510,7 @@ var $filterOffText = $("#filterOffText");
 
 var settingDOM = document.getElementsByClassName("setting")[0];
 var settingFontSize = 59;
-var settingFontOpacity = 0.6;
+var settingFontOpacity = 0.55;
 function adjustSettingFont(){
   settingFontSize = Math.round(window.innerWidth * 0.023);
   settingDOM.style.setProperty("--settingFontSize", settingFontSize + "px");
@@ -520,7 +520,7 @@ function adjustSettingFont(){
     $settingText.css("opacity", settingFontOpacity);
   }
   else{
-    $settingText.css("opacity", "0.6");
+    $settingText.css("opacity", "0.55");
   }
 }
 $document.ready(adjustSettingFont);
