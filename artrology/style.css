@@ -62,13 +62,13 @@ body {
   background-repeat: repeat;
   position: relative;
   clear: both;
-  -webkit-filter: blur(1.25px);
-          filter: blur(1.25px);
+  -webkit-filter: blur(1px);
+          filter: blur(1px);
 }
 
 .svgFilter{
-  -webkit-filter: blur(1.25px) url('#cloud');
-          filter: blur(1.25px) url('#cloud');
+  -webkit-filter: blur(1px) url('#cloud');
+          filter: blur(1px) url('#cloud');
 }
 
 * :not(body){
