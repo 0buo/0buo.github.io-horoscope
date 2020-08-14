@@ -499,7 +499,7 @@ $htmlAndBody.animate({ scrollTop: 0 }, "slow");
 /*****************************filter setting*************************** */
 var setting = false;
 var $settingClass = $(".setting");
-var $settingText = $("#settingText")
+var $settingText = $("#settingText");
 var $filterOnArea = $("#sbhOn");
 var $filterOffArea = $("#sbhOff");
 var $settingButton = $(".settingButton");
@@ -510,66 +510,99 @@ var $filterOffText = $("#filterOffText");
 
 var settingDOM = document.getElementsByClassName("setting")[0];
 var settingFontSize = 59;
-var settingFontOpacity = 0.55;
+var settingFontOpacity = 0.6;
+var buttonFontSize = 55;
+var settingBlur = 0.9;
+//adjust font on window size
 function adjustSettingFont(){
+  let modifiedBlur;
+
   settingFontSize = Math.round(window.innerWidth * 0.023);
   settingDOM.style.setProperty("--settingFontSize", settingFontSize + "px");
-  if(window.innerWidth < 1960){
-    settingFontOpacity = 0.6 + ((2560 - window.innerWidth)/150) * 0.05;
+
+  if(window.innerWidth < 1960 && window.innerWidth > 1700){
+    settingFontOpacity = 0.6 + ((1960 - window.innerWidth)/200) * 0.1;
     settingFontOpacity.toFixed(2);
-    $settingText.css("opacity", settingFontOpacity);
+    settingBlur = 0.9;
+  }
+  else if(window.innerWidth < 1700){
+    settingFontOpacity = 0.6 + ((1960 - window.innerWidth)/200) * 0.1;
+    settingFontOpacity.toFixed(2);
+    settingBlur = 1 - ((1700 - window.innerWidth)/200) * 0.25;
+    settingBlur.toFixed(2);
   }
   else{
-    $settingText.css("opacity", "0.55");
+    settingFontOpacity = 0.6;
+    settingBlur = 0.9;
   }
+  if(settingFontOpacity > 1){settingFontOpacity = 1;}
+  if(settingBlur < 0){settingBlur = 0;}
+  modifiedBlur = settingBlur;
+
+  if(window.innerHeight < 600){
+    buttonFontSize = Math.round(window.innerHeight * 0.09);
+    settingBlur = modifiedBlur - ((600 - window.innerHeight)/50) * 0.5;
+    settingBlur.toFixed(2);
+  }
+  else{buttonFontSize = 55;}
+  
+  $settingText.css("opacity", settingFontOpacity);
+  $settingButton.css("font-size", buttonFontSize + "px");
+  $settingClass.css("filter", "blur(" + settingBlur + "px)");
 }
-$document.ready(adjustSettingFont);
-$window.resize(adjustSettingFont);
 
-$filterOnArea.mouseover(function(){
-  $filterOnText.html("lv<br>it<br>on");
-  $filterOnText.css("margin-left", "75px");
-})
-$filterOnArea.mouseleave(function(){
-  $filterOnText.html('leave<br>i<span class="threespace">t<br>o<span class="threespace"></span>n');
-  $filterOnText.css("margin-left", "0px");
-})
-$filterOffArea.mouseover(function(){
-  $filterOffText.html("tk<br>it<br>of");
-  $filterOffText.css("margin-right", "55px");
-})
-$filterOffArea.mouseleave(function(){
-  $filterOffText.html('take<br>i<span class="twospace"></span>t<br>o<span class="onespace"></span>f<span class="onespace"></span>f');
-  $filterOffText.css("margin-right", "0px");
-})
+if(setting == false){
+  $document.ready(adjustSettingFont);
+  //$window.mousemove(adjustSettingFont);
+  $window.resize(adjustSettingFont);
 
-$filterOn.click(function(){
-  $(document.body).addClass("svgFilter");
-  $(document.documentElement).addClass("svgFilter");
+  //hover button
+  $filterOnArea.mouseover(function(){
+    $filterOnText.html("lv<br>it<br>on");
+    $filterOnText.css("margin-left", "75px");
+  })
+  $filterOnArea.mouseleave(function(){
+    $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+    $filterOnText.css("margin-left", "0px");
+  })
+  $filterOffArea.mouseover(function(){
+    $filterOffText.html("tk<br>it<br>of");
+    $filterOffText.css("margin-right", "55px");
+  })
+  $filterOffArea.mouseleave(function(){
+    $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+    $filterOffText.css("margin-right", "0px");
+  })
 
-  $settingText.css("opacity", "0");
-  $settingButton.css("filter", "blur(6px)");
-  $settingButton.css("opacity", "0");
-  setting = true;
-  setTimeout(function(){
-    document.documentElement.pseudoStyle('before', 'z-index','20');
-    $settingClass.css("opacity", "0");
-  },1100);
-  setTimeout(function(){$settingClass.css("display", "none");}, 2100);
-});
-$filterOff.click(function(){
-  $(document.documentElement).addClass("svgFilter");
+  //click button
+  $filterOn.click(function(){
+    $(document.body).addClass("svgFilter");
+    $(document.documentElement).addClass("svgFilter");
 
-  $settingText.css("opacity", "0");
-  $settingButton.css("filter", "blur(6px)");
-  $settingButton.css("opacity", "0");
-  setting = true;
-  setTimeout(function(){
-    document.documentElement.pseudoStyle('before', 'z-index','20');
-    $settingClass.css("opacity", "0");
-  },1100);
-  setTimeout(function(){$settingClass.css("display", "none");}, 2100);
-});
+    $settingText.css("opacity", "0");
+    $settingButton.css("filter", "blur(6px)");
+    $settingButton.css("opacity", "0");
+    setting = true;
+    setTimeout(function(){
+      document.documentElement.pseudoStyle('before', 'z-index','20');
+      $settingClass.css("opacity", "0");
+    },1100);
+    setTimeout(function(){$settingClass.css("display", "none");}, 2100);
+  });
+  $filterOff.click(function(){
+    $(document.documentElement).addClass("svgFilter");
+
+    $settingText.css("opacity", "0");
+    $settingButton.css("filter", "blur(6px)");
+    $settingButton.css("opacity", "0");
+    setting = true;
+    setTimeout(function(){
+      document.documentElement.pseudoStyle('before', 'z-index','20');
+      $settingClass.css("opacity", "0");
+    },1100);
+    setTimeout(function(){$settingClass.css("display", "none");}, 2100);
+  });
+}
 /******************************spotlight*********************************/
 var mouseState = 0;
 //var frameRate = 75;
@@ -927,7 +960,7 @@ function selfTwinkle(){
     twinkleIDs[index] = requestAnimationFrame(function(){textTwinkle($argThis, index);});
   }//of for loop
 }
-$document.ready(selfTwinkle);
+$window.on("load", selfTwinkle);
 //$window.focus(selfTwinkle);
 
 var i;

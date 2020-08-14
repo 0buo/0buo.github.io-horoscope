@@ -97,17 +97,18 @@ body.svgFilter{
   text-align: center;
   color: white;
   font-family: 'Codystar', cursive;
-  font-size: var(--settingFontSize);
+  
   font-weight: 600;
   padding-top: var(--settingPaddingTop);
   transition: padding-top .5s ease-in-out, font-size .5s ease-in-out, transform 2.5s ease-in-out, opacity 1s ease-in-out;
-  -webkit-filter: blur(1px);
-          filter: blur(1px);
-  opacity: 1;
+  -webkit-filter: blur(0.9px);
+          filter: blur(0.9px);
 }
+
 #settingText{
   transition: transform 2s ease-in-out, opacity 0.5s ease-in-out;
-  opacity: 0.55;
+  font-size: var(--settingFontSize);
+  opacity: 0.6;
 }
 .settingButton{
   border: none;
@@ -143,6 +144,12 @@ body.svgFilter{
 .threespace{padding-left: 175px;}
 .twospace{padding-left: 110px;}
 .onespace{padding-left: 25px;}
+.letterToL{
+  float: left;
+}
+.letterToR{
+  float: right;
+}
 
 * :not(body){
   transition: transform 2.5s ease-in-out;
