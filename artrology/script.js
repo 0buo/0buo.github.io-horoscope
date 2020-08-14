@@ -553,7 +553,6 @@ function adjustSettingFont(){
 
 if(setting == false){
   $document.ready(adjustSettingFont);
-  //$window.mousemove(adjustSettingFont);
   $window.resize(adjustSettingFont);
 
   //hover button

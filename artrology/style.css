@@ -188,6 +188,9 @@ body > *:not(.switchDiv).inputFocused {
 }
 
 h1 {
+  border: none;
+  fill: none;
+  outline: none;
   --hblur: 5px;
   width: 100%;
   padding: 10px, 0px;
