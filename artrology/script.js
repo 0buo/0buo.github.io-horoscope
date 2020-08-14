@@ -2,6 +2,56 @@ var $document = $(document);
 var $htmlAndBody = $("html, body");
 var $window = $(window);
 
+/***change pseudo prop */
+var UID = {
+	_current: 0,
+  getNew: function(){ this._current++; return this._current; },
+  _props: {},
+  addProp: function(id, prop, value) {
+    this._props[id] = {
+      prop : prop,
+      value: value
+    };
+  },
+  isPropExist: function(prop, value) {
+    for (const id in this._props) {
+      if (this._props.hasOwnProperty(id)) {
+        const element = this._props[id];
+        if (element.prop == prop && element.value == value) {
+          return id;
+        }
+      }
+    }
+    return false;
+  }
+};
+
+HTMLElement.prototype.pseudoStyle = function(element,prop,value){
+	var _this = this;
+	var _sheetId = 'pseudoStyles';
+	var _head = document.head || document.getElementsByTagName('head')[0];
+	var _sheet = document.getElementById(_sheetId) || document.createElement('style');
+      _sheet.id = _sheetId;
+
+  var regx = new RegExp('\\b' + 'pseudoStyle' + '.*?\\b', 'g');
+  _this.className = _this.className.replace(regx, '');
+
+  var currentID = UID.isPropExist(prop, value);
+  if (currentID != false) {
+    _this.className +=  ' ' + 'pseudoStyle' + currentID; 
+  }
+  else { 
+    var newID = UID.getNew();
+    UID.addProp(newID, prop, value);
+    
+    _this.className  += '  ' + 'pseudoStyle' + newID; 
+    _sheet.innerHTML += ' .' + 'pseudoStyle' + newID + ':' + element + '{' + prop + ':' + value + '}';
+    _head.appendChild(_sheet);
+  }
+  
+  return this;
+};
+
 //vector class
 /*
 Simple 2D JavaScript Vector Class
@@ -268,7 +318,7 @@ function followCursor() {
 
 //variables for function update
 var mouseX = 0.5 * window.innerWidth,
-    mouseY = 1.1 * window.innerHeight;
+    mouseY = 1.15 * window.innerHeight;
 //var followInterv = 0;
 
 var IDfollowCursor;
@@ -446,6 +496,61 @@ function updateR() {
 
 
 $htmlAndBody.animate({ scrollTop: 0 }, "slow");
+/*****************************filter setting*************************** */
+var setting = false;
+var $settingClass = $(".setting");
+var $settingText = $("#settingText")
+var $filterOnArea = $("#sbhOn");
+var $filterOffArea = $("#sbhOff");
+var $settingButton = $(".settingButton");
+var $filterOn = $("#filterOn");
+var $filterOff = $("#filterOff");
+var $filterOnText = $("#filterOnText");
+var $filterOffText = $("#filterOffText");
+$filterOnArea.mouseover(function(){
+  $filterOnText.html("lv<br>it<br>on");
+  $filterOnText.css("margin-left", "75px");
+})
+$filterOnArea.mouseleave(function(){
+  $filterOnText.html('leave<br>i<span class="threespace">t<br>o<span class="threespace"></span>n');
+  $filterOnText.css("margin-left", "0px");
+})
+$filterOffArea.mouseover(function(){
+  $filterOffText.html("tk<br>it<br>of");
+  $filterOffText.css("margin-right", "55px");
+})
+$filterOffArea.mouseleave(function(){
+  $filterOffText.html('take<br>i<span class="twospace"></span>t<br>o<span class="onespace"></span>f<span class="onespace"></span>f');
+  $filterOffText.css("margin-right", "0px");
+})
+
+$filterOn.click(function(){
+  $(document.body).addClass("svgFilter");
+  $(document.documentElement).addClass("svgFilter");
+
+  $settingText.css("opacity", "0");
+  $settingButton.css("filter", "blur(6px)");
+  $settingButton.css("opacity", "0");
+  setting = true;
+  setTimeout(function(){
+    document.documentElement.pseudoStyle('before', 'z-index','20');
+    $settingClass.css("opacity", "0");
+  },1100);
+  setTimeout(function(){$settingClass.css("display", "none");}, 2100);
+});
+$filterOff.click(function(){
+  $(document.documentElement).addClass("svgFilter");
+
+  $settingText.css("opacity", "0");
+  $settingButton.css("filter", "blur(6px)");
+  $settingButton.css("opacity", "0");
+  setting = true;
+  setTimeout(function(){
+    document.documentElement.pseudoStyle('before', 'z-index','20');
+    $settingClass.css("opacity", "0");
+  },1100);
+  setTimeout(function(){$settingClass.css("display", "none");}, 2100);
+});
 /******************************spotlight*********************************/
 var mouseState = 0;
 //var frameRate = 75;
@@ -500,11 +605,14 @@ var start = true;
 var IDstart;
 var IDdarkness;
 var darkness = 0.99;
-IDfollowCursor = requestAnimationFrame(followCursor);
-IDstart = requestAnimationFrame(startAnim);
-IDdarkness = requestAnimationFrame(darknessStartAnim);
-$document.ready(updateR);
-
+$settingClass.click(function(){
+  if(setting){
+    IDfollowCursor = requestAnimationFrame(followCursor);
+    IDstart = requestAnimationFrame(startAnim);
+    IDdarkness = requestAnimationFrame(darknessStartAnim);
+    $document.ready(updateR);
+  }
+});
 /******************************header blur ************************/
 var hopacity = 0.85;
 var hblur = 4.5;
@@ -513,7 +621,9 @@ var h1 = document.getElementsByTagName("h1")[0];
 var hblurDir = -1;
 var IDhblur;
 
-IDhblur = requestAnimationFrame(hblurAnim);
+$settingClass.click(function(){
+  if(setting){IDhblur = requestAnimationFrame(hblurAnim);}
+});
 function hblurAnim(){
   setTimeout(function(){
     if(hblurDir == -1){
@@ -528,7 +638,7 @@ function hblurAnim(){
     h1.style.setProperty("opacity", hopacity);
     h1.style.setProperty("--hblur", hblur+"px");
     IDhblur = requestAnimationFrame(hblurAnim);
-  }, 8000);
+  }, 8500);
 }
 
 /*************************body roate********************************/
@@ -539,10 +649,11 @@ function bodyRotate(e){
   let sx = e.screenX - window.screen.width/2;
   if(sx > screenMax){sx = screenMax;}
   else if (sx < screenMin){sx = screenMin;}
-  bodyRY = Math.round(scale(sx, screenMin, screenMax, -3, 7));
+  bodyRY = Math.round(scale(sx, screenMin, screenMax, -4, 8));
   document.body.style.setProperty("--bodyRotateY", bodyRY+"deg");
   //let sy = e.screenY;
 }
+
 addEvent(document, "mousemove", bodyRotate);
 
 /*********************cloud displacement map*****************************/
@@ -558,7 +669,7 @@ var baseFrequency = 0.07;
 var octave = 1;
 var cloudScale = 100;
 
-var bfMax = 0.018;
+var bfMax = 0.025;
 var bfMiddle = 0.015;
 var bfMin = 0.007;
 var scaleMax = 100;
@@ -572,17 +683,20 @@ var bfDir = -1;
 var scDir = -1;
 var ocDir = 1;
 
-if(start){
-  IDbf = requestAnimationFrame(cloudBfStart);
-  IDsc = requestAnimationFrame(cloudScStart);
-  IDoc = requestAnimationFrame(cloudOcStart);
-}
-
+$settingClass.click(function(){
+  if(setting){
+    if(start){
+      IDbf = requestAnimationFrame(cloudBfStart);
+      IDsc = requestAnimationFrame(cloudScStart);
+      IDoc = requestAnimationFrame(cloudOcStart);
+    }
+  }
+});
 
 function cloudBfStart(){
   let curBf = baseFrequency;
   $({ bf: curBf }).animate({ bf: bfMin }, {
-    duration: 8500,
+    duration: 11000,
     easing: "easeOutQuad", 
     step: function(now, fx) {
       baseFrequency = now;
@@ -598,7 +712,7 @@ function cloudBfStart(){
 function cloudScStart(){
   let curSc = cloudScale;
   $({ sc: curSc }).animate({ sc: scaleMin }, {
-    duration: 17500,
+    duration: 19500,
     easing: "easeOutQuad",
     step: function(now, fx) {
       cloudScale = now;
@@ -614,7 +728,7 @@ function cloudScStart(){
 function cloudOcStart(){
   let curOc = octave;
   $({ oc: curOc }).animate({ oc: scaleMax }, {
-    duration: 12500,
+    duration: 14500,
     easing: "easeOutQuad",
     step: function(now, fx) {
       octave = Math.round(now);

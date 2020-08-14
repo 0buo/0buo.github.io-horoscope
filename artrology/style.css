@@ -1,10 +1,10 @@
 :root {
   cursor: auto;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
   --cursorX: 50vw;
-  --cursorY: 110vh;
-  --radius: 20vmax;
+  --cursorY: 115vh;
+  --radius: 5vmax;
   --eclipseX: 50vw;
   --eclipseY: 50vh;
   --eclipseR: 0vmax;
@@ -24,7 +24,7 @@
   width: 100vw;
   height: 100vh;
   position: fixed;
-  z-index: 20;
+  z-index: 0;
   pointer-events: none;
   background: radial-gradient(
     circle var(--radius) at var(--cursorX) var(--cursorY), 
@@ -49,10 +49,20 @@
   display: none;
 }
 
+:root.svgFilter{
+  overflow-y: auto;
+}
+
+html, body{
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
 
 body {
+  border: 0.01px solid transparent;
   --bodyRotateY: 0deg;
-  height:auto;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -66,10 +76,67 @@ body {
           filter: blur(1px);
 }
 
-.svgFilter{
+body.svgFilter{
   -webkit-filter: blur(1px) url('#cloud');
           filter: blur(1px) url('#cloud');
 }
+
+.setting{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(4,4,4);
+  z-index: 6;
+
+  text-align: center;
+  color: white;
+  font-family: 'Codystar', cursive;
+  font-size: 60px;
+  font-weight: 500;
+  padding-top: 32vh;
+  transition: transform 2.5s ease-in-out, opacity 1s ease-in-out;
+  filter: blur(1px);
+  opacity: 1;
+}
+#settingText{
+  transition: transform 2s ease-in-out, opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+.settingButton{
+  border: none;
+  outline: none;
+  fill: none;
+  background-color: transparent;
+  position: absolute;
+  top: 60vh;
+  font-family: "Libre Barcode 39 Extended Text", cursive;
+  font-size: 50px;
+  color: white;
+  transition: transform 2.5s ease-in-out, opacity 1s ease-in-out, filter 1s ease-in-out;
+  filter: blur(0.25px);
+  opacity: 1;
+}
+#filterOn{
+  left: 30px;
+}
+#filterOff{
+  right: 30px;
+}
+.settingButtonHover{
+  position: absolute;
+  top: 40px;
+  width: 280px;
+  height: 180px;
+}
+#sbhOn{left: 1px;}
+#sbhOff{right: -23px;}
+.threespace{padding-left: 160px;}
+.twospace{padding-left: 105px;}
+.onespace{padding-left: 25px;}
 
 * :not(body){
   transition: transform 2.5s ease-in-out;
@@ -77,13 +144,13 @@ body {
 }
 
 body > *:not(.switchDiv).inputFocused {
-  transition: all 1.5s ease-in-out;
+  transition: filter 1.5s ease-in-out;
   -webkit-filter: blur(3.5px);
           filter: blur(3.5px);
 }
 
 .switchDiv > *:not(.inp).inputFocused {
-  transition: all 1.5s ease-in-out;
+  transition: filter 1.5s ease-in-out;
   -webkit-filter: blur(3.5px);
           filter: blur(3.5px);
 }
@@ -147,7 +214,7 @@ h1 {
   margin-bottom: 50px;
   margin-top: 70px;
   height: 110px;
-  z-index: 6;
+  z-index: 3;
 }
 
 .selectionDivText{
@@ -277,7 +344,7 @@ h1 {
 #namesDiv.showRotateLeft {
   transform: translate(0%, 0%) rotate(0deg);
   opacity: 1;
-  z-index: 5;
+  z-index: 2;
 }
 
 #namesDiv.hideRotateLeft {
@@ -299,7 +366,7 @@ h1 {
 #timesDiv.showRotateLeft {
   transform: translate(0%, 0%) rotate(0deg);
   opacity: 1;
-  z-index: 5;
+  z-index: 2;
 }
 
 #timesDiv.hideRotateLeft {
