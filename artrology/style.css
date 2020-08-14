@@ -62,6 +62,11 @@ body {
   background-repeat: repeat;
   position: relative;
   clear: both;
+  -webkit-filter: blur(1.25px);
+          filter: blur(1.25px);
+}
+
+.svgFilter{
   -webkit-filter: blur(1.25px) url('#cloud');
           filter: blur(1.25px) url('#cloud');
 }

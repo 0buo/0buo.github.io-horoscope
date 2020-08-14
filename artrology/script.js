@@ -760,17 +760,17 @@ function textTwinkle($this, index){
 
 function textTwinkleBright($this, index){ 
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkleBright($this, index);});
-  if($this.css("opacity") < 0.85 && twinkleDirects[index] == 1){ 
-    $this.css("opacity", 0.85);
+  if($this.css("opacity") < 0.95 && twinkleDirects[index] == 1){ 
+    $this.css("opacity", 0.95);
     $this.css("--glowPix1", "0.5px");
     $this.css("--glowPix2", "-0.5px");
-    if(Math.abs($this.css("opacity")-0.85) <= 0.005){twinkleDirects[index] = -1;}
+    if(Math.abs($this.css("opacity")-0.95) <= 0.005){twinkleDirects[index] = -1;}
   }
-  else if ($this.css("opacity") > 0.45 && twinkleDirects[index] == -1){
-    $this.css("opacity", 0.45);
+  else if ($this.css("opacity") > 0.5 && twinkleDirects[index] == -1){
+    $this.css("opacity", 0.5);
     $this.css("--glowPix1", "2px");
     $this.css("--glowPix2", "-2px");
-    if(Math.abs($this.css("opacity")-0.45) <= 0.005){twinkleDirects[index] = 1;}
+    if(Math.abs($this.css("opacity")-0.5) <= 0.005){twinkleDirects[index] = 1;}
   }
 }
 
