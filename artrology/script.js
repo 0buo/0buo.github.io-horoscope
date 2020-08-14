@@ -507,6 +507,25 @@ var $filterOn = $("#filterOn");
 var $filterOff = $("#filterOff");
 var $filterOnText = $("#filterOnText");
 var $filterOffText = $("#filterOffText");
+
+var settingDOM = document.getElementsByClassName("setting")[0];
+var settingFontSize = 59;
+var settingFontOpacity = 0.6;
+function adjustSettingFont(){
+  settingFontSize = Math.round(window.innerWidth * 0.023);
+  settingDOM.style.setProperty("--settingFontSize", settingFontSize + "px");
+  if(window.innerWidth < 1960){
+    settingFontOpacity = 0.6 + ((2560 - window.innerWidth)/150) * 0.05;
+    settingFontOpacity.toFixed(2);
+    $settingText.css("opacity", settingFontOpacity);
+  }
+  else{
+    $settingText.css("opacity", "0.6");
+  }
+}
+$document.ready(adjustSettingFont);
+$window.resize(adjustSettingFont);
+
 $filterOnArea.mouseover(function(){
   $filterOnText.html("lv<br>it<br>on");
   $filterOnText.css("margin-left", "75px");
