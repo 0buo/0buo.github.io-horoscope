@@ -1,7 +1,7 @@
 :root {
   cursor: auto;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   --cursorX: 50vw;
   --cursorY: 110vh;
   --radius: 20vmax;
@@ -258,6 +258,7 @@ h1 {
   opacity: 0;
 }
 
+/* switch divs */
 #namesDiv {
   transition: all 1s ease-in-out;
   transform-origin: 50% 100%;
@@ -302,6 +303,7 @@ h1 {
   z-index: auto;
 }
 
+/* names input */
 .inp {
   --primary: #00041d;
   --unfocused: #aaaaaa;
@@ -471,4 +473,50 @@ h1 {
   90% {
     d: path("M 80 50 L 210 50 C 211 51 212 52 215 54 C 227 63 253 63 264 55 C 267 53 268 52 270 50 C 280 50 280 50 280 50");
   }
+}
+
+/* time input */
+#timeInput{
+  --grey: rgb(30, 30, 39);
+  position: absolute !important;
+  margin-top: 50px;
+  margin-left: 8vw;
+  margin-bottom: 50px;
+}
+
+#circle{ 
+  width:50px; 
+  height:50px;
+  border:2px solid var(--grey); 
+  border-radius:100%;
+  float:left;
+  margin-right:40px;
+}
+
+#slider{ 
+  position:relative; 
+  height:45px; 
+  width:45px; 
+  background-color:var(--grey); 
+  left:4px; 
+  top:3px; 
+  border-radius:100%;
+}
+
+input[type="text"]{
+  width: 120px;
+  height: 30px;
+  -moz-appearance: none;
+  background: none;
+  border: none;
+  color: var(--grey);
+  display: block;
+  font-size: 1.5em;
+  padding:0 6px;
+  margin-left: 20px;
+}
+
+.range{
+  float:left;
+  width:30px;
 }

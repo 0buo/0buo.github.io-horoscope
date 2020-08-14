@@ -285,47 +285,47 @@ var mouseStateUpdated = 0;
 
 function incR1() {
   IDincR1 = requestAnimationFrame(incR1);
-  if (radius < 40) {
+  if (spotLightRadius < 40) {
     canChange = 0;
-    radius += 0.125;
+    spotLightRadius += 0.125;
   } else {
     canChange = 1;
     mouseStateUpdated = 0;
   }
-  if (radius > 40) {
-    radius = 40;
+  if (spotLightRadius > 40) {
+    spotLightRadius = 40;
   }
-  document.documentElement.style.setProperty("--radius", radius + "vmax");
+  document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
 }
 
 function incR2() {
   IDincR2 = requestAnimationFrame(incR2);
-  if (radius < 25) {
+  if (spotLightRadius < 25) {
     canChange = 0;
-    radius += 0.125;
+    spotLightRadius += 0.125;
   } else {
     canChange = 1;
     mouseStateUpdated = 0;
   }
-  if (radius > 25) {
-    radius = 25;
+  if (spotLightRadius > 25) {
+    spotLightRadius = 25;
   }
-  document.documentElement.style.setProperty("--radius", radius + "vmax");
+  document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
 }
 
 function decR() {
   IDdecR = requestAnimationFrame(decR);
-  if (radius > 17) {
+  if (spotLightRadius > 17) {
     canChange = 0;
-    radius -= 0.55;
+    spotLightRadius -= 0.55;
   } else {
     canChange = 1;
     mouseStateUpdated = 0;
   }
-  if (radius < 17) {
-    radius = 17;
+  if (spotLightRadius < 17) {
+    spotLightRadius = 17;
   }
-  document.documentElement.style.setProperty("--radius", radius + "vmax");
+  document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
 }
 
 function incEclipseR() {
@@ -446,13 +446,13 @@ function updateR() {
 
 
 $htmlAndBody.animate({ scrollTop: 0 }, "slow");
-//******************************spotlight*********************************/
+/******************************spotlight*********************************/
 var mouseState = 0;
 //var frameRate = 75;
 var canChange = 1;
 var canChangeEclipse = 1;
 
-var radius = parseInt(
+var spotLightRadius = parseInt(
   getComputedStyle(document.documentElement).getPropertyValue("--radius"),
   10
 );
@@ -505,7 +505,7 @@ IDstart = requestAnimationFrame(startAnim);
 IDdarkness = requestAnimationFrame(darknessStartAnim);
 $document.ready(updateR);
 
-//******************************header blur ************************/
+/******************************header blur ************************/
 var hopacity = 0.85;
 var hblur = 4.5;
 var $h1 = $("h1");
@@ -528,10 +528,10 @@ function hblurAnim(){
     h1.style.setProperty("opacity", hopacity);
     h1.style.setProperty("--hblur", hblur+"px");
     IDhblur = requestAnimationFrame(hblurAnim);
-  }, 10000);
+  }, 8000);
 }
 
-//*************************body roate********************************/
+/*************************body roate********************************/
 var bodyRY = parseInt(getComputedStyle(document.body).getPropertyValue("--bodyRotateY"),10);
 var screenMax = 0.6 * window.screen.width;
 var screenMin = -1*window.screen.width/2 + 0.04 * window.screen.width;
@@ -545,7 +545,7 @@ function bodyRotate(e){
 }
 addEvent(document, "mousemove", bodyRotate);
 
-//*********************cloud displacement map*****************************/
+/*********************cloud displacement map*****************************/
 var cloudFilter = document.getElementById("cloud-filter");
 var cloudDisp = document.getElementById("cloud-disp");
 //var $cloudFilter = $("#cloud-filter");
@@ -735,7 +735,7 @@ function cloudOcDrift(){
 
 
 
-//********************twinkle plain text***********************************/
+/********************twinkle plain text***********************************/
 var plaintexts = document.getElementsByClassName("plaintext");
 //var twinkleIntervs = new Array(plaintexts.length);
 var twinkleIDs = new Array(plaintexts.length);
@@ -858,7 +858,7 @@ for(i = 0; i < plaintexts.length; i++){
   })
 }//of for loop
 
-//**********************************rotation*************************************/
+/**********************************rotation*************************************/
 var moonCount = 0;
 var $rotateBackCircle = $(".rotateBackCircle");
 var $rotate = $(".rotate");
@@ -879,7 +879,7 @@ $rotateBackCircle.click(function () {
 
       $timesDiv.removeClass("hideRotateLeft");
       $namesDiv.toggleClass("showRotateLeft");
-      $root.css("overflow-y", "auto");
+      //$root.css("overflow-y", "auto");
     } else if (moonCount == 2) {
       $rotate.removeClass("one");
       $rotate.toggleClass("two");
@@ -890,7 +890,7 @@ $rotateBackCircle.click(function () {
       $namesDiv.removeClass("showRotateLeft");
       $namesDiv.toggleClass("hideRotateLeft");
       $timesDiv.toggleClass("showRotateLeft");
-      $root.css("overflow-y", "auto");
+      //$root.css("overflow-y", "auto");
     } else {
       $rotate.removeClass("two");
       $rotateTextTwo.removeClass("down");
@@ -901,7 +901,7 @@ $rotateBackCircle.click(function () {
       $timesDiv.removeClass("showRotateLeft");
       $timesDiv.toggleClass("hideRotateLeft");
       $htmlAndBody.animate({ scrollTop: 0 }, "slow");
-      $root.css("overflow-y", "hidden");
+      //$root.css("overflow-y", "hidden");
     }
   }
 });
@@ -921,7 +921,7 @@ $rotateBackCircle.mouseleave(function(){
   document.getElementsByClassName("SelectionDiv")[0].style.setProperty("--blurPx", "3.5px");
 });
 
-//*****************************input box line*************************************/
+/*****************************input box line*************************************/
 
 //detect which animation event and change check's transition delay accordingly
 function whichAnimationEndEvent() {
@@ -1090,4 +1090,152 @@ JQcheck.mousedown(function () {
   }
 });
 
-//*******************showSign*************************************/
+/************ ***********time input******************************/
+
+var frameRate = 60;
+
+var $container = $("#circle");
+var $slider = $("#slider");
+var sliderW2 = $slider.width() / 2;
+var sliderH2 = $slider.height() / 2;
+const sliderRadius = 30;
+var sliderDeg = 0;
+var elP = $("#circle").offset();
+var elPos = { x: elP.left, y: elP.top };
+var sliderX = 0,
+    sliderY = 0,
+  lastX = 55,
+  lastY = 35;
+var mdown = false;
+var sliderInterv = 0;
+var sliderOpaInterv = 0;
+
+var sliderOpacity = 1;
+var MUsliderOpaSwitch = 0;
+var MDsliderOpaSwitch = 0;
+var sliderCanMove = 1;
+
+$("#circle").mousedown(function () {
+  mdown = true;
+  // clearInterval(sliderInterv);
+  // clearInterval(sliderOpaInterv);
+
+  // sliderOpaInterv = setInterval(function () {
+  //   MUsliderOpaSwitch = 0;
+  //   if (MDsliderOpaSwitch == 0) {
+  //     sliderOpacity = lerp(sliderOpacity, 0, 0.15);
+  //   } else {
+  //     sliderOpacity = lerp(sliderOpacity, 1, 0.15);
+  //   }
+  //   if (Math.abs(sliderOpacity - 0) < 0.01) {
+  //     MDsliderOpaSwitch = 1;
+  //   }
+  //   else if (Math.abs(sliderOpacity - 1) < 0.01) {
+  //     sliderCanMove = 1;
+  //   }
+  //   $slider.css("opacity", sliderOpacity);
+  // }, 1000 / frameRate);
+
+  // sliderInterv = setInterval(function () {
+  //   if (MDsliderOpaSwitch) {
+  //     sliderX = lastX + 15;
+  //     sliderY = lastY + 15;
+  //     $slider.css({ left: sliderX, top: sliderY });
+  //   }
+  // });
+});
+
+$window.mouseup(function () {
+  mdown = false;
+  lap = 0;
+  changeVal = 1;
+  // clearInterval(sliderInterv);
+  // clearInterval(sliderOpaInterv);
+
+  // sliderOpaInterv = setInterval(function () {
+  //   MDsliderOpaSwitch = 0;
+  //   sliderCanMove = 0;
+  //   if (MUsliderOpaSwitch == 0) {
+  //     sliderOpacity = lerp(sliderOpacity, 0, 0.15);
+  //   } else {
+  //     sliderOpacity = lerp(sliderOpacity, 1, 0.15);
+  //   }
+  //   if (Math.abs(sliderOpacity - 0) < 0.01) {
+  //     MUsliderOpaSwitch = 1;
+  //   }
+  //   $slider.css("opacity", sliderOpacity);
+  // }, 1000 / frameRate);
+
+  // sliderInterv = setInterval(function () {
+  //   if (MUsliderOpaSwitch) {
+  //     sliderX = lastX - 25;
+  //     sliderY = lastY - 15;
+  //     $slider.css({ left: sliderX, top: sliderY });
+  //   }
+  // }, 1000 / frameRate);
+});
+
+var curYear = new Date().getFullYear();
+var yearVal = curYear;
+var curMonth = new Date().getMonth();
+var monthVal = curMonth;
+var lastMonthVal = curMonth;
+var lap = 0;
+var direction = 0;
+var changeVal = 1;
+$window.mousemove(function (e) {
+  if (mdown && sliderCanMove == 1) {
+    clearInterval(sliderInterv);
+
+    var mPos = { x: e.pageX - elPos.x, y: e.pageY - elPos.y };
+    var atan = Math.atan2(mPos.x - sliderRadius, mPos.y - sliderRadius);
+    sliderDeg = -atan / (Math.PI / 180) + 180; // final (0-360 positive) degrees from mouse position
+    sliderDeg = Math.round(sliderDeg);
+
+    var tempX = Math.round(sliderRadius * Math.sin((sliderDeg * Math.PI) / 180)) + 25;
+    var tempY = Math.round(sliderRadius * -Math.cos((sliderDeg * Math.PI) / 180)) + 15;
+
+    sliderX = lerp(sliderX, tempX, 0.5);
+    sliderY = lerp(sliderY, tempY, 0.5);
+    $slider.css("left", sliderX + sliderRadius - sliderW2); 
+    $slider.css("top", sliderY + sliderRadius - sliderH2);
+    lastX = tempX;
+    lastY = tempY;
+
+    // AND FINALLY apply exact degrees to ball rotation
+    $slider.css("transform", "rotate(" + sliderDeg + "deg");
+    //
+    // PRINT DEGREES
+    
+    monthVal = (curMonth - 5 + Math.ceil(sliderDeg / 30)) % 12 + 1;
+    if(monthVal == 1 && lastMonthVal >= 4){
+      yearVal += changeVal;
+      lap += 1
+      if(direction == -1){ lap = 0; changeVal = 1;}
+      if(lap == 10){  changeVal += 1; lap = 0; }
+      direction = 1;
+    }
+    else if(monthVal == 12 && lastMonthVal <= 8){
+      yearVal -= changeVal; 
+      lap += 1;
+      if(direction == 1){ lap = 0; changeVal = 1;}
+      if(lap == 10){  changeVal += 1; lap = 0; }
+      direction = -1;
+    }
+    lastMonthVal = monthVal;
+    
+    let monthPadding = "";
+    if(monthVal < 10){monthPadding = "0";}
+    else{monthPadding = "";}
+    $('input[name="monthnyear"]').val(yearVal + "." + monthPadding + monthVal);
+    
+    clearTimeout($.data(this, 'mousemoveTimer'));
+    $.data(this, 'mousemoveTimer', setTimeout(function() {
+      // not mousemoving
+      lap = 0;
+      changeVal = 1;
+    }, 1000));
+  }
+});
+
+/*******************showSign*************************************/
