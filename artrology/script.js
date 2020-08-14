@@ -499,7 +499,8 @@ $htmlAndBody.animate({ scrollTop: 0 }, "slow");
 /*****************************filter setting*************************** */
 var setting = false;
 var $settingClass = $(".setting");
-var $settingText = $("#settingText");
+var $settingText = $(".settingText");
+var $smallerST = $("#smallerST");
 var $filterOnArea = $("#sbhOn");
 var $filterOffArea = $("#sbhOff");
 var $settingButton = $(".settingButton");
@@ -543,8 +544,9 @@ function adjustSettingFont(){
     buttonFontSize = Math.round(window.innerHeight * 0.09);
     settingBlur = modifiedBlur - ((600 - window.innerHeight)/50) * 0.5;
     settingBlur.toFixed(2);
+    $smallerST.css("line-height", "3");
   }
-  else{buttonFontSize = 55;}
+  else{buttonFontSize = 55;$smallerST.css("line-height", "10");}
   
   $settingText.css("opacity", settingFontOpacity);
   $settingButton.css("font-size", buttonFontSize + "px");
@@ -724,8 +726,8 @@ var bfMax = 0.025;
 var bfMiddle = 0.015;
 var bfMin = 0.007;
 var scaleMax = 100;
-var scaleMiddle = 73;
-var scaleMin = 28;
+var scaleMiddle = 78;
+var scaleMin = 36;
 var ocMax = 10;
 var ocMiddle = 6;
 var ocMin = 1;
