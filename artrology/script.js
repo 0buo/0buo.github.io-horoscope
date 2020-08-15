@@ -338,55 +338,56 @@ function update(e) {
   IDfollowCursor = requestAnimationFrame(followCursor);
 }
 
-var mouseStateUpdated = 0;
+//var mouseStateUpdated = 0;
 
 function SLR1() {
-  IDincR1 = requestAnimationFrame(SLR1);
-  if (spotLightRadius < 31.5) {
+  IDSLR = requestAnimationFrame(SLR1);
+  if (spotLightRadius < 30) {
     canChange = 0;
     spotLightRadius += 0.125;
-    if (spotLightRadius > 32) {
-      spotLightRadius = 32;
+    if (spotLightRadius > 30) {
+      spotLightRadius = 30;
     }
   } 
-  else if(spotLightRadius > 32.5){
+  else if(spotLightRadius > 30){
     canChange = 0;
     spotLightRadius -= 0.125;
-    if (spotLightRadius < 32) {
-      spotLightRadius = 32;
+    if (spotLightRadius < 30) {
+      spotLightRadius = 30;
     }
   }
   else {
     canChange = 1;
-    mouseStateUpdated = 0;
+    //mouseStateUpdated = 0;
   }
   
   document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
 }
 
 function SLR2() {
-  IDincR2 = requestAnimationFrame(SLR2);
+  IDSLR = requestAnimationFrame(SLR2);
   if (spotLightRadius < 42) {
     canChange = 0;
     spotLightRadius += 0.125;
-  } else {
+    if (spotLightRadius > 42) {
+      spotLightRadius = 42;
+    }
+  } 
+  else {
     canChange = 1;
-    mouseStateUpdated = 0;
-  }
-  if (spotLightRadius > 42) {
-    spotLightRadius = 42;
+    //mouseStateUpdated = 0;
   }
   document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
 }
 
 function SLR3() {
-  IDdecR = requestAnimationFrame(SLR3);
+  IDSLR = requestAnimationFrame(SLR3);
   if (spotLightRadius > 22) {
     canChange = 0;
     spotLightRadius -= 0.125;
   } else {
     canChange = 1;
-    mouseStateUpdated = 0;
+    //mouseStateUpdated = 0;
   }
   if (spotLightRadius < 22) {
     spotLightRadius = 22;
@@ -395,7 +396,7 @@ function SLR3() {
 }
 
 function incEclipseR() {
-  IDincEcR = requestAnimationFrame(incEclipseR);
+  IDECR = requestAnimationFrame(incEclipseR);
   if (eclipseR < 23) {
     canChangeEclipse = 0;
     eclipseR += 0.04;
@@ -409,7 +410,7 @@ function incEclipseR() {
 }
 
 function incEclipseR2() {
-  IDincEcR2 = requestAnimationFrame(incEclipseR2);
+  IDECR = requestAnimationFrame(incEclipseR2);
   if (eclipseR < 41.5) {
     canChangeEclipse = 0;
     eclipseR += 0.06;
@@ -423,7 +424,7 @@ function incEclipseR2() {
 }
 
 function decEclipseR() {
-  IDdecEcR = requestAnimationFrame(decEclipseR);
+  IDECR = requestAnimationFrame(decEclipseR);
   if (eclipseR > 0) {
     canChangeEclipse = 0;
     eclipseR -= 0.5;
@@ -437,7 +438,7 @@ function decEclipseR() {
 }
 
 function eclipseFadeout() {
-  IDecFadeOut = requestAnimationFrame(eclipseFadeout);
+  IDECA = requestAnimationFrame(eclipseFadeout);
   if (eclipseA1 > 0.1 || eclipseA2 > 0.06) {
     canChangeAlpha = 0;
     if (eclipseA1 > 0.02) {
@@ -462,56 +463,41 @@ function eclipseFadeout() {
   document.documentElement.style.setProperty("--eclipseA2", eclipseA2);
 }
 
-var IDincR1,
-    IDecFadeOut,
-    IDdecEcR,
-    IDdecR,
-    IDincEcR,
-    IDincR2,
-    IDincEcR2;
+var IDSLR,
+    IDECA,
+    IDECR;
 function updateR() {
   console.log(mouseState);
   if (canChange == 1) {
-    if (mouseStateUpdated == 0) {
-      mouseStateUpdated = 1;
-      // mouseState = (mouseState + 1) % 3;
-    }
+    //if (mouseStateUpdated == 0) {
+      //mouseStateUpdated = 1;
+      //mouseState = (mouseState + 1) % 3;
+    //}
     // clearInterval(interv);
     // clearInterval(eclipseInterv);
     // clearInterval(eclipseFadeInterv);
-
+    cancelAnimationFrame(IDSLR);
+    cancelAnimationFrame(IDECA);
+    cancelAnimationFrame(IDECR);
     if (mouseState == 1) {
       velocity.multiply(0); //reset eclipse velocity
-      cancelAnimationFrame(IDincR2);
-      cancelAnimationFrame(IDincEcR2);
-      cancelAnimationFrame(IDdecR);
-      cancelAnimationFrame(IDincEcR);
-      IDincR1 = requestAnimationFrame(SLR1);
-      IDecFadeOut = requestAnimationFrame(eclipseFadeout);
-      IDdecEcR = requestAnimationFrame(decEclipseR);
+
+      IDSLR = requestAnimationFrame(SLR1);
+      IDECA = requestAnimationFrame(eclipseFadeout);
+      IDECR = requestAnimationFrame(decEclipseR);
       // interv = setInterval(incR1, 1000 / frameRate);
       // eclipseFadeInterv = setInterval(eclipseFadeout, 1000 / frameRate);
       // eclipseInterv = setInterval(decEclipseR, 1000 / frameRate);
     } 
     else if (mouseState == 2) {
-      cancelAnimationFrame(IDincR1);
-      cancelAnimationFrame(IDecFadeOut);
-      cancelAnimationFrame(IDdecEcR);
-      cancelAnimationFrame(IDdecR);
-      cancelAnimationFrame(IDincEcR);
-      IDdecR = requestAnimationFrame(SLR3);
-      IDincEcR = requestAnimationFrame(incEclipseR);
+      IDSLR = requestAnimationFrame(SLR3);
+      IDECR = requestAnimationFrame(incEclipseR);
       // interv = setInterval(decR, 1000 / frameRate);
       // eclipseInterv = setInterval(incEclipseR, 1000 / frameRate);
     } 
     else if (mouseState == 0) {
-      cancelAnimationFrame(IDdecR);
-      cancelAnimationFrame(IDincEcR);
-      cancelAnimationFrame(IDincR1);
-      cancelAnimationFrame(IDecFadeOut);
-      cancelAnimationFrame(IDdecEcR);
-      IDincR2 = requestAnimationFrame(SLR2);
-      IDincEcR2 = requestAnimationFrame(incEclipseR2);
+      IDSLR = requestAnimationFrame(SLR2);
+      IDECR = requestAnimationFrame(incEclipseR2);
       // interv = setInterval(incR2, 1000 / frameRate);
       // eclipseInterv = setInterval(incEclipseR2, 1000 / frameRate);
     }
@@ -693,74 +679,103 @@ $settingClass.click(function(){
 
 /********************spotlight change******************* */
 var SLCtimer;
-var LR1 = {val: 0},
-    LG1 = {val: 0},
-    LB1 = {val: 0},
-    LR2 = {val: 0},
-    LG2 = {val: 0},
-    LB2 = {val: 0};
-var LA037 = {val: 0.37};
+var sunsetStart = false;
+var backtoSpotLight = false;
+var LR1 = {val: 0, ID: undefined},
+    LG1 = {val: 0, ID: undefined},
+    LB1 = {val: 0, ID: undefined},
+    LR2 = {val: 0, ID: undefined},
+    LG2 = {val: 0, ID: undefined},
+    LB2 = {val: 0, ID: undefined},
+    LA037 = {val: 0.37, ID: undefined};
 var sunsetR1 = 61,
     sunsetG1 = 34,
     sunsetB1 = 35,
     sunsetR2= 54,
     sunsetG2 = 16,
-    sunsetB2 = 11;
-var sunsetA037 = 0.65;
+    sunsetB2 = 11,
+    sunsetA037 = 0.65;
 
-var SLCchanged = 0;
-var SLAchanged = 0;
+function cancelSLCid(){
+  cancelAnimationFrame(LR1.ID);
+  cancelAnimationFrame(LR2.ID);
+  cancelAnimationFrame(LG1.ID);
+  cancelAnimationFrame(LG2.ID);
+  cancelAnimationFrame(LB1.ID);
+  cancelAnimationFrame(LB2.ID);
+  cancelAnimationFrame(LA037.ID);
+}
 
 function sunsetColor(src, dst, varString, time=8000){
+  if(src.val == dst){ return; }
   let curColor = src.val;
   $({ c: curColor }).stop().animate({ c: dst }, {
     duration: time,
     easing: "easeInOutElastic", 
     step: function(now) {
+      if(backtoSpotLight){return;}
       src.val = Math.round(now);
       if(src.val > 255){src.val = 255;}
       else if(src.val < 0){src.val = 0;}
       document.documentElement.style.setProperty(varString, src.val);
+    },
+    complete: function(){ 
+      cancelAnimationFrame(src.ID);
     }
   });
 }
 function sunsetAlpha(src, dst, varString, time=5000){
+  if(src.val == dst){ return; }
   let curAlpha = src.val;
   $({ a: curAlpha }).stop().animate({ a: dst }, {
     duration: time,
     easing: "easeInOutBack", 
     step: function(now) {
+      if(backtoSpotLight){return;}
       src.val = now;
       if(src.val > 1){src.val = 1;}
       else if(src.val < 0){src.val = 0;}
       document.documentElement.style.setProperty(varString, src.val);
+    },
+    complete: function(){ 
+      cancelAnimationFrame(src.ID);
     }
   });
 }
 
 function spotlightColor(src, dst, varString, time=8000){
+  if(src.val == dst){ return; }
   let curColor = src.val;
   $({ c: curColor }).stop().animate({ c: dst }, {
     duration: time,
     easing: "easeInOutQuad", 
     step: function(now) {
+      if(sunsetStart){return;}
       src.val = Math.round(now);
       if(src.val > 255){src.val = 255;}
       else if(src.val < 0){src.val = 0;}
       document.documentElement.style.setProperty(varString, src.val);
+    },
+    complete: function(){ 
+      cancelAnimationFrame(src.ID);
     }
   });
 }
 function spotlightAlpha(src, dst, varString, time=5000){
+  if(src.val == dst){ return; }
   let curAlpha = src.val;
   $({ a: curAlpha }).stop().animate({ a: dst }, {
     duration: time,
     easing: "easeInOutQuad", 
     step: function(now) {
+      if(sunsetStart){return;}
       src.val = now;
       if(src.val > 1){src.val = 1;}
       else if(src.val < 0){src.val = 0;}
       document.documentElement.style.setProperty(varString, src.val);
+    },
+    complete: function(){ 
+      cancelAnimationFrame(src.ID);
     }
   });
 }
@@ -1110,7 +1125,7 @@ var $namesDiv = $("#namesDiv");
 var $root = $(":root");
 
 $rotateBackCircle.click(function () {
-  if(start == false){
+  if(start == false && canChange == 1){
     moonCount = (moonCount + 1) % 3;
 
     if (moonCount == 1) {
@@ -1145,19 +1160,20 @@ $rotateBackCircle.click(function () {
       //$root.css("overflow-y", "hidden");
     }
     
+    sunsetStart = false;
+    backtoSpotLight = true;
     clearTimeout(SLCtimer);
     SLCtimer = setTimeout(function() {
       mouseState = 1;
       updateR();
-      if(LB1.val != 0 || LB2.val != 0){
-        spotlightColor(LR1, 0, "--LR1", 4000);
-        spotlightColor(LG1, 0, "--LG1");
-        spotlightColor(LB1, 0, "--LB1", 12000);
-        spotlightColor(LR2, 0, "--LR2", 4000);
-        spotlightColor(LG2, 0, "--LG2");
-        spotlightColor(LB2, 0, "--LB2", 12000);
-        spotlightAlpha(LA037, 0.37, "--LA0-37"); SLAchanged = 0;
-      }
+      cancelSLCid();
+      LR1.ID = requestAnimationFrame(function(){spotlightColor(LR1, 0, "--LR1", 7000);});
+      LG1.ID = requestAnimationFrame(function(){spotlightColor(LG1, 0, "--LG1");});
+      LB1.ID = requestAnimationFrame(function(){spotlightColor(LB1, 0, "--LB1", 9500);});
+      LR2.ID = requestAnimationFrame(function(){spotlightColor(LR2, 0, "--LR2", 7000);});
+      LG2.ID = requestAnimationFrame(function(){spotlightColor(LG2, 0, "--LG2");});
+      LB2.ID = requestAnimationFrame(function(){spotlightColor(LB2, 0, "--LB2", 9500);});
+      LA037.ID = requestAnimationFrame(function(){spotlightAlpha(LA037, 0.37, "--LA0-37");});
     }, 500);
   }
 });
@@ -1333,7 +1349,7 @@ addEvent(JSinput, "invalid", function () {
 
 var nameData = "";
 JQcheck.mousedown(function () {
-  if (inputFocused == 1 && JSinput.checkValidity()) {
+  if (inputFocused == 1 && JSinput.checkValidity() && canChange == 1) {
     let input = this.previousElementSibling.previousElementSibling;
     this.style.opacity = "0";
     let border = this.previousElementSibling;
@@ -1346,20 +1362,20 @@ JQcheck.mousedown(function () {
     input.blur();
 
     //change spotlight state
+    sunsetStart = true;
+    backtoSpotLight = false;
     clearTimeout(SLCtimer);
     SLCtimer = setTimeout(function() {
       mouseState = 0;
       updateR();
-      if(LR1 != sunsetR1 || LR2 != sunsetR2){
-        sunsetColor(LR1, sunsetR1, "--LR1", 9500);
-        sunsetColor(LG1, sunsetG1, "--LG1");
-        sunsetColor(LB1, sunsetB1, "--LB1", 7000);
-        sunsetColor(LR2, sunsetR2, "--LR2", 9500);
-        sunsetColor(LG2, sunsetG2, "--LG2");
-        sunsetColor(LB2, sunsetB2, "--LB2", 7000);
-        
-        sunsetAlpha(LA037, sunsetA037, "--LA0-37"); SLAchanged = 1;
-      }
+      cancelSLCid();
+      LR1.ID = requestAnimationFrame(function(){sunsetColor(LR1, sunsetR1, "--LR1", 9500);});
+      LG1.ID = requestAnimationFrame(function(){sunsetColor(LG1, sunsetG1, "--LG1");});
+      LB1.ID = requestAnimationFrame(function(){sunsetColor(LB1, sunsetB1, "--LB1", 7500);});
+      LR2.ID = requestAnimationFrame(function(){sunsetColor(LR2, sunsetR2, "--LR2", 9000);});
+      LG2.ID = requestAnimationFrame(function(){sunsetColor(LG2, sunsetG2, "--LG2");});
+      LB2.ID = requestAnimationFrame(function(){sunsetColor(LB2, sunsetB2, "--LB2", 7500);});
+      LA037.ID = requestAnimationFrame(function(){sunsetAlpha(LA037, sunsetA037, "--LA0-37");});
     }, 500);
   }
 });
