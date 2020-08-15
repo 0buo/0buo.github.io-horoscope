@@ -4,13 +4,24 @@
   overflow-y: hidden;
   --cursorX: 50vw;
   --cursorY: 115vh;
-  --radius: 5vmax;
+  --radius: 0vmax;
   --eclipseX: 50vw;
   --eclipseY: 50vh;
   --eclipseR: 0vmax;
   --eclipseA1: 0.1;
   --eclipseA2: 0.06;
   --darkness: 0.99;
+
+  --LR1: 0;
+  --LG1: 0;
+  --LB1: 0;
+  --LR2: 0;
+  --LG2: 0;
+  --LB2: 0;
+  --LA0: 0;
+  --LA0-1: 0.1;
+  --LA0-39: 0.39;
+  --LA0-37: 0.37;
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none;
   /* IE and Edge */
@@ -28,12 +39,12 @@
   pointer-events: none;
   background: radial-gradient(
     circle var(--radius) at var(--cursorX) var(--cursorY), 
-    rgba(0, 0, 0, 0) 0%, 
-    rgba(0, 0, 0, 0) 3%, 
-    rgba(0, 0, 0, 0.1) 7%, 
-    rgba(0, 0, 0, 0) 30%, 
-    rgba(0, 0, 0, 0.39) 75%, 
-    rgba(0, 0, 0, 0.37) 85%,
+    rgba(var(--LR1), var(--LG1), var(--LB1), var(--LA0)) 0%, 
+    rgba(var(--LR1), var(--LG1), var(--LB1), var(--LA0)) 3%, 
+    rgba(var(--LR1), var(--LG1), var(--LB1), var(--LA0-1)) 7%, 
+    rgba(var(--LR1), var(--LG1), var(--LB1), var(--LA0)) 30%, 
+    rgba(var(--LR1), var(--LG1), var(--LB1), var(--LA0-39)) 75%, 
+    rgba(var(--LR2), var(--LG2), var(--LB2), var(--LA0-37)) 86%,
     rgba(0, 0, 0, var(--darkness)) 100%),
     radial-gradient(
       circle var(--eclipseR) at var(--eclipseX) var(--eclipseY), 
@@ -163,21 +174,25 @@ body.svgFilter{
   transform: perspective(2000px) rotateY(var(--bodyRotateY)); 
 }
 
-body > *:not(.switchDiv).inputFocused {
-  transition: transform 2.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
-  transition: transform 2.5s ease-in-out, filter 1.5s ease-in-out;
-  transition: transform 2.5s ease-in-out, filter 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
+* :not(.switchDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(body).inputFocused{
+  transition: all 3s ease-in-out, transform 2.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
+  transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1.5s ease-in-out;
+  transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
   -webkit-filter: blur(3.5px);
           filter: blur(3.5px);
 }
 
-.switchDiv > *:not(.inp).inputFocused {
-  transition: transform 2.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
-  transition: transform 2.5s ease-in-out, filter 1.5s ease-in-out;
-  transition: transform 2.5s ease-in-out, filter 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
+/* body > *:not(.switchDiv).inputFocused {
+  transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1.5s ease-in-out;
   -webkit-filter: blur(3.5px);
           filter: blur(3.5px);
 }
+
+.switchDiv > *:not(#nameInput).inputFocused {
+  transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1.5s ease-in-out;
+  -webkit-filter: blur(3.5px);
+          filter: blur(3.5px);
+} */
 
 .noselect {
   -webkit-touch-callout: none;
@@ -225,6 +240,7 @@ h1 {
   --glowPix1: 0px;
   --glowPix2: 0px;
   --glowBlur: 6px;
+  --filterBlur: 0px;
   font-weight: 500;
   font-family: 'Codystar', cursive;
   font-size: 30px;
@@ -237,6 +253,8 @@ h1 {
                var(--glowPix2) var(--glowPix1) var(--glowBlur) #2a2835, 
                var(--glowPix1) var(--glowPix1) var(--glowBlur) #2a2835, 
                var(--glowPix2) var(--glowPix2) var(--glowBlur) #2a2835;
+  -webkit-filter: blur(var(--filterBlur));
+          filter: blur(var(--filterBlur));
 }
 
 .SelectionDiv {
@@ -249,7 +267,7 @@ h1 {
 }
 
 .selectionDivText{
-  margin-left: 5.5vw;
+  margin-left: 1vw;
 }
 
 .rotateBackCircle {
@@ -279,7 +297,9 @@ h1 {
               -8px -8px 10px #ebebeb,
               8px -8px 10px #ebebeb, 
               -8px 8px 10px #ebebeb;
-  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, box-shadow 3s ease-in-out;
+  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, box-shadow 3s ease-in-out, -webkit-filter 2s ease-in-out;
+  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, box-shadow 3s ease-in-out, filter 2s ease-in-out;
+  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, box-shadow 3s ease-in-out, filter 2s ease-in-out, -webkit-filter 2s ease-in-out;
   transform-origin: 60% 60%;
   transform: translate(7%, 60%) rotate(-100deg);
 }

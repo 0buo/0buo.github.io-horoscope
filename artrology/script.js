@@ -218,18 +218,20 @@ var canChangeAlpha = 0;
 //var eclipseSpeed = 0.125;
 var x = 0.5*window.innerWidth;
 var y = 1.5*window.innerHeight;
+
+var maxToLightDistIndex = 0.6;
 var maxDistToLightCenter =
   document.body.clientWidth >= document.body.clientHeight
-    ? Math.pow(document.body.clientWidth * 0.18, 2)
-    : Math.pow(document.body.clientHeight * 0.18, 2);
+    ? Math.pow(document.body.clientWidth * maxToLightDistIndex, 2)
+    : Math.pow(document.body.clientHeight * maxToLightDistIndex, 2);
 //var alphaBias = 0.2;
 var randNum = 0;
 
 $window.resize(function(){
   maxDistToLightCenter =
   document.body.clientWidth >= document.body.clientHeight
-    ? Math.pow(document.body.clientWidth * 0.18, 2)
-    : Math.pow(document.body.clientHeight * 0.18, 2);
+    ? Math.pow(document.body.clientWidth * maxToLightDistIndex, 2)
+    : Math.pow(document.body.clientHeight * maxToLightDistIndex, 2);
   });
 
 var cursorLerpX = 0.005;
@@ -274,6 +276,9 @@ function followCursor() {
     shadeV.add(velocity);
 
     //change alpha and acc modifier
+    if(mouseState == 0){maxToLightDistIndex = 0.6;}
+    else if(mouseState == 2){maxToLightDistIndex = 0.2;}
+
     let distanceToLightCenter =
       Math.pow(shadeX - x, 2) + Math.pow(shadeY - y, 2);
 
@@ -281,8 +286,8 @@ function followCursor() {
     let d2 = distanceToLightCenter; //+ aBias;
     //if (d2 > maxDistToLightCenter) {d2 = maxDistToLightCenter;}
 
-    let A1 = scale(d2, 10000, maxDistToLightCenter, 0.13, 0.98);
-    let A2 = scale(d2, 10000, maxDistToLightCenter, 0.38, 1);
+    let A1 = scale(d2, 10000, maxDistToLightCenter, 0.04, 0.98);
+    let A2 = scale(d2, 10000, maxDistToLightCenter, 0.14, 1);
     //eclipseA1 = lerp(eclipseA1, A1, 0.4);
     //eclipseA2 = lerp(eclipseA2, A2, 0.4);
     eclipseA1 = 1 - A1;
@@ -292,8 +297,10 @@ function followCursor() {
     document.documentElement.style.setProperty("--eclipseA2", eclipseA2);
     //fadeInEcA1 = eclipseA1;
     //fadeInEcA2 = eclipseA2;
-  } else if (mouseState == 1 && eclipseR <= 0) {
-    randNum = Math.random() * (1.5 - 0.3) + 0.3;
+  } else if (mouseState == 1 && eclipseR <= 0 && inputSubmitted == 1) {
+    if(inputSubmitted == 1){
+      randNum = Math.random() * (6 - 2) + 2;
+    }
     let randSign = Math.random() * (0.1 + 0.1) - 0.1;
     randNum = randSign > 0 ? randNum : -1 * randNum;
     shadeV = new Vector(
@@ -333,75 +340,84 @@ function update(e) {
 
 var mouseStateUpdated = 0;
 
-function incR1() {
-  IDincR1 = requestAnimationFrame(incR1);
-  if (spotLightRadius < 40) {
+function SLR1() {
+  IDincR1 = requestAnimationFrame(SLR1);
+  if (spotLightRadius < 31.5) {
+    canChange = 0;
+    spotLightRadius += 0.125;
+    if (spotLightRadius > 32) {
+      spotLightRadius = 32;
+    }
+  } 
+  else if(spotLightRadius > 32.5){
+    canChange = 0;
+    spotLightRadius -= 0.125;
+    if (spotLightRadius < 32) {
+      spotLightRadius = 32;
+    }
+  }
+  else {
+    canChange = 1;
+    mouseStateUpdated = 0;
+  }
+  
+  document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
+}
+
+function SLR2() {
+  IDincR2 = requestAnimationFrame(SLR2);
+  if (spotLightRadius < 42) {
     canChange = 0;
     spotLightRadius += 0.125;
   } else {
     canChange = 1;
     mouseStateUpdated = 0;
   }
-  if (spotLightRadius > 40) {
-    spotLightRadius = 40;
+  if (spotLightRadius > 42) {
+    spotLightRadius = 42;
   }
   document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
 }
 
-function incR2() {
-  IDincR2 = requestAnimationFrame(incR2);
-  if (spotLightRadius < 25) {
+function SLR3() {
+  IDdecR = requestAnimationFrame(SLR3);
+  if (spotLightRadius > 22) {
     canChange = 0;
-    spotLightRadius += 0.125;
+    spotLightRadius -= 0.125;
   } else {
     canChange = 1;
     mouseStateUpdated = 0;
   }
-  if (spotLightRadius > 25) {
-    spotLightRadius = 25;
-  }
-  document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
-}
-
-function decR() {
-  IDdecR = requestAnimationFrame(decR);
-  if (spotLightRadius > 17) {
-    canChange = 0;
-    spotLightRadius -= 0.55;
-  } else {
-    canChange = 1;
-    mouseStateUpdated = 0;
-  }
-  if (spotLightRadius < 17) {
-    spotLightRadius = 17;
+  if (spotLightRadius < 22) {
+    spotLightRadius = 22;
   }
   document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
 }
 
 function incEclipseR() {
   IDincEcR = requestAnimationFrame(incEclipseR);
-  if (eclipseR < 18.5) {
+  if (eclipseR < 23) {
     canChangeEclipse = 0;
-    eclipseR += 0.08;
+    eclipseR += 0.04;
   } else {
     canChangeEclipse = 1;
   }
-  if (eclipseR > 18.5) {
-    eclipseR = 18.5;
+  if (eclipseR > 23) {
+    eclipseR = 23;
   }
   document.documentElement.style.setProperty("--eclipseR", eclipseR + "vmax");
 }
 
 function incEclipseR2() {
   IDincEcR2 = requestAnimationFrame(incEclipseR2);
-  if (eclipseR < 24) {
+  if (eclipseR < 41.5) {
     canChangeEclipse = 0;
-    eclipseR += 0.04;
+    eclipseR += 0.06;
   } else {
     canChangeEclipse = 1;
   }
-  if (eclipseR > 24) {
-    eclipseR = 24;
+  if (eclipseR > 41.5) {
+    eclipseR = 41.5;
   }
   document.documentElement.style.setProperty("--eclipseR", eclipseR + "vmax");
 }
@@ -454,10 +470,11 @@ var IDincR1,
     IDincR2,
     IDincEcR2;
 function updateR() {
+  console.log(mouseState);
   if (canChange == 1) {
     if (mouseStateUpdated == 0) {
       mouseStateUpdated = 1;
-      mouseState = (mouseState + 1) % 3;
+      // mouseState = (mouseState + 1) % 3;
     }
     // clearInterval(interv);
     // clearInterval(eclipseInterv);
@@ -467,7 +484,9 @@ function updateR() {
       velocity.multiply(0); //reset eclipse velocity
       cancelAnimationFrame(IDincR2);
       cancelAnimationFrame(IDincEcR2);
-      IDincR1 = requestAnimationFrame(incR1);
+      cancelAnimationFrame(IDdecR);
+      cancelAnimationFrame(IDincEcR);
+      IDincR1 = requestAnimationFrame(SLR1);
       IDecFadeOut = requestAnimationFrame(eclipseFadeout);
       IDdecEcR = requestAnimationFrame(decEclipseR);
       // interv = setInterval(incR1, 1000 / frameRate);
@@ -478,7 +497,9 @@ function updateR() {
       cancelAnimationFrame(IDincR1);
       cancelAnimationFrame(IDecFadeOut);
       cancelAnimationFrame(IDdecEcR);
-      IDdecR = requestAnimationFrame(decR);
+      cancelAnimationFrame(IDdecR);
+      cancelAnimationFrame(IDincEcR);
+      IDdecR = requestAnimationFrame(SLR3);
       IDincEcR = requestAnimationFrame(incEclipseR);
       // interv = setInterval(decR, 1000 / frameRate);
       // eclipseInterv = setInterval(incEclipseR, 1000 / frameRate);
@@ -486,7 +507,10 @@ function updateR() {
     else if (mouseState == 0) {
       cancelAnimationFrame(IDdecR);
       cancelAnimationFrame(IDincEcR);
-      IDincR2 = requestAnimationFrame(incR2);
+      cancelAnimationFrame(IDincR1);
+      cancelAnimationFrame(IDecFadeOut);
+      cancelAnimationFrame(IDdecEcR);
+      IDincR2 = requestAnimationFrame(SLR2);
       IDincEcR2 = requestAnimationFrame(incEclipseR2);
       // interv = setInterval(incR2, 1000 / frameRate);
       // eclipseInterv = setInterval(incEclipseR2, 1000 / frameRate);
@@ -605,7 +629,7 @@ if(setting == false){
   });
 }
 /******************************spotlight*********************************/
-var mouseState = 0;
+var mouseState = 1;
 //var frameRate = 75;
 var canChange = 1;
 var canChangeEclipse = 1;
@@ -638,7 +662,7 @@ function startAnim(){
       addEvent(document, "mousemove", update);
     }, 5000);
     setTimeout(function() {
-      addEvent(document, "mousedown", updateR);
+      //addEvent(document, "mousedown", updateR);
       start = false;
       cancelAnimationFrame(IDstart);
     }, 9000);
@@ -666,6 +690,81 @@ $settingClass.click(function(){
     $document.ready(updateR);
   }
 });
+
+/********************spotlight change******************* */
+var SLCtimer;
+var LR1 = {val: 0},
+    LG1 = {val: 0},
+    LB1 = {val: 0},
+    LR2 = {val: 0},
+    LG2 = {val: 0},
+    LB2 = {val: 0};
+var LA037 = {val: 0.37};
+var sunsetR1 = 61,
+    sunsetG1 = 34,
+    sunsetB1 = 35,
+    sunsetR2= 54,
+    sunsetG2 = 16,
+    sunsetB2 = 11;
+var sunsetA037 = 0.65;
+
+var SLCchanged = 0;
+var SLAchanged = 0;
+
+function sunsetColor(src, dst, varString, time=8000){
+  let curColor = src.val;
+  $({ c: curColor }).stop().animate({ c: dst }, {
+    duration: time,
+    easing: "easeInOutElastic", 
+    step: function(now) {
+      src.val = Math.round(now);
+      if(src.val > 255){src.val = 255;}
+      else if(src.val < 0){src.val = 0;}
+      document.documentElement.style.setProperty(varString, src.val);
+    }
+  });
+}
+function sunsetAlpha(src, dst, varString, time=5000){
+  let curAlpha = src.val;
+  $({ a: curAlpha }).stop().animate({ a: dst }, {
+    duration: time,
+    easing: "easeInOutBack", 
+    step: function(now) {
+      src.val = now;
+      if(src.val > 1){src.val = 1;}
+      else if(src.val < 0){src.val = 0;}
+      document.documentElement.style.setProperty(varString, src.val);
+    }
+  });
+}
+
+function spotlightColor(src, dst, varString, time=8000){
+  let curColor = src.val;
+  $({ c: curColor }).stop().animate({ c: dst }, {
+    duration: time,
+    easing: "easeInOutQuad", 
+    step: function(now) {
+      src.val = Math.round(now);
+      if(src.val > 255){src.val = 255;}
+      else if(src.val < 0){src.val = 0;}
+      document.documentElement.style.setProperty(varString, src.val);
+    }
+  });
+}
+function spotlightAlpha(src, dst, varString, time=5000){
+  let curAlpha = src.val;
+  $({ a: curAlpha }).stop().animate({ a: dst }, {
+    duration: time,
+    easing: "easeInOutQuad", 
+    step: function(now) {
+      src.val = now;
+      if(src.val > 1){src.val = 1;}
+      else if(src.val < 0){src.val = 0;}
+      document.documentElement.style.setProperty(varString, src.val);
+    }
+  });
+}
+
 /******************************header blur ************************/
 var hopacity = 0.85;
 var hblur = 4.5;
@@ -964,10 +1063,11 @@ function selfTwinkle(){
 $window.on("load", selfTwinkle);
 //$window.focus(selfTwinkle);
 
+
 var i;
 for(i = 0; i < plaintexts.length; i++){
   addEvent(plaintexts[i], "mouseover", function(){
-    if($(this).parent().css("opacity") > 0 && inputFocused == 0 && start == false){
+    if(parseFloat($(this).parent().css("opacity")) > 0 && parseFloat($(this).parent().parent().css("opacity")) > 0 && start == false){
       let $argThis = $(this);
       let index = parseInt($argThis.attr("id"), 10);
       clearTimeout($.data(this, 'mouseoverTimer'));
@@ -980,23 +1080,10 @@ for(i = 0; i < plaintexts.length; i++){
         twinkleIDs[index] = requestAnimationFrame(function(){textTwinkleBright($argThis, index);});
       }, 4000));
     }
-    else{
-      let $argThis = $(this);
-      let index = parseInt($argThis.attr("id"), 10);
-      clearTimeout($.data(this, 'mouseoverTimer'));
-      $.data(this, 'mouseoverTimer', setTimeout(function() {
-        // mouseover over ms
-        //clearInterval(twinkleIntervs[index]);
-        cancelAnimationFrame(twinkleIDs[index]);
-        twinkleDirects[index] = -1;
-        //twinkleIntervs[index] = setInterval(textTwinkle, 1000 / frameRate, $argThis, index);
-        twinkleIDs[index] = requestAnimationFrame(function(){textTwinkle($argThis, index);});
-      }, 5000));
-    }
   });
   
   addEvent(plaintexts[i], "mouseleave", function(){
-    if($(this).parent().css("opacity") > 0 && start == false){
+    if(parseFloat($(this).parent().css("opacity")) > 0 && parseFloat($(this).parent().parent().css("opacity")) > 0 && start == false){
       let $argThis = $(this);
       let index = parseInt($argThis.attr("id"), 10);
       clearTimeout($.data(this, 'mouseoverTimer'));
@@ -1008,19 +1095,6 @@ for(i = 0; i < plaintexts.length; i++){
         //twinkleIntervs[index] = setInterval(textTwinkle, 1000 / frameRate, $argThis, index);
         twinkleIDs[index] = requestAnimationFrame(function(){textTwinkle($argThis, index);});
       }, 10000));
-    }
-    else{
-      let $argThis = $(this);
-      let index = parseInt($argThis.attr("id"), 10);
-      clearTimeout($.data(this, 'mouseoverTimer'));
-      $.data(this, 'mouseoverTimer', setTimeout(function() {
-        // mouseover over ms
-        //clearInterval(twinkleIntervs[index]);
-        cancelAnimationFrame(twinkleIDs[index]);
-        twinkleDirects[index] = -1;
-        //twinkleIntervs[index] = setInterval(textTwinkle, 1000 / frameRate, $argThis, index);
-        twinkleIDs[index] = requestAnimationFrame(function(){textTwinkle($argThis, index);});
-      }, 5000));
     }
   })
 }//of for loop
@@ -1070,6 +1144,21 @@ $rotateBackCircle.click(function () {
       $htmlAndBody.animate({ scrollTop: 0 }, "slow");
       //$root.css("overflow-y", "hidden");
     }
+    
+    clearTimeout(SLCtimer);
+    SLCtimer = setTimeout(function() {
+      mouseState = 1;
+      updateR();
+      if(LB1.val != 0 || LB2.val != 0){
+        spotlightColor(LR1, 0, "--LR1", 4000);
+        spotlightColor(LG1, 0, "--LG1");
+        spotlightColor(LB1, 0, "--LB1", 12000);
+        spotlightColor(LR2, 0, "--LR2", 4000);
+        spotlightColor(LG2, 0, "--LG2");
+        spotlightColor(LB2, 0, "--LB2", 12000);
+        spotlightAlpha(LA037, 0.37, "--LA0-37"); SLAchanged = 0;
+      }
+    }, 500);
   }
 });
 
@@ -1180,14 +1269,15 @@ JQinput.on("input", function () {
 var inputFocused = 0;
 var inputSubmitted = 0;
 
-var JQbodyNswitch = $("body > *:not(.switchDiv)");
-var JQswitchNinp = $(".switchDiv > *:not(.inp)");
+var $allNotNameInput = $("* :not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(body)");
+// var JQbodyNswitch = $("body > *:not(.switchDiv)");
+// var JQswitchNinp = $(".switchDiv > *:not(#nameInput)");
 var $inp = $(".inp");
 function inputFocusIn() {
   inputFocused = 1;
   inputSubmitted = 0;
-  JQbodyNswitch.toggleClass("inputFocused");
-  JQswitchNinp.toggleClass("inputFocused");
+  $allNotNameInput.addClass("inputFocused");
+
   $inp.css("filter", "blur(1px)");
   $inp.css("-ms-filter", "blur(1px)");
   $inp.css("-ms-filter", "blur(1px)");
@@ -1195,8 +1285,8 @@ function inputFocusIn() {
 }
 function inputFocusOut() {
   inputFocused = 0;
-  JQbodyNswitch.toggleClass("inputFocused");
-  JQswitchNinp.toggleClass("inputFocused");
+  $allNotNameInput.removeClass("inputFocused");
+
   $inp.css("filter", "blur(.5px)");
   $inp.css("-ms-filter", "blur(.5px)");
   $inp.css("-ms-filter", "blur(.5px)");
@@ -1254,6 +1344,23 @@ JQcheck.mousedown(function () {
     input.value = "";
     inputSubmitted = 1;
     input.blur();
+
+    //change spotlight state
+    clearTimeout(SLCtimer);
+    SLCtimer = setTimeout(function() {
+      mouseState = 0;
+      updateR();
+      if(LR1 != sunsetR1 || LR2 != sunsetR2){
+        sunsetColor(LR1, sunsetR1, "--LR1", 9500);
+        sunsetColor(LG1, sunsetG1, "--LG1");
+        sunsetColor(LB1, sunsetB1, "--LB1", 7000);
+        sunsetColor(LR2, sunsetR2, "--LR2", 9500);
+        sunsetColor(LG2, sunsetG2, "--LG2");
+        sunsetColor(LB2, sunsetB2, "--LB2", 7000);
+        
+        sunsetAlpha(LA037, sunsetA037, "--LA0-37"); SLAchanged = 1;
+      }
+    }, 500);
   }
 });
 
@@ -1404,5 +1511,8 @@ $window.mousemove(function (e) {
     }, 1000));
   }
 });
+
+
+
 
 /*******************showSign*************************************/
