@@ -833,7 +833,7 @@ function hblurAnim(){
     h1.style.setProperty("--hblur", hblur+"px");
     cancelAnimationFrame(IDhblur);
     IDhblur = requestAnimationFrame(hblurAnim);
-  }, 8000);
+  }, 7000);
 }
 
 /*************************body roate********************************/

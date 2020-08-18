@@ -606,6 +606,7 @@ h1 {
   margin-left: 8vw;
   margin-bottom: 50px;
   filter: blur(0.1px);
+  width: 30%;
 }
 
 #TIcontainer{
@@ -616,6 +617,8 @@ h1 {
   float:left;
   margin-right:40px;
   filter: blur(0.1px);
+  width: 200px;
+  height: 120px;
 }
 
 
@@ -630,7 +633,7 @@ h1 {
   left: -11.09px;
   top: -9.604px;
   filter: blur(var(--circleBlur));
-  transition: filter 1.5s ease-in-out;
+  transition: filter 0.5s ease-in-out;
 }
 
 #slider{ 
@@ -644,13 +647,13 @@ h1 {
   top:-3.75px; 
   border-radius:100%;
   filter: blur(var(--sliderBlur));
-  transition: filter 1.5s ease-in-out;
+  transition: filter 0.5s ease-in-out;
 }
 
 #timeContainer{
   --timeContainerBlur: 3px;
   display: inline-block;
-  transition: filter 1.5s ease-in-out;
+  transition: filter 0.5s ease-in-out;
   filter: blur(var(--timeContainerBlur));
 }
 
