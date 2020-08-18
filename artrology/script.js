@@ -1436,7 +1436,17 @@ var TIcircleX = 0.
 var circleMdown = false;
 
 //time input funcs
+var curYear = new Date().getFullYear();
+var yearVal = curYear;
+var curMonth = new Date().getMonth() + 1;
+var monthVal = curMonth;
+var lastMonthVal = curMonth;
+var lap = 0;
+var direction = 0;
+var changeVal = 1;
+var monthPadding = "";
 var degIncrement = 30;
+
 function rotateSlider(deg){
   if(sliderMdown){
     let curDeg = deg;
@@ -1484,15 +1494,6 @@ function rotateCircle(deg){
   }
 }
 
-var curYear = new Date().getFullYear();
-var yearVal = curYear;
-var curMonth = new Date().getMonth() + 1;
-var monthVal = curMonth;
-var lastMonthVal = curMonth;
-var lap = 0;
-var direction = 0;
-var changeVal = 1;
-var monthPadding = "";
 function calculateTime(deg){
   deg = Math.round(deg);
   monthVal = (curMonth - 5 + Math.ceil(deg / 30)) % 12 + 1;
@@ -1500,31 +1501,30 @@ function calculateTime(deg){
     if(monthVal == 1 && lastMonthVal == 12){
       yearVal += changeVal;
       lap += 1
-      if(direction == -1){ lap = 0; changeVal = 1; degIncrement = 30;}
-      if(degIncrement <= 180){
+      //if(direction == -1){ lap = 0; changeVal = 1; degIncrement = 30;}
+      if(degIncrement <= 210){
         if(lap == 3) { degIncrement += 30;}
         if(lap == 6) { degIncrement += 30;}
         if(lap == 9) { degIncrement += 30;}
       }
-      if(lap == 10){  changeVal += 1; lap = 0; }
-      direction = 1;
+      if(lap == 9){  changeVal += 1; lap = 0; }
+      //direction = 1;
     }
   }
   else if(sliderMdown == false && circleMdown){
     if(monthVal == 12 && lastMonthVal == 1){
       yearVal -= changeVal; 
       lap += 1;
-      if(direction == 1){ lap = 0; changeVal = 1; degIncrement = 30;}
-      if(degIncrement <= 180){
+      //if(direction == 1){ lap = 0; changeVal = 1; degIncrement = 30;}
+      if(degIncrement <= 210){
         if(lap == 3) { degIncrement += 30;}
         if(lap == 6) { degIncrement += 30;}
         if(lap == 9) { degIncrement += 30;}
       }
-      if(lap == 10){  changeVal += 1; lap = 0; }
-      direction = -1;
+      if(lap == 9){  changeVal += 1; lap = 0; }
+      //direction = -1;
     }
   }
-  
   lastMonthVal = monthVal;
   
   if(monthVal < 10){monthPadding = "0";}
@@ -1538,10 +1538,13 @@ var TIcircle = document.getElementById("circle"),
     TIslider = document.getElementById("slider");
 $window.mouseup(function () {
   if(moonCount == 2){
+    clearTimeout(sliderTimeOut);
+    clearTimeout(circleTimeOut);
     sliderMdown = false;
     circleMdown = false;
     cancelAnimationFrame(IDsliderRotate);
     cancelAnimationFrame(IDcircleRotate);
+
     lap = 0;
     changeVal = 1;
     degIncrement = 30;
@@ -1556,23 +1559,31 @@ var blurMdown = false;
 let sliderMDPos = { x: sliderPos.x - elPos.x, y: sliderPos.y - elPos.y };
 let sliderAtan = Math.atan2(sliderMDPos.x - sliderRadius, sliderMDPos.y - sliderRadius);
 var sliderDeg = -sliderAtan / (Math.PI / 180) + 180;
+var sliderTimeOut;
 $TIslider.mousedown(function () {
-  blurMdown = true;
-  sliderMdown = true;
-  TIslider.style.setProperty("--sliderBlur", "1.25px");
-  timeContainer.style.setProperty("--timeContainerBlur", "0.75px");
-  IDsliderRotate = requestAnimationFrame(function(){rotateSlider(sliderDeg);});
+  clearTimeout(sliderTimeOut);
+  sliderTimeOut = setTimeout(function(){
+    blurMdown = true;
+    sliderMdown = true;
+    TIslider.style.setProperty("--sliderBlur", "1.25px");
+    timeContainer.style.setProperty("--timeContainerBlur", "0.75px");
+    IDsliderRotate = requestAnimationFrame(function(){rotateSlider(sliderDeg);});
+  }, 300);
 });
 //circle mouse down
 let circleMDPos = { x: circlePos.x - elPos.x, y: circlePos.y - elPos.y };
 let circleAtan = Math.atan2(circleMDPos.x - circleRdius, circleMDPos.y - circleRdius);
 var circleDeg = -circleAtan / (Math.PI / 180) + 180;
+var circleTimeOut;
 $TIcircle.mousedown(function () {
-  circleMdown = true;
-  blurMdown = true;
-  TIcircle.style.setProperty("--circleBlur", "1.25px");
-  timeContainer.style.setProperty("--timeContainerBlur", "0.75px");
-  IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
+  clearTimeout(circleTimeOut);
+  circleTimeOut = setTimeout(function(){
+    circleMdown = true;
+    blurMdown = true;
+    TIcircle.style.setProperty("--circleBlur", "1.25px");
+    timeContainer.style.setProperty("--timeContainerBlur", "0.75px");
+    IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
+  }, 300);
 });
 
 $TIcircle.mouseover(function(){
