@@ -528,7 +528,7 @@ var settingBlur = 0.9;
 function adjustSettingFont(){
   let modifiedBlur;
 
-  settingFontSize = Math.round(window.innerWidth * 0.023);
+  settingFontSize = Math.round(window.innerWidth * 0.02);
   settingDOM.style.setProperty("--settingFontSize", settingFontSize + "px");
 
   if(window.innerWidth < 1960 && window.innerWidth > 1700){
