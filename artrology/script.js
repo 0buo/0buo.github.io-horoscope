@@ -521,100 +521,126 @@ var $filterOffText = $("#filterOffText");
 
 var settingDOM = document.getElementsByClassName("setting")[0];
 var settingFontSize = 59;
-var settingFontOpacity = 0.6;
+var settingFontOpacity = 0;
 var buttonFontSize = 55;
 var settingBlur = 0.9;
 //adjust font on window size
-function adjustSettingFont(){
-  let modifiedBlur;
+function adjustSettingFont(event){
+  if(setting == false){
+    let modifiedBlur;
 
-  if(window.innerHeight < 1000){settingFontSize = Math.round(window.innerWidth * 0.0205);}
-  else{settingFontSize = Math.round(window.innerWidth * 0.022);}
-  settingDOM.style.setProperty("--settingFontSize", settingFontSize + "px");
+    if(window.innerHeight < 1000){settingFontSize = Math.round(window.innerWidth * 0.0205);}
+    else{settingFontSize = Math.round(window.innerWidth * 0.022);}
+    settingDOM.style.setProperty("--settingFontSize", settingFontSize + "px");
 
-  if(window.innerWidth < 1960 && window.innerWidth > 1700){
-    settingFontOpacity = 0.6 + ((1960 - window.innerWidth)/200) * 0.1;
-    settingFontOpacity.toFixed(2);
-    settingBlur = 0.75;
-  }
-  else if(window.innerWidth < 1700){
-    settingFontOpacity = 0.6 + ((1960 - window.innerWidth)/200) * 0.1;
-    settingFontOpacity.toFixed(2);
-    settingBlur = 0.75 - ((1700 - window.innerWidth)/250) * 0.25;
-    settingBlur.toFixed(2);
-  }
-  else{
-    settingFontOpacity = 0.6;
-    settingBlur = 0.9;
-  }
-  if(settingFontOpacity > 1){settingFontOpacity = 1;}
-  if(settingBlur < 0){settingBlur = 0;}
-  modifiedBlur = settingBlur;
+    if(window.innerWidth < 1960 && window.innerWidth > 1700){
+      settingFontOpacity = 0.6 + ((1960 - window.innerWidth)/200) * 0.1;
+      settingFontOpacity.toFixed(2);
+      settingBlur = 0.75;
+    }
+    else if(window.innerWidth < 1700){
+      settingFontOpacity = 0.6 + ((1960 - window.innerWidth)/200) * 0.1;
+      settingFontOpacity.toFixed(2);
+      settingBlur = 0.75 - ((1700 - window.innerWidth)/250) * 0.25;
+      settingBlur.toFixed(2);
+    }
+    else{
+      settingFontOpacity = 0.6;
+      settingBlur = 0.9;
+    }
+    if(settingFontOpacity > 1){settingFontOpacity = 1;}
+    if(settingBlur < 0){settingBlur = 0;}
+    modifiedBlur = settingBlur;
 
-  if(window.innerHeight < 600){
-    buttonFontSize = Math.round(window.innerHeight * 0.09);
-    settingBlur = modifiedBlur - ((600 - window.innerHeight)/50) * 0.5;
-    settingBlur.toFixed(2);
-    $smallerST.css("line-height", "3");
+    if(window.innerHeight < 600){
+      buttonFontSize = Math.round(window.innerHeight * 0.09);
+      settingBlur = modifiedBlur - ((600 - window.innerHeight)/50) * 0.5;
+      settingBlur.toFixed(2);
+      $smallerST.css("line-height", "3");
+    }
+    else{buttonFontSize = 55;$smallerST.css("line-height", "10");}
+    
+    $settingText.css("opacity", settingFontOpacity);
+    $settingButton.css("font-size", buttonFontSize + "px");
+    $settingClass.css("filter", "blur(" + settingBlur + "px)");
   }
-  else{buttonFontSize = 55;$smallerST.css("line-height", "10");}
-  
-  $settingText.css("opacity", settingFontOpacity);
-  $settingButton.css("font-size", buttonFontSize + "px");
-  $settingClass.css("filter", "blur(" + settingBlur + "px)");
+  else{$(this).off(event);}
 }
 
-if(setting == false){
-  $document.ready(adjustSettingFont);
-  $window.resize(adjustSettingFont);
+//events
+$document.ready(adjustSettingFont);
+$window.resize(adjustSettingFont);
 
-  //hover button
-  $filterOnArea.mouseover(function(){
+//hover button
+$filterOnArea.mouseover(function(){
+  if(setting == false){
     $filterOnText.html("lv<br>it<br>on");
     $filterOnText.css("margin-left", "75px");
-  })
-  $filterOnArea.mouseleave(function(){
+  }
+})
+$filterOnArea.mouseleave(function(){
+  if(setting == false){
     $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
     $filterOnText.css("margin-left", "0px");
-  })
-  $filterOffArea.mouseover(function(){
+  }
+})
+$filterOffArea.mouseover(function(){
+  if(setting == false){
     $filterOffText.html("tk<br>it<br>of");
     $filterOffText.css("margin-right", "55px");
-  })
-  $filterOffArea.mouseleave(function(){
+  }
+})
+$filterOffArea.mouseleave(function(){
+  if(setting == false){
     $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
     $filterOffText.css("margin-right", "0px");
-  })
+  }
+})
 
-  //click button
-  $filterOn.click(function(){
+//click button
+$filterOn.click(function(){
+  if(setting == false){
+    setting = true;
     $(document.body).addClass("svgFilter");
     $(document.documentElement).addClass("svgFilter");
 
     $settingText.css("opacity", "0");
     $settingButton.css("filter", "blur(6px)");
     $settingButton.css("opacity", "0");
-    setting = true;
+    
     setTimeout(function(){
       document.documentElement.pseudoStyle('before', 'z-index','20');
       $settingClass.css("opacity", "0");
     },1100);
     setTimeout(function(){$settingClass.css("display", "none");}, 2100);
-  });
-  $filterOff.click(function(){
+
+    $(this).off();
+    $filterOnArea.off();
+    $filterOffArea.off();
+  }
+});
+
+$filterOff.click(function(){
+  if(setting == false){
+    setting = true;
     $(document.documentElement).addClass("svgFilter");
 
     $settingText.css("opacity", "0");
     $settingButton.css("filter", "blur(6px)");
     $settingButton.css("opacity", "0");
-    setting = true;
+    
     setTimeout(function(){
       document.documentElement.pseudoStyle('before', 'z-index','20');
       $settingClass.css("opacity", "0");
     },1100);
     setTimeout(function(){$settingClass.css("display", "none");}, 2100);
-  });
-}
+
+    $(this).off();
+    $filterOnArea.off();
+    $filterOffArea.off();
+  }
+});
+
 /******************************spotlight*********************************/
 var mouseState = 1;
 //var frameRate = 75;
@@ -649,7 +675,6 @@ function startAnim(){
       addEvent(document, "mousemove", update);
     }, 5000);
     setTimeout(function() {
-      //addEvent(document, "mousedown", updateR);
       start = false;
       cancelAnimationFrame(IDstart);
     }, 9000);
@@ -669,12 +694,13 @@ var start = true;
 var IDstart;
 var IDdarkness;
 var darkness = 0.99;
-$settingClass.click(function(){
+
+$settingButton.one("click", function(){
   if(setting){
     IDfollowCursor = requestAnimationFrame(followCursor);
     IDstart = requestAnimationFrame(startAnim);
     IDdarkness = requestAnimationFrame(darknessStartAnim);
-    $document.ready(updateR);
+    updateR();
   }
 });
 
@@ -789,14 +815,14 @@ var h1 = document.getElementsByTagName("h1")[0];
 var hblurDir = -1;
 var IDhblur;
 
-$settingClass.click(function(){
+$settingButton.one("click", function(){
   if(setting){IDhblur = requestAnimationFrame(hblurAnim);}
 });
 function hblurAnim(){
   setTimeout(function(){
     if(hblurDir == -1){
       hopacity = 0.9;
-      hblur = 1.5;
+      hblur = 1.25;
     }
     else{
       hopacity = 0.8;
@@ -805,8 +831,9 @@ function hblurAnim(){
     hblurDir *= -1;
     h1.style.setProperty("opacity", hopacity);
     h1.style.setProperty("--hblur", hblur+"px");
+    cancelAnimationFrame(IDhblur);
     IDhblur = requestAnimationFrame(hblurAnim);
-  }, 8500);
+  }, 8000);
 }
 
 /*************************body roate********************************/
@@ -851,7 +878,7 @@ var bfDir = -1;
 var scDir = -1;
 var ocDir = 1;
 
-$settingClass.click(function(){
+$settingButton.one("click", function(){
   if(setting){
     if(start){
       IDbf = requestAnimationFrame(cloudBfStart);
@@ -1184,7 +1211,7 @@ $rotateBackCircle.mouseover(function(){
   $rotate.css("box-shadow", "0px 0px 10px #ebebeb, 0px 0px 10px #ebebeb, 0px 0px 10px #ebebeb, 0px 0px 10px #ebebeb")
   $rotateTextOne.css("color", "#191919");
   $rotateTextTwo.css("color", "#191919");
-  document.getElementsByClassName("SelectionDiv")[0].style.setProperty("--blurPx", "1.25px");
+  document.getElementsByClassName("SelectionDiv")[0].style.setProperty("--blurPx", "1px");
 });
 $rotateBackCircle.mouseleave(function(){
   $rotateBackCircle.css("box-shadow", "8px -8px 10px #232323, -8px 8px 10px #3f3d52, 8px 8px 10px #3f3d52, -8px -8px 10px #232323")
@@ -1385,148 +1412,163 @@ JQcheck.mousedown(function () {
 
 var frameRate = 60;
 
-var $container = $("#circle");
-var $slider = $("#slider");
-var sliderW2 = $slider.width() / 2;
-var sliderH2 = $slider.height() / 2;
+var $TIcircle = $("#circle");
+var $TIslider = $("#slider");
+var timeContainer = document.getElementById("timeContainer");
+var IDsliderRotate,
+    IDcircleRotate;
+//slider vars    
+const sliderW2 = $TIslider.width() / 2;
+const sliderH2 = $TIslider.height() / 2;
 const sliderRadius = 30;
-var sliderDeg = 0;
-var elP = $("#circle").offset();
-var elPos = { x: elP.left, y: elP.top };
-var sliderX = 0,
-    sliderY = 0,
-  lastX = 55,
-  lastY = 35;
-var mdown = false;
-var sliderInterv = 0;
-var sliderOpaInterv = 0;
+var elPos = { x: $("#TIcontainer").offset().left, y: $("#TIcontainer").offset().top };
+var sliderPos = {x: $TIslider.offset().left, y:$TIslider.offset().top};
+var TIsliderX = 0,
+    TIsliderY = 0;
+var sliderMdown = false;
+//circle vars
+const circleW2 = $TIcircle.width() / 2;
+const circleH2 = $TIcircle.height() / 2;
+const circleRdius = 50;
+var circlePos = {x: $TIcircle.offset().left, y: $TIcircle.offset().top};
+var TIcircleX = 0.
+    TIcircleY = 0;
+var circleMdown = false;
 
-var sliderOpacity = 1;
-var MUsliderOpaSwitch = 0;
-var MDsliderOpaSwitch = 0;
-var sliderCanMove = 1;
-
-$("#circle").mousedown(function () {
-  mdown = true;
-  // clearInterval(sliderInterv);
-  // clearInterval(sliderOpaInterv);
-
-  // sliderOpaInterv = setInterval(function () {
-  //   MUsliderOpaSwitch = 0;
-  //   if (MDsliderOpaSwitch == 0) {
-  //     sliderOpacity = lerp(sliderOpacity, 0, 0.15);
-  //   } else {
-  //     sliderOpacity = lerp(sliderOpacity, 1, 0.15);
-  //   }
-  //   if (Math.abs(sliderOpacity - 0) < 0.01) {
-  //     MDsliderOpaSwitch = 1;
-  //   }
-  //   else if (Math.abs(sliderOpacity - 1) < 0.01) {
-  //     sliderCanMove = 1;
-  //   }
-  //   $slider.css("opacity", sliderOpacity);
-  // }, 1000 / frameRate);
-
-  // sliderInterv = setInterval(function () {
-  //   if (MDsliderOpaSwitch) {
-  //     sliderX = lastX + 15;
-  //     sliderY = lastY + 15;
-  //     $slider.css({ left: sliderX, top: sliderY });
-  //   }
-  // });
-});
-
-$window.mouseup(function () {
-  mdown = false;
-  lap = 0;
-  changeVal = 1;
-  // clearInterval(sliderInterv);
-  // clearInterval(sliderOpaInterv);
-
-  // sliderOpaInterv = setInterval(function () {
-  //   MDsliderOpaSwitch = 0;
-  //   sliderCanMove = 0;
-  //   if (MUsliderOpaSwitch == 0) {
-  //     sliderOpacity = lerp(sliderOpacity, 0, 0.15);
-  //   } else {
-  //     sliderOpacity = lerp(sliderOpacity, 1, 0.15);
-  //   }
-  //   if (Math.abs(sliderOpacity - 0) < 0.01) {
-  //     MUsliderOpaSwitch = 1;
-  //   }
-  //   $slider.css("opacity", sliderOpacity);
-  // }, 1000 / frameRate);
-
-  // sliderInterv = setInterval(function () {
-  //   if (MUsliderOpaSwitch) {
-  //     sliderX = lastX - 25;
-  //     sliderY = lastY - 15;
-  //     $slider.css({ left: sliderX, top: sliderY });
-  //   }
-  // }, 1000 / frameRate);
-});
+//time input funcs
+var degIncrement = 30;
+function rotateSlider(deg){
+  if(sliderMdown){
+    let curDeg = deg;
+    $({d: curDeg}).stop().animate({d: curDeg + degIncrement},{
+      duration: 600,
+      easing: "easeInOutBack",
+      step: function(now){
+        sliderDeg = now % 360;
+        TIsliderX = sliderRadius * Math.sin((sliderDeg * Math.PI) / 180);
+        TIsliderY = sliderRadius * -Math.cos((sliderDeg * Math.PI) / 180);
+        //console.log((sliderX + sliderRadius - sliderW2) + " ; " + (sliderY + sliderRadius - sliderH2));
+        $TIslider.css("left", TIsliderX + sliderRadius - sliderW2); 
+        $TIslider.css("top", TIsliderY + sliderRadius - sliderH2);
+        $TIslider.css("transform", "rotate(" + sliderDeg + "deg");
+        calculateTime(sliderDeg);
+      },
+      complete: function(){
+        cancelAnimationFrame(IDsliderRotate);
+        IDsliderRotate = requestAnimationFrame(function(){rotateSlider(sliderDeg);});
+      }
+    });
+  }
+}
+function rotateCircle(deg){
+  if(circleMdown){
+    let curDeg = deg;
+    $({d: curDeg}).stop().animate({d: curDeg - degIncrement},{
+      duration: 600,
+      easing: "easeInOutBack",
+      step: function(now){
+        circleDeg = (360 + now) % 360;
+        TIcircleX = circleRdius * Math.sin((circleDeg * Math.PI) / 180);
+        TIcircleY = circleRdius * -Math.cos((circleDeg * Math.PI) / 180);
+        //console.log((TIcircleX + circleRdius - circleW2) + " ; " + (TIcircleY + circleRdius - circleH2));
+        $TIcircle.css("left", TIcircleX + circleRdius - circleW2); 
+        $TIcircle.css("top", TIcircleY + circleRdius - circleH2);
+        $TIcircle.css("transform", "rotate(" + circleDeg + "deg");
+        calculateTime(circleDeg);
+      },
+      complete: function(){
+        cancelAnimationFrame(IDcircleRotate);
+        IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
+      }
+    });
+  }
+}
 
 var curYear = new Date().getFullYear();
 var yearVal = curYear;
-var curMonth = new Date().getMonth();
+var curMonth = new Date().getMonth() + 1;
 var monthVal = curMonth;
 var lastMonthVal = curMonth;
 var lap = 0;
 var direction = 0;
 var changeVal = 1;
-$window.mousemove(function (e) {
-  if (mdown && sliderCanMove == 1) {
-    clearInterval(sliderInterv);
-
-    var mPos = { x: e.pageX - elPos.x, y: e.pageY - elPos.y };
-    var atan = Math.atan2(mPos.x - sliderRadius, mPos.y - sliderRadius);
-    sliderDeg = -atan / (Math.PI / 180) + 180; // final (0-360 positive) degrees from mouse position
-    sliderDeg = Math.round(sliderDeg);
-
-    var tempX = Math.round(sliderRadius * Math.sin((sliderDeg * Math.PI) / 180)) + 25;
-    var tempY = Math.round(sliderRadius * -Math.cos((sliderDeg * Math.PI) / 180)) + 15;
-
-    sliderX = lerp(sliderX, tempX, 0.5);
-    sliderY = lerp(sliderY, tempY, 0.5);
-    $slider.css("left", sliderX + sliderRadius - sliderW2); 
-    $slider.css("top", sliderY + sliderRadius - sliderH2);
-    lastX = tempX;
-    lastY = tempY;
-
-    // AND FINALLY apply exact degrees to ball rotation
-    $slider.css("transform", "rotate(" + sliderDeg + "deg");
-    //
-    // PRINT DEGREES
-    
-    monthVal = (curMonth - 5 + Math.ceil(sliderDeg / 30)) % 12 + 1;
-    if(monthVal == 1 && lastMonthVal >= 4){
+var monthPadding = "";
+function calculateTime(deg){
+  deg = Math.round(deg);
+  monthVal = (curMonth - 5 + Math.ceil(deg / 30)) % 12 + 1;
+  if(sliderMdown && circleMdown == false){
+    if(monthVal == 1 && lastMonthVal == 12){
       yearVal += changeVal;
       lap += 1
-      if(direction == -1){ lap = 0; changeVal = 1;}
+      if(direction == -1){ lap = 0; changeVal = 1; degIncrement = 30;}
+      if(degIncrement <= 180){
+        if(lap == 3) { degIncrement += 30;}
+        if(lap == 6) { degIncrement += 30;}
+        if(lap == 9) { degIncrement += 30;}
+      }
       if(lap == 10){  changeVal += 1; lap = 0; }
       direction = 1;
     }
-    else if(monthVal == 12 && lastMonthVal <= 8){
+  }
+  else if(sliderMdown == false && circleMdown){
+    if(monthVal == 12 && lastMonthVal == 1){
       yearVal -= changeVal; 
       lap += 1;
-      if(direction == 1){ lap = 0; changeVal = 1;}
+      if(direction == 1){ lap = 0; changeVal = 1; degIncrement = 30;}
+      if(degIncrement <= 180){
+        if(lap == 3) { degIncrement += 30;}
+        if(lap == 6) { degIncrement += 30;}
+        if(lap == 9) { degIncrement += 30;}
+      }
       if(lap == 10){  changeVal += 1; lap = 0; }
       direction = -1;
     }
-    lastMonthVal = monthVal;
-    
-    let monthPadding = "";
-    if(monthVal < 10){monthPadding = "0";}
-    else{monthPadding = "";}
-    $('input[name="monthnyear"]').val(yearVal + "." + monthPadding + monthVal);
-    
-    clearTimeout($.data(this, 'mousemoveTimer'));
-    $.data(this, 'mousemoveTimer', setTimeout(function() {
-      // not mousemoving
-      lap = 0;
-      changeVal = 1;
-    }, 1000));
   }
+  
+  lastMonthVal = monthVal;
+  
+  if(monthVal < 10){monthPadding = "0";}
+  else{monthPadding = "";}
+  $('input[name="monthnyear"]').val(yearVal + "." + monthPadding + monthVal);
+}
+
+//events
+//mouse up window
+var TIcircle = document.getElementById("circle"),
+    TIslider = document.getElementById("slider");
+$window.mouseup(function () {
+  if(moonCount == 2){
+    sliderMdown = false;
+    circleMdown = false;
+    cancelAnimationFrame(IDsliderRotate);
+    cancelAnimationFrame(IDcircleRotate);
+    lap = 0;
+    changeVal = 1;
+    degIncrement = 30;
+    TIcircle.style.setProperty("--circleBlur", "4.5px");
+    TIslider.style.setProperty("--sliderBlur", "4.5px");
+    timeContainer.style.setProperty("--timeContainerBlur", "2.5px");
+  }
+});
+//slider mouse down
+let sliderMDPos = { x: sliderPos.x - elPos.x, y: sliderPos.y - elPos.y };
+let sliderAtan = Math.atan2(sliderMDPos.x - sliderRadius, sliderMDPos.y - sliderRadius);
+var sliderDeg = -sliderAtan / (Math.PI / 180) + 180;
+$TIslider.mousedown(function () {
+  sliderMdown = true;
+  TIslider.style.setProperty("--sliderBlur", "1.25px");
+  timeContainer.style.setProperty("--timeContainerBlur", "0.75px");
+  IDsliderRotate = requestAnimationFrame(function(){rotateSlider(sliderDeg);});
+});
+//circle mouse down
+let circleMDPos = { x: circlePos.x - elPos.x, y: circlePos.y - elPos.y };
+let circleAtan = Math.atan2(circleMDPos.x - circleRdius, circleMDPos.y - circleRdius);
+var circleDeg = -circleAtan / (Math.PI / 180) + 180;
+$TIcircle.mousedown(function () {
+  circleMdown = true;
+  TIcircle.style.setProperty("--circleBlur", "1.25px");
+  timeContainer.style.setProperty("--timeContainerBlur", "0.75px");
+  IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
 });
 
 
