@@ -535,12 +535,12 @@ function adjustSettingFont(){
   if(window.innerWidth < 1960 && window.innerWidth > 1700){
     settingFontOpacity = 0.6 + ((1960 - window.innerWidth)/200) * 0.1;
     settingFontOpacity.toFixed(2);
-    settingBlur = 0.9;
+    settingBlur = 0.75;
   }
   else if(window.innerWidth < 1700){
     settingFontOpacity = 0.6 + ((1960 - window.innerWidth)/200) * 0.1;
     settingFontOpacity.toFixed(2);
-    settingBlur = 1 - ((1700 - window.innerWidth)/200) * 0.25;
+    settingBlur = 0.75 - ((1700 - window.innerWidth)/250) * 0.25;
     settingBlur.toFixed(2);
   }
   else{
