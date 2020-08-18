@@ -1440,7 +1440,7 @@ var degIncrement = 30;
 function rotateSlider(deg){
   if(sliderMdown){
     let curDeg = deg;
-    $({d: curDeg}).stop().animate({d: curDeg + degIncrement},{
+    $({d: curDeg}).animate({d: curDeg + degIncrement},{
       duration: 600,
       easing: "easeInOutBack",
       step: function(now){
@@ -1463,7 +1463,7 @@ function rotateSlider(deg){
 function rotateCircle(deg){
   if(circleMdown){
     let curDeg = deg;
-    $({d: curDeg}).stop().animate({d: curDeg - degIncrement},{
+    $({d: curDeg}).animate({d: curDeg - degIncrement},{
       duration: 600,
       easing: "easeInOutBack",
       step: function(now){
@@ -1529,7 +1529,7 @@ function calculateTime(deg){
   
   if(monthVal < 10){monthPadding = "0";}
   else{monthPadding = "";}
-  $('input[name="monthnyear"]').val(yearVal + "." + monthPadding + monthVal);
+  $('input[name="monthnyear"]').val(yearVal + " . " + monthPadding + monthVal);
 }
 
 //events
@@ -1545,16 +1545,19 @@ $window.mouseup(function () {
     lap = 0;
     changeVal = 1;
     degIncrement = 30;
+    blurMdown = false;
     TIcircle.style.setProperty("--circleBlur", "4.5px");
     TIslider.style.setProperty("--sliderBlur", "4.5px");
-    timeContainer.style.setProperty("--timeContainerBlur", "2.5px");
+    timeContainer.style.setProperty("--timeContainerBlur", "2.25px");
   }
 });
 //slider mouse down
+var blurMdown = false;
 let sliderMDPos = { x: sliderPos.x - elPos.x, y: sliderPos.y - elPos.y };
 let sliderAtan = Math.atan2(sliderMDPos.x - sliderRadius, sliderMDPos.y - sliderRadius);
 var sliderDeg = -sliderAtan / (Math.PI / 180) + 180;
 $TIslider.mousedown(function () {
+  blurMdown = true;
   sliderMdown = true;
   TIslider.style.setProperty("--sliderBlur", "1.25px");
   timeContainer.style.setProperty("--timeContainerBlur", "0.75px");
@@ -1566,10 +1569,24 @@ let circleAtan = Math.atan2(circleMDPos.x - circleRdius, circleMDPos.y - circleR
 var circleDeg = -circleAtan / (Math.PI / 180) + 180;
 $TIcircle.mousedown(function () {
   circleMdown = true;
+  blurMdown = true;
   TIcircle.style.setProperty("--circleBlur", "1.25px");
   timeContainer.style.setProperty("--timeContainerBlur", "0.75px");
   IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
 });
+
+$TIcircle.mouseover(function(){
+  if(blurMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "0.75px");}
+})
+$TIcircle.mouseleave(function(){
+  if(blurMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "2.25px");}
+})
+$TIslider.mouseover(function(){
+  if(blurMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "0.75px");}
+})
+$TIslider.mouseleave(function(){
+  if(blurMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "2.25px");}
+})
 
 
 
