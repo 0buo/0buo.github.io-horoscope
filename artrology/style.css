@@ -656,7 +656,7 @@ h1 {
 #timeContainer{
   --timeContainerBlur: 2.25px;
   display: inline-block;
-  transition: filter 0.25s ease-in-out;
+  transition: filter 0.35s ease-in-out;
   filter: blur(var(--timeContainerBlur));
 }
 

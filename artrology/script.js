@@ -1551,7 +1551,7 @@ $window.mouseup(function () {
     blurMdown = false;
     TIcircle.style.setProperty("--circleBlur", "4.5px");
     TIslider.style.setProperty("--sliderBlur", "4.5px");
-    timeContainer.style.setProperty("--timeContainerBlur", "2.25px");
+    timeContainer.style.setProperty("--timeContainerBlur", "3px");
   }
 });
 //slider mouse down
@@ -1566,9 +1566,9 @@ $TIslider.mousedown(function () {
     blurMdown = true;
     sliderMdown = true;
     TIslider.style.setProperty("--sliderBlur", "1.25px");
-    timeContainer.style.setProperty("--timeContainerBlur", "0.75px");
+    timeContainer.style.setProperty("--timeContainerBlur", "1px");
     IDsliderRotate = requestAnimationFrame(function(){rotateSlider(sliderDeg);});
-  }, 300);
+  }, 400);
 });
 //circle mouse down
 let circleMDPos = { x: circlePos.x - elPos.x, y: circlePos.y - elPos.y };
@@ -1581,22 +1581,22 @@ $TIcircle.mousedown(function () {
     circleMdown = true;
     blurMdown = true;
     TIcircle.style.setProperty("--circleBlur", "1.25px");
-    timeContainer.style.setProperty("--timeContainerBlur", "0.75px");
+    timeContainer.style.setProperty("--timeContainerBlur", "1px");
     IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
-  }, 300);
+  }, 400);
 });
 
 $TIcircle.mouseover(function(){
-  if(blurMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "0.75px");}
+  if(blurMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "1px");}
 })
 $TIcircle.mouseleave(function(){
-  if(blurMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "2.25px");}
+  if(blurMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
 })
 $TIslider.mouseover(function(){
-  if(blurMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "0.75px");}
+  if(blurMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "1px");}
 })
 $TIslider.mouseleave(function(){
-  if(blurMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "2.25px");}
+  if(blurMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
 })
 
 
