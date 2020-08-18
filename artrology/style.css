@@ -605,12 +605,17 @@ h1 {
   margin-top: 50px;
   margin-left: 8vw;
   margin-bottom: 50px;
+  filter: blur(0.1px);
 }
 
 #TIcontainer{
+  background: transparent;
+  border:none;
+  fill:none;
+  outline:none;
   float:left;
   margin-right:40px;
-  filter: blur(1px);
+  filter: blur(0.1px);
 }
 
 
