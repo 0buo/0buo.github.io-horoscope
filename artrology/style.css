@@ -393,6 +393,8 @@ h1 {
   position: absolute;
   z-index: auto;
   margin-bottom: 5%;
+
+  display: none;
 }
 
 #namesDiv.showRotateLeft {
@@ -415,6 +417,8 @@ h1 {
   position: absolute;
   margin-bottom: 5%;
   z-index: auto;
+
+  display: none;
 }
 
 #timesDiv.showRotateLeft {

@@ -467,7 +467,6 @@ var IDSLR,
     IDECA,
     IDECR;
 function updateR() {
-  console.log(mouseState);
   if (canChange == 1) {
     //if (mouseStateUpdated == 0) {
       //mouseStateUpdated = 1;
@@ -1065,15 +1064,17 @@ function textTwinkle($this, index){
     $this.css("--glowPix2", "-1.5px");
     if(Math.abs($this.css("opacity")-0.15) <= 0.005){twinkleDirects[index] = 1;}
   }
+  else if($this.css("opacity") >= 0.55 && twinkleDirects[index] == 1){twinkleDirects[index] = -1;}
+  else if($this.css("opacity") <= 0.15 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
 }
 
 function textTwinkleBright($this, index){ 
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkleBright($this, index);});
-  if($this.css("opacity") < 0.95 && twinkleDirects[index] == 1){ 
-    $this.css("opacity", 0.95);
+  if($this.css("opacity") < 0.98 && twinkleDirects[index] == 1){ 
+    $this.css("opacity", 0.98);
     $this.css("--glowPix1", "0.5px");
     $this.css("--glowPix2", "-0.5px");
-    if(Math.abs($this.css("opacity")-0.95) <= 0.005){twinkleDirects[index] = -1;}
+    if(Math.abs($this.css("opacity")-0.98) <= 0.005){twinkleDirects[index] = -1;}
   }
   else if ($this.css("opacity") > 0.5 && twinkleDirects[index] == -1){
     $this.css("opacity", 0.5);
@@ -1081,6 +1082,8 @@ function textTwinkleBright($this, index){
     $this.css("--glowPix2", "-2px");
     if(Math.abs($this.css("opacity")-0.5) <= 0.005){twinkleDirects[index] = 1;}
   }
+  else if($this.css("opacity") >= 0.98 && twinkleDirects[index] == 1){twinkleDirects[index] = -1;}
+  else if($this.css("opacity") <= 0.5 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
 }
 
 let j;
@@ -1092,18 +1095,28 @@ for (j = 0; j < plaintexts.length; j++){
   twinkleDirects[j] = 1;
 }
 
-
-function selfTwinkle(){
+const openingTextStart = 0;
+const openingTextEnd = 2;
+function selfTwinkle(start, end){
   let k;
-  for (k = 0; k < plaintexts.length; k++){
+  for (k = start; k < end+1; k++){
     let $argThis = $(plaintexts[k]);
     let index = parseInt($argThis.attr("id"), 10);
-    //cancelAnimationFrame(twinkleIDs[index]);
+    console.log(index);
     twinkleDirects[index] = -1;
     twinkleIDs[index] = requestAnimationFrame(function(){textTwinkle($argThis, index);});
   }//of for loop
 }
-$window.on("load", selfTwinkle);
+function cancelTwinkle(start, end){
+  let k;
+  for (k = start; k < end+1; k++){
+    let $argThis = $(plaintexts[k]);
+    let index = parseInt($argThis.attr("id"), 10);
+    console.log("c" + index);
+    cancelAnimationFrame(twinkleIDs[index]);
+  }//of for loop
+}
+$window.on("load", function(){selfTwinkle(openingTextStart, openingTextEnd);});
 //$window.focus(selfTwinkle);
 
 
@@ -1150,60 +1163,94 @@ var $rotateTextOne = $(".rotateTextOne");
 var $rotateTextTwo = $(".rotateTextTwo");
 var $timesDiv = $("#timesDiv");
 var $namesDiv = $("#namesDiv");
-var $root = $(":root");
 
+var moonCountTimeOut;
+var moonCanSwitch0 = false;
+var moonCanSwitch1 = true;
+var moonCanSwitch2 = false;
+var nameTextStart = 3;
+var nameTextEnd = 3;
+var timeTextStart = 4;
+var timeTextEnd = 4;
+
+var moonClickTimeOut;
 $rotateBackCircle.click(function () {
-  if(start == false && canChange == 1){
-    moonCount = (moonCount + 1) % 3;
+  clearTimeout(moonClickTimeOut);
+  moonClickTimeOut = setTimeout(function(){
+    if(start == false && canChange == 1 ){
+      //moonCount = (moonCount + 1) % 3;
+      if(moonCanSwitch0){moonCount = 0; moonCanSwitch0 = false;}
+      else if(moonCanSwitch1){moonCount = 1; moonCanSwitch1 = false;}
+      else if(moonCanSwitch2){moonCount = 2; moonCanSwitch2 = false;}
+      else{moonCount = -1;}
 
-    if (moonCount == 1) {
-      $rotate.toggleClass("one");
-      $rotateTextTwo.removeClass("hide");
-      $rotateTextOne.toggleClass("up");
-
-      $timesDiv.removeClass("hideRotateLeft");
-      $namesDiv.toggleClass("showRotateLeft");
-      //$root.css("overflow-y", "auto");
-    } else if (moonCount == 2) {
-      $rotate.removeClass("one");
-      $rotate.toggleClass("two");
-      $rotateTextOne.removeClass("up");
-      $rotateTextOne.toggleClass("hide");
-      $rotateTextTwo.toggleClass("down");
-
-      $namesDiv.removeClass("showRotateLeft");
-      $namesDiv.toggleClass("hideRotateLeft");
-      $timesDiv.toggleClass("showRotateLeft");
-      //$root.css("overflow-y", "auto");
-    } else {
-      $rotate.removeClass("two");
-      $rotateTextTwo.removeClass("down");
-      $rotateTextOne.removeClass("hide");
-      $rotateTextTwo.toggleClass("hide");
-
-      $namesDiv.removeClass("hideRotateLeft");
-      $timesDiv.removeClass("showRotateLeft");
-      $timesDiv.toggleClass("hideRotateLeft");
-      $htmlAndBody.animate({ scrollTop: 0 }, "slow");
-      //$root.css("overflow-y", "hidden");
-    }
+      if (moonCount == 1) {
+        $namesDiv.css("display", "initial");
+        selfTwinkle(nameTextStart, nameTextEnd);
+        setTimeout(function(){
+          $rotate.toggleClass("one");
+          $rotateTextTwo.removeClass("hide");
+          $rotateTextOne.toggleClass("up");
     
-    sunsetStart = false;
-    backtoSpotLight = true;
-    clearTimeout(SLCtimer);
-    SLCtimer = setTimeout(function() {
-      mouseState = 1;
-      updateR();
-      cancelSLCid();
-      LR1.ID = requestAnimationFrame(function(){spotlightColor(LR1, 0, "--LR1", 7000);});
-      LG1.ID = requestAnimationFrame(function(){spotlightColor(LG1, 0, "--LG1");});
-      LB1.ID = requestAnimationFrame(function(){spotlightColor(LB1, 0, "--LB1", 9500);});
-      LR2.ID = requestAnimationFrame(function(){spotlightColor(LR2, 0, "--LR2", 7000);});
-      LG2.ID = requestAnimationFrame(function(){spotlightColor(LG2, 0, "--LG2");});
-      LB2.ID = requestAnimationFrame(function(){spotlightColor(LB2, 0, "--LB2", 9500);});
-      LA037.ID = requestAnimationFrame(function(){spotlightAlpha(LA037, 0.37, "--LA0-37");});
-    }, 500);
-  }
+          $timesDiv.removeClass("hideRotateLeft");
+          $namesDiv.toggleClass("showRotateLeft");
+          setTimeout(function(){
+            if($namesDiv.css("opacity") == "1"){moonCanSwitch2 = true;}
+          }, 1100);
+        }, 250);
+      } 
+      else if (moonCount == 2) {
+        $timesDiv.css("display", "initial");
+        selfTwinkle(timeTextStart, timeTextEnd);
+        setTimeout(function(){
+          cancelTwinkle(nameTextStart, nameTextEnd);
+          $rotate.removeClass("one");
+          $rotate.toggleClass("two");
+          $rotateTextOne.removeClass("up");
+          $rotateTextOne.toggleClass("hide");
+          $rotateTextTwo.toggleClass("down");
+    
+          $namesDiv.removeClass("showRotateLeft");
+          $namesDiv.toggleClass("hideRotateLeft");
+          $timesDiv.toggleClass("showRotateLeft");
+          setTimeout(function(){
+            if($namesDiv.css("opacity") == "0"){$namesDiv.css("display", "none"); moonCanSwitch0 = true;}
+          }, 1100);
+        }, 250);
+      } 
+      else if(moonCount == 0) {
+        cancelTwinkle(timeTextStart, timeTextEnd);
+        $rotate.removeClass("two");
+        $rotateTextTwo.removeClass("down");
+        $rotateTextOne.removeClass("hide");
+        $rotateTextTwo.toggleClass("hide");
+  
+        $namesDiv.removeClass("hideRotateLeft");
+        $timesDiv.removeClass("showRotateLeft");
+        $timesDiv.toggleClass("hideRotateLeft");
+        $htmlAndBody.animate({ scrollTop: 0 }, "slow");
+        moonCountTimeOut = setTimeout(function(){
+          if($timesDiv.css("opacity") == "0"){$timesDiv.css("display", "none"); moonCanSwitch1 = true;}
+        }, 1200);
+      }
+      
+      sunsetStart = false;
+      backtoSpotLight = true;
+      clearTimeout(SLCtimer);
+      SLCtimer = setTimeout(function() {
+        mouseState = 1;
+        updateR();
+        cancelSLCid();
+        LR1.ID = requestAnimationFrame(function(){spotlightColor(LR1, 0, "--LR1", 7000);});
+        LG1.ID = requestAnimationFrame(function(){spotlightColor(LG1, 0, "--LG1");});
+        LB1.ID = requestAnimationFrame(function(){spotlightColor(LB1, 0, "--LB1", 9500);});
+        LR2.ID = requestAnimationFrame(function(){spotlightColor(LR2, 0, "--LR2", 7000);});
+        LG2.ID = requestAnimationFrame(function(){spotlightColor(LG2, 0, "--LG2");});
+        LB2.ID = requestAnimationFrame(function(){spotlightColor(LB2, 0, "--LB2", 9500);});
+        LA037.ID = requestAnimationFrame(function(){spotlightAlpha(LA037, 0.37, "--LA0-37");});
+      }, 500);
+    }
+  }, 150);
 });
 
 $rotateBackCircle.mouseover(function(){
