@@ -22,6 +22,12 @@
   --LA0-1: 0.1;
   --LA0-39: 0.39;
   --LA0-37: 0.37;
+
+  --plaintextFontSize: 30px;
+  --moonScale: 1;
+  --hMarginL: 6vw;
+  --moonMarginL: 6vw;
+  --hFontSize: 75px;
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none;
   /* IE and Edge */
@@ -220,7 +226,7 @@ h1 {
   width: 100%;
   padding: 10px, 0px;
   margin-top: 12%;
-  margin-left: 5vw;
+  margin-left: var(--hMarginL);
   margin-bottom: 45px;
   font-family: "Libre Barcode 39 Extended Text", cursive;
 
@@ -234,8 +240,8 @@ h1 {
   opacity: 0.8;
 
   color: #1b1b24;
-  font-size: 72px;
-  max-width: 80%;
+  font-size: var(--hFontSize);
+  max-width: 90%;
 }
 
 .plaintext {
@@ -246,7 +252,7 @@ h1 {
   --filterBlur: 0px;
   font-weight: 500;
   font-family: 'Codystar', cursive;
-  font-size: 30px;
+  font-size: var(--plaintextFontSize);
   line-height: 1.8;
   margin-left: 5vw;
   margin-right: 35%;
@@ -262,7 +268,7 @@ h1 {
 
 .SelectionDiv {
   --blurPx: 3.5px;
-  margin-left: 6vw;
+  margin-left: var(--moonMarginL);
   margin-bottom: 50px;
   margin-top: 70px;
   height: 110px;
@@ -653,8 +659,8 @@ h1 {
   height:45px; 
   width:45px; 
   background-color:var(--grey); 
-  left:35.31px; 
-  top:-3.75px; 
+  left:-13.82px; 
+  top:-13.61px; 
   border-radius:100%;
   filter: blur(var(--sliderBlur));
   transition: filter 0.5s ease-in-out;

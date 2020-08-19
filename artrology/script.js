@@ -1065,7 +1065,83 @@ function cloudOcDrift(){
 }
 
 
+/*******************plaintext font size******************************** */
+var $rotateTextOne = $(".rotateTextOne");
+var $rotateTextTwo = $(".rotateTextTwo");
 
+var plaintextFontSize = 30;
+var moonMarginL = 6;
+var hMarginL = 6;
+var hFontSize = 72;
+function adjustElementSize(){
+  if(window.innerWidth < 1000 && window.innerWidth >= 800){
+    plaintextFontSize = 28; moonMarginL = 5; 
+    hFontSize = 66;
+    $rotateTextOne.css("display", "inline-block");
+    $rotateTextTwo.css("display", "inline-block");
+    $h1.text("Self-Help Guide : Artrology");
+  }
+  else if(window.innerWidth < 800 && window.innerWidth >= 700){
+    plaintextFontSize = 26; 
+    moonMarginL = 5; 
+    hFontSize = 60;
+    $rotateTextOne.css("display", "inline-block");
+    $rotateTextTwo.css("display", "inline-block");
+    $h1.text("Self-Help Guide : Artrology");
+  }
+  else if(window.innerWidth < 700 && window.innerWidth >= 600){
+    plaintextFontSize = 24;
+    moonMarginL = 4;
+    hMarginL = 4;
+    hFontSize = 55; 
+    $rotateTextOne.css("display", "inline-block");
+    $rotateTextTwo.css("display", "inline-block");
+    $h1.text("Self-Help Guide : Artrology");
+  }
+  else if(window.innerWidth < 600 && window.innerWidth >= 500){
+    plaintextFontSize = 22;
+    moonMarginL = 16;
+    hMarginL = 3;
+    hFontSize = 52; 
+    $rotateTextOne.css("display", "none");
+    $rotateTextTwo.css("display", "none");
+    $h1.text("Self-Help Guide : Artrology");
+  }
+  else if(window.innerWidth < 500 && window.innerWidth >= 400){
+    plaintextFontSize = 20;
+    moonMarginL = 16;
+    hMarginL = 3;
+    hFontSize = 48; 
+    $rotateTextOne.css("display", "none");
+    $rotateTextTwo.css("display", "none");
+    $h1.text("Self-Help Guide : Art-trology");
+  }
+  else if(window.innerWidth <400){
+    plaintextFontSize = 20; 
+    moonMarginL = 16; 
+    hMarginL = 3; 
+    hFontSize = 46;
+    $rotateTextOne.css("display", "none");
+    $rotateTextTwo.css("display", "none");
+    $h1.text("Self-Help Guide : Art-trology");
+  }
+  else{
+    plaintextFontSize = 30; 
+    moonScale = 1; 
+    moonMarginL = 6; 
+    hMarginL = 3; 
+    hFontSize = 75;
+    $rotateTextOne.css("display", "inline-block");
+    $rotateTextTwo.css("display", "inline-block");
+    $h1.text("Self-Help Guide : Artrology");
+  }
+  document.documentElement.style.setProperty("--plaintextFontSize", plaintextFontSize + "px");
+  document.documentElement.style.setProperty("--moonMarginL", moonMarginL + "vw");
+  document.documentElement.style.setProperty("--hMoonMarginL", hMarginL + "vw");
+  document.documentElement.style.setProperty("--hFontSize", hFontSize + "px");
+}
+$document.ready(adjustElementSize);
+$window.resize(adjustElementSize);
 /********************twinkle plain text***********************************/
 var plaintexts = document.getElementsByClassName("plaintext");
 //var twinkleIntervs = new Array(plaintexts.length);
@@ -1180,8 +1256,7 @@ for(i = 0; i < plaintexts.length; i++){
 var moonCount = 0;
 var $rotateBackCircle = $(".rotateBackCircle");
 var $rotate = $(".rotate");
-var $rotateTextOne = $(".rotateTextOne");
-var $rotateTextTwo = $(".rotateTextTwo");
+
 var $timesDiv = $("#timesDiv");
 var $namesDiv = $("#namesDiv");
 
@@ -1525,7 +1600,7 @@ function rotateSlider(deg){
         sliderDeg = now % 360;
         TIsliderX = sliderRadius * Math.sin((sliderDeg * Math.PI) / 180);
         TIsliderY = sliderRadius * -Math.cos((sliderDeg * Math.PI) / 180);
-        //console.log((sliderX + sliderRadius - sliderW2) + " ; " + (sliderY + sliderRadius - sliderH2));
+        //console.log((TIsliderX + sliderRadius - sliderW2) + " ; " + (TIsliderY + sliderRadius - sliderH2));
         $TIslider.css("left", TIsliderX + sliderRadius - sliderW2); 
         $TIslider.css("top", TIsliderY + sliderRadius - sliderH2);
         $TIslider.css("transform", "rotate(" + sliderDeg + "deg");
