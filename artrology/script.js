@@ -1091,11 +1091,11 @@ function adjustElementSize(){
   }
   else if(window.innerWidth < 700 && window.innerWidth >= 600){
     plaintextFontSize = 24;
-    moonMarginL = 4;
+    moonMarginL = 20;
     hMarginL = 4;
     hFontSize = 55; 
-    $rotateTextOne.css("display", "inline-block");
-    $rotateTextTwo.css("display", "inline-block");
+    $rotateTextOne.css("display", "none");
+    $rotateTextTwo.css("display", "none");
     $h1.text("Self-Help Guide : Artrology");
   }
   else if(window.innerWidth < 600 && window.innerWidth >= 500){
