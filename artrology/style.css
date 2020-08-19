@@ -650,6 +650,7 @@ h1 {
   top: -9.604px;
   filter: blur(var(--circleBlur));
   transition: filter 0.5s ease-in-out;
+  z-index: 4;
 }
 
 #slider{ 
@@ -664,6 +665,7 @@ h1 {
   border-radius:100%;
   filter: blur(var(--sliderBlur));
   transition: filter 0.5s ease-in-out;
+  z-index: 4;
 }
 
 #timeContainer{
@@ -671,6 +673,9 @@ h1 {
   display: inline-block;
   transition: filter 0.35s ease-in-out;
   filter: blur(var(--timeContainerBlur));
+  z-index: 0;
+  margin-left: 120px;
+  width: 100%
 }
 
 input[type="text"]{
@@ -685,5 +690,4 @@ input[type="text"]{
   font-size: 60px;
   font-weight: 500;
   padding:0 6px;
-  margin-left: 100px;
 }
