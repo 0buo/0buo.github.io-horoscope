@@ -510,8 +510,7 @@ var setting = false;
 var $settingClass = $(".setting");
 var $settingText = $(".settingText");
 var $smallerST = $("#smallerST");
-var $filterOnArea = $("#sbhOn");
-var $filterOffArea = $("#sbhOff");
+
 var $settingButton = $(".settingButton");
 var $filterOn = $("#filterOn");
 var $filterOff = $("#filterOff");
@@ -527,11 +526,16 @@ var settingBlur = 0.9;
 function adjustSettingFont(event){
   if(setting == false){
     let modifiedBlur;
+    let modifiedButtonFontSize;
 
-    if(window.innerHeight < 1000){settingFontSize = Math.round(window.innerWidth * 0.0205);}
-    else{settingFontSize = Math.round(window.innerWidth * 0.022);}
+    if(window.innerHeight < 1000){settingFontSize = Math.round(window.innerWidth * 0.021);}
+    else{settingFontSize = Math.round(window.innerWidth * 0.023);}
+    if(settingFontSize < 20){settingFontSize = 20;}
     settingDOM.style.setProperty("--settingFontSize", settingFontSize + "px");
-
+    let smaller = Math.round(settingFontSize*0.85)
+    settingDOM.style.setProperty("--smallerSettingFontSize", smaller + "px");
+    console.log(getComputedStyle(settingDOM).getPropertyValue("--smallerSettingFontSize"));
+    
     if(window.innerWidth < 1960 && window.innerWidth > 1700){
       settingFontOpacity = 0.6 + ((1960 - window.innerWidth)/200) * 0.1;
       settingFontOpacity.toFixed(2);
@@ -551,14 +555,21 @@ function adjustSettingFont(event){
     if(settingBlur < 0){settingBlur = 0;}
     modifiedBlur = settingBlur;
 
+    if(window.innerWidth < 800 && window.innerWidth >= 700){buttonFontSize = 50; modifiedButtonFontSize = buttonFontSize;}
+    else if(window.innerWidth < 700 && window.innerWidth >= 540){buttonFontSize = 45; modifiedButtonFontSize = buttonFontSize;}
+    else if(window.innerWidth < 540 && window.innerWidth >= 400){buttonFontSize = 30; modifiedButtonFontSize = buttonFontSize; $settingButton.css("top", "65vh");}
+    else if(window.innerWidth < 400 && window.innerWidth >= 350){buttonFontSize = 25; modifiedButtonFontSize = buttonFontSize; $settingButton.css("top", "75vh");}
+    else if(window.innerWidth < 350){buttonFontSize = 20; modifiedButtonFontSize = buttonFontSize; $settingButton.css("top", "80vh");}
+
     if(window.innerHeight < 600){
       buttonFontSize = Math.round(window.innerHeight * 0.09);
+      if(modifiedButtonFontSize < buttonFontSize){buttonFontSize = modifiedButtonFontSize;}
       settingBlur = modifiedBlur - ((600 - window.innerHeight)/50) * 0.5;
       settingBlur.toFixed(2);
-      $smallerST.css("line-height", "3");
     }
-    else{buttonFontSize = 55;$smallerST.css("line-height", "10");}
-    
+
+    if(window.innerHeight >= 600 && window.innerWidth >= 1024){buttonFontSize = 55;}
+  
     $settingText.css("opacity", settingFontOpacity);
     $settingButton.css("font-size", buttonFontSize + "px");
     $settingClass.css("filter", "blur(" + settingBlur + "px)");
@@ -570,30 +581,38 @@ function adjustSettingFont(event){
 $document.ready(adjustSettingFont);
 $window.resize(adjustSettingFont);
 
+var filterOnHoverTimeOut;
+var filterOffHoverTimeOut;
 //hover button
-$filterOnArea.mouseover(function(){
+$filterOn.mouseover(function(){
   if(setting == false){
+    clearTimeout(filterOnHoverTimeOut);
     $filterOnText.html("lv<br>it<br>on");
     $filterOnText.css("margin-left", "75px");
   }
 })
-$filterOnArea.mouseleave(function(){
-  if(setting == false){
-    $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
-    $filterOnText.css("margin-left", "0px");
-  }
+$filterOn.mouseleave(function(){
+  filterOnHoverTimeOut = setTimeout(function(){
+    if(setting == false){
+      $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+      $filterOnText.css("margin-left", "0px");
+    }
+  }, 150);
 })
-$filterOffArea.mouseover(function(){
+$filterOff.mouseover(function(){
   if(setting == false){
+    clearTimeout(filterOffHoverTimeOut);
     $filterOffText.html("tk<br>it<br>of");
     $filterOffText.css("margin-right", "55px");
   }
 })
-$filterOffArea.mouseleave(function(){
-  if(setting == false){
-    $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
-    $filterOffText.css("margin-right", "0px");
-  }
+$filterOff.mouseleave(function(){
+  filterOffHoverTimeOut  = setTimeout(function(){
+    if(setting == false){
+      $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+      $filterOffText.css("margin-right", "0px");
+    }
+  }, 150);
 })
 
 //click button
@@ -614,8 +633,8 @@ $filterOn.click(function(){
     setTimeout(function(){$settingClass.css("display", "none");}, 2100);
 
     $(this).off();
-    $filterOnArea.off();
-    $filterOffArea.off();
+    $filterOn.off();
+    $filterOff.off();
   }
 });
 
@@ -839,11 +858,15 @@ function hblurAnim(){
 var bodyRY = parseInt(getComputedStyle(document.body).getPropertyValue("--bodyRotateY"),10);
 var screenMax = 0.6 * window.screen.width;
 var screenMin = -1*window.screen.width/2 + 0.04 * window.screen.width;
+var leftDeg = -1.5;
+var rightDeg = 1.5;
 function bodyRotate(e){
   let sx = e.screenX - window.screen.width/2;
   if(sx > screenMax){sx = screenMax;}
   else if (sx < screenMin){sx = screenMin;}
-  bodyRY = Math.round(scale(sx, screenMin, screenMax, -4, 8));
+
+  if(setting){leftDeg = -4; rightDeg = 8;} 
+  bodyRY = Math.round(scale(sx, screenMin, screenMax, leftDeg, rightDeg));
   document.body.style.setProperty("--bodyRotateY", bodyRY+"deg");
   //let sy = e.screenY;
 }
@@ -1102,7 +1125,6 @@ function selfTwinkle(start, end){
   for (k = start; k < end+1; k++){
     let $argThis = $(plaintexts[k]);
     let index = parseInt($argThis.attr("id"), 10);
-    console.log(index);
     twinkleDirects[index] = -1;
     twinkleIDs[index] = requestAnimationFrame(function(){textTwinkle($argThis, index);});
   }//of for loop
@@ -1112,7 +1134,6 @@ function cancelTwinkle(start, end){
   for (k = start; k < end+1; k++){
     let $argThis = $(plaintexts[k]);
     let index = parseInt($argThis.attr("id"), 10);
-    console.log("c" + index);
     cancelAnimationFrame(twinkleIDs[index]);
   }//of for loop
 }
