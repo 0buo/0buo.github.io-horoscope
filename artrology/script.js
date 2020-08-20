@@ -1352,7 +1352,7 @@ $rotateBackCircle.click(function () {
         LA037.ID = requestAnimationFrame(function(){spotlightAlpha(LA037, 0.37, "--LA0-37");});
       }, 500);
     }
-  }, 150);
+  }, 100);
 });
 
 $rotateBackCircle.mouseover(function(){
