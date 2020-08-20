@@ -1277,8 +1277,8 @@ var timeTextEnd = 4;
 var moonClickTimeOut;
 $rotateBackCircle.click(function () {
   console.log("moon clicked");
-  clearTimeout(moonClickTimeOut);
-  moonClickTimeOut = setTimeout(function(){
+  // clearTimeout(moonClickTimeOut);
+  // moonClickTimeOut = setTimeout(function(){
     if(start == false && canChange == 1 ){
       //moonCount = (moonCount + 1) % 3;
       if(moonCanSwitch0){moonCount = 0; moonCanSwitch0 = false;}
@@ -1353,7 +1353,7 @@ $rotateBackCircle.click(function () {
         LA037.ID = requestAnimationFrame(function(){spotlightAlpha(LA037, 0.37, "--LA0-37");});
       }, 500);
     }
-  }, 100);
+  // }, 100);
 });
 
 $rotateBackCircle.mouseover(function(){
