@@ -534,7 +534,6 @@ function adjustSettingFont(event){
     settingDOM.style.setProperty("--settingFontSize", settingFontSize + "px");
     let smaller = Math.round(settingFontSize*0.85)
     settingDOM.style.setProperty("--smallerSettingFontSize", smaller + "px");
-    console.log(getComputedStyle(settingDOM).getPropertyValue("--smallerSettingFontSize"));
     
     if(window.innerWidth < 1960 && window.innerWidth > 1700){
       settingFontOpacity = 0.75 + ((1960 - window.innerWidth)/200) * 0.1;
@@ -1277,6 +1276,7 @@ var timeTextEnd = 4;
 
 var moonClickTimeOut;
 $rotateBackCircle.click(function () {
+  console.log("moon clicked");
   clearTimeout(moonClickTimeOut);
   moonClickTimeOut = setTimeout(function(){
     if(start == false && canChange == 1 ){
@@ -1285,6 +1285,7 @@ $rotateBackCircle.click(function () {
       else if(moonCanSwitch1){moonCount = 1; moonCanSwitch1 = false;}
       else if(moonCanSwitch2){moonCount = 2; moonCanSwitch2 = false;}
       else{moonCount = -1;}
+      console.log(moonCount);
 
       if (moonCount == 1) {
         $namesDiv.css("display", "initial");
