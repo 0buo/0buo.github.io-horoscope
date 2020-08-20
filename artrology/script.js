@@ -537,22 +537,24 @@ function adjustSettingFont(event){
     console.log(getComputedStyle(settingDOM).getPropertyValue("--smallerSettingFontSize"));
     
     if(window.innerWidth < 1960 && window.innerWidth > 1700){
-      settingFontOpacity = 0.6 + ((1960 - window.innerWidth)/200) * 0.1;
+      settingFontOpacity = 0.75 + ((1960 - window.innerWidth)/200) * 0.1;
       settingFontOpacity.toFixed(2);
       settingBlur = 0.75;
     }
     else if(window.innerWidth < 1700){
-      settingFontOpacity = 0.6 + ((1960 - window.innerWidth)/200) * 0.1;
+      settingFontOpacity = 0.75 + ((1960 - window.innerWidth)/200) * 0.1;
       settingFontOpacity.toFixed(2);
       settingBlur = 0.75 - ((1700 - window.innerWidth)/250) * 0.25;
       settingBlur.toFixed(2);
     }
     else{
-      settingFontOpacity = 0.6;
+      settingFontOpacity = 0.75;
       settingBlur = 0.9;
     }
     if(settingFontOpacity > 1){settingFontOpacity = 1;}
+    else if(settingFontOpacity < 0.75){settingFontOpacity = 0.75;}
     if(settingBlur < 0){settingBlur = 0;}
+    else if(settingBlur > 0.9){settingBlur = 0.9;}
     modifiedBlur = settingBlur;
 
     if(window.innerWidth < 800 && window.innerWidth >= 700){buttonFontSize = 50; modifiedButtonFontSize = buttonFontSize;}
@@ -569,7 +571,10 @@ function adjustSettingFont(event){
     }
 
     if(window.innerHeight >= 600 && window.innerWidth >= 1024){buttonFontSize = 55;}
-  
+    
+    if(settingBlur < 0){settingBlur = 0;}
+    else if(settingBlur > 0.9){settingBlur = 0.9;}
+
     $settingText.css("opacity", settingFontOpacity);
     $settingButton.css("font-size", buttonFontSize + "px");
     $settingClass.css("filter", "blur(" + settingBlur + "px)");
@@ -650,12 +655,13 @@ $filterOff.click(function(){
     setTimeout(function(){
       document.documentElement.pseudoStyle('before', 'z-index','20');
       $settingClass.css("opacity", "0");
+      $(".plaintext").css("font-weight", "600");
     },1100);
     setTimeout(function(){$settingClass.css("display", "none");}, 2100);
 
     $(this).off();
-    $filterOnArea.off();
-    $filterOffArea.off();
+    $filterOn.off();
+    $filterOff.off();
   }
 });
 
