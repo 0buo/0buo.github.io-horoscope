@@ -18,14 +18,14 @@
         <span id="smallerST">Chrome or Edge on highest resolution recommended</span>
       </p>
     </div>
-    <button class="settingButton" id="filterOn">
-      <p id="filterOnText">leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span></p>
-      <!-- <div class="settingButtonHover" id="sbhOn"></div> -->
-    </button>
-    <button class="settingButton" id="filterOff">
-      <p id="filterOffText">take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span></p>
-      <!-- <div class="settingButtonHover" id="sbhOff"></div> -->
-    </button>
+    <div class="settingButton">
+      <button id="filterOn">
+        <p id="filterOnText">lv<br>it<br>on</p>
+      </button>
+      <button id="filterOff">
+        <p id="filterOffText">tk<br>it<br>of</p>
+      </button>
+    </div>
   </div>
 
   <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Extended+Text&display=swap" rel="stylesheet">
@@ -34,7 +34,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Text&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Codystar&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&display=swap" rel="stylesheet">
 
   <div class="noselect">
     <p class="plaintext" id ="0">
@@ -58,7 +58,9 @@
 
   <div class="switchDiv" id="namesDiv">
     <div class="noselect selectionDivText">
-      <p class="plaintext" id="3">THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER 
+      <p class="plaintext" id="3">THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER 
+        TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS 
+        PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER <br> enter the number of strokes of a name:
       </p>
     </div>
 
@@ -86,7 +88,10 @@
 
   <div class="switchDiv" id="timesDiv">
     <div class="noselect selectionDivText">
-      <p class="plaintext" id="4">THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER 
+      <p class="plaintext" id="4">THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER 
+        FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER 
+        TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER <br>
+        choose a time; clicking and holding on the lighter circle goes backward in time, and the darker one goes forward.
       </p>
     </div>
 
@@ -96,7 +101,7 @@
           <div id="circle"></div>
           <div id="slider"></div>
         </div>
-        <div id="timeContainer"><input id="test" type="text" value="" class="range" name="monthnyear" disabled="disabled"></div>
+        <div id="timeContainer" class="noselect"><button id="yearMonthButton"></button></div>
       </div>
     </div>
 <!--     1 -->
@@ -135,9 +140,9 @@
   </svg>
 
   <!-- partial -->
-  <script src='./jquery/jquery-3.5.1.min.js'></script>
-  <script src='./jquery.ui/jquery-ui.min.js'></script>
-  <script  src="./script.js"></script>
+  <script defer src='./jquery/jquery-3.5.1.min.js'></script>
+  <script defer src='./jquery.ui/jquery-ui.min.js'></script>
+  <script defer src="./script.js"></script>
 </body>
 
 </html>

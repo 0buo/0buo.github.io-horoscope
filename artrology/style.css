@@ -1,5 +1,4 @@
 :root {
-  cursor: auto;
   overflow-x: hidden;
   overflow-y: hidden;
   --cursorX: 50vw;
@@ -33,6 +32,8 @@
   /* IE and Edge */
   scrollbar-width: none;
   /* Firefox */
+
+  cursor: pointer;
 }
 
 :root:before {
@@ -101,18 +102,15 @@ body.svgFilter{
 .setting{
   --settingFontSize: 59px;
   --smallerSettingFontSize: 50px;
-  --settingPaddingTop: 5vh;
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 0;
-  right: 0;
   width: 100vw;
   height: 110vh;
   background-color: rgb(4,4,4);
   z-index: 6;
 
-  transition: font-size .5s ease-in-out, transform 2.5s ease-in-out, opacity 1s ease-in-out;
+  transition: transform 2.5s ease-in-out, opacity 1s ease-in-out;
   -webkit-filter: blur(0.9px);
           filter: blur(0.9px);
 }
@@ -121,14 +119,14 @@ body.svgFilter{
   position: relative;
   width: 100%;
   /* height: 200px; */
-  top: 30vh;
+  top: 25vh;
   transition: transform 2s ease-in-out, opacity 0.5s ease-in-out;
   font-size: var(--settingFontSize);
   opacity: 0;
   /* overflow-y: auto;
   overflow-x: hidden; */
 
-  text-align: center;
+  text-align: left;
   color: white;
   font-family: 'Codystar', cursive;
   font-weight: 600;
@@ -139,30 +137,58 @@ body.svgFilter{
 }
 
 .settingButton{
-  border: none;
-  outline: none;
-  fill: none;
-  background-color: transparent;
-  position: absolute;
-
-  top: 60vh;
-  font-family: "Libre Barcode 39 Extended Text", cursive;
-  font-size: 55px;
-  color: white;
+  background: none;
+  position: relative;
+  
+  top: 30vh;
   transition: transform 2.5s ease-in-out, opacity 1s ease-in-out, -webkit-filter 1s ease-in-out;
   transition: transform 2.5s ease-in-out, opacity 1s ease-in-out, filter 1s ease-in-out;
   transition: transform 2.5s ease-in-out, opacity 1s ease-in-out, filter 1s ease-in-out, -webkit-filter 1s ease-in-out;
   -webkit-filter: blur(0px);
           filter: blur(0px);
   opacity: 1;
+
+  width: 100%;
+  height: 20vh;
+  border: 1px solid transparent;
+  text-align: center;
+  font-family: "Libre Barcode 39 Extended Text", cursive;
+  font-size: 55px;
+  
   text-align: center;
 }
+
 #filterOn{
-  left: 35px;
+  position:fixed;
+  border: 1px solid transparent;
+  outline: none;
+  fill: none;
+  background: none;
+  color: white;
+  width: auto;
+
+  left: 1.5vw;
+  top: 0;
+
+  cursor: -webkit-grab;
+  cursor: grab;
 }
 #filterOff{
-  right: 30px;
+  position:fixed;
+  border: 1px solid transparent;
+  background: none;
+  outline: none;
+  fill: none;
+  color: white;
+  width: auto;
+
+  right: 2vw;
+  top: 0;
+
+  cursor: -webkit-grab;
+  cursor: grab;
 }
+
 /* .settingButtonHover{
   position: absolute;
   top: 40px;
@@ -313,6 +339,8 @@ h1 {
   transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, box-shadow 2s ease-in-out, filter 2s ease-in-out, -webkit-filter 2s ease-in-out;
   transform-origin: 60% 60%;
   transform: translate(7%, 60%) rotate(-100deg);
+  cursor: -webkit-grab;
+  cursor: grab;
 }
 
 .rotate.two {
@@ -443,10 +471,14 @@ h1 {
 }
 
 /* names input */
-#nameInput{border: 0.01px solid transparent;}
+#nameInput{
+  border: 0.01px solid transparent;
+  -webkit-filter:blur(0.8px); 
+  filter:blur(0.8px);
+}
 .inp {
-  --primary: #00041d;
-  --unfocused: #aaaaaa;
+  --primary: #2a2835;
+  --unfocused: #d4d2db;
   --d1: path(
     "M 0 50 L 210 50 C 211 48 215 45 218 43 C 234 35 247 36 261 43 C 265 45 268 48 270 50 C 280 50 280 50 280 50"
   );
@@ -463,6 +495,8 @@ h1 {
           filter: blur(1px);
   box-sizing: border-box;
   font-family: "Ubuntu", sans-serif;
+
+  cursor: text;
 }
 
 .border {
@@ -617,12 +651,13 @@ h1 {
 
 /* time input */
 #timeInput{
-  --grey: rgb(30, 30, 39);
-  margin-top: 50px;
+  --grey: #2a2835;
+  margin-top: 80px;
   margin-left: 8vw;
-  margin-bottom: 50px;
-  filter: blur(0.1px);
-  width: 40%;
+  margin-bottom: 80px;
+  -webkit-filter: blur(0.1px);
+          filter: blur(0.1px);
+  width: 55%;
   border: 0.01px solid transparent;
 }
 
@@ -633,7 +668,8 @@ h1 {
   outline:none;
   float:left;
   margin-right:40px;
-  filter: blur(0.1px);
+  -webkit-filter: blur(0.1px);
+          filter: blur(0.1px);
   border: 0.01px solid transparent;
 }
 
@@ -648,8 +684,11 @@ h1 {
   border-radius:100%;
   left: -11.09px;
   top: -9.604px;
-  filter: blur(var(--circleBlur));
+  -webkit-filter: blur(var(--circleBlur));
+          filter: blur(var(--circleBlur));
+  transition: -webkit-filter 0.5s ease-in-out;
   transition: filter 0.5s ease-in-out;
+  transition: filter 0.5s ease-in-out, -webkit-filter 0.5s ease-in-out;
   z-index: 4;
 }
 
@@ -663,31 +702,44 @@ h1 {
   left:-13.82px; 
   top:-13.61px; 
   border-radius:100%;
-  filter: blur(var(--sliderBlur));
+  -webkit-filter: blur(var(--sliderBlur));
+          filter: blur(var(--sliderBlur));
+  transition: -webkit-filter 0.5s ease-in-out;
   transition: filter 0.5s ease-in-out;
+  transition: filter 0.5s ease-in-out, -webkit-filter 0.5s ease-in-out;
   z-index: 4;
 }
 
 #timeContainer{
   --timeContainerBlur: 2.25px;
+  border: 0.01px solid transparent;
   display: inline-block;
-  transition: filter 0.35s ease-in-out;
-  filter: blur(var(--timeContainerBlur));
+  transition: transform 3s ease-in-out, -webkit-filter 0.35s ease-in-out;
+  transition: filter 0.35s ease-in-out, transform 3s ease-in-out;
+  transition: filter 0.35s ease-in-out, transform 3s ease-in-out, -webkit-filter 0.35s ease-in-out;
+  -webkit-filter: blur(var(--timeContainerBlur));
+          filter: blur(var(--timeContainerBlur));
   z-index: 0;
-  margin-left: 120px;
-  width: 100%
+  margin-left: 115px;
+  width: auto;
 }
 
-input[type="text"]{
-  width: 300px;
-  /* height: 80px; */
-  -moz-appearance: none;
-  background: none;
+#yearMonthButton{
   border: none;
+  fill: none;
+  outline: none;
+  background: none;
+
+  width: 100%;
   color: var(--grey);
   display: inline-block;
   font-family: "Libre Barcode 39 Extended Text", cursive;
   font-size: 60px;
   font-weight: 500;
-  padding:0 6px;
+  text-align: center;
+
+  transition: color 1s ease-in-out, transform 2.5s ease-in-out;
+
+  cursor: -webkit-grab;
+  cursor: grab;
 }

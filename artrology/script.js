@@ -214,7 +214,7 @@ var acceleration = new Vector(0, 0);
 var shadeX = document.body.offsetWidth * 0.6;
 var shadeY = document.body.offsetHeight;
 var shadeV = new Vector(shadeX, shadeY);
-var canChangeAlpha = 0;
+//var canChangeAlpha = 0;
 //var eclipseSpeed = 0.125;
 var x = 0.5*window.innerWidth;
 var y = 1.5*window.innerHeight;
@@ -236,15 +236,25 @@ $window.resize(function(){
 
 var cursorLerpX = 0.005;
 var cursorLerpY = 0.005;
+var cursorLerpXdest = 0.07;
+var cursorLerpYdest = 0.06;
+
+var finishLerpCursorLerpX = false;
+var finishLerpCursorLerpY = false;
 function followCursor() {
   IDfollowCursor = requestAnimationFrame(followCursor);
   
-  if(Math.abs(cursorLerpY - 0.04) >= 0.002){cursorLerpY = lerp(cursorLerpY, 0.05, 0.005);}
-  else{cursorLerpY = 0.04;}
   if(start == false){
-    if(Math.abs(cursorLerpX - 0.06) >= 0.002){cursorLerpX = lerp(cursorLerpX, 0.06, 0.01);}
-    else{cursorLerpY = 0.06;}
+    if(!finishLerpCursorLerpX){
+      if(Math.abs(cursorLerpX - cursorLerpXdest) >= 0.002){cursorLerpX = lerp(cursorLerpX, cursorLerpXdest, 0.008);}
+      else{cursorLerpY = cursorLerpXdest; finishLerpCursorLerpY = true;}
+    }
+    
     x = lerp(x, mouseX, cursorLerpX);
+  }
+  if(!finishLerpCursorLerpY){
+    if(Math.abs(cursorLerpY - cursorLerpYdest) >= 0.002){cursorLerpY = lerp(cursorLerpY, cursorLerpYdest, 0.008);}
+    else{cursorLerpY = cursorLerpYdest; finishLerpCursorLerpX = true;}
   }
   y = lerp(y, mouseY, cursorLerpY);
 
@@ -297,9 +307,12 @@ function followCursor() {
     document.documentElement.style.setProperty("--eclipseA2", eclipseA2);
     //fadeInEcA1 = eclipseA1;
     //fadeInEcA2 = eclipseA2;
-  } else if (mouseState == 1 && eclipseR <= 0 && inputSubmitted == 1) {
-    if(inputSubmitted == 1){
-      randNum = Math.random() * (6 - 2) + 2;
+  } else if (mouseState == 1 && eclipseR <= 0 && (nameInputSubmitted == 1 || timeInputSubmitted)) {
+    if(nameInputSubmitted == 1){
+      randNum = Math.random() * (4.5 - 1.5) + 1.5;
+    }
+    else if(timeInputSubmitted){
+      randNum = Math.random() * (3.8 - 0.8) + 0.8;
     }
     let randSign = Math.random() * (0.1 + 0.1) - 0.1;
     randNum = randSign > 0 ? randNum : -1 * randNum;
@@ -342,24 +355,24 @@ function update(e) {
 
 function SLR1() {
   IDSLR = requestAnimationFrame(SLR1);
-  if (spotLightRadius < 30) {
-    canChange = 0;
+  if (spotLightRadius < 32) {
+    //canChange = 0;
     spotLightRadius += 0.125;
-    if (spotLightRadius > 30) {
-      spotLightRadius = 30;
+    if (spotLightRadius > 32) {
+      spotLightRadius = 32;
     }
   } 
-  else if(spotLightRadius > 30){
-    canChange = 0;
+  else if(spotLightRadius > 32){
+    //canChange = 0;
     spotLightRadius -= 0.125;
-    if (spotLightRadius < 30) {
-      spotLightRadius = 30;
+    if (spotLightRadius < 32) {
+      spotLightRadius = 32;
     }
   }
-  else {
-    canChange = 1;
-    //mouseStateUpdated = 0;
-  }
+  // else {
+  //   canChange = 1;
+  //   //mouseStateUpdated = 0;
+  // }
   
   document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
 }
@@ -367,42 +380,59 @@ function SLR1() {
 function SLR2() {
   IDSLR = requestAnimationFrame(SLR2);
   if (spotLightRadius < 42) {
-    canChange = 0;
+    //canChange = 0;
     spotLightRadius += 0.125;
     if (spotLightRadius > 42) {
       spotLightRadius = 42;
     }
-  } 
-  else {
-    canChange = 1;
-    //mouseStateUpdated = 0;
   }
+  else if(spotLightRadius > 42){
+    //canChange = 0;
+    spotLightRadius -= 0.125;
+    if (spotLightRadius < 42) {
+      spotLightRadius = 42;
+    }
+  } 
+  // else {
+  //   canChange = 1;
+  //   //mouseStateUpdated = 0;
+  // }
   document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
 }
 
 function SLR3() {
   IDSLR = requestAnimationFrame(SLR3);
-  if (spotLightRadius > 22) {
-    canChange = 0;
+  if (spotLightRadius > 24) {
+    //canChange = 0;
     spotLightRadius -= 0.125;
-  } else {
-    canChange = 1;
-    //mouseStateUpdated = 0;
+    if (spotLightRadius < 24) {
+      spotLightRadius = 24;
+    }
+  } 
+  else if(spotLightRadius < 24){
+    //canChange = 0;
+    spotLightRadius += 0.125;
+    if (spotLightRadius > 24) {
+      spotLightRadius = 24;
+    }
   }
-  if (spotLightRadius < 22) {
-    spotLightRadius = 22;
-  }
+  // else {
+  //   canChange = 1;
+  //   //mouseStateUpdated = 0;
+  // }
+  
   document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
 }
 
 function incEclipseR() {
   IDECR = requestAnimationFrame(incEclipseR);
   if (eclipseR < 23) {
-    canChangeEclipse = 0;
+    //canChangeEclipse = 0;
     eclipseR += 0.04;
-  } else {
-    canChangeEclipse = 1;
-  }
+  } 
+  // else {
+  //   canChangeEclipse = 1;
+  // }
   if (eclipseR > 23) {
     eclipseR = 23;
   }
@@ -412,11 +442,12 @@ function incEclipseR() {
 function incEclipseR2() {
   IDECR = requestAnimationFrame(incEclipseR2);
   if (eclipseR < 41.5) {
-    canChangeEclipse = 0;
+    //canChangeEclipse = 0;
     eclipseR += 0.06;
-  } else {
-    canChangeEclipse = 1;
-  }
+  } 
+  // else {
+  //   canChangeEclipse = 1;
+  // }
   if (eclipseR > 41.5) {
     eclipseR = 41.5;
   }
@@ -426,11 +457,12 @@ function incEclipseR2() {
 function decEclipseR() {
   IDECR = requestAnimationFrame(decEclipseR);
   if (eclipseR > 0) {
-    canChangeEclipse = 0;
+    //canChangeEclipse = 0;
     eclipseR -= 0.5;
-  } else {
-    canChangeEclipse = 1;
-  }
+  } 
+  // else {
+  //   canChangeEclipse = 1;
+  // }
   if (eclipseR < 0) {
     eclipseR = 0;
   }
@@ -440,7 +472,7 @@ function decEclipseR() {
 function eclipseFadeout() {
   IDECA = requestAnimationFrame(eclipseFadeout);
   if (eclipseA1 > 0.1 || eclipseA2 > 0.06) {
-    canChangeAlpha = 0;
+    //canChangeAlpha = 0;
     if (eclipseA1 > 0.02) {
       eclipseA1 -= 0.03125;
     } else if (eclipseA1 < 0.02) {
@@ -467,7 +499,7 @@ var IDSLR,
     IDECA,
     IDECR;
 function updateR() {
-  if (canChange == 1) {
+  //if (canChange == 1) {
     //if (mouseStateUpdated == 0) {
       //mouseStateUpdated = 1;
       //mouseState = (mouseState + 1) % 3;
@@ -500,7 +532,7 @@ function updateR() {
       // interv = setInterval(incR2, 1000 / frameRate);
       // eclipseInterv = setInterval(incEclipseR2, 1000 / frameRate);
     }
-  }
+  //}
 }
 
 
@@ -558,9 +590,9 @@ function adjustSettingFont(event){
 
     if(window.innerWidth < 800 && window.innerWidth >= 700){buttonFontSize = 50; modifiedButtonFontSize = buttonFontSize;}
     else if(window.innerWidth < 700 && window.innerWidth >= 540){buttonFontSize = 45; modifiedButtonFontSize = buttonFontSize;}
-    else if(window.innerWidth < 540 && window.innerWidth >= 400){buttonFontSize = 30; modifiedButtonFontSize = buttonFontSize; $settingButton.css("top", "65vh");}
-    else if(window.innerWidth < 400 && window.innerWidth >= 350){buttonFontSize = 25; modifiedButtonFontSize = buttonFontSize; $settingButton.css("top", "75vh");}
-    else if(window.innerWidth < 350){buttonFontSize = 20; modifiedButtonFontSize = buttonFontSize; $settingButton.css("top", "80vh");}
+    else if(window.innerWidth < 540 && window.innerWidth >= 400){buttonFontSize = 30; modifiedButtonFontSize = buttonFontSize;}
+    else if(window.innerWidth < 400 && window.innerWidth >= 350){buttonFontSize = 25; modifiedButtonFontSize = buttonFontSize;}
+    else if(window.innerWidth < 350){buttonFontSize = 20; modifiedButtonFontSize = buttonFontSize; }
 
     if(window.innerHeight < 600){
       buttonFontSize = Math.round(window.innerHeight * 0.09);
@@ -585,39 +617,56 @@ function adjustSettingFont(event){
 $document.ready(adjustSettingFont);
 $window.resize(adjustSettingFont);
 
-var filterOnHoverTimeOut;
-var filterOffHoverTimeOut;
 //hover button
-$filterOn.mouseover(function(){
-  if(setting == false){
-    clearTimeout(filterOnHoverTimeOut);
-    $filterOnText.html("lv<br>it<br>on");
-    $filterOnText.css("margin-left", "75px");
-  }
-})
-$filterOn.mouseleave(function(){
-  filterOnHoverTimeOut = setTimeout(function(){
-    if(setting == false){
-      $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
-      $filterOnText.css("margin-left", "0px");
-    }
-  }, 150);
-})
-$filterOff.mouseover(function(){
-  if(setting == false){
-    clearTimeout(filterOffHoverTimeOut);
-    $filterOffText.html("tk<br>it<br>of");
-    $filterOffText.css("margin-right", "55px");
-  }
-})
-$filterOff.mouseleave(function(){
-  filterOffHoverTimeOut  = setTimeout(function(){
-    if(setting == false){
-      $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
-      $filterOffText.css("margin-right", "0px");
-    }
-  }, 150);
-})
+setTimeout(function(){
+  $settingButton.one("mouseover", function(){
+    setTimeout(function(){
+      if(setting == false){
+        $filterOnText
+          .html('lev<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+        setTimeout(function(){
+          $filterOnText
+            .html('leve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 150);
+        setTimeout(function(){
+          $filterOnText
+            .html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 300);
+        setTimeout(function(){
+          $filterOnText
+            .html('l eave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 450);
+        setTimeout(function(){
+          $filterOnText
+            .html('l eav e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 600);
+        setTimeout(function(){
+          $filterOnText
+            .html('l e av e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 750);
+        setTimeout(function(){
+          $filterOnText
+            .html('l e a v e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 900);
+          
+        $filterOffText.html('tk<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+        setTimeout(function(){
+          $filterOffText
+            .html('tak<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 150);
+        setTimeout(function(){
+          $filterOffText
+            .html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 300);
+        setTimeout(function(){
+          $filterOffText
+            .html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 450);
+        setTimeout(function(){
+          $filterOffText
+            .html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 600);
+        setTimeout(function(){
+          $filterOffText
+            .html('ta k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 750);
+        setTimeout(function(){
+          $filterOffText
+            .html('t a k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 900);
+      }
+    }, 500);
+  });
+}, 1000);
+
 
 //click button
 $filterOn.click(function(){
@@ -636,7 +685,8 @@ $filterOn.click(function(){
     },1100);
     setTimeout(function(){$settingClass.css("display", "none");}, 2100);
 
-    $(this).off();
+    $filterOn.css("cursor", "grabbing");
+
     $filterOn.off();
     $filterOff.off();
   }
@@ -658,7 +708,8 @@ $filterOff.click(function(){
     },1100);
     setTimeout(function(){$settingClass.css("display", "none");}, 2100);
 
-    $(this).off();
+    $filterOff.css("cursor", "grabbing"); 
+    
     $filterOn.off();
     $filterOff.off();
   }
@@ -667,8 +718,8 @@ $filterOff.click(function(){
 /******************************spotlight*********************************/
 var mouseState = 1;
 //var frameRate = 75;
-var canChange = 1;
-var canChangeEclipse = 1;
+//var canChange = 1;
+//var canChangeEclipse = 1;
 
 var spotLightRadius = parseInt(
   getComputedStyle(document.documentElement).getPropertyValue("--radius"),
@@ -695,10 +746,14 @@ var fadeInEcA2 = eclipseA2;
 function startAnim(){
   if(start){
     setTimeout(function() {
-      addEvent(document, "mousemove", update);
+      mouseY = 0.2 * window.innerHeight;
+      cancelAnimationFrame(IDfollowCursor);
+      IDfollowCursor = requestAnimationFrame(followCursor);
     }, 5000);
     setTimeout(function() {
       start = false;
+      cursorLerpY = 0.005;
+      addEvent(document, "mousemove", update);
       cancelAnimationFrame(IDstart);
     }, 9000);
   }
@@ -731,6 +786,7 @@ $settingButton.one("click", function(){
 var SLCtimer;
 var sunsetStart = false;
 var backtoSpotLight = false;
+var nightStart = false;
 var LR1 = {val: 0, ID: undefined},
     LG1 = {val: 0, ID: undefined},
     LB1 = {val: 0, ID: undefined},
@@ -741,10 +797,18 @@ var LR1 = {val: 0, ID: undefined},
 var sunsetR1 = 61,
     sunsetG1 = 34,
     sunsetB1 = 35,
-    sunsetR2= 54,
-    sunsetG2 = 16,
-    sunsetB2 = 11,
+    sunsetR2= 76,
+    sunsetG2 = 17,
+    sunsetB2 = 6,
     sunsetA037 = 0.65;
+
+var nightR1 = 34,
+    nightG1 = 34,
+    nightB1 = 52,
+    nightR2= 23,
+    nightG2 = 30,
+    nightB2 = 48,
+    nightA037 = 0.65;
 
 function cancelSLCid(){
   cancelAnimationFrame(LR1.ID);
@@ -764,6 +828,7 @@ function sunsetColor(src, dst, varString, time=8000){
     easing: "easeInOutElastic", 
     step: function(now) {
       if(backtoSpotLight){return;}
+      if(nightStart){return;}
       src.val = Math.round(now);
       if(src.val > 255){src.val = 255;}
       else if(src.val < 0){src.val = 0;}
@@ -782,6 +847,46 @@ function sunsetAlpha(src, dst, varString, time=5000){
     easing: "easeInOutBack", 
     step: function(now) {
       if(backtoSpotLight){return;}
+      if(nightStart){return;}
+      src.val = now;
+      if(src.val > 1){src.val = 1;}
+      else if(src.val < 0){src.val = 0;}
+      document.documentElement.style.setProperty(varString, src.val);
+    },
+    complete: function(){ 
+      cancelAnimationFrame(src.ID);
+    }
+  });
+}
+
+function nightColor(src, dst, varString, time=8000){
+  if(src.val == dst){ return; }
+  let curColor = src.val;
+  $({ c: curColor }).stop().animate({ c: dst }, {
+    duration: time,
+    easing: "easeInOutElastic", 
+    step: function(now) {
+      if(backtoSpotLight){return;}
+      if(sunsetStart){return;}
+      src.val = Math.round(now);
+      if(src.val > 255){src.val = 255;}
+      else if(src.val < 0){src.val = 0;}
+      document.documentElement.style.setProperty(varString, src.val);
+    },
+    complete: function(){ 
+      cancelAnimationFrame(src.ID);
+    }
+  });
+}
+function nightAlpha(src, dst, varString, time=5000){
+  if(src.val == dst){ return; }
+  let curAlpha = src.val;
+  $({ a: curAlpha }).stop().animate({ a: dst }, {
+    duration: time,
+    easing: "easeInOutBack", 
+    step: function(now) {
+      if(backtoSpotLight){return;}
+      if(sunsetStart){return;}
       src.val = now;
       if(src.val > 1){src.val = 1;}
       else if(src.val < 0){src.val = 0;}
@@ -801,6 +906,7 @@ function spotlightColor(src, dst, varString, time=8000){
     easing: "easeInOutQuad", 
     step: function(now) {
       if(sunsetStart){return;}
+      if(nightStart){return;}
       src.val = Math.round(now);
       if(src.val > 255){src.val = 255;}
       else if(src.val < 0){src.val = 0;}
@@ -819,6 +925,7 @@ function spotlightAlpha(src, dst, varString, time=5000){
     easing: "easeInOutQuad", 
     step: function(now) {
       if(sunsetStart){return;}
+      if(nightStart){return;}
       src.val = now;
       if(src.val > 1){src.val = 1;}
       else if(src.val < 0){src.val = 0;}
@@ -1073,6 +1180,8 @@ function cloudOcDrift(){
 /*******************plaintext font size******************************** */
 var $rotateTextOne = $(".rotateTextOne");
 var $rotateTextTwo = $(".rotateTextTwo");
+var $plaintext = $(".plaintext");
+var $timeInput = $("#timeInput");
 
 var plaintextFontSize = 30;
 var moonMarginL = 6;
@@ -1080,11 +1189,16 @@ var hMarginL = 6;
 var hFontSize = 72;
 function adjustElementSize(){
   if(window.innerWidth < 1000 && window.innerWidth >= 800){
-    plaintextFontSize = 28; moonMarginL = 5; 
+    plaintextFontSize = 28; 
+    moonMarginL = 5; 
     hFontSize = 66;
     $rotateTextOne.css("display", "inline-block");
     $rotateTextTwo.css("display", "inline-block");
     $h1.text("Self-Help Guide : Artrology");
+    $yearMonthButton.css("display", "inline-block");
+    timeButtonMouseOverFunc = 0;
+    $plaintext.css("margin-right", "35%");
+    $timeInput.css("width", "55%");
   }
   else if(window.innerWidth < 800 && window.innerWidth >= 700){
     plaintextFontSize = 26; 
@@ -1093,6 +1207,10 @@ function adjustElementSize(){
     $rotateTextOne.css("display", "inline-block");
     $rotateTextTwo.css("display", "inline-block");
     $h1.text("Self-Help Guide : Artrology");
+    $yearMonthButton.css("display", "inline-block");
+    timeButtonMouseOverFunc = 0;
+    $plaintext.css("margin-right", "35%");
+    $timeInput.css("width", "55%");
   }
   else if(window.innerWidth < 700 && window.innerWidth >= 600){
     plaintextFontSize = 24;
@@ -1102,6 +1220,10 @@ function adjustElementSize(){
     $rotateTextOne.css("display", "none");
     $rotateTextTwo.css("display", "none");
     $h1.text("Self-Help Guide : Artrology");
+    $yearMonthButton.css("display", "initial");
+    timeButtonMouseOverFunc = 1;
+    $plaintext.css("margin-right", "18px");
+    $timeInput.css("width", "100%");
   }
   else if(window.innerWidth < 600 && window.innerWidth >= 500){
     plaintextFontSize = 22;
@@ -1111,6 +1233,10 @@ function adjustElementSize(){
     $rotateTextOne.css("display", "none");
     $rotateTextTwo.css("display", "none");
     $h1.text("Self-Help Guide : Artrology");
+    $yearMonthButton.css("display", "initial");
+    timeButtonMouseOverFunc = 1;
+    $plaintext.css("margin-right", "18px");
+    $timeInput.css("width", "100%");
   }
   else if(window.innerWidth < 500 && window.innerWidth >= 400){
     plaintextFontSize = 20;
@@ -1120,6 +1246,10 @@ function adjustElementSize(){
     $rotateTextOne.css("display", "none");
     $rotateTextTwo.css("display", "none");
     $h1.text("Self-Help Guide : Art-trology");
+    $yearMonthButton.css("display", "initial");
+    timeButtonMouseOverFunc = 1;
+    $plaintext.css("margin-right", "18px");
+    $timeInput.css("width", "100%");
   }
   else if(window.innerWidth <400){
     plaintextFontSize = 20; 
@@ -1129,6 +1259,10 @@ function adjustElementSize(){
     $rotateTextOne.css("display", "none");
     $rotateTextTwo.css("display", "none");
     $h1.text("Self-Help Guide : Art-trology");
+    $yearMonthButton.css("display", "initial");
+    timeButtonMouseOverFunc = 1;
+    $plaintext.css("margin-right", "18px");
+    $timeInput.css("width", "100%");
   }
   else{
     plaintextFontSize = 30; 
@@ -1139,6 +1273,10 @@ function adjustElementSize(){
     $rotateTextOne.css("display", "inline-block");
     $rotateTextTwo.css("display", "inline-block");
     $h1.text("Self-Help Guide : Artrology");
+    $yearMonthButton.css("display", "inline-block");
+    timeButtonMouseOverFunc = 0;
+    $plaintext.css("margin-right", "35%");
+    $timeInput.css("width", "55%");
   }
   document.documentElement.style.setProperty("--plaintextFontSize", plaintextFontSize + "px");
   document.documentElement.style.setProperty("--moonMarginL", moonMarginL + "vw");
@@ -1274,18 +1412,17 @@ var nameTextEnd = 3;
 var timeTextStart = 4;
 var timeTextEnd = 4;
 
-var moonClickTimeOut;
-$rotateBackCircle.click(function () {
-  console.log("moon clicked");
+//var moonClickTimeOut;
+$rotate.click(function () {
   // clearTimeout(moonClickTimeOut);
   // moonClickTimeOut = setTimeout(function(){
-    if(start == false && canChange == 1 ){
+                      //&& canChange == 1 ){
+  if(start == false){ 
       //moonCount = (moonCount + 1) % 3;
       if(moonCanSwitch0){moonCount = 0; moonCanSwitch0 = false;}
       else if(moonCanSwitch1){moonCount = 1; moonCanSwitch1 = false;}
       else if(moonCanSwitch2){moonCount = 2; moonCanSwitch2 = false;}
       else{moonCount = -1;}
-      console.log(moonCount);
 
       if (moonCount == 1) {
         $namesDiv.css("display", "initial");
@@ -1331,30 +1468,41 @@ $rotateBackCircle.click(function () {
         $namesDiv.removeClass("hideRotateLeft");
         $timesDiv.removeClass("showRotateLeft");
         $timesDiv.toggleClass("hideRotateLeft");
-        $htmlAndBody.animate({ scrollTop: 0 }, "slow");
+        $htmlAndBody.animate({ scrollTop: $rotateBackCircle.offset().top / 3 }, "slow");
         moonCountTimeOut = setTimeout(function(){
           if($timesDiv.css("opacity") == "0"){$timesDiv.css("display", "none"); moonCanSwitch1 = true;}
         }, 1200);
       }
       
+      nameInputSubmitted = 0;
+      timeInputSubmitted = false;
+
       sunsetStart = false;
+      nightStart = false;
       backtoSpotLight = true;
       clearTimeout(SLCtimer);
       SLCtimer = setTimeout(function() {
         mouseState = 1;
         updateR();
         cancelSLCid();
-        LR1.ID = requestAnimationFrame(function(){spotlightColor(LR1, 0, "--LR1", 7000);});
+        LR1.ID = requestAnimationFrame(function(){spotlightColor(LR1, 0, "--LR1");});
         LG1.ID = requestAnimationFrame(function(){spotlightColor(LG1, 0, "--LG1");});
-        LB1.ID = requestAnimationFrame(function(){spotlightColor(LB1, 0, "--LB1", 9500);});
-        LR2.ID = requestAnimationFrame(function(){spotlightColor(LR2, 0, "--LR2", 7000);});
+        LB1.ID = requestAnimationFrame(function(){spotlightColor(LB1, 0, "--LB1");});
+        LR2.ID = requestAnimationFrame(function(){spotlightColor(LR2, 0, "--LR2");});
         LG2.ID = requestAnimationFrame(function(){spotlightColor(LG2, 0, "--LG2");});
-        LB2.ID = requestAnimationFrame(function(){spotlightColor(LB2, 0, "--LB2", 9500);});
+        LB2.ID = requestAnimationFrame(function(){spotlightColor(LB2, 0, "--LB2");});
         LA037.ID = requestAnimationFrame(function(){spotlightAlpha(LA037, 0.37, "--LA0-37");});
       }, 500);
     }
-  // }, 100);
+   //}, 100);
 });
+
+$rotate.mousedown(function(){
+  $rotate.css("cursor", "grabbing");
+});
+$rotate.mouseup(function(){
+  $rotate.css("cursor", "grab");
+})
 
 $rotateBackCircle.mouseover(function(){
   $rotateBackCircle.css("box-shadow", "0px 0px 10px #232323, 0px 0px 10px #3f3d52, 0px 0px 10px #3f3d52, 0px 0px 10px #232323")
@@ -1434,7 +1582,7 @@ addEvent(borderName, animationEndEvent, function (e) {
     validAnimationEnd = 1;
     if (bufferRevealBarCode == 1) {
       let checkName = document.getElementsByClassName("check")[0];
-      if (inputFocused == 1 && inputSubmitted == 0) {
+      if (inputFocused == 1 && nameInputSubmitted == 0) {
         checkName.style.opacity = "1";
         let border = checkName.previousElementSibling;
         border.style.opacity = "0";
@@ -1461,7 +1609,7 @@ JQinput.on("input", function () {
 
 //check if focus and blur if focused
 var inputFocused = 0;
-var inputSubmitted = 0;
+var nameInputSubmitted = 0;
 
 var $allNotNameInput = $("* :not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(body)");
 // var JQbodyNswitch = $("body > *:not(.switchDiv)");
@@ -1469,7 +1617,7 @@ var $allNotNameInput = $("* :not(#nameInput):not(.inp):not(#inp):not(.border):no
 var $inp = $(".inp");
 function inputFocusIn() {
   inputFocused = 1;
-  inputSubmitted = 0;
+  nameInputSubmitted = 0;
   $allNotNameInput.addClass("inputFocused");
 
   $inp.css("filter", "blur(1px)");
@@ -1497,7 +1645,7 @@ var bufferRevealBarCode = 0;
 JQcheck.mouseover(function () {
   if (validAnimationEnd == 1) {
     bufferRevealBarCode = 0;
-    if (inputFocused == 1 && inputSubmitted == 0) {
+    if (inputFocused == 1 && nameInputSubmitted == 0) {
       this.style.opacity = "1";
       let border = this.previousElementSibling;
       border.style.opacity = "0";
@@ -1527,7 +1675,8 @@ addEvent(JSinput, "invalid", function () {
 
 var nameData = "";
 JQcheck.mousedown(function () {
-  if (inputFocused == 1 && JSinput.checkValidity() && canChange == 1) {
+                                                    //&& canChange == 1) {
+  if (inputFocused == 1 && JSinput.checkValidity()){ 
     let input = this.previousElementSibling.previousElementSibling;
     this.style.opacity = "0";
     let border = this.previousElementSibling;
@@ -1536,11 +1685,12 @@ JQcheck.mousedown(function () {
     validity = false;
     nameData = input.value; //get val
     input.value = "";
-    inputSubmitted = 1;
+    nameInputSubmitted = 1;
     input.blur();
 
     //change spotlight state
     sunsetStart = true;
+    nightStart = false;
     backtoSpotLight = false;
     clearTimeout(SLCtimer);
     SLCtimer = setTimeout(function() {
@@ -1564,7 +1714,9 @@ var frameRate = 60;
 
 var $TIcircle = $("#circle");
 var $TIslider = $("#slider");
+var $TIcontainer = $("#TIcontainer");
 var timeContainer = document.getElementById("timeContainer");
+var $yearMonthButton = $("#yearMonthButton");
 var IDsliderRotate,
     IDcircleRotate;
 //slider vars    
@@ -1585,6 +1737,9 @@ var TIcircleX = 0.
     TIcircleY = 0;
 var circleMdown = false;
 
+var yearSubmitted = "";
+var monthSubmitted = "";
+
 //time input funcs
 var curYear = new Date().getFullYear();
 var yearVal = curYear;
@@ -1594,7 +1749,7 @@ var lastMonthVal = curMonth;
 var lap = 0;
 var direction = 0;
 var changeVal = 1;
-var monthPadding = "";
+var monthPadding = monthVal >= 10 ? "" : "0";
 var degIncrement = 30;
 
 function rotateSlider(deg){
@@ -1644,9 +1799,10 @@ function rotateCircle(deg){
   }
 }
 
+$document.ready(function(){$yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);})
 function calculateTime(deg){
   deg = Math.round(deg);
-  monthVal = (curMonth - 5 + Math.ceil(deg / 30)) % 12 + 1;
+  monthVal = (curMonth + Math.ceil(deg / 30)) % 12 + 1;
   if(sliderMdown && circleMdown == false){
     if(monthVal == 1 && lastMonthVal == 12){
       yearVal += changeVal;
@@ -1679,13 +1835,15 @@ function calculateTime(deg){
   
   if(monthVal < 10){monthPadding = "0";}
   else{monthPadding = "";}
-  $('input[name="monthnyear"]').val(yearVal + " . " + monthPadding + monthVal);
+  $yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);
 }
 
 //events
 //mouse up window
 var TIcircle = document.getElementById("circle"),
     TIslider = document.getElementById("slider");
+var TIMdown = false;
+
 $window.mouseup(function () {
   if(moonCount == 2){
     clearTimeout(sliderTimeOut);
@@ -1698,14 +1856,16 @@ $window.mouseup(function () {
     lap = 0;
     changeVal = 1;
     degIncrement = 30;
-    blurMdown = false;
+    TIMdown = false;
     TIcircle.style.setProperty("--circleBlur", "4.5px");
     TIslider.style.setProperty("--sliderBlur", "4.5px");
     timeContainer.style.setProperty("--timeContainerBlur", "3px");
+
+    $(document.body).css("cursor", "pointer");
   }
 });
 //slider mouse down
-var blurMdown = false;
+
 let sliderMDPos = { x: sliderPos.x - elPos.x, y: sliderPos.y - elPos.y };
 let sliderAtan = Math.atan2(sliderMDPos.x - sliderRadius, sliderMDPos.y - sliderRadius);
 var sliderDeg = -sliderAtan / (Math.PI / 180) + 180;
@@ -1713,11 +1873,14 @@ var sliderTimeOut;
 $TIslider.mousedown(function () {
   clearTimeout(sliderTimeOut);
   sliderTimeOut = setTimeout(function(){
-    blurMdown = true;
+    TIMdown = true;
     sliderMdown = true;
+    timeInputSubmitted = false;
     TIslider.style.setProperty("--sliderBlur", "1.25px");
     timeContainer.style.setProperty("--timeContainerBlur", "1px");
     IDsliderRotate = requestAnimationFrame(function(){rotateSlider(sliderDeg);});
+
+    $(document.body).css("cursor", "grabbing");
   }, 400);
 });
 //circle mouse down
@@ -1729,27 +1892,94 @@ $TIcircle.mousedown(function () {
   clearTimeout(circleTimeOut);
   circleTimeOut = setTimeout(function(){
     circleMdown = true;
-    blurMdown = true;
+    TIMdown = true;
+    timeInputSubmitted = false;
     TIcircle.style.setProperty("--circleBlur", "1.25px");
     timeContainer.style.setProperty("--timeContainerBlur", "1px");
     IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
+
+    $(document.body).css("cursor", "grabbing");
   }, 400);
 });
 
+
 $TIcircle.mouseover(function(){
-  if(blurMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "1px");}
+  if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "1px");}
 })
 $TIcircle.mouseleave(function(){
-  if(blurMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
+  if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
 })
 $TIslider.mouseover(function(){
-  if(blurMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "1px");}
+  if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "1px");}
 })
 $TIslider.mouseleave(function(){
-  if(blurMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
+  if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
 })
 
+var timeContainerTimeOut;
+var timeButtonMouseOverFunc = 0;
+addEvent(timeContainer, "mouseover", function(){
+  if(!TIMdown){
+    clearTimeout(timeContainerTimeOut);
+    timeContainerTimeOut = setTimeout(function(){
+      if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "1px");}
 
+      if(timeButtonMouseOverFunc == 0){
+        timeContainer.style.setProperty("padding-left", "60px");
+        timeContainer.style.setProperty("padding-right", "60px");
+        let yearStr = yearVal.toString();
+        $yearMonthButton.text(yearStr.charAt(2) + yearStr.charAt(3) + "." + monthVal);
+      }
+      else{
+        $yearMonthButton.css("color", "#c4c2cc");
+      }
+    }, 100);
+  }
+});
+addEvent(timeContainer, "mouseleave", function(){
+  if(!TIMdown){
+    clearTimeout(timeContainerTimeOut);
+    timeContainerTimeOut = setTimeout(function(){
+      if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
+      timeContainer.style.setProperty("padding-left", "0px");
+      timeContainer.style.setProperty("padding-right", "0px");
+      $yearMonthButton.css("color", "#2a2835");
+      $yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);
+    }, 100);
+  }
+});
 
+var timeInputSubmitted = false;
+
+$yearMonthButton.click(function(){
+  yearSubmitted = yearVal;
+  monthSubmitted = monthVal;
+  timeInputSubmitted = true;
+  console.log(yearSubmitted + " . " + monthSubmitted);
+
+  //change spotlight state
+  sunsetStart = false;
+  backtoSpotLight = false;
+  nightStart = true;
+  clearTimeout(SLCtimer);
+  SLCtimer = setTimeout(function() {
+    mouseState = 2;
+    updateR();
+    cancelSLCid();
+    LR1.ID = requestAnimationFrame(function(){nightColor(LR1, nightR1, "--LR1");});
+    LG1.ID = requestAnimationFrame(function(){nightColor(LG1, nightG1, "--LG1");});
+    LB1.ID = requestAnimationFrame(function(){nightColor(LB1, nightB1, "--LB1", 8500);});
+    LR2.ID = requestAnimationFrame(function(){nightColor(LR2, nightR2, "--LR2");});
+    LG2.ID = requestAnimationFrame(function(){nightColor(LG2, nightG2, "--LG2", 7900);});
+    LB2.ID = requestAnimationFrame(function(){nightColor(LB2, nightB2, "--LB2", 9000);});
+    LA037.ID = requestAnimationFrame(function(){nightAlpha(LA037, nightA037, "--LA0-37");});
+  }, 500);
+});
+$yearMonthButton.mousedown(function(){
+  $yearMonthButton.css("cursor", "grabbing");
+});
+$yearMonthButton.mouseup(function(){
+  $yearMonthButton.css("cursor", "grab");
+});
 
 /*******************showSign*************************************/
