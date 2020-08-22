@@ -236,8 +236,8 @@ $window.resize(function(){
 
 var cursorLerpX = 0.005;
 var cursorLerpY = 0.005;
-var cursorLerpXdest = 0.07;
-var cursorLerpYdest = 0.06;
+var cursorLerpXdest = 0.065;
+var cursorLerpYdest = 0.055;
 
 var finishLerpCursorLerpX = false;
 var finishLerpCursorLerpY = false;
@@ -977,7 +977,7 @@ function bodyRotate(e){
   if(sx > screenMax){sx = screenMax;}
   else if (sx < screenMin){sx = screenMin;}
 
-  if(setting){leftDeg = -4; rightDeg = 8;} 
+  if(setting){leftDeg = -4; rightDeg = 6;} 
   bodyRY = Math.round(scale(sx, screenMin, screenMax, leftDeg, rightDeg));
   document.body.style.setProperty("--bodyRotateY", bodyRY+"deg");
   //let sy = e.screenY;
@@ -1185,13 +1185,14 @@ var $timeInput = $("#timeInput");
 
 var plaintextFontSize = 30;
 var moonMarginL = 6;
-var hMarginL = 6;
+var hMarginL = 5;
 var hFontSize = 72;
 function adjustElementSize(){
   if(window.innerWidth < 1000 && window.innerWidth >= 800){
     plaintextFontSize = 28; 
     moonMarginL = 5; 
     hFontSize = 66;
+    hMarginL = 5; 
     $rotateTextOne.css("display", "inline-block");
     $rotateTextTwo.css("display", "inline-block");
     $h1.text("Self-Help Guide : Artrology");
@@ -1204,6 +1205,7 @@ function adjustElementSize(){
     plaintextFontSize = 26; 
     moonMarginL = 5; 
     hFontSize = 60;
+    hMarginL = 5; 
     $rotateTextOne.css("display", "inline-block");
     $rotateTextTwo.css("display", "inline-block");
     $h1.text("Self-Help Guide : Artrology");
@@ -1268,7 +1270,7 @@ function adjustElementSize(){
     plaintextFontSize = 30; 
     moonScale = 1; 
     moonMarginL = 6; 
-    hMarginL = 3; 
+    hMarginL = 5; 
     hFontSize = 75;
     $rotateTextOne.css("display", "inline-block");
     $rotateTextTwo.css("display", "inline-block");

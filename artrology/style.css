@@ -24,7 +24,7 @@
 
   --plaintextFontSize: 30px;
   --moonScale: 1;
-  --hMarginL: 6vw;
+  --hMarginL: 5vw;
   --moonMarginL: 6vw;
   --hFontSize: 75px;
   /* Hide scrollbar for IE, Edge and Firefox */
@@ -204,7 +204,7 @@ body.svgFilter{
   float: right;
 }
 
-* :not(body){
+body > *{
   transition: transform 2.5s ease-in-out;
   transform: perspective(2000px) rotateY(var(--bodyRotateY)); 
 }
@@ -253,7 +253,7 @@ h1 {
   padding: 10px, 0px;
   margin-top: 12%;
   margin-left: var(--hMarginL);
-  margin-bottom: 45px;
+  margin-bottom: 10vh;
   font-family: "Libre Barcode 39 Extended Text", cursive;
 
   transition: opacity 4s ease-in-out, transform 2s ease-in-out, -webkit-filter 4s ease-in-out;
@@ -267,7 +267,6 @@ h1 {
 
   color: #1b1b24;
   font-size: var(--hFontSize);
-  max-width: 90%;
 }
 
 .plaintext {
