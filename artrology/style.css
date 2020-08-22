@@ -84,12 +84,11 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+
   background-image: no-repeat url('./img/paperBG.png') 0 0;
   background-color: #ebebeb;
   background-repeat: repeat;
   position: relative;
-  clear: both;
   -webkit-filter: blur(1px);
           filter: blur(1px);
 }
@@ -111,6 +110,7 @@ body.svgFilter{
   z-index: 6;
 
   transition: transform 2.5s ease-in-out, opacity 1s ease-in-out;
+  transform: perspective(2000px) rotateY(var(--bodyRotateY));
   -webkit-filter: blur(0.9px);
           filter: blur(0.9px);
 }
@@ -150,7 +150,7 @@ body.svgFilter{
 
   width: 100%;
   height: 20vh;
-  border: 1px solid transparent;
+  border: 0.011px solid transparent;
   text-align: center;
   font-family: "Libre Barcode 39 Extended Text", cursive;
   font-size: 55px;
@@ -160,7 +160,7 @@ body.svgFilter{
 
 #filterOn{
   position:fixed;
-  border: 1px solid transparent;
+  border: 0.01px solid transparent;
   outline: none;
   fill: none;
   background: none;
@@ -175,7 +175,7 @@ body.svgFilter{
 }
 #filterOff{
   position:fixed;
-  border: 1px solid transparent;
+  border: 0.01px solid transparent;
   background: none;
   outline: none;
   fill: none;
@@ -204,12 +204,20 @@ body.svgFilter{
   float: right;
 }
 
-body > *{
+#bodyRotate{ 
+  /* clear: both; */
+  background: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  margin-bottom: 25vh;
+  border: 0.01px solid transparent;
   transition: transform 2.5s ease-in-out;
   transform: perspective(2000px) rotateY(var(--bodyRotateY)); 
 }
 
-* :not(.switchDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(body).inputFocused{
+* :not(.switchDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(body):not(#bodyRotate).inputFocused{
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1.5s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
@@ -253,7 +261,7 @@ h1 {
   padding: 10px, 0px;
   margin-top: 12%;
   margin-left: var(--hMarginL);
-  margin-bottom: 10vh;
+  margin-bottom: 100px;
   font-family: "Libre Barcode 39 Extended Text", cursive;
 
   transition: opacity 4s ease-in-out, transform 2s ease-in-out, -webkit-filter 4s ease-in-out;
@@ -530,6 +538,7 @@ h1 {
   font-weight: bold;
   color: var(--unfocused);
   opacity: 0;
+  cursor: pointer;
 }
 
 #inp {

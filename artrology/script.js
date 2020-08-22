@@ -426,15 +426,15 @@ function SLR3() {
 
 function incEclipseR() {
   IDECR = requestAnimationFrame(incEclipseR);
-  if (eclipseR < 23) {
+  if (eclipseR < 24) {
     //canChangeEclipse = 0;
     eclipseR += 0.04;
   } 
   // else {
   //   canChangeEclipse = 1;
   // }
-  if (eclipseR > 23) {
-    eclipseR = 23;
+  if (eclipseR > 24) {
+    eclipseR = 24;
   }
   document.documentElement.style.setProperty("--eclipseR", eclipseR + "vmax");
 }
@@ -536,7 +536,7 @@ function updateR() {
 }
 
 
-$htmlAndBody.animate({ scrollTop: 0 }, "slow");
+$htmlAndBody.animate({ scrollTop: 0 }, 1000);
 /*****************************filter setting*************************** */
 var setting = false;
 var $settingClass = $(".setting");
@@ -760,11 +760,11 @@ function startAnim(){
 }
 function darknessStartAnim(){
   cancelAnimationFrame(IDdarkness);
-  if(Math.abs(darkness - 0.93) >= 0.005){
-    darkness = lerp(darkness, 0.93, 0.005);
+  if(Math.abs(darkness - 0.94) >= 0.0005){
+    darkness = lerp(darkness, 0.94, 0.001);
     IDdarkness = requestAnimationFrame(darknessStartAnim);
   }
-  else{darkness = 0.93; }
+  else{darkness = 0.94; }
   document.documentElement.style.setProperty("--darkness", darkness);
 }
 
@@ -970,14 +970,14 @@ function hblurAnim(){
 var bodyRY = parseInt(getComputedStyle(document.body).getPropertyValue("--bodyRotateY"),10);
 var screenMax = 0.6 * window.screen.width;
 var screenMin = -1*window.screen.width/2 + 0.04 * window.screen.width;
-var leftDeg = -1.5;
-var rightDeg = 1.5;
+var leftDeg = -2.5;
+var rightDeg = 2.5;
 function bodyRotate(e){
   let sx = e.screenX - window.screen.width/2;
   if(sx > screenMax){sx = screenMax;}
   else if (sx < screenMin){sx = screenMin;}
 
-  if(setting){leftDeg = -4; rightDeg = 6;} 
+  if(setting){leftDeg = -3; rightDeg = 6;} 
   bodyRY = Math.round(scale(sx, screenMin, screenMax, leftDeg, rightDeg));
   document.body.style.setProperty("--bodyRotateY", bodyRY+"deg");
   //let sy = e.screenY;
@@ -1470,7 +1470,9 @@ $rotate.click(function () {
         $namesDiv.removeClass("hideRotateLeft");
         $timesDiv.removeClass("showRotateLeft");
         $timesDiv.toggleClass("hideRotateLeft");
-        $htmlAndBody.animate({ scrollTop: $rotateBackCircle.offset().top / 3 }, "slow");
+        let scrollDest = $rotateBackCircle.offset().top - 0.8 * window.innerHeight;
+        if (scrollDest < 0){scrollDest = 0;}
+        $htmlAndBody.animate({ scrollTop: scrollDest}, 1000);
         moonCountTimeOut = setTimeout(function(){
           if($timesDiv.css("opacity") == "0"){$timesDiv.css("display", "none"); moonCanSwitch1 = true;}
         }, 1200);
