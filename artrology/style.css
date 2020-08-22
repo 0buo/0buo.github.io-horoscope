@@ -99,7 +99,7 @@ body.svgFilter{
 }
 
 .setting{
-  --settingFontSize: 59px;
+  --settingFontSize: 57px;
   --smallerSettingFontSize: 50px;
   position: absolute;
   top: 0;
@@ -126,6 +126,8 @@ body.svgFilter{
   /* overflow-y: auto;
   overflow-x: hidden; */
 
+  padding-left: 1.5vw;
+  padding-right: 1.5vw;
   text-align: left;
   color: white;
   font-family: 'Codystar', cursive;

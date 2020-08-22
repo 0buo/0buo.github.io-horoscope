@@ -560,8 +560,8 @@ function adjustSettingFont(event){
     let modifiedBlur;
     let modifiedButtonFontSize;
 
-    if(window.innerHeight < 1000){settingFontSize = Math.round(window.innerWidth * 0.021);}
-    else{settingFontSize = Math.round(window.innerWidth * 0.023);}
+    if(window.innerHeight < 1000){settingFontSize = Math.round(window.innerWidth * 0.02);}
+    else{settingFontSize = Math.round(window.innerWidth * 0.0215);}
     if(settingFontSize < 20){settingFontSize = 20;}
     settingDOM.style.setProperty("--settingFontSize", settingFontSize + "px");
     let smaller = Math.round(settingFontSize*0.85)
@@ -618,54 +618,79 @@ $document.ready(adjustSettingFont);
 $window.resize(adjustSettingFont);
 
 //hover button
-setTimeout(function(){
-  $settingButton.one("mouseover", function(){
-    setTimeout(function(){
-      if(setting == false){
+$settingButton.one("mouseover", function(){
+  setTimeout(function(){
+    if(setting == false){
+      $filterOnText
+        .html('lev<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+      setTimeout(function(){
         $filterOnText
-          .html('lev<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
-        setTimeout(function(){
-          $filterOnText
-            .html('leve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 150);
-        setTimeout(function(){
-          $filterOnText
-            .html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 300);
-        setTimeout(function(){
-          $filterOnText
-            .html('l eave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 450);
-        setTimeout(function(){
-          $filterOnText
-            .html('l eav e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 600);
-        setTimeout(function(){
-          $filterOnText
-            .html('l e av e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 750);
-        setTimeout(function(){
-          $filterOnText
-            .html('l e a v e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 900);
+          .html('leve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 150);
+      setTimeout(function(){
+        $filterOnText
+          .html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 300);
+      setTimeout(function(){
+        $filterOnText
+          .html('l eave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 450);
+      setTimeout(function(){
+        $filterOnText
+          .html('l eav e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 600);
+      setTimeout(function(){
+        $filterOnText
+          .html('l e av e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 750);
+      setTimeout(function(){
+        $filterOnText
+          .html('l e a v e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 900);
+      setTimeout(function(){
+        $filterOnText
+          .html('l e a ve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1000);
+      setTimeout(function(){
+        $filterOnText
+          .html('le a ve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1100);
+      setTimeout(function(){
+        $filterOnText
+          .html('le ave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1200);
+      setTimeout(function(){
+        $filterOnText
+          .html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1300);  
           
-        $filterOffText.html('tk<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
-        setTimeout(function(){
-          $filterOffText
-            .html('tak<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 150);
-        setTimeout(function(){
-          $filterOffText
-            .html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 300);
-        setTimeout(function(){
-          $filterOffText
-            .html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 450);
-        setTimeout(function(){
-          $filterOffText
-            .html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 600);
-        setTimeout(function(){
-          $filterOffText
-            .html('ta k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 750);
-        setTimeout(function(){
-          $filterOffText
-            .html('t a k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 900);
-      }
-    }, 500);
-  });
-}, 1000);
+      $filterOffText.html('tk<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+      setTimeout(function(){
+        $filterOffText
+          .html('tak<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 150);
+      setTimeout(function(){
+        $filterOffText
+          .html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 300);
+      setTimeout(function(){
+        $filterOffText
+          .html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 450);
+      setTimeout(function(){
+        $filterOffText
+          .html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 600);
+      setTimeout(function(){
+        $filterOffText
+          .html('ta k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 750);
+      setTimeout(function(){
+        $filterOffText
+          .html('t a k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 900);
+      setTimeout(function(){
+        $filterOffText
+          .html('t a ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1000);
+      setTimeout(function(){
+        $filterOffText
+          .html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1100);
+      setTimeout(function(){
+        $filterOffText
+          .html('t a ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1200);
+      setTimeout(function(){
+        $filterOffText
+          .html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1300);
+      setTimeout(function(){
+        $filterOffText
+          .html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1400);
+    }
+  }, 500);
+});
 
 
 //click button
@@ -970,8 +995,8 @@ function hblurAnim(){
 var bodyRY = parseInt(getComputedStyle(document.body).getPropertyValue("--bodyRotateY"),10);
 var screenMax = 0.6 * window.screen.width;
 var screenMin = -1*window.screen.width/2 + 0.04 * window.screen.width;
-var leftDeg = -2.5;
-var rightDeg = 2.5;
+var leftDeg = -3;
+var rightDeg = 3;
 function bodyRotate(e){
   let sx = e.screenX - window.screen.width/2;
   if(sx > screenMax){sx = screenMax;}
