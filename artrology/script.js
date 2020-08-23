@@ -247,14 +247,14 @@ function followCursor() {
   if(start == false){
     if(!finishLerpCursorLerpX){
       if(Math.abs(cursorLerpX - cursorLerpXdest) >= 0.002){cursorLerpX = lerp(cursorLerpX, cursorLerpXdest, 0.008);}
-      else{cursorLerpY = cursorLerpXdest; finishLerpCursorLerpY = true;}
+      else{cursorLerpX = cursorLerpXdest; finishLerpCursorLerpX = true;}
     }
     
     x = lerp(x, mouseX, cursorLerpX);
   }
   if(!finishLerpCursorLerpY){
     if(Math.abs(cursorLerpY - cursorLerpYdest) >= 0.002){cursorLerpY = lerp(cursorLerpY, cursorLerpYdest, 0.008);}
-    else{cursorLerpY = cursorLerpYdest; finishLerpCursorLerpX = true;}
+    else{cursorLerpY = cursorLerpYdest; finishLerpCursorLerpY = true;}
   }
   y = lerp(y, mouseY, cursorLerpY);
 
