@@ -1464,7 +1464,8 @@ $rotate.click(function () {
         $timesDiv.removeClass("hideRotateLeft");
         $namesDiv.toggleClass("showRotateLeft");
         setTimeout(function(){
-          if($namesDiv.css("opacity") == "1"){moonCanSwitch2 = true; console.log(moonCanSwitch2);}
+          if($namesDiv.css("opacity") == "1"){moonCanSwitch2 = true;}
+          console.log($namesDiv.css("opacity") + " : " + moonCanSwitch2);
         }, 1100);
       }, 250);
     } 
