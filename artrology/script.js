@@ -778,6 +778,7 @@ function startAnim(){
     setTimeout(function() {
       start = false;
       cursorLerpY = 0.005;
+      finishLerpCursorLerpY = false;
       addEvent(document, "mousemove", update);
       cancelAnimationFrame(IDstart);
     }, 9000);
@@ -1451,8 +1452,6 @@ $rotate.click(function () {
     else if(moonCanSwitch2){moonCount = 2; moonCanSwitch2 = false;}
     else{moonCount = -1;}
 
-    console.log(moonCount);
-
     if (moonCount == 1) {
       $namesDiv.css("display", "initial");
       selfTwinkle(nameTextStart, nameTextEnd);
@@ -1464,8 +1463,8 @@ $rotate.click(function () {
         $timesDiv.removeClass("hideRotateLeft");
         $namesDiv.toggleClass("showRotateLeft");
         setTimeout(function(){
-          if($namesDiv.css("opacity") == "1"){moonCanSwitch2 = true;}
-          console.log($namesDiv.css("opacity") + " : " + moonCanSwitch2);
+          if(parseFloat($namesDiv.css("opacity")) > 0.99){moonCanSwitch2 = true;}
+          //console.log($namesDiv.css("opacity") + " : " + moonCanSwitch2);
         }, 1100);
       }, 250);
     } 
@@ -1484,7 +1483,7 @@ $rotate.click(function () {
         $namesDiv.toggleClass("hideRotateLeft");
         $timesDiv.toggleClass("showRotateLeft");
         setTimeout(function(){
-          if($namesDiv.css("opacity") == "0"){$namesDiv.css("display", "none"); moonCanSwitch0 = true;}
+          if(parseFloat($namesDiv.css("opacity")) < 0.01){$namesDiv.css("display", "none"); moonCanSwitch0 = true;}
         }, 1100);
       }, 250);
     } 
@@ -1502,10 +1501,9 @@ $rotate.click(function () {
       if (scrollDest < 0){scrollDest = 0;}
       $htmlAndBody.animate({ scrollTop: scrollDest}, 1000);
       moonCountTimeOut = setTimeout(function(){
-        if($timesDiv.css("opacity") == "0"){$timesDiv.css("display", "none"); moonCanSwitch1 = true;}
+        if(parseFloat($timesDiv.css("opacity")) < 0.01){$timesDiv.css("display", "none"); moonCanSwitch1 = true;}
       }, 1200);
     }
-    else{console.log("?");}
     
     nameInputSubmitted = 0;
     timeInputSubmitted = false;
