@@ -4,8 +4,8 @@
   --cursorX: 50vw;
   --cursorY: 115vh;
   --radius: 0vmax;
-  --eclipseX: 50vw;
-  --eclipseY: 50vh;
+  --eclipseX: 0;
+  --eclipseY: 0;
   --eclipseR: 0vmax;
   --eclipseA1: 0.1;
   --eclipseA2: 0.06;
