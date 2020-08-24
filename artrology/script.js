@@ -203,10 +203,6 @@ function addEvent(obj, evt, fn) {
   }
 }
 
-function timestamp() {
-  return window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
-}
-
 //spotlight funcs
 var lightV;
 const lightMass = 15;
@@ -238,41 +234,46 @@ $window.resize(function(){
     : Math.pow(document.body.clientHeight * maxToLightDistIndex, 2);
   });
 
-var cursorLerpX = 0.005;
-var cursorLerpY = 0.005;
-var cursorLerpXdest = 0.065;
-var cursorLerpYdest = 0.055;
+var cursorLerpX = 0.997;
+var cursorLerpY = 0.998;
+var cursorLerpXdest = 0.00095;
+var cursorLerpYdest = 0.0009;
 
 var finishLerpCursorLerpX = false;
 var finishLerpCursorLerpY = false;
-function followCursor() {
+
+function followCursor(timestamp) {
   IDfollowCursor = requestAnimationFrame(followCursor);
 
-  NOWfollow = timestamp();
+  if(THENfollow === undefined){
+    THENfollow = timestamp;
+    lastNow = timestamp;
+  }
+  NOWfollow = timestamp;
   let elapsed = NOWfollow - THENfollow;
+  let dt = NOWfollow - lastNow;
+  lastNow = NOWfollow;
 
   if(elapsed > fpsInterval){
     // Get ready for next frame by setting then=now, but also adjust for your
     // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
     THENfollow = NOWfollow - (elapsed % fpsInterval);
-
     //draw code
     if(start == false){
-      if(!finishLerpCursorLerpX){
-        if(Math.abs(cursorLerpX - cursorLerpXdest) >= 0.002){cursorLerpX = lerp(cursorLerpX, cursorLerpXdest, 0.008);}
-        else{cursorLerpX = cursorLerpXdest; finishLerpCursorLerpX = true;}
-      }
-      
-      x = lerp(x, mouseX, cursorLerpX);
+      // if(!finishLerpCursorLerpX){
+      //   if(Math.abs(cursorLerpX - cursorLerpXdest) >= 0.0001){cursorLerpX = lerp(cursorLerpX, cursorLerpXdest, 0.008);}
+      //   else{cursorLerpX = cursorLerpXdest; finishLerpCursorLerpX = true;}
+      // }
+      x = lerp(x, mouseX, 1-Math.pow(cursorLerpX, dt)); 
+      document.documentElement.style.setProperty("--cursorX", x + "px");
     }
-    if(!finishLerpCursorLerpY){
-      if(Math.abs(cursorLerpY - cursorLerpYdest) >= 0.002){cursorLerpY = lerp(cursorLerpY, cursorLerpYdest, 0.008);}
-      else{cursorLerpY = cursorLerpYdest; finishLerpCursorLerpY = true;}
-    }
-    y = lerp(y, mouseY, cursorLerpY);
-
-    document.documentElement.style.setProperty("--cursorX", x + "px");
+    // if(!finishLerpCursorLerpY){
+    //   if(Math.abs(cursorLerpY - cursorLerpYdest) >= 0.0001){cursorLerpY = lerp(cursorLerpY, cursorLerpYdest, 0.008);}
+    //   else{cursorLerpY = cursorLerpYdest; finishLerpCursorLerpY = true;}
+    // }
+    y = lerp(y, mouseY, 1-Math.pow(cursorLerpY, dt)); 
     document.documentElement.style.setProperty("--cursorY", y + "px");
+    
 
     lightV = new Vector(x, y); //lightV is the attracting gravity
     acceleration.multiply(0);
@@ -322,10 +323,10 @@ function followCursor() {
       //fadeInEcA2 = eclipseA2;
     } else if (mouseState == 1 && eclipseR <= 0 && (nameInputSubmitted == 1 || timeInputSubmitted)) {
       if(nameInputSubmitted == 1){
-        randNum = Math.random() * (4.5 - 1.5) + 1.5;
+        randNum = Math.random() * (4 - 1) + 1;
       }
       else if(timeInputSubmitted){
-        randNum = Math.random() * (3.8 - 0.8) + 0.8;
+        randNum = Math.random() * (3.5 - 0.5) + 0.5;
       }
       let randSign = Math.random() * (0.1 + 0.1) - 0.1;
       randNum = randSign > 0 ? randNum : -1 * randNum;
@@ -334,16 +335,16 @@ function followCursor() {
         mouseY + document.body.clientHeight * randNum
       );
 
-      if (shadeX < x) {
-        velocity.x = 0.01;
-      } else {
-        velocity.x = -0.01;
-      }
-      if (shadeY < y) {
-        velocity.y = 0.01;
-      } else {
-        velocity.y = -0.01;
-      }
+      // if (shadeX < x) {
+      //   velocity.x = 0.01;
+      // } else {
+      //   velocity.x = -0.01;
+      // }
+      // if (shadeY < y) {
+      //   velocity.y = 0.01;
+      // } else {
+      //   velocity.y = -0.01;
+      // }
     }
     document.documentElement.style.setProperty("--eclipseX", shadeX + "px");
     document.documentElement.style.setProperty("--eclipseY", shadeY + "px");
@@ -359,7 +360,7 @@ var IDfollowCursor;
 
 var fpsInterval = 1000/30;
 var NOWfollow;
-var THENfollow = timestamp();
+var THENfollow;
 function update(e) {
   mouseX = e.clientX;
   mouseY = e.clientY;
@@ -795,7 +796,7 @@ function startAnim(){
     }, 5000);
     setTimeout(function() {
       start = false;
-      cursorLerpY = 0.005;
+      //cursorLerpY = 0.001;
       finishLerpCursorLerpY = false;
       addEvent(document, "mousemove", update);
       cancelAnimationFrame(IDstart);
@@ -819,7 +820,6 @@ var darkness = 0.99;
 
 $settingButton.one("click", function(){
   if(setting){
-    THENfollow = timestamp();
     IDfollowCursor = requestAnimationFrame(followCursor);
     IDstart = requestAnimationFrame(startAnim);
     IDdarkness = requestAnimationFrame(darknessStartAnim);
