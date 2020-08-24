@@ -241,17 +241,17 @@ var cursorLerpYdest = 0.055;
 
 var finishLerpCursorLerpX = false;
 var finishLerpCursorLerpY = false;
-function followCursor() {
+function followCursor(timestamp) {
   IDfollowCursor = requestAnimationFrame(followCursor);
   
-  followCursorNOW = window.performance.now();
+  followCursorNOW = timestamp;
   let elapsed = followCursorNOW - followCursorTHEN;
-  console.log(elapsed);
+  console.log(elapsed - fpsInterval);
 
-  if(elapsed > followCursorFR){
+  if(elapsed > fpsInterval){
     // Get ready for next frame by setting then=now, but also adjust for your
     // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
-    followCursorTHEN = followCursorNOW - (elapsed % followCursorFR);
+    followCursorTHEN = followCursorNOW - (elapsed % fpsInterval);
 
     //draw code
     if(start == false){
@@ -354,7 +354,7 @@ var mouseX = 0.5 * window.innerWidth,
 
 var IDfollowCursor;
 
-var followCursorFR = 1000 / 60,
+var fpsInterval = 1000 / 55,
     followCursorNOW,
     followCursorTHEN;
 
