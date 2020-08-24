@@ -244,96 +244,106 @@ var finishLerpCursorLerpY = false;
 function followCursor() {
   IDfollowCursor = requestAnimationFrame(followCursor);
   
-  if(start == false){
-    if(!finishLerpCursorLerpX){
-      if(Math.abs(cursorLerpX - cursorLerpXdest) >= 0.002){cursorLerpX = lerp(cursorLerpX, cursorLerpXdest, 0.008);}
-      else{cursorLerpX = cursorLerpXdest; finishLerpCursorLerpX = true;}
+  followCursorNOW = window.performance.now();
+  let elapsed = followCursorNOW - followCursorTHEN;
+
+  if(elapsed > followCursorFR){
+    // Get ready for next frame by setting then=now, but also adjust for your
+    // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
+    followCursorTHEN = followCursorNOW - (elapsed % followCursorFR);
+
+    //draw code
+    if(start == false){
+      if(!finishLerpCursorLerpX){
+        if(Math.abs(cursorLerpX - cursorLerpXdest) >= 0.002){cursorLerpX = lerp(cursorLerpX, cursorLerpXdest, 0.008);}
+        else{cursorLerpX = cursorLerpXdest; finishLerpCursorLerpX = true;}
+      }
+      
+      x = lerp(x, mouseX, cursorLerpX);
     }
-    
-    x = lerp(x, mouseX, cursorLerpX);
+    if(!finishLerpCursorLerpY){
+      if(Math.abs(cursorLerpY - cursorLerpYdest) >= 0.002){cursorLerpY = lerp(cursorLerpY, cursorLerpYdest, 0.008);}
+      else{cursorLerpY = cursorLerpYdest; finishLerpCursorLerpY = true;}
+    }
+    y = lerp(y, mouseY, cursorLerpY);
+  
+    document.documentElement.style.setProperty("--cursorX", x + "px");
+    document.documentElement.style.setProperty("--cursorY", y + "px");
+  
+    lightV = new Vector(x, y); //lightV is the attracting gravity
+    acceleration.multiply(0);
+    shadeX = shadeV.x;
+    shadeY = shadeV.y;
+  
+    if (mouseState != 1) {
+      let force = Vector.subtract(lightV, shadeV); //get direction
+      let d = force.length(); //get distance between the 2
+      //constrain d
+      if (d > 25) {
+        d = 25;
+      } else if (d < 10) {
+        d = 10;
+      }
+      force.normalize(); //distance doesn't matter here, we just want this vector for direction
+      let strength = (G * lightMass * shadeMass) / (d * d);
+      force.multiply(strength);
+  
+      //apply force
+      let f = Vector.divide(force, shadeMass);
+      acceleration.add(f);
+      velocity.add(acceleration);
+      shadeV.add(velocity);
+  
+      //change alpha and acc modifier
+      if(mouseState == 0){maxToLightDistIndex = 0.6;}
+      else if(mouseState == 2){maxToLightDistIndex = 0.2;}
+  
+      let distanceToLightCenter =
+        Math.pow(shadeX - x, 2) + Math.pow(shadeY - y, 2);
+  
+      //let aBias = Math.pow(document.body.clientWidth * alphaBias, 2);
+      let d2 = distanceToLightCenter; //+ aBias;
+      //if (d2 > maxDistToLightCenter) {d2 = maxDistToLightCenter;}
+  
+      let A1 = scale(d2, 10000, maxDistToLightCenter, 0.04, 0.98);
+      let A2 = scale(d2, 10000, maxDistToLightCenter, 0.14, 1);
+      //eclipseA1 = lerp(eclipseA1, A1, 0.4);
+      //eclipseA2 = lerp(eclipseA2, A2, 0.4);
+      eclipseA1 = 1 - A1;
+      eclipseA2 = 1 - A2;
+  
+      document.documentElement.style.setProperty("--eclipseA1", eclipseA1);
+      document.documentElement.style.setProperty("--eclipseA2", eclipseA2);
+      //fadeInEcA1 = eclipseA1;
+      //fadeInEcA2 = eclipseA2;
+    } else if (mouseState == 1 && eclipseR <= 0 && (nameInputSubmitted == 1 || timeInputSubmitted)) {
+      if(nameInputSubmitted == 1){
+        randNum = Math.random() * (4.5 - 1.5) + 1.5;
+      }
+      else if(timeInputSubmitted){
+        randNum = Math.random() * (3.8 - 0.8) + 0.8;
+      }
+      let randSign = Math.random() * (0.1 + 0.1) - 0.1;
+      randNum = randSign > 0 ? randNum : -1 * randNum;
+      shadeV = new Vector(
+        mouseX + document.body.clientWidth * randNum,
+        mouseY + document.body.clientHeight * randNum
+      );
+  
+      if (shadeX < x) {
+        velocity.x = 0.01;
+      } else {
+        velocity.x = -0.01;
+      }
+      if (shadeY < y) {
+        velocity.y = 0.01;
+      } else {
+        velocity.y = -0.01;
+      }
+    }
+    document.documentElement.style.setProperty("--eclipseX", shadeX + "px");
+    document.documentElement.style.setProperty("--eclipseY", shadeY + "px");
   }
-  if(!finishLerpCursorLerpY){
-    if(Math.abs(cursorLerpY - cursorLerpYdest) >= 0.002){cursorLerpY = lerp(cursorLerpY, cursorLerpYdest, 0.008);}
-    else{cursorLerpY = cursorLerpYdest; finishLerpCursorLerpY = true;}
-  }
-  y = lerp(y, mouseY, cursorLerpY);
-
-  document.documentElement.style.setProperty("--cursorX", x + "px");
-  document.documentElement.style.setProperty("--cursorY", y + "px");
-
-  lightV = new Vector(x, y); //lightV is the attracting gravity
-  acceleration.multiply(0);
-  shadeX = shadeV.x;
-  shadeY = shadeV.y;
-
-  if (mouseState != 1) {
-    let force = Vector.subtract(lightV, shadeV); //get direction
-    let d = force.length(); //get distance between the 2
-    //constrain d
-    if (d > 25) {
-      d = 25;
-    } else if (d < 10) {
-      d = 10;
-    }
-    force.normalize(); //distance doesn't matter here, we just want this vector for direction
-    let strength = (G * lightMass * shadeMass) / (d * d);
-    force.multiply(strength);
-
-    //apply force
-    let f = Vector.divide(force, shadeMass);
-    acceleration.add(f);
-    velocity.add(acceleration);
-    shadeV.add(velocity);
-
-    //change alpha and acc modifier
-    if(mouseState == 0){maxToLightDistIndex = 0.6;}
-    else if(mouseState == 2){maxToLightDistIndex = 0.2;}
-
-    let distanceToLightCenter =
-      Math.pow(shadeX - x, 2) + Math.pow(shadeY - y, 2);
-
-    //let aBias = Math.pow(document.body.clientWidth * alphaBias, 2);
-    let d2 = distanceToLightCenter; //+ aBias;
-    //if (d2 > maxDistToLightCenter) {d2 = maxDistToLightCenter;}
-
-    let A1 = scale(d2, 10000, maxDistToLightCenter, 0.04, 0.98);
-    let A2 = scale(d2, 10000, maxDistToLightCenter, 0.14, 1);
-    //eclipseA1 = lerp(eclipseA1, A1, 0.4);
-    //eclipseA2 = lerp(eclipseA2, A2, 0.4);
-    eclipseA1 = 1 - A1;
-    eclipseA2 = 1 - A2;
-
-    document.documentElement.style.setProperty("--eclipseA1", eclipseA1);
-    document.documentElement.style.setProperty("--eclipseA2", eclipseA2);
-    //fadeInEcA1 = eclipseA1;
-    //fadeInEcA2 = eclipseA2;
-  } else if (mouseState == 1 && eclipseR <= 0 && (nameInputSubmitted == 1 || timeInputSubmitted)) {
-    if(nameInputSubmitted == 1){
-      randNum = Math.random() * (4.5 - 1.5) + 1.5;
-    }
-    else if(timeInputSubmitted){
-      randNum = Math.random() * (3.8 - 0.8) + 0.8;
-    }
-    let randSign = Math.random() * (0.1 + 0.1) - 0.1;
-    randNum = randSign > 0 ? randNum : -1 * randNum;
-    shadeV = new Vector(
-      mouseX + document.body.clientWidth * randNum,
-      mouseY + document.body.clientHeight * randNum
-    );
-
-    if (shadeX < x) {
-      velocity.x = 0.01;
-    } else {
-      velocity.x = -0.01;
-    }
-    if (shadeY < y) {
-      velocity.y = 0.01;
-    } else {
-      velocity.y = -0.01;
-    }
-  }
-  document.documentElement.style.setProperty("--eclipseX", shadeX + "px");
-  document.documentElement.style.setProperty("--eclipseY", shadeY + "px");
 }
 
 //variables for function update
@@ -342,6 +352,10 @@ var mouseX = 0.5 * window.innerWidth,
 //var followInterv = 0;
 
 var IDfollowCursor;
+
+var followCursorFR = 1000 / 60,
+    followCursorNOW,
+    followCursorTHEN;
 function update(e) {
   mouseX = e.clientX;
   mouseY = e.clientY;
@@ -801,6 +815,7 @@ var darkness = 0.99;
 
 $settingButton.one("click", function(){
   if(setting){
+    followCursorTHEN = window.performance.now();
     IDfollowCursor = requestAnimationFrame(followCursor);
     IDstart = requestAnimationFrame(startAnim);
     IDdarkness = requestAnimationFrame(darknessStartAnim);
