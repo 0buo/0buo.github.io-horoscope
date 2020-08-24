@@ -234,10 +234,10 @@ $window.resize(function(){
     : Math.pow(document.body.clientHeight * maxToLightDistIndex, 2);
   });
 
-var cursorLerpX = 0.997;
-var cursorLerpY = 0.998;
-var cursorLerpXdest = 0.00095;
-var cursorLerpYdest = 0.0009;
+var cursorLerpX = 0.4;
+var cursorLerpY = 0.5;
+// var cursorLerpXdest = 0.00095;
+// var cursorLerpYdest = 0.0009;
 
 var finishLerpCursorLerpX = false;
 var finishLerpCursorLerpY = false;
@@ -251,10 +251,10 @@ function followCursor(timestamp) {
   }
   NOWfollow = timestamp;
   let elapsed = NOWfollow - THENfollow;
-  let dt = NOWfollow - lastNow;
+  let dt = (NOWfollow - lastNow)/1000;
   lastNow = NOWfollow;
 
-  if(elapsed > fpsInterval){
+  if(elapsed > fpsInterval || true){
     // Get ready for next frame by setting then=now, but also adjust for your
     // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
     THENfollow = NOWfollow - (elapsed % fpsInterval);
@@ -271,6 +271,7 @@ function followCursor(timestamp) {
     //   if(Math.abs(cursorLerpY - cursorLerpYdest) >= 0.0001){cursorLerpY = lerp(cursorLerpY, cursorLerpYdest, 0.008);}
     //   else{cursorLerpY = cursorLerpYdest; finishLerpCursorLerpY = true;}
     // }
+    console.log(1-Math.pow(cursorLerpY, dt));
     y = lerp(y, mouseY, 1-Math.pow(cursorLerpY, dt)); 
     document.documentElement.style.setProperty("--cursorY", y + "px");
     
@@ -797,7 +798,7 @@ function startAnim(){
     setTimeout(function() {
       start = false;
       //cursorLerpY = 0.001;
-      finishLerpCursorLerpY = false;
+      //finishLerpCursorLerpY = false;
       addEvent(document, "mousemove", update);
       cancelAnimationFrame(IDstart);
     }, 9000);
@@ -820,10 +821,12 @@ var darkness = 0.99;
 
 $settingButton.one("click", function(){
   if(setting){
-    IDfollowCursor = requestAnimationFrame(followCursor);
-    IDstart = requestAnimationFrame(startAnim);
-    IDdarkness = requestAnimationFrame(darknessStartAnim);
-    updateR();
+    setTimeout(function(){
+      IDfollowCursor = requestAnimationFrame(followCursor);
+      IDstart = requestAnimationFrame(startAnim);
+      IDdarkness = requestAnimationFrame(darknessStartAnim);
+      updateR();
+    }, 500);
   }
 });
 
@@ -991,7 +994,9 @@ var hblurDir = -1;
 var IDhblur;
 
 $settingButton.one("click", function(){
-  if(setting){IDhblur = requestAnimationFrame(hblurAnim);}
+  setTimeout(function(){
+    if(setting){IDhblur = requestAnimationFrame(hblurAnim);}
+  }, 500);
 });
 function hblurAnim(){
   setTimeout(function(){
@@ -1058,13 +1063,15 @@ var scDir = -1;
 var ocDir = 1;
 
 $settingButton.one("click", function(){
-  if(setting){
-    if(start){
-      IDbf = requestAnimationFrame(cloudBfStart);
-      IDsc = requestAnimationFrame(cloudScStart);
-      IDoc = requestAnimationFrame(cloudOcStart);
+  setTimeout(function(){
+    if(setting){
+      if(start){
+        IDbf = requestAnimationFrame(cloudBfStart);
+        IDsc = requestAnimationFrame(cloudScStart);
+        IDoc = requestAnimationFrame(cloudOcStart);
+      }
     }
-  }
+  }, 500);
 });
 
 function cloudBfStart(){
