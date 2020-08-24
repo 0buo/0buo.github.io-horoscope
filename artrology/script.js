@@ -203,6 +203,10 @@ function addEvent(obj, evt, fn) {
   }
 }
 
+function timestamp() {
+  return window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
+}
+
 //spotlight funcs
 var lightV;
 const lightMass = 15;
@@ -241,17 +245,16 @@ var cursorLerpYdest = 0.055;
 
 var finishLerpCursorLerpX = false;
 var finishLerpCursorLerpY = false;
-function followCursor(timestamp) {
+function followCursor() {
   IDfollowCursor = requestAnimationFrame(followCursor);
-  
-  followCursorNOW = timestamp;
-  let elapsed = followCursorNOW - followCursorTHEN;
-  console.log(elapsed - fpsInterval);
+
+  NOWfollow = timestamp();
+  let elapsed = NOWfollow - THENfollow;
 
   if(elapsed > fpsInterval){
     // Get ready for next frame by setting then=now, but also adjust for your
     // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
-    followCursorTHEN = followCursorNOW - (elapsed % fpsInterval);
+    THENfollow = NOWfollow - (elapsed % fpsInterval);
 
     //draw code
     if(start == false){
@@ -267,15 +270,15 @@ function followCursor(timestamp) {
       else{cursorLerpY = cursorLerpYdest; finishLerpCursorLerpY = true;}
     }
     y = lerp(y, mouseY, cursorLerpY);
-  
+
     document.documentElement.style.setProperty("--cursorX", x + "px");
     document.documentElement.style.setProperty("--cursorY", y + "px");
-  
+
     lightV = new Vector(x, y); //lightV is the attracting gravity
     acceleration.multiply(0);
     shadeX = shadeV.x;
     shadeY = shadeV.y;
-  
+
     if (mouseState != 1) {
       let force = Vector.subtract(lightV, shadeV); //get direction
       let d = force.length(); //get distance between the 2
@@ -288,31 +291,31 @@ function followCursor(timestamp) {
       force.normalize(); //distance doesn't matter here, we just want this vector for direction
       let strength = (G * lightMass * shadeMass) / (d * d);
       force.multiply(strength);
-  
+
       //apply force
       let f = Vector.divide(force, shadeMass);
       acceleration.add(f);
       velocity.add(acceleration);
       shadeV.add(velocity);
-  
+
       //change alpha and acc modifier
       if(mouseState == 0){maxToLightDistIndex = 0.6;}
       else if(mouseState == 2){maxToLightDistIndex = 0.2;}
-  
+
       let distanceToLightCenter =
         Math.pow(shadeX - x, 2) + Math.pow(shadeY - y, 2);
-  
+
       //let aBias = Math.pow(document.body.clientWidth * alphaBias, 2);
       let d2 = distanceToLightCenter; //+ aBias;
       //if (d2 > maxDistToLightCenter) {d2 = maxDistToLightCenter;}
-  
+
       let A1 = scale(d2, 10000, maxDistToLightCenter, 0.04, 0.98);
       let A2 = scale(d2, 10000, maxDistToLightCenter, 0.14, 1);
       //eclipseA1 = lerp(eclipseA1, A1, 0.4);
       //eclipseA2 = lerp(eclipseA2, A2, 0.4);
       eclipseA1 = 1 - A1;
       eclipseA2 = 1 - A2;
-  
+
       document.documentElement.style.setProperty("--eclipseA1", eclipseA1);
       document.documentElement.style.setProperty("--eclipseA2", eclipseA2);
       //fadeInEcA1 = eclipseA1;
@@ -330,7 +333,7 @@ function followCursor(timestamp) {
         mouseX + document.body.clientWidth * randNum,
         mouseY + document.body.clientHeight * randNum
       );
-  
+
       if (shadeX < x) {
         velocity.x = 0.01;
       } else {
@@ -354,10 +357,9 @@ var mouseX = 0.5 * window.innerWidth,
 
 var IDfollowCursor;
 
-var fpsInterval = 1000 / 55,
-    followCursorNOW,
-    followCursorTHEN;
-
+var fpsInterval = 1000/30;
+var NOWfollow;
+var THENfollow = timestamp();
 function update(e) {
   mouseX = e.clientX;
   mouseY = e.clientY;
@@ -817,7 +819,7 @@ var darkness = 0.99;
 
 $settingButton.one("click", function(){
   if(setting){
-    followCursorTHEN = window.performance.now();
+    THENfollow = timestamp();
     IDfollowCursor = requestAnimationFrame(followCursor);
     IDstart = requestAnimationFrame(startAnim);
     IDdarkness = requestAnimationFrame(darknessStartAnim);
