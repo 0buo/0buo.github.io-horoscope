@@ -246,6 +246,7 @@ function followCursor() {
   
   followCursorNOW = window.performance.now();
   let elapsed = followCursorNOW - followCursorTHEN;
+  console.log(elapsed);
 
   if(elapsed > followCursorFR){
     // Get ready for next frame by setting then=now, but also adjust for your
@@ -356,6 +357,7 @@ var IDfollowCursor;
 var followCursorFR = 1000 / 60,
     followCursorNOW,
     followCursorTHEN;
+
 function update(e) {
   mouseX = e.clientX;
   mouseY = e.clientY;
