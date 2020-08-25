@@ -234,7 +234,7 @@ $window.resize(function(){
     : Math.pow(document.body.clientHeight * maxToLightDistIndex, 2);
   });
 
-var cursorLerpX = 0.15;
+var cursorLerpX = 0.25;
 var cursorLerpY = 0.2;
 
 var finishLerpCursorLerpX = false;
@@ -683,7 +683,7 @@ $settingButton.one("mouseover", function(){
         $filterOffText
           .html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1400);
     }
-  }, 500);
+  }, 250);
 });
 
 
@@ -1213,9 +1213,25 @@ var plaintextFontSize = 30;
 var moonMarginL = 6;
 var hMarginL = 5;
 var hFontSize = 72;
+var bodyBlur = 0.85;
 function adjustElementSize(){
-  if(window.innerWidth < 1000 && window.innerWidth >= 800){
-    plaintextFontSize = 28; 
+  if(window.innerWidth < 2400 && window.innerWidth >= 1000){
+    plaintextFontSize = 26; 
+    moonScale = 1; 
+    moonMarginL = 6; 
+    hMarginL = 5; 
+    hFontSize = 70;
+    $rotateTextOne.css("display", "inline-block");
+    $rotateTextTwo.css("display", "inline-block");
+    $h1.text("Self-Help Guide : Artrology");
+    $yearMonthButton.css("display", "inline-block");
+    timeButtonMouseOverFunc = 0;
+    $plaintext.css("margin-right", "35%");
+    $timeInput.css("width", "55%");
+    bodyBlur = 0.65;
+  }
+  else if(window.innerWidth < 1000 && window.innerWidth >= 800){
+    plaintextFontSize = 26; 
     moonMarginL = 5; 
     hFontSize = 66;
     hMarginL = 5; 
@@ -1226,9 +1242,10 @@ function adjustElementSize(){
     timeButtonMouseOverFunc = 0;
     $plaintext.css("margin-right", "35%");
     $timeInput.css("width", "55%");
+    bodyBlur = 0.6;
   }
   else if(window.innerWidth < 800 && window.innerWidth >= 700){
-    plaintextFontSize = 26; 
+    plaintextFontSize = 22; 
     moonMarginL = 5; 
     hFontSize = 60;
     hMarginL = 5; 
@@ -1239,9 +1256,10 @@ function adjustElementSize(){
     timeButtonMouseOverFunc = 0;
     $plaintext.css("margin-right", "35%");
     $timeInput.css("width", "55%");
+    bodyBlur = 0.55;
   }
   else if(window.innerWidth < 700 && window.innerWidth >= 600){
-    plaintextFontSize = 24;
+    plaintextFontSize = 22;
     moonMarginL = 20;
     hMarginL = 4;
     hFontSize = 55; 
@@ -1252,6 +1270,7 @@ function adjustElementSize(){
     timeButtonMouseOverFunc = 1;
     $plaintext.css("margin-right", "18px");
     $timeInput.css("width", "100%");
+    bodyBlur = 0.5;
   }
   else if(window.innerWidth < 600 && window.innerWidth >= 500){
     plaintextFontSize = 22;
@@ -1265,6 +1284,7 @@ function adjustElementSize(){
     timeButtonMouseOverFunc = 1;
     $plaintext.css("margin-right", "18px");
     $timeInput.css("width", "100%");
+    bodyBlur = 0.4;
   }
   else if(window.innerWidth < 500 && window.innerWidth >= 400){
     plaintextFontSize = 20;
@@ -1278,6 +1298,7 @@ function adjustElementSize(){
     timeButtonMouseOverFunc = 1;
     $plaintext.css("margin-right", "18px");
     $timeInput.css("width", "100%");
+    bodyBlur = 0.35;
   }
   else if(window.innerWidth <400){
     plaintextFontSize = 20; 
@@ -1291,6 +1312,7 @@ function adjustElementSize(){
     timeButtonMouseOverFunc = 1;
     $plaintext.css("margin-right", "18px");
     $timeInput.css("width", "100%");
+    bodyBlur = 0.25;
   }
   else{
     plaintextFontSize = 30; 
@@ -1305,11 +1327,13 @@ function adjustElementSize(){
     timeButtonMouseOverFunc = 0;
     $plaintext.css("margin-right", "35%");
     $timeInput.css("width", "55%");
+    bodyBlur = 0.85;
   }
   document.documentElement.style.setProperty("--plaintextFontSize", plaintextFontSize + "px");
   document.documentElement.style.setProperty("--moonMarginL", moonMarginL + "vw");
   document.documentElement.style.setProperty("--hMoonMarginL", hMarginL + "vw");
   document.documentElement.style.setProperty("--hFontSize", hFontSize + "px");
+  document.documentElement.style.setProperty("--bodyBlur", bodyBlur + "px");
 }
 $document.ready(adjustElementSize);
 $window.resize(adjustElementSize);
@@ -1322,38 +1346,44 @@ var twinkleDirects = new Array(plaintexts.length);
 
 function textTwinkle($this, index){
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkle($this, index);});
-  if($this.css("opacity") < 0.55 && twinkleDirects[index] == 1){ 
-    $this.css("opacity", 0.55);
-    $this.css("--glowPix1", "3.5px");
-    $this.css("--glowPix2", "-3.5px");
-    if(Math.abs($this.css("opacity")-0.55) <= 0.005){twinkleDirects[index] = -1;}
+  $this.css("transition", "all 3s ease-in-out");
+  if($this.css("opacity") < 0.28 && twinkleDirects[index] == 1){ 
+    $this.css("opacity", 0.28);
+    $this.css("--glowPix1", "2px");
+    $this.css("--glowPix2", "-2px");
+    $this.css("--glowColor2", "#403b57");
+    if(Math.abs($this.css("opacity")-0.28) <= 0.005){twinkleDirects[index] = -1;}
   }
-  else if ($this.css("opacity") > 0.15 && twinkleDirects[index] == -1){
-    $this.css("opacity", 0.15);
+  else if ($this.css("opacity") > 0.07 && twinkleDirects[index] == -1){
+    $this.css("opacity", 0.07);
     $this.css("--glowPix1", "1.5px");
     $this.css("--glowPix2", "-1.5px");
-    if(Math.abs($this.css("opacity")-0.15) <= 0.005){twinkleDirects[index] = 1;}
+    $this.css("--glowColor2", "#403b57");
+    if(Math.abs($this.css("opacity")-0.07) <= 0.005){twinkleDirects[index] = 1;}
   }
-  else if($this.css("opacity") >= 0.55 && twinkleDirects[index] == 1){twinkleDirects[index] = -1;}
-  else if($this.css("opacity") <= 0.15 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
+  else if($this.css("opacity") >= 0.28 && twinkleDirects[index] == 1){twinkleDirects[index] = -1;}
+  else if($this.css("opacity") <= 0.07 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
 }
 
 function textTwinkleBright($this, index){ 
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkleBright($this, index);});
-  if($this.css("opacity") < 0.98 && twinkleDirects[index] == 1){ 
-    $this.css("opacity", 0.98);
-    $this.css("--glowPix1", "0.5px");
-    $this.css("--glowPix2", "-0.5px");
-    if(Math.abs($this.css("opacity")-0.98) <= 0.005){twinkleDirects[index] = -1;}
+  $this.css("transition", "all 6s ease-in-out");
+  if($this.css("opacity") < 0.65 && twinkleDirects[index] == 1){ 
+    $this.css("opacity", 0.65);
+    $this.css("--glowPix1", "-1px");
+    $this.css("--glowPix2", "1px");
+    $this.css("--glowColor2", "#babbdb");
+    if(Math.abs(parseFloat($this.css("opacity"))-0.65) <= 0.005){twinkleDirects[index] = -1;}
   }
-  else if ($this.css("opacity") > 0.5 && twinkleDirects[index] == -1){
-    $this.css("opacity", 0.5);
+  else if ($this.css("opacity") > 0.1 && twinkleDirects[index] == -1){
+    $this.css("opacity", 0.1);
     $this.css("--glowPix1", "2px");
     $this.css("--glowPix2", "-2px");
-    if(Math.abs($this.css("opacity")-0.5) <= 0.005){twinkleDirects[index] = 1;}
+    $this.css("--glowColor2", "#403b57");
+    if(Math.abs(parseFloat($this.css("opacity"))-0.1) <= 0.005){twinkleDirects[index] = 1;}
   }
-  else if($this.css("opacity") >= 0.98 && twinkleDirects[index] == 1){twinkleDirects[index] = -1;}
-  else if($this.css("opacity") <= 0.5 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
+  else if($this.css("opacity") >= 0.65 && twinkleDirects[index] == 1){twinkleDirects[index] = -1;}
+  else if($this.css("opacity") <= 0.1 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
 }
 
 let j;

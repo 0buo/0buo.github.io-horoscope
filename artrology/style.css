@@ -27,6 +27,7 @@
   --hMarginL: 5vw;
   --moonMarginL: 6vw;
   --hFontSize: 75px;
+  --bodyBlur: 0.75px;
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none;
   /* IE and Edge */
@@ -89,13 +90,13 @@ body {
   background-color: #ebebeb;
   background-repeat: repeat;
   position: relative;
-  -webkit-filter: blur(1px);
-          filter: blur(1px);
+  -webkit-filter: blur(var(--bodyBlur));
+          filter: blur(var(--bodyBlur));
 }
 
 body.svgFilter{
-  -webkit-filter: blur(1px) url('#cloud');
-          filter: blur(1px) url('#cloud');
+  -webkit-filter: blur(var(--bodyBlur)) url('#cloud');
+          filter: blur(var(--bodyBlur)) url('#cloud');
 }
 
 .setting{
@@ -260,6 +261,7 @@ h1 {
   outline: none;
   --hblur: 5px;
   width: 100%;
+  max-width: 90%;
   padding: 10px, 0px;
   margin-top: 12%;
   margin-left: var(--hMarginL);
@@ -283,9 +285,11 @@ h1 {
   transition: all 3s ease-in-out;
   --glowPix1: 0px;
   --glowPix2: 0px;
-  --glowBlur: 6px;
+  --glowBlur: 7px;
   --filterBlur: 0px;
-  font-weight: 500;
+  --glowColor1: #232031;
+  --glowColor2: #494266;
+  font-weight: 600;
   font-family: 'Codystar', cursive;
   font-size: var(--plaintextFontSize);
   line-height: 1.8;
@@ -293,10 +297,11 @@ h1 {
   margin-right: 35%;
   padding-left: 10px;
   opacity: 0.5;
-  text-shadow: var(--glowPix1) var(--glowPix2) var(--glowBlur) #2a2835, 
-               var(--glowPix2) var(--glowPix1) var(--glowBlur) #2a2835, 
-               var(--glowPix1) var(--glowPix1) var(--glowBlur) #2a2835, 
-               var(--glowPix2) var(--glowPix2) var(--glowBlur) #2a2835;
+  color: black;
+  text-shadow: var(--glowPix1) var(--glowPix2) var(--glowBlur) var(--glowColor1), 
+               var(--glowPix2) var(--glowPix1) var(--glowBlur) var(--glowColor2), 
+               var(--glowPix1) var(--glowPix1) var(--glowBlur) var(--glowColor1), 
+               var(--glowPix2) var(--glowPix2) var(--glowBlur) var(--glowColor2);
   -webkit-filter: blur(var(--filterBlur));
           filter: blur(var(--filterBlur));
 }
