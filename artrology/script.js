@@ -1367,23 +1367,23 @@ function textTwinkle($this, index){
 
 function textTwinkleBright($this, index){ 
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkleBright($this, index);});
-  $this.css("transition", "all 7s ease-in-out");
+  $this.css("transition", "all 12s ease-in-out");
   if($this.css("opacity") < 0.6 && twinkleDirects[index] == 1){ 
     $this.css("opacity", 0.6);
     $this.css("--glowPix1", "-2px");
     $this.css("--glowPix2", "2px");
-    $this.css("--glowColor2", "#585969");
+    $this.css("--glowColor2", "#77798f");
     if(Math.abs(parseFloat($this.css("opacity"))-0.6) <= 0.005){twinkleDirects[index] = -1;}
   }
-  else if ($this.css("opacity") > 0.05 && twinkleDirects[index] == -1){
-    $this.css("opacity", 0.05);
+  else if ($this.css("opacity") > 0.1 && twinkleDirects[index] == -1){
+    $this.css("opacity", 0.1);
     $this.css("--glowPix1", "3px");
     $this.css("--glowPix2", "-3px");
     $this.css("--glowColor2", "#363246");
-    if(Math.abs(parseFloat($this.css("opacity"))-0.05) <= 0.005){twinkleDirects[index] = 1;}
+    if(Math.abs(parseFloat($this.css("opacity"))-0.1) <= 0.005){twinkleDirects[index] = 1;}
   }
   else if($this.css("opacity") >= 0.6 && twinkleDirects[index] == 1){twinkleDirects[index] = -1;}
-  else if($this.css("opacity") <= 0.05 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
+  else if($this.css("opacity") <= 0.1 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
 }
 
 let j;
