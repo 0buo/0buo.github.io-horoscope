@@ -288,7 +288,7 @@ h1 {
   --glowBlur: 7px;
   --filterBlur: 0px;
   --glowColor1: #232031;
-  --glowColor2: #494266;
+  --glowColor2: #363246;
   font-weight: 600;
   font-family: 'Codystar', cursive;
   font-size: var(--plaintextFontSize);
@@ -300,8 +300,8 @@ h1 {
   color: black;
   text-shadow: var(--glowPix1) var(--glowPix2) var(--glowBlur) var(--glowColor1), 
                var(--glowPix2) var(--glowPix1) var(--glowBlur) var(--glowColor2), 
-               var(--glowPix1) var(--glowPix1) var(--glowBlur) var(--glowColor1), 
-               var(--glowPix2) var(--glowPix2) var(--glowBlur) var(--glowColor2);
+               var(--glowPix1) var(--glowPix1) var(--glowBlur) var(--glowColor2), 
+               var(--glowPix2) var(--glowPix2) var(--glowBlur) var(--glowColor1);
   -webkit-filter: blur(var(--filterBlur));
           filter: blur(var(--filterBlur));
 }

@@ -1347,43 +1347,43 @@ var twinkleDirects = new Array(plaintexts.length);
 function textTwinkle($this, index){
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkle($this, index);});
   $this.css("transition", "all 3s ease-in-out");
-  if($this.css("opacity") < 0.28 && twinkleDirects[index] == 1){ 
-    $this.css("opacity", 0.28);
-    $this.css("--glowPix1", "2px");
-    $this.css("--glowPix2", "-2px");
-    $this.css("--glowColor2", "#403b57");
-    if(Math.abs($this.css("opacity")-0.28) <= 0.005){twinkleDirects[index] = -1;}
+  if($this.css("opacity") < 0.3 && twinkleDirects[index] == 1){ 
+    $this.css("opacity", 0.3);
+    $this.css("--glowPix1", "3px");
+    $this.css("--glowPix2", "-3px");
+    $this.css("--glowColor2", "#363246");
+    if(Math.abs($this.css("opacity")-0.3) <= 0.005){twinkleDirects[index] = -1;}
   }
-  else if ($this.css("opacity") > 0.07 && twinkleDirects[index] == -1){
-    $this.css("opacity", 0.07);
-    $this.css("--glowPix1", "1.5px");
-    $this.css("--glowPix2", "-1.5px");
-    $this.css("--glowColor2", "#403b57");
-    if(Math.abs($this.css("opacity")-0.07) <= 0.005){twinkleDirects[index] = 1;}
+  else if ($this.css("opacity") > 0.05 && twinkleDirects[index] == -1){
+    $this.css("opacity", 0.05);
+    $this.css("--glowPix1", "1px");
+    $this.css("--glowPix2", "-1px");
+    $this.css("--glowColor2", "#363246");
+    if(Math.abs($this.css("opacity")-0.05) <= 0.005){twinkleDirects[index] = 1;}
   }
-  else if($this.css("opacity") >= 0.28 && twinkleDirects[index] == 1){twinkleDirects[index] = -1;}
-  else if($this.css("opacity") <= 0.07 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
+  else if($this.css("opacity") >= 0.3 && twinkleDirects[index] == 1){twinkleDirects[index] = -1;}
+  else if($this.css("opacity") <= 0.05 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
 }
 
 function textTwinkleBright($this, index){ 
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkleBright($this, index);});
-  $this.css("transition", "all 6s ease-in-out");
-  if($this.css("opacity") < 0.65 && twinkleDirects[index] == 1){ 
-    $this.css("opacity", 0.65);
-    $this.css("--glowPix1", "-1px");
-    $this.css("--glowPix2", "1px");
-    $this.css("--glowColor2", "#babbdb");
-    if(Math.abs(parseFloat($this.css("opacity"))-0.65) <= 0.005){twinkleDirects[index] = -1;}
+  $this.css("transition", "all 7s ease-in-out");
+  if($this.css("opacity") < 0.6 && twinkleDirects[index] == 1){ 
+    $this.css("opacity", 0.6);
+    $this.css("--glowPix1", "-2px");
+    $this.css("--glowPix2", "2px");
+    $this.css("--glowColor2", "#585969");
+    if(Math.abs(parseFloat($this.css("opacity"))-0.6) <= 0.005){twinkleDirects[index] = -1;}
   }
-  else if ($this.css("opacity") > 0.1 && twinkleDirects[index] == -1){
-    $this.css("opacity", 0.1);
-    $this.css("--glowPix1", "2px");
-    $this.css("--glowPix2", "-2px");
-    $this.css("--glowColor2", "#403b57");
-    if(Math.abs(parseFloat($this.css("opacity"))-0.1) <= 0.005){twinkleDirects[index] = 1;}
+  else if ($this.css("opacity") > 0.05 && twinkleDirects[index] == -1){
+    $this.css("opacity", 0.05);
+    $this.css("--glowPix1", "3px");
+    $this.css("--glowPix2", "-3px");
+    $this.css("--glowColor2", "#363246");
+    if(Math.abs(parseFloat($this.css("opacity"))-0.05) <= 0.005){twinkleDirects[index] = 1;}
   }
-  else if($this.css("opacity") >= 0.65 && twinkleDirects[index] == 1){twinkleDirects[index] = -1;}
-  else if($this.css("opacity") <= 0.1 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
+  else if($this.css("opacity") >= 0.6 && twinkleDirects[index] == 1){twinkleDirects[index] = -1;}
+  else if($this.css("opacity") <= 0.05 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
 }
 
 let j;
