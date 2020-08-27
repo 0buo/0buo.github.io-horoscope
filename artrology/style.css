@@ -1,6 +1,5 @@
 :root {
-  overflow-x: hidden;
-  overflow-y: hidden;
+  
   --cursorX: 50vw;
   --cursorY: 115vh;
   --radius: 0vmax;
@@ -28,11 +27,8 @@
   --moonMarginL: 6vw;
   --hFontSize: 75px;
   --bodyBlur: 0.75px;
-  /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
+
+  --scrollBarWidth: 0px;
 
   cursor: pointer;
 }
@@ -63,21 +59,32 @@
       transparent 100%);
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-:root::-webkit-scrollbar {
-  display: none;
-}
-
-:root.svgFilter{
-  overflow-y: auto;
-}
-
 html, body{
   margin: 0;
   padding: 0;
   height: 100vh;
 }
 
+/* scroll bar */
+/* The emerging W3C standard
+   that is currently Firefox-only */
+   * {
+    scrollbar-width: var(--scrollBarWidth);
+    scrollbar-color: #232323 #dbdae0;
+  }
+  
+  /* Works on Chrome/Edge/Safari */
+  *::-webkit-scrollbar {
+    width: var(--scrollBarWidth);
+  }
+  *::-webkit-scrollbar-track {
+    background: #dbdae0;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: #232323;
+    /* border-radius: 10px; */
+    border: none;
+  }
 
 body {
   border: 0.01px solid transparent;
@@ -89,7 +96,8 @@ body {
   background-image: no-repeat url('./img/paperBG.png') 0 0;
   background-color: #ebebeb;
   background-repeat: repeat;
-  position: relative;
+  overflow: hidden;
+  /* position: relative; */
   -webkit-filter: blur(var(--bodyBlur));
           filter: blur(var(--bodyBlur));
 }
@@ -97,6 +105,9 @@ body {
 body.svgFilter{
   -webkit-filter: blur(var(--bodyBlur)) url('#cloud');
           filter: blur(var(--bodyBlur)) url('#cloud');
+}
+body.canScroll{
+  overflow-y: initial;
 }
 
 .setting{
@@ -108,7 +119,7 @@ body.svgFilter{
   width: 100vw;
   height: 110vh;
   background-color: rgb(4,4,4);
-  z-index: 6;
+  z-index: 7;
 
   transition: transform 2.5s ease-in-out, opacity 1s ease-in-out;
   transform: perspective(2000px) rotateY(var(--bodyRotateY));
@@ -214,7 +225,7 @@ body.svgFilter{
   top: 0;
   left: 0;
   width: 100vw;
-  margin-bottom: 25vh;
+  margin-bottom: 30vh;
   border: 0.01px solid transparent;
   transition: transform 2.5s ease-in-out;
   transform: perspective(2000px) rotateY(var(--bodyRotateY)); 
@@ -282,7 +293,7 @@ h1 {
 }
 
 .plaintext {
-  transition: all 3s ease-in-out;
+  transition: all 2.5s ease-in-out;
   --glowPix1: 0px;
   --glowPix2: 0px;
   --glowBlur: 7px;
@@ -294,7 +305,7 @@ h1 {
   font-size: var(--plaintextFontSize);
   line-height: 1.8;
   margin-left: 5vw;
-  margin-right: 35%;
+  margin-right: 20%;
   padding-left: 10px;
   opacity: 0.5;
   color: black;
@@ -666,7 +677,7 @@ h1 {
 
 /* time input */
 #timeInput{
-  --grey: #2a2835;
+  --grey: #25242e;
   margin-top: 80px;
   margin-left: 8vw;
   margin-bottom: 80px;
@@ -757,4 +768,132 @@ h1 {
 
   cursor: -webkit-grab;
   cursor: grab;
+}
+
+/* scanArea */
+#scanArea {
+  position: absolute;
+  /* z-index: 6; */
+  left: 0;
+  top:0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: none;
+  border: 0.01px solid transparent;
+
+  display: none;
+}
+* :not(#scanArea):not(#redLine):not(body):not(#bodyRotate) .scan{
+  transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 5s ease-in-out, padding-left 0s ease-in-out, padding-right 0s ease-in-out;
+  -webkit-filter: blur(4.25px);
+          filter: blur(4.25px);
+}
+
+#redLine{
+  position: absolute;
+  --redLineBlur: 6px;
+  top: calc(50vh - 6px);
+  left: calc(50vw - 175px);
+  width: 350px;
+  height: 12px;
+  background: linear-gradient(180deg, 
+  rgba(255,0,0,0) 0%, 
+  rgba(255,0,0,0) 25%, 
+  rgba(255,0,0,0.1) 45%, 
+  rgba(255,0,0,0.45) 49.5%, 
+  rgba(255,0,0,0.55) 50%, 
+  rgba(255,0,0,0.45) 50.5%, 
+  rgba(255,0,0,0.1) 55%, 
+  rgba(255,0,0,0) 75%, 
+  rgba(255,0,0,0) 100%);
+
+  transition: opacity 5s ease-in-out, -webkit-filter 5s ease-in-out;
+
+  transition: opacity 5s ease-in-out, filter 5s ease-in-out;
+
+  transition: opacity 5s ease-in-out, filter 5s ease-in-out, -webkit-filter 5s ease-in-out;
+  -webkit-filter: blur(var(--redLineBlur));
+          filter: blur(var(--redLineBlur));
+  opacity: 0;
+}
+
+#redLightArea{
+  position: absolute;
+  --redAreaBlur: 8px;
+  top: calc(50vh - 125px);
+  left: calc(50vw - 175px);
+  width: 350px;
+  height: 250px;
+  background: linear-gradient(180deg,
+  rgba(255,0,0,0) 0%, 
+  rgba(255,0,0,0) 20%, 
+  rgba(255,0,0,0.06) 35%,
+  rgba(255,0,0,0.25) 48%,
+  rgba(255,0,0,0.29) 49%, 
+  rgba(255,0,0,0.29) 51%,
+  rgba(255,0,0,0.25) 52%, 
+  rgba(255,0,0,0.06) 65%, 
+  rgba(255,0,0,0) 80%,
+  rgba(255,0,0,0) 100%);
+
+  transition: opacity 6s ease-in-out, -webkit-filter 6s ease-in-out;
+  transition: opacity 6s ease-in-out, filter 6s ease-in-out;
+  transition: opacity 6s ease-in-out, filter 6s ease-in-out, -webkit-filter 6s ease-in-out;
+  -webkit-filter: blur(var(--redAreaBlur));
+          filter: blur(var(--redAreaBlur));
+  opacity: 0;
+}
+
+#barCodeToScan{
+  position: absolute;
+  --barCodeBlur: 8px;
+  --barCodeOpacity: 0;
+  left: calc(50vw - 70px);
+  text-align: center;
+  font-family: 'Libre Barcode 39 Extended', cursive;
+  font-size: 140px;
+
+  transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity 1.5s ease-in-out, filter 1.5s ease-in-out;
+  opacity: var(--barCodeOpacity);
+  filter: blur(var(--barCodeBlur));
+  transform: scale(0.7, 0.7);
+  top: calc(50vh - 460px);
+  color: #232330;
+}
+#barCodeToScan2{
+  position: absolute;
+  --barCodeBlur: 8px;
+  --barCodeOpacity: 0;
+  left: calc(50vw - 70px);
+  text-align: center;
+  font-family: 'Libre Barcode 39 Extended', cursive;
+  font-size: 140px;
+
+  transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity 1.5s ease-in-out, filter 1.5s ease-in-out;
+  opacity: var(--barCodeOpacity);
+  filter: blur(var(--barCodeBlur));
+  transform: scale(0.7, 0.7);
+  top: calc(50vh - 120px);
+  color: #232330;
+}
+
+#barCodeToScan.goDown, #barCodeToScan2.goDown{
+  transform: scale(1.75, 0.7);
+  top: calc(50vh - 260px);
+  color: #232330;
+}
+
+#barCodeToScan.toScan, #barCodeToScan2.toScan{
+  transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .75s ease-in-out;
+  transform: scale(1.75, 0.7);
+  top: calc(50vh - 60px);
+  color: #232330;
+}
+
+#barCodeToScan.incorrect, #barCodeToScan2.incorrect{
+  transition: top .75s ease-in-out, transform .25s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .75s ease-in-out;
+  transform: scale(1.85, 0.7);
+  top: calc(50vh - 60px);
+  color: rgba(170, 0, 0, 0.35);
 }

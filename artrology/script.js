@@ -203,11 +203,54 @@ function addEvent(obj, evt, fn) {
   }
 }
 
+var vis = (function(){
+  var stateKey, 
+      eventKey, 
+      keys = {
+              hidden: "visibilitychange",
+              webkitHidden: "webkitvisibilitychange",
+              mozHidden: "mozvisibilitychange",
+              msHidden: "msvisibilitychange"
+  };
+  for (stateKey in keys) {
+      if (stateKey in document) {
+          eventKey = keys[stateKey];
+          break;
+      }
+  }
+  return function(c) {
+      if (c) document.addEventListener(eventKey, c);
+      console.log(document[stateKey]);
+      return !document[stateKey];
+  }
+})();
+// check if current tab is active or not
+vis(function(){
+  if(vis()){
+  //tab focused
+  setTimeout(function(){            
+    //selfTwinkle(openingTextStart, openingTextEnd);
+  },300);		                   
+  } 
+  else {
+  // tab not focused
+    lastNOWfollow = undefined;
+    lastNOWslr1 = undefined;
+    lastNOWslr2 = undefined;
+    lastNOWslr3 = undefined;
+    lastNOWincE = undefined;
+    lastNOWincE2 = undefined;
+    lastNOWdecE = undefined;
+    lastNOWecA = undefined;
+    //cancelTwinkle(openingTextStart, openingTextEnd);
+  }
+});
+
 //spotlight funcs
 var lightV;
 const lightMass = 15;//15, 50
 const shadeMass = 1; //5, 1
-const G = 1.5; //0.2, 10
+const G = 2; //0.2, 10
 var velocity = new Vector(0, 0);
 var acceleration = new Vector(0, 0);
 //var accModifier = 1;
@@ -219,19 +262,19 @@ var shadeV = new Vector(shadeX, shadeY);
 var x = 0.5*window.innerWidth;
 var y = 1.5*window.innerHeight;
 
-var maxToLightDistIndex = 0.6;
+var maxToLightDistIndex = 0.9;
 var maxDistToLightCenter =
-  document.body.clientWidth >= document.body.clientHeight
-    ? Math.pow(document.body.clientWidth * maxToLightDistIndex, 2)
-    : Math.pow(document.body.clientHeight * maxToLightDistIndex, 2);
+  window.innerWidth >= window.innerHeight
+    ? Math.pow(window.innerWidth * maxToLightDistIndex, 2)
+    : Math.pow(window.innerHeight * maxToLightDistIndex, 2);
 //var alphaBias = 0.2;
 var randNum = 0;
 
 $window.resize(function(){
   maxDistToLightCenter =
-  document.body.clientWidth >= document.body.clientHeight
-    ? Math.pow(document.body.clientWidth * maxToLightDistIndex, 2)
-    : Math.pow(document.body.clientHeight * maxToLightDistIndex, 2);
+    window.innerWidth >= window.innerHeight
+    ? Math.pow(window.innerWidth * maxToLightDistIndex, 2)
+    : Math.pow(window.innerHeight * maxToLightDistIndex, 2);
   });
 
 var cursorLerpX = 0.25;
@@ -286,9 +329,6 @@ function followCursor(timestamp) {
     shadeV.add(velocity);
 
     //change alpha and acc modifier
-    if(mouseState == 0){maxToLightDistIndex = 0.6;}
-    else if(mouseState == 2){maxToLightDistIndex = 0.2;}
-
     let distanceToLightCenter =
       Math.pow(shadeX - x, 2) + Math.pow(shadeY - y, 2);
 
@@ -310,10 +350,20 @@ function followCursor(timestamp) {
   } 
   else if (mouseState == 1 && eclipseR <= 0 && (nameInputSubmitted == 1 || timeInputSubmitted)) {
     if(nameInputSubmitted == 1){
-      randNum = Math.random() * (3.5 - 1) + 1;
+      randNum = Math.random() * (2.5 - 1.5) + 1.5;
+      maxToLightDistIndex = 0.9;
+      maxDistToLightCenter =
+        window.innerWidth >= window.innerHeight
+        ? Math.pow(window.innerWidth * maxToLightDistIndex, 2)
+        : Math.pow(window.innerHeight * maxToLightDistIndex, 2);
     }
     else if(timeInputSubmitted){
-      randNum = Math.random() * (2 - 0.5) + 0.5;
+      randNum = Math.random() * (1.8 - 0.8) + 0.8;
+      maxToLightDistIndex = 0.5;
+      maxDistToLightCenter =
+        window.innerWidth >= window.innerHeight
+        ? Math.pow(window.innerWidth * maxToLightDistIndex, 2)
+        : Math.pow(window.innerHeight * maxToLightDistIndex, 2);
     }
     let randSign = Math.random() * (0.1 + 0.1) - 0.1;
     randNum = randSign > 0 ? randNum : -1 * randNum;
@@ -322,7 +372,6 @@ function followCursor(timestamp) {
       mouseY + document.body.clientHeight * randNum
     );
   }
-  console.log( shadeX + " : " + shadeY);
   document.documentElement.style.setProperty("--eclipseX", shadeX + "px");
   document.documentElement.style.setProperty("--eclipseY", shadeY + "px");
 }
@@ -334,7 +383,6 @@ var mouseX = 0.5 * window.innerWidth,
 
 var IDfollowCursor;
 
-var fpsInterval = 1000/30;
 var NOWfollow;
 function update(e) {
   mouseX = e.clientX;
@@ -346,21 +394,31 @@ function update(e) {
 }
 
 //var mouseStateUpdated = 0;
-
-function SLR1() {
+var NOWslr1, lastNOWslr1;
+function SLR1(timestamp) {
   IDSLR = requestAnimationFrame(SLR1);
-  if (spotLightRadius < 32) {
+
+  if(lastNOWslr1 === undefined){
+    lastNOWslr1 = timestamp;
+  }
+  NOWslr1 = timestamp;
+  let dt = (NOWslr1 - lastNOWslr1)/1000;
+  lastNOWslr1 = NOWslr1;
+  lastNOWslr2 = timestamp;
+  lastNOWslr3 = timestamp;
+
+  if (spotLightRadius < 36) {
     //canChange = 0;
-    spotLightRadius += 0.125;
-    if (spotLightRadius > 32) {
-      spotLightRadius = 32;
+    spotLightRadius += 3.788 * dt; //0.125
+    if (spotLightRadius > 36) {
+      spotLightRadius = 36;
     }
   } 
-  else if(spotLightRadius > 32){
+  else if(spotLightRadius > 36){
     //canChange = 0;
-    spotLightRadius -= 0.125;
-    if (spotLightRadius < 32) {
-      spotLightRadius = 32;
+    spotLightRadius -= 3.788 * dt;
+    if (spotLightRadius < 36) {
+      spotLightRadius = 36;
     }
   }
   // else {
@@ -371,20 +429,31 @@ function SLR1() {
   document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
 }
 
-function SLR2() {
+var NOWslr2, lastNOWslr2;
+function SLR2(timestamp) {
   IDSLR = requestAnimationFrame(SLR2);
-  if (spotLightRadius < 42) {
+
+  if(lastNOWslr2 === undefined){
+    lastNOWslr2 = timestamp;
+  }
+  NOWslr2 = timestamp;
+  let dt = (NOWslr2 - lastNOWslr2)/1000;
+  lastNOWslr2 = NOWslr2;
+  lastNOWslr1 = timestamp;
+  lastNOWslr3 = timestamp;
+
+  if (spotLightRadius < 47) {
     //canChange = 0;
-    spotLightRadius += 0.125;
-    if (spotLightRadius > 42) {
-      spotLightRadius = 42;
+    spotLightRadius += 3.788 * dt;
+    if (spotLightRadius > 47) {
+      spotLightRadius = 47;
     }
   }
-  else if(spotLightRadius > 42){
+  else if(spotLightRadius > 47){
     //canChange = 0;
-    spotLightRadius -= 0.125;
-    if (spotLightRadius < 42) {
-      spotLightRadius = 42;
+    spotLightRadius -= 3.788 * dt;
+    if (spotLightRadius < 47) {
+      spotLightRadius = 47;
     }
   } 
   // else {
@@ -394,20 +463,31 @@ function SLR2() {
   document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
 }
 
-function SLR3() {
+var NOWslr3, lastNOWslr3;
+function SLR3(timestamp) {
   IDSLR = requestAnimationFrame(SLR3);
-  if (spotLightRadius > 24) {
+
+  if(lastNOWslr3 === undefined){
+    lastNOWslr3 = timestamp;
+  }
+  NOWslr3 = timestamp;
+  let dt = (NOWslr3 - lastNOWslr3)/1000;
+  lastNOWslr3 = NOWslr3;
+  lastNOWslr2 = timestamp;
+  lastNOWslr1 = timestamp;
+
+  if (spotLightRadius > 25) {
     //canChange = 0;
-    spotLightRadius -= 0.125;
-    if (spotLightRadius < 24) {
-      spotLightRadius = 24;
+    spotLightRadius -= 3.788 * dt;
+    if (spotLightRadius < 25) {
+      spotLightRadius = 25;
     }
   } 
-  else if(spotLightRadius < 24){
+  else if(spotLightRadius < 25){
     //canChange = 0;
-    spotLightRadius += 0.125;
-    if (spotLightRadius > 24) {
-      spotLightRadius = 24;
+    spotLightRadius += 3.788 * dt;
+    if (spotLightRadius > 25) {
+      spotLightRadius = 25;
     }
   }
   // else {
@@ -418,62 +498,114 @@ function SLR3() {
   document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
 }
 
-function incEclipseR() {
+var NOWincE, lastNOWincE;
+function incEclipseR(timestamp) {
   IDECR = requestAnimationFrame(incEclipseR);
-  if (eclipseR < 24.5) {
+
+  if(lastNOWincE === undefined){
+    lastNOWincE = timestamp;
+  }
+  NOWincE = timestamp;
+  let dt = (NOWincE - lastNOWincE)/1000;
+  lastNOWincE = NOWincE;
+  lastNOWincE2 = timestamp;
+  lastNOWdecE = timestamp;
+  lastNOWecA = timestamp;
+
+  if (eclipseR < 26) {
     //canChangeEclipse = 0;
-    eclipseR += 0.04;
-  } 
+    eclipseR += 2.4 * dt; //0.08
+
+    if (eclipseR > 26) {
+      eclipseR = 26;
+    }
+  }
+  else if(eclipseR > 26){
+    eclipseR -= 2.4 * dt;
+
+    if (eclipseR < 26) {
+      eclipseR = 26;
+    }
+  }
   // else {
   //   canChangeEclipse = 1;
   // }
-  if (eclipseR > 24.5) {
-    eclipseR = 24.5;
-  }
   document.documentElement.style.setProperty("--eclipseR", eclipseR + "vmax");
 }
 
-function incEclipseR2() {
+var NOWincE2, lastNOWincE2;
+function incEclipseR2(timestamp) {
   IDECR = requestAnimationFrame(incEclipseR2);
-  if (eclipseR < 41.5) {
+
+  if(lastNOWincE2 === undefined){
+    lastNOWincE2 = timestamp;
+  }
+  NOWincE2 = timestamp;
+  let dt = (NOWincE2 - lastNOWincE2)/1000;
+  lastNOWincE2 = NOWincE2;
+  lastNOWincE = timestamp;
+  lastNOWdecE = timestamp;
+  lastNOWecA = timestamp;
+
+  if (eclipseR < 49) {
     //canChangeEclipse = 0;
-    eclipseR += 0.06;
+    eclipseR += 1.82 * dt; //0.06
   } 
   // else {
   //   canChangeEclipse = 1;
   // }
-  if (eclipseR > 41.5) {
-    eclipseR = 41.5;
+  if (eclipseR > 49) {
+    eclipseR = 49;
   }
   document.documentElement.style.setProperty("--eclipseR", eclipseR + "vmax");
 }
 
-function decEclipseR() {
+var NOWdecE, lastNOWdecE;
+function decEclipseR(timestamp) {
   IDECR = requestAnimationFrame(decEclipseR);
+  
+  if(lastNOWdecE === undefined){
+    lastNOWdecE = timestamp;
+  }
+  NOWdecE = timestamp;
+  let dt = (NOWdecE - lastNOWdecE)/1000;
+  lastNOWdecE = NOWdecE;
+  lastNOWincE = timestamp;
+  lastNOWincE2 = timestamp;
+
   if (eclipseR > 0) {
     //canChangeEclipse = 0;
-    eclipseR -= 0.5;
+    eclipseR -= 7.5 * dt; //0.25
+    if (eclipseR < 0) {
+      eclipseR = 0;
+    }
   } 
   // else {
   //   canChangeEclipse = 1;
   // }
-  if (eclipseR < 0) {
-    eclipseR = 0;
-  }
   document.documentElement.style.setProperty("--eclipseR", eclipseR + "vmax");
 }
 
-function eclipseFadeout() {
+var NOWecA, lastNOWecA;
+function eclipseFadeout(timestamp) {
   IDECA = requestAnimationFrame(eclipseFadeout);
+
+  if(lastNOWecA === undefined){
+    lastNOWecA = timestamp;
+  }
+  NOWecA = timestamp;
+  let dt = (NOWecA - lastNOWecA)/1000;
+  lastNOWecA = NOWecA;
+
   if (eclipseA1 > 0.1 || eclipseA2 > 0.06) {
     //canChangeAlpha = 0;
     if (eclipseA1 > 0.02) {
-      eclipseA1 -= 0.03125;
+      eclipseA1 -= 0.85 * dt; //0.03125
     } else if (eclipseA1 < 0.02) {
       eclipseA1 = 0.02;
     }
     if (eclipseA2 > 0.01) {
-      eclipseA2 -= 0.03125;
+      eclipseA2 -= 0.85 * dt;
     } else if (eclipseA2 < 0.01) {
       eclipseA2 = 0.01;
     }
@@ -692,7 +824,8 @@ $filterOn.click(function(){
   if(setting == false){
     setting = true;
     $(document.body).addClass("svgFilter");
-    $(document.documentElement).addClass("svgFilter");
+    setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
+    //$(document.documentElement).addClass("svgFilter");
 
     $settingText.css("opacity", "0");
     $settingButton.css("filter", "blur(6px)");
@@ -714,7 +847,7 @@ $filterOn.click(function(){
 $filterOff.click(function(){
   if(setting == false){
     setting = true;
-    $(document.documentElement).addClass("svgFilter");
+    setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
 
     $settingText.css("opacity", "0");
     $settingButton.css("filter", "blur(6px)");
@@ -727,12 +860,54 @@ $filterOff.click(function(){
     },1100);
     setTimeout(function(){$settingClass.css("display", "none");}, 2100);
 
+    twinkleBrighterOpa = 1;
+
     $filterOff.css("cursor", "grabbing"); 
     
     $filterOn.off();
     $filterOff.off();
   }
 });
+
+/******************************* scrollBar *****************************/
+var scrollBarWidth = 0;
+var scrollTimeOut;
+var scrolling = false;
+
+function scrollDisppear(){
+  let curScrollBarWidth = scrollBarWidth;
+  $({w: curScrollBarWidth}).animate({w: 0},{
+    duration: 300,
+    easing: "easeInOutSine",
+    step: function(now){
+      clearTimeout(scrollTimeOut);
+      if(scrolling){return;}
+      scrollBarWidth = now;
+      document.documentElement.style.setProperty("--scrollBarWidth", scrollBarWidth + "px");
+    },
+    complete: function(){
+      scrolling = true;
+    }
+  });
+}
+
+$document.scroll(function(){
+  clearTimeout(scrollTimeOut);
+  scrolling = true;
+  let curScrollBarWidth = scrollBarWidth;
+  $({w: curScrollBarWidth}).animate({w: 9},{
+    duration: 300,
+    easing: "easeInOutSine",
+    step: function(now){
+      scrollBarWidth = now;
+      document.documentElement.style.setProperty("--scrollBarWidth", scrollBarWidth + "px");
+    },
+    complete: function(){
+      scrolling = false;
+    }
+  });
+  scrollTimeOut = setTimeout(scrollDisppear, 5000);
+})
 
 /******************************spotlight*********************************/
 var mouseState = 1;
@@ -779,20 +954,24 @@ function startAnim(){
   }
 }
 function darknessStartAnim(){
-  cancelAnimationFrame(IDdarkness);
-  if(Math.abs(darkness - 0.94) >= 0.0005){
-    darkness = lerp(darkness, 0.94, 0.001);
-    IDdarkness = requestAnimationFrame(darknessStartAnim);
-  }
-  else{darkness = 0.94; }
-  document.documentElement.style.setProperty("--darkness", darkness);
+  let curDarkness = darkness;
+  $({d: curDarkness}).stop().animate({d: 0.94},{
+    duration: 30000,
+    easing: "easeInOutQuad",
+    step: function(now){
+      darkness = now;
+      document.documentElement.style.setProperty("--darkness", darkness);
+    },
+    complete: function(){
+      cancelAnimationFrame(IDdarkness);
+    }
+  });
 }
 
 var start = true;
 var IDstart;
-var IDdarkness;
 var darkness = 0.99;
-
+var IDdarkness;
 $settingButton.one("click", function(){
   if(setting){
     setTimeout(function(){
@@ -1226,7 +1405,7 @@ function adjustElementSize(){
     $h1.text("Self-Help Guide : Artrology");
     $yearMonthButton.css("display", "inline-block");
     timeButtonMouseOverFunc = 0;
-    $plaintext.css("margin-right", "35%");
+    $plaintext.css("margin-right", "20%");
     $timeInput.css("width", "55%");
     bodyBlur = 0.65;
   }
@@ -1240,7 +1419,7 @@ function adjustElementSize(){
     $h1.text("Self-Help Guide : Artrology");
     $yearMonthButton.css("display", "inline-block");
     timeButtonMouseOverFunc = 0;
-    $plaintext.css("margin-right", "35%");
+    $plaintext.css("margin-right", "20%");
     $timeInput.css("width", "55%");
     bodyBlur = 0.6;
   }
@@ -1254,7 +1433,7 @@ function adjustElementSize(){
     $h1.text("Self-Help Guide : Artrology");
     $yearMonthButton.css("display", "inline-block");
     timeButtonMouseOverFunc = 0;
-    $plaintext.css("margin-right", "35%");
+    $plaintext.css("margin-right", "20%");
     $timeInput.css("width", "55%");
     bodyBlur = 0.55;
   }
@@ -1268,7 +1447,7 @@ function adjustElementSize(){
     $h1.text("Self-Help Guide : Artrology");
     $yearMonthButton.css("display", "initial");
     timeButtonMouseOverFunc = 1;
-    $plaintext.css("margin-right", "18px");
+    $plaintext.css("margin-right", "25px");
     $timeInput.css("width", "100%");
     bodyBlur = 0.5;
   }
@@ -1282,7 +1461,7 @@ function adjustElementSize(){
     $h1.text("Self-Help Guide : Artrology");
     $yearMonthButton.css("display", "initial");
     timeButtonMouseOverFunc = 1;
-    $plaintext.css("margin-right", "18px");
+    $plaintext.css("margin-right", "25px");
     $timeInput.css("width", "100%");
     bodyBlur = 0.4;
   }
@@ -1296,7 +1475,7 @@ function adjustElementSize(){
     $h1.text("Self-Help Guide : Art-trology");
     $yearMonthButton.css("display", "initial");
     timeButtonMouseOverFunc = 1;
-    $plaintext.css("margin-right", "18px");
+    $plaintext.css("margin-right", "25px");
     $timeInput.css("width", "100%");
     bodyBlur = 0.35;
   }
@@ -1310,7 +1489,7 @@ function adjustElementSize(){
     $h1.text("Self-Help Guide : Art-trology");
     $yearMonthButton.css("display", "initial");
     timeButtonMouseOverFunc = 1;
-    $plaintext.css("margin-right", "18px");
+    $plaintext.css("margin-right", "25px");
     $timeInput.css("width", "100%");
     bodyBlur = 0.25;
   }
@@ -1325,7 +1504,7 @@ function adjustElementSize(){
     $h1.text("Self-Help Guide : Artrology");
     $yearMonthButton.css("display", "inline-block");
     timeButtonMouseOverFunc = 0;
-    $plaintext.css("margin-right", "35%");
+    $plaintext.css("margin-right", "20%");
     $timeInput.css("width", "55%");
     bodyBlur = 0.85;
   }
@@ -1365,15 +1544,16 @@ function textTwinkle($this, index){
   else if($this.css("opacity") <= 0.05 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
 }
 
+var twinkleBrighterOpa = 0.65;
 function textTwinkleBright($this, index){ 
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkleBright($this, index);});
   $this.css("transition", "all 12s ease-in-out");
-  if($this.css("opacity") < 0.6 && twinkleDirects[index] == 1){ 
-    $this.css("opacity", 0.6);
+  if($this.css("opacity") < twinkleBrighterOpa && twinkleDirects[index] == 1){ 
+    $this.css("opacity", twinkleBrighterOpa);
     $this.css("--glowPix1", "-2px");
     $this.css("--glowPix2", "2px");
     $this.css("--glowColor2", "#77798f");
-    if(Math.abs(parseFloat($this.css("opacity"))-0.6) <= 0.005){twinkleDirects[index] = -1;}
+    if(Math.abs(parseFloat($this.css("opacity"))-twinkleBrighterOpa) <= 0.005){twinkleDirects[index] = -1;}
   }
   else if ($this.css("opacity") > 0.1 && twinkleDirects[index] == -1){
     $this.css("opacity", 0.1);
@@ -1382,7 +1562,7 @@ function textTwinkleBright($this, index){
     $this.css("--glowColor2", "#363246");
     if(Math.abs(parseFloat($this.css("opacity"))-0.1) <= 0.005){twinkleDirects[index] = 1;}
   }
-  else if($this.css("opacity") >= 0.6 && twinkleDirects[index] == 1){twinkleDirects[index] = -1;}
+  else if($this.css("opacity") >= twinkleBrighterOpa && twinkleDirects[index] == 1){twinkleDirects[index] = -1;}
   else if($this.css("opacity") <= 0.1 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
 }
 
@@ -1568,8 +1748,8 @@ $rotate.mouseup(function(){
 $rotateBackCircle.mouseover(function(){
   $rotateBackCircle.css("box-shadow", "0px 0px 10px #232323, 0px 0px 10px #3f3d52, 0px 0px 10px #3f3d52, 0px 0px 10px #232323")
   $rotate.css("box-shadow", "0px 0px 10px #ebebeb, 0px 0px 10px #ebebeb, 0px 0px 10px #ebebeb, 0px 0px 10px #ebebeb")
-  $rotateTextOne.css("color", "#191919");
-  $rotateTextTwo.css("color", "#191919");
+  $rotateTextOne.css("color", "#13131c");
+  $rotateTextTwo.css("color", "#13131c");
   document.getElementsByClassName("SelectionDiv")[0].style.setProperty("--blurPx", "1px");
 });
 $rotateBackCircle.mouseleave(function(){
@@ -1680,20 +1860,10 @@ function inputFocusIn() {
   inputFocused = 1;
   nameInputSubmitted = 0;
   $allNotNameInput.addClass("inputFocused");
-
-  $inp.css("filter", "blur(1px)");
-  $inp.css("-ms-filter", "blur(1px)");
-  $inp.css("-ms-filter", "blur(1px)");
-  $inp.css("-web-kit-filter", "blur(1px)");
 }
 function inputFocusOut() {
   inputFocused = 0;
   $allNotNameInput.removeClass("inputFocused");
-
-  $inp.css("filter", "blur(.5px)");
-  $inp.css("-ms-filter", "blur(.5px)");
-  $inp.css("-ms-filter", "blur(.5px)");
-  $inp.css("-web-kit-filter", "blur(.5px)");
 }
 
 var JSinput = document.getElementById("inp");
@@ -2035,6 +2205,10 @@ $yearMonthButton.click(function(){
     LB2.ID = requestAnimationFrame(function(){nightColor(LB2, nightB2, "--LB2", 9000);});
     LA037.ID = requestAnimationFrame(function(){nightAlpha(LA037, nightA037, "--LA0-37");});
   }, 500);
+  
+  //scan
+  scanAnim();
+  
 });
 $yearMonthButton.mousedown(function(){
   $yearMonthButton.css("cursor", "grabbing");
@@ -2043,4 +2217,105 @@ $yearMonthButton.mouseup(function(){
   $yearMonthButton.css("cursor", "grab");
 });
 
-/*******************showSign*************************************/
+/*******************scanArea*************************************/
+var $scan = $("#scanArea");
+var $allNotScan = $("* :not(#scanArea):not(#redLine):not(body):not(#bodyRotate)");
+var $redLine = $("#redLine");
+var $redLightArea = $("#redLightArea");
+var $barCode = $("#barCodeToScan");
+var $barCode2 = $("#barCodeToScan2");
+var signs = {
+  0: "c",
+  1: "k",
+  2: "^",
+  3: "q",
+  4: "m",
+  5: "r",
+  6: "x",
+  7: "n",
+  8: "s",
+  9: "j",
+  10: "{"
+}
+var barcodeNum = 0;
+
+function redLineAppear(){
+  $scan.css("display", "initial");
+  $scan.css("top", $window.scrollTop()+"px");
+  $(document.body).css("overflow", "hidden");
+  setTimeout(function(){
+    $redLine.css("opacity", "1");
+    $redLightArea.css("opacity", "1");
+    $redLine.css("--redLineBlur", "2px");
+    $redLightArea.css("--redAreaBlur", "2.7px");
+  }, 4000);
+}
+
+function barCodeAppear($code,time){
+  $code.text(signs[barcodeNum]);
+  setTimeout(function(){
+    $code.addClass("goDown");
+    $code.css("--barCodeOpacity", "1");
+    $code.css("--barCodeBlur", "0.75px");
+  }, time);
+}
+
+function barCodeGoToScan($code, time){
+  nextToScan = false;
+  setTimeout(function(){
+    $code.removeClass("goDown");
+    $code.addClass("toScan");
+  }, time);
+}
+
+function incorrectCode($code, order){
+  setTimeout(function(){
+    $code.removeClass("toScan");
+    $code.addClass("incorrect");
+    setTimeout(function(){
+      $code.css("--barCodeOpacity", "0");
+      $code.css("--barCodeBlur", "8px");
+      setTimeout(function(){
+        if(parseFloat($code.css("opacity")) <= 0.01){
+          $code.removeClass("incorrect");
+          if(order == 1){scanBarCode2();}
+          else{scanBarCode();}
+        }
+      }, 750);
+    }, 50);
+  }, 150);
+}
+
+function scanBarCode(){
+  if(barcodeNum == 11){return;}
+  barCodeGoToScan($barCode, 100);
+  barcodeNum += 1;
+  if(barcodeNum < 10){barCodeAppear($barCode2, 200);}
+  setTimeout(function(){
+    if(barCodeCorrect == false){
+      incorrectCode($barCode, 1);
+    }
+  }, 800);
+}
+
+function scanBarCode2(){
+  if(barcodeNum == 11){return;}
+  barCodeGoToScan($barCode2, 100);
+  barcodeNum += 1;
+  if(barcodeNum < 10){barCodeAppear($barCode, 200);}
+  setTimeout(function(){
+    if(barCodeCorrect == false){
+      incorrectCode($barCode2, 2);
+    }
+  }, 800);
+}
+
+var barCodeCorrect = false;
+function scanAnim(){
+  $allNotScan.addClass("scan");
+  redLineAppear();
+  barCodeAppear($barCode, 8000);
+  setTimeout(function(){
+    scanBarCode();
+  }, 9500);
+}
