@@ -906,7 +906,7 @@ $document.scroll(function(){
       scrolling = false;
     }
   });
-  scrollTimeOut = setTimeout(scrollDisppear, 5000);
+  scrollTimeOut = setTimeout(scrollDisppear, 3000);
 })
 
 /******************************spotlight*********************************/
