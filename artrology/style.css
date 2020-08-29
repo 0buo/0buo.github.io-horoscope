@@ -857,8 +857,8 @@ h1 {
   transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity 1.5s ease-in-out, filter 1.5s ease-in-out;
   opacity: var(--barCodeOpacity);
   filter: blur(var(--barCodeBlur));
-  transform: scale(0.7, 0.7);
-  top: calc(50vh - 460px);
+  transform: scale(1, 0.7);
+  top: calc(50vh - 160px);
   color: #232330;
 }
 #barCodeToScan2{
@@ -873,8 +873,8 @@ h1 {
   transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity 1.5s ease-in-out, filter 1.5s ease-in-out;
   opacity: var(--barCodeOpacity);
   filter: blur(var(--barCodeBlur));
-  transform: scale(0.7, 0.7);
-  top: calc(50vh - 120px);
+  transform: scale(1, 0.7);
+  top: calc(50vh - 160px);
   color: #232330;
 }
 
