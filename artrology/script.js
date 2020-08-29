@@ -2290,7 +2290,7 @@ function scanBarCode(){
   if(barcodeNum == 11){return;}
   barCodeGoToScan($barCode, 100);
   barcodeNum += 1;
-  if(barcodeNum < 10){barCodeAppear($barCode2, 200);}
+  if(barcodeNum < 10){barCodeAppear($barCode2, 300);}
   setTimeout(function(){
     if(barCodeCorrect == false){
       incorrectCode($barCode, 1);
@@ -2302,7 +2302,7 @@ function scanBarCode2(){
   if(barcodeNum == 11){return;}
   barCodeGoToScan($barCode2, 100);
   barcodeNum += 1;
-  if(barcodeNum < 10){barCodeAppear($barCode, 200);}
+  if(barcodeNum < 10){barCodeAppear($barCode, 300);}
   setTimeout(function(){
     if(barCodeCorrect == false){
       incorrectCode($barCode2, 2);

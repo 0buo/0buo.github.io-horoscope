@@ -895,5 +895,5 @@ h1 {
   transition: top .75s ease-in-out, transform .25s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .75s ease-in-out;
   transform: scale(1.85, 0.7);
   top: calc(50vh - 60px);
-  color: rgba(170, 0, 0, 0.35);
+  color: rgba(200, 0, 0, 0.5);
 }
