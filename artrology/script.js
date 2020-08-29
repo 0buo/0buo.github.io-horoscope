@@ -226,13 +226,13 @@ var vis = (function(){
 })();
 // check if current tab is active or not
 vis(function(){
-  if(vis()){
-  //tab focused
-  setTimeout(function(){            
-    //selfTwinkle(openingTextStart, openingTextEnd);
-  },300);		                   
-  } 
-  else {
+  // if(vis()){
+  // //tab focused
+  //   setTimeout(function(){            
+  //   //selfTwinkle(openingTextStart, openingTextEnd);
+  //   },300);		                   
+  // } 
+  if(vis() == false) {
   // tab not focused
     lastNOWfollow = undefined;
     lastNOWslr1 = undefined;
@@ -1673,9 +1673,11 @@ $rotate.click(function () {
         $timesDiv.removeClass("hideRotateLeft");
         $namesDiv.toggleClass("showRotateLeft");
         setTimeout(function(){
-          if(parseFloat($namesDiv.css("opacity")) > 0.99){moonCanSwitch2 = true;}
+          //if(parseFloat($namesDiv.css("opacity")) > 0.95){
+            moonCanSwitch2 = true;
+          //}
           //console.log($namesDiv.css("opacity") + " : " + moonCanSwitch2);
-        }, 1100);
+        }, 1500);
       }, 250);
     } 
     else if (moonCount == 2) {
@@ -1693,8 +1695,11 @@ $rotate.click(function () {
         $namesDiv.toggleClass("hideRotateLeft");
         $timesDiv.toggleClass("showRotateLeft");
         setTimeout(function(){
-          if(parseFloat($namesDiv.css("opacity")) < 0.01){$namesDiv.css("display", "none"); moonCanSwitch0 = true;}
-        }, 1100);
+          //if(parseFloat($namesDiv.css("opacity")) < 0.05){
+            $namesDiv.css("display", "none"); 
+            moonCanSwitch0 = true;
+          //}
+        }, 1500);
       }, 250);
     } 
     else if(moonCount == 0) {
@@ -1711,8 +1716,11 @@ $rotate.click(function () {
       if (scrollDest < 0){scrollDest = 0;}
       $htmlAndBody.animate({ scrollTop: scrollDest}, 1000);
       moonCountTimeOut = setTimeout(function(){
-        if(parseFloat($timesDiv.css("opacity")) < 0.01){$timesDiv.css("display", "none"); moonCanSwitch1 = true;}
-      }, 1200);
+        //if(parseFloat($timesDiv.css("opacity")) < 0.05){
+          $timesDiv.css("display", "none"); 
+          moonCanSwitch1 = true;
+        //}
+      }, 1500);
     }
     
     nameInputSubmitted = 0;
@@ -2276,11 +2284,11 @@ function incorrectCode($code, order){
       $code.css("--barCodeOpacity", "0");
       $code.css("--barCodeBlur", "8px");
       setTimeout(function(){
-        if(parseFloat($code.css("opacity")) <= 0.01){
+        //if(parseFloat($code.css("opacity")) <= 0.01){
           $code.removeClass("incorrect");
           if(order == 1){scanBarCode2();}
           else{scanBarCode();}
-        }
+        //}
       }, 750);
     }, 50);
   }, 150);
@@ -2290,7 +2298,7 @@ function scanBarCode(){
   if(barcodeNum == 11){return;}
   barCodeGoToScan($barCode, 100);
   barcodeNum += 1;
-  if(barcodeNum < 10){barCodeAppear($barCode2, 350);}
+  if(barcodeNum < 10){barCodeAppear($barCode2, 250);}
   setTimeout(function(){
     if(barCodeCorrect == false){
       incorrectCode($barCode, 1);
@@ -2302,7 +2310,7 @@ function scanBarCode2(){
   if(barcodeNum == 11){return;}
   barCodeGoToScan($barCode2, 100);
   barcodeNum += 1;
-  if(barcodeNum < 10){barCodeAppear($barCode, 350);}
+  if(barcodeNum < 10){barCodeAppear($barCode, 250);}
   setTimeout(function(){
     if(barCodeCorrect == false){
       incorrectCode($barCode2, 2);
