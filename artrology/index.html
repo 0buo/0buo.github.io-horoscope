@@ -121,6 +121,7 @@
   </div>
 
   <div id="scanArea">
+    <div id="redLightBG"></div>
     <div class="noselect" id="barCodeToScan">c</div>
     <div class="noselect" id="barCodeToScan2">k</div>
     <div id="redLightArea"></div>
@@ -135,7 +136,7 @@
         <feDisplacementMap id="cloud-disp" in="SourceGraphic" in2="noise" scale="100" result="noiseMap"></feDisplacementMap>
         
         <feGaussianBlur stdDeviation="8" result="blur" />
-        <feSpecularLighting in="blur" result="spec" specularConstant="3000" specularExponent="3000" surfaceScale="3000" lighting-color="1e1e7d">
+        <feSpecularLighting in="blur" result="spec" specularConstant="3000" specularExponent="3000" surfaceScale="3000" lighting-color="0a0a2b">
           <feSpotLight x="1000" y="100" z="100" limitingConeAngle="30"></feSpotLight>
         </feSpecularLighting>
 

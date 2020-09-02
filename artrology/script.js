@@ -220,7 +220,6 @@ var vis = (function(){
   }
   return function(c) {
       if (c) document.addEventListener(eventKey, c);
-      console.log(document[stateKey]);
       return !document[stateKey];
   }
 })();
@@ -861,6 +860,12 @@ $filterOff.click(function(){
     setTimeout(function(){$settingClass.css("display", "none");}, 2100);
 
     twinkleBrighterOpa = 1;
+    twinkleOpa = 0.5;
+    defaultTwinklwOpa1 = 0.5;
+    defaultTwinklwOpa2 = 0.6;
+    defaultTwinklwOpa3 = 0.7;
+    $redLine.css("background", "var(--redLineGradient2)");
+    $redLightArea.css("background", "var(--redAreaGradient2)");
 
     $filterOff.css("cursor", "grabbing"); 
     
@@ -906,7 +911,7 @@ $document.scroll(function(){
       scrolling = false;
     }
   });
-  scrollTimeOut = setTimeout(scrollDisppear, 3000);
+  scrollTimeOut = setTimeout(scrollDisppear, 1500);
 })
 
 /******************************spotlight*********************************/
@@ -1516,22 +1521,27 @@ function adjustElementSize(){
 }
 $document.ready(adjustElementSize);
 $window.resize(adjustElementSize);
+
+
 /********************twinkle plain text***********************************/
 var plaintexts = document.getElementsByClassName("plaintext");
 //var twinkleIntervs = new Array(plaintexts.length);
 var twinkleIDs = new Array(plaintexts.length);
 var twinkleDirects = new Array(plaintexts.length);
 
-
+var twinkleOpa = 0.23;
+var defaultTwinklwOpa1 = 0.23;
+var defaultTwinklwOpa2 = 0.3;
+var defaultTwinklwOpa3 = 0.4;
 function textTwinkle($this, index){
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkle($this, index);});
   $this.css("transition", "all 3s ease-in-out");
-  if($this.css("opacity") < 0.3 && twinkleDirects[index] == 1){ 
-    $this.css("opacity", 0.3);
-    $this.css("--glowPix1", "3px");
-    $this.css("--glowPix2", "-3px");
+  if($this.css("opacity") < twinkleOpa && twinkleDirects[index] == 1){ 
+    $this.css("opacity", twinkleOpa);
+    $this.css("--glowPix1", "4px");
+    $this.css("--glowPix2", "-4px");
     $this.css("--glowColor2", "#363246");
-    if(Math.abs($this.css("opacity")-0.3) <= 0.005){twinkleDirects[index] = -1;}
+    if(Math.abs($this.css("opacity")-twinkleOpa) <= 0.005){twinkleDirects[index] = -1;}
   }
   else if ($this.css("opacity") > 0.05 && twinkleDirects[index] == -1){
     $this.css("opacity", 0.05);
@@ -1540,7 +1550,7 @@ function textTwinkle($this, index){
     $this.css("--glowColor2", "#363246");
     if(Math.abs($this.css("opacity")-0.05) <= 0.005){twinkleDirects[index] = 1;}
   }
-  else if($this.css("opacity") >= 0.3 && twinkleDirects[index] == 1){twinkleDirects[index] = -1;}
+  else if($this.css("opacity") >= twinkleOpa && twinkleDirects[index] == 1){twinkleDirects[index] = -1;}
   else if($this.css("opacity") <= 0.05 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
 }
 
@@ -1550,15 +1560,15 @@ function textTwinkleBright($this, index){
   $this.css("transition", "all 12s ease-in-out");
   if($this.css("opacity") < twinkleBrighterOpa && twinkleDirects[index] == 1){ 
     $this.css("opacity", twinkleBrighterOpa);
-    $this.css("--glowPix1", "-2px");
-    $this.css("--glowPix2", "2px");
+    $this.css("--glowPix1", "-3px");
+    $this.css("--glowPix2", "3px");
     $this.css("--glowColor2", "#77798f");
     if(Math.abs(parseFloat($this.css("opacity"))-twinkleBrighterOpa) <= 0.005){twinkleDirects[index] = -1;}
   }
   else if ($this.css("opacity") > 0.1 && twinkleDirects[index] == -1){
     $this.css("opacity", 0.1);
-    $this.css("--glowPix1", "3px");
-    $this.css("--glowPix2", "-3px");
+    $this.css("--glowPix1", "4px");
+    $this.css("--glowPix2", "-4px");
     $this.css("--glowColor2", "#363246");
     if(Math.abs(parseFloat($this.css("opacity"))-0.1) <= 0.005){twinkleDirects[index] = 1;}
   }
@@ -1677,7 +1687,7 @@ $rotate.click(function () {
             moonCanSwitch2 = true;
           //}
           //console.log($namesDiv.css("opacity") + " : " + moonCanSwitch2);
-        }, 1500);
+        }, 1200);
       }, 250);
     } 
     else if (moonCount == 2) {
@@ -1699,7 +1709,7 @@ $rotate.click(function () {
             $namesDiv.css("display", "none"); 
             moonCanSwitch0 = true;
           //}
-        }, 1500);
+        }, 1200);
       }, 250);
     } 
     else if(moonCount == 0) {
@@ -1720,7 +1730,7 @@ $rotate.click(function () {
           $timesDiv.css("display", "none"); 
           moonCanSwitch1 = true;
         //}
-      }, 1500);
+      }, 1200);
     }
     
     nameInputSubmitted = 0;
@@ -1842,6 +1852,9 @@ addEvent(borderName, animationEndEvent, function (e) {
       }
     }
   }
+  else{
+    nameInputCanFocus = true;
+  }
 });
 
 var validity = false;
@@ -1865,13 +1878,20 @@ var $allNotNameInput = $("* :not(#nameInput):not(.inp):not(#inp):not(.border):no
 // var JQswitchNinp = $(".switchDiv > *:not(#nameInput)");
 var $inp = $(".inp");
 function inputFocusIn() {
-  inputFocused = 1;
-  nameInputSubmitted = 0;
-  $allNotNameInput.addClass("inputFocused");
+  if(nameInputCanFocus){
+    inputFocused = 1;
+    nameInputSubmitted = 0;
+    $allNotNameInput.addClass("inputFocused");
+    twinkleOpa = defaultTwinklwOpa2;
+  }
+  else{
+    JSinput.blur();
+  }
 }
 function inputFocusOut() {
   inputFocused = 0;
   $allNotNameInput.removeClass("inputFocused");
+  twinkleOpa = defaultTwinklwOpa1;
 }
 
 var JSinput = document.getElementById("inp");
@@ -1913,6 +1933,7 @@ addEvent(JSinput, "invalid", function () {
 });
 
 var nameData = "";
+var nameInputCanFocus = true;
 JQcheck.mousedown(function () {
                                                     //&& canChange == 1) {
   if (inputFocused == 1 && JSinput.checkValidity()){ 
@@ -1926,6 +1947,7 @@ JQcheck.mousedown(function () {
     input.value = "";
     nameInputSubmitted = 1;
     input.blur();
+    nameInputCanFocus = false;
 
     //change spotlight state
     sunsetStart = true;
@@ -1946,6 +1968,7 @@ JQcheck.mousedown(function () {
     }, 500);
   }
 });
+
 
 /************ ***********time input******************************/
 
@@ -2194,7 +2217,7 @@ $yearMonthButton.click(function(){
   yearSubmitted = yearVal;
   monthSubmitted = monthVal;
   timeInputSubmitted = true;
-  console.log(yearSubmitted + " . " + monthSubmitted);
+  //console.log(yearSubmitted + " . " + monthSubmitted);
 
   //change spotlight state
   sunsetStart = false;
@@ -2227,9 +2250,10 @@ $yearMonthButton.mouseup(function(){
 
 /*******************scanArea*************************************/
 var $scan = $("#scanArea");
-var $allNotScan = $("* :not(#scanArea):not(#redLine):not(body):not(#bodyRotate)");
+var $allNotScan = $("* :not(#scanArea):not(#redLine):not(#redLightArea):not(#barCodeToScan):not(#barCodeToScan2):not(body):not(#bodyRotate)");
 var $redLine = $("#redLine");
 var $redLightArea = $("#redLightArea");
+var $redLightBG = $("#redLightBG");
 var $barCode = $("#barCodeToScan");
 var $barCode2 = $("#barCodeToScan2");
 var signs = {
@@ -2256,6 +2280,8 @@ function redLineAppear(){
     $redLightArea.css("opacity", "1");
     $redLine.css("--redLineBlur", "2px");
     $redLightArea.css("--redAreaBlur", "2.7px");
+    $redLightBG.css("opacity", "1");
+    $redLightBG.css("--redLightBGblur", "18px");
   }, 4000);
 }
 
@@ -2321,6 +2347,7 @@ function scanBarCode2(){
 var barCodeCorrect = false;
 function scanAnim(){
   $allNotScan.addClass("scan");
+  twinkleOpa = defaultTwinklwOpa3;
   redLineAppear();
   barCodeAppear($barCode, 8000);
   setTimeout(function(){

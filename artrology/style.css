@@ -235,8 +235,8 @@ body.canScroll{
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1.5s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
-  -webkit-filter: blur(3.5px);
-          filter: blur(3.5px);
+  -webkit-filter: blur(4px);
+          filter: blur(4px);
 }
 
 /* body > *:not(.switchDiv).inputFocused {
@@ -299,7 +299,7 @@ h1 {
   --glowBlur: 7px;
   --filterBlur: 0px;
   --glowColor1: #232031;
-  --glowColor2: #363246;
+  --glowColor2: #1b1925;
   font-weight: 600;
   font-family: 'Codystar', cursive;
   font-size: var(--plaintextFontSize);
@@ -307,7 +307,7 @@ h1 {
   margin-left: 5vw;
   margin-right: 20%;
   padding-left: 10px;
-  opacity: 0.5;
+  opacity: 0.15;
   color: black;
   text-shadow: var(--glowPix1) var(--glowPix2) var(--glowBlur) var(--glowColor1), 
                var(--glowPix2) var(--glowPix1) var(--glowBlur) var(--glowColor2), 
@@ -559,9 +559,13 @@ h1 {
   cursor: pointer;
 }
 
+input::-ms-reveal, input::-ms-clear {
+  display: none;
+}
+
 #inp {
   -webkit-appearance: none;
-  width: 100%;
+  width: calc(100% - 70px);
   border: 0;
   font-family: inherit;
   padding: 0;
@@ -784,29 +788,40 @@ h1 {
 
   display: none;
 }
-* :not(#scanArea):not(#redLine):not(body):not(#bodyRotate) .scan{
+* :not(#scanArea):not(#redLine):not(#redLightArea):not(#barCodeToScan):not(#barCodeToScan2):not(body):not(#bodyRotate) .scan{
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 5s ease-in-out, padding-left 0s ease-in-out, padding-right 0s ease-in-out;
-  -webkit-filter: blur(4.25px);
-          filter: blur(4.25px);
+  -webkit-filter: blur(7px);
+          filter: blur(7px);
 }
 
 #redLine{
   position: absolute;
+  --redLineGradient1: linear-gradient(180deg, 
+  rgba(255,0,0,0) 0%, 
+  rgba(255,0,0,0) 25%, 
+  rgba(255,0,0,0.1) 45%, 
+  rgba(255,0,0,0.5) 49.5%, 
+  rgba(255,0,0,0.6) 50%, 
+  rgba(255,0,0,0.5) 50.5%, 
+  rgba(255,0,0,0.1) 55%, 
+  rgba(255,0,0,0) 75%, 
+  rgba(255,0,0,0) 100%);
+  --redLineGradient2: linear-gradient(180deg, 
+  rgba(255,0,0,0) 0%, 
+  rgba(255,0,0,0) 25%, 
+  rgba(255,0,0,0.3) 45%, 
+  rgba(255,0,0,0.6) 49.5%, 
+  rgba(255,0,0,0.8) 50%, 
+  rgba(255,0,0,0.6) 50.5%, 
+  rgba(255,0,0,0.3) 55%, 
+  rgba(255,0,0,0) 75%, 
+  rgba(255,0,0,0) 100%);
   --redLineBlur: 6px;
   top: calc(50vh - 6px);
   left: calc(50vw - 175px);
   width: 350px;
   height: 12px;
-  background: linear-gradient(180deg, 
-  rgba(255,0,0,0) 0%, 
-  rgba(255,0,0,0) 25%, 
-  rgba(255,0,0,0.1) 45%, 
-  rgba(255,0,0,0.45) 49.5%, 
-  rgba(255,0,0,0.55) 50%, 
-  rgba(255,0,0,0.45) 50.5%, 
-  rgba(255,0,0,0.1) 55%, 
-  rgba(255,0,0,0) 75%, 
-  rgba(255,0,0,0) 100%);
+  background: var(--redLineGradient1);
 
   transition: opacity 5s ease-in-out, -webkit-filter 5s ease-in-out;
 
@@ -820,22 +835,34 @@ h1 {
 
 #redLightArea{
   position: absolute;
+  --redAreaGradient1: linear-gradient(180deg,
+  rgba(255,0,0,0) 0%, 
+  rgba(255,0,0,0) 20%, 
+  rgba(255,0,0,0.05) 35%,
+  rgba(255,0,0,0.28) 48%,
+  rgba(255,0,0,0.32) 49%, 
+  rgba(255,0,0,0.32) 51%,
+  rgba(255,0,0,0.28) 52%, 
+  rgba(255,0,0,0.05) 65%, 
+  rgba(255,0,0,0) 80%,
+  rgba(255,0,0,0) 100%);
+  --redAreaGradient2: linear-gradient(180deg,
+  rgba(255,0,0,0) 0%, 
+  rgba(255,0,0,0) 20%, 
+  rgba(255,0,0,0.12) 35%,
+  rgba(255,0,0,0.62) 48%,
+  rgba(255,0,0,0.67) 49%, 
+  rgba(255,0,0,0.67) 51%,
+  rgba(255,0,0,0.62) 52%, 
+  rgba(255,0,0,0.12) 65%, 
+  rgba(255,0,0,0) 80%,
+  rgba(255,0,0,0) 100%);
   --redAreaBlur: 8px;
   top: calc(50vh - 125px);
   left: calc(50vw - 175px);
   width: 350px;
   height: 250px;
-  background: linear-gradient(180deg,
-  rgba(255,0,0,0) 0%, 
-  rgba(255,0,0,0) 20%, 
-  rgba(255,0,0,0.06) 35%,
-  rgba(255,0,0,0.25) 48%,
-  rgba(255,0,0,0.29) 49%, 
-  rgba(255,0,0,0.29) 51%,
-  rgba(255,0,0,0.25) 52%, 
-  rgba(255,0,0,0.06) 65%, 
-  rgba(255,0,0,0) 80%,
-  rgba(255,0,0,0) 100%);
+  background: var(--redAreaGradient1);
 
   transition: opacity 6s ease-in-out, -webkit-filter 6s ease-in-out;
   transition: opacity 6s ease-in-out, filter 6s ease-in-out;
@@ -844,6 +871,32 @@ h1 {
           filter: blur(var(--redAreaBlur));
   opacity: 0;
 }
+
+#redLightBG{
+  --redLightBGblur: 28px;
+  position: absolute;
+  top: calc(50vh - 125px);
+  left: calc(50vw - 180px);
+  width: 360px;
+  height: 250px;
+  background-color: linear-gradient(180deg,
+  rgba(255,255,255,0) 0%, 
+  rgba(255,255,255,0) 20%, 
+  rgba(255,255,255,0.04) 35%,
+  rgba(255,255,255,0.08) 48%,
+  rgba(255,255,255,0.1) 49%, 
+  rgba(255,255,255,0.1) 51%,
+  rgba(255,255,255,0.08) 52%, 
+  rgba(255,255,255,0.04) 65%, 
+  rgba(255,255,255,0) 80%,
+  rgba(255,255,255,0) 100%);
+
+  transition: opacity 8s ease-in-out, filter 8s ease-in-out;
+  opacity: 0;
+  -webkit-filter: blur(var(--redLightBGblur));
+          filter: blur(var(--redLightBGblur));
+}
+
 
 #barCodeToScan{
   position: absolute;
@@ -858,7 +911,7 @@ h1 {
   opacity: var(--barCodeOpacity);
   filter: blur(var(--barCodeBlur));
   transform: scale(1, 0.7);
-  top: calc(50vh - 160px);
+  top: calc(50vh - 200px);
   color: #232330;
 }
 #barCodeToScan2{
@@ -874,7 +927,7 @@ h1 {
   opacity: var(--barCodeOpacity);
   filter: blur(var(--barCodeBlur));
   transform: scale(1, 0.7);
-  top: calc(50vh - 160px);
+  top: calc(50vh - 200px);
   color: #232330;
 }
 
@@ -895,5 +948,5 @@ h1 {
   transition: top .75s ease-in-out, transform .25s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .75s ease-in-out;
   transform: scale(1.85, 0.7);
   top: calc(50vh - 60px);
-  color: rgba(200, 0, 0, 0.5);
+  color: rgba(210, 0, 0, 0.5);
 }
