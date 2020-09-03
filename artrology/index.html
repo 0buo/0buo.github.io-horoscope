@@ -150,7 +150,29 @@
           <feMergeNode in="spec" />
           <feMergeNode in="SourceGraphic" />
         </feMerge>
-        <feComposite operator="over" in="SourceGraphic" in2="merge" result=”final” />
+        <feComposite operator="over" in="SourceGraphic" in2="merge" result="final" />
+      </filter>
+    </defs>
+  </svg>
+
+  <svg x="0" y="0" width="100%" height="100%">
+    <defs>
+      <filter id="OFFcloud">
+        <feGaussianBlur stdDeviation="8" result="OFFblur" />
+        <feSpecularLighting in="OFFblur" result="OFFspec" specularConstant="3000" specularExponent="3000" surfaceScale="3000" lighting-color="0a0a2b">
+          <feSpotLight x="1000" y="100" z="100" limitingConeAngle="30"></feSpotLight>
+        </feSpecularLighting>
+
+        <feImage id="filter-image" xlink:href="./img/disp.jpg" result="OFFimage"/>
+        <feDisplacementMap in2="OFFimage" in="SourceGraphic"
+               xChannelSelector="R" yChannelSelector="R" scale="20" result="OFFdisp"/>
+
+        <feMerge result="OFFmerge">
+          <feMergeNode in="OFFspec" />
+          <feMergeNode in="OFFdisp" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+        <feComposite operator="over" in="SourceGraphic" in2="OFFmerge" result="OFFfinal" />
       </filter>
     </defs>
   </svg>

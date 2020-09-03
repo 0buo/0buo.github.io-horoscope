@@ -860,6 +860,7 @@ $filterOn.click(function(){
 $filterOff.click(function(){
   if(setting == false){
     setting = true;
+    $(document.body).addClass("offFilter");
     setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
 
     $settingText.css("opacity", "0");
