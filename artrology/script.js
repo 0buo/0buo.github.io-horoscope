@@ -874,18 +874,24 @@ $filterOff.click(function(){
     },1100);
     setTimeout(function(){$settingClass.css("display", "none");}, 2100);
 
-    twinkleBrighterOpa = 1;
-    twinkleOpa = 0.5;
-    defaultTwinklwOpa1 = 0.5;
-    defaultTwinklwOpa2 = 0.6;
-    defaultTwinklwOpa3 = 0.7;
-    $redLine.css("background", "var(--redLineGradient2)");
-    $redLightArea.css("background", "var(--redAreaGradient2)");
-    defaultFlareOpa = 1;
-    $scan.css("--flareOpacity", defaultFlareOpa);
-    $flare2.addClass("colorAdjust2");
-    $flare3.addClass("colorAdjust2");
-    $flare4.addClass("colorAdjust2");
+    /*setting for no filter at all*/
+    // twinkleBrighterOpa = 1;
+    // twinkleOpa = 0.5;
+    // defaultTwinklwOpa1 = 0.5;
+    // defaultTwinklwOpa2 = 0.6;
+    // defaultTwinklwOpa3 = 0.7;
+    // $redLine.css("background", "var(--redLineGradient2)");
+    // $redLightArea.css("background", "var(--redAreaGradient2)");
+    // defaultFlareOpa = 1;
+    // $scan.css("--flareOpacity", defaultFlareOpa);
+    // $flare2.addClass("colorAdjust2");
+    // $flare3.addClass("colorAdjust2");
+    // $flare4.addClass("colorAdjust2");
+
+    //setting for not moving filter
+    $flare2.addClass("colorAdjust1");
+    $flare3.addClass("colorAdjust1");
+    $flare4.addClass("colorAdjust1");
 
     $filterOff.css("cursor", "grabbing"); 
     
