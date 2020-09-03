@@ -753,80 +753,102 @@ $document.ready(adjustSettingFont);
 $window.resize(adjustSettingFont);
 
 //hover button
-$settingButton.one("mouseover", function(){
-  setTimeout(function(){
-    if(setting == false){
-      $filterOnText
-        .html('lev<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
-      setTimeout(function(){
-        $filterOnText
-          .html('leve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 150);
-      setTimeout(function(){
-        $filterOnText
-          .html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 300);
-      setTimeout(function(){
-        $filterOnText
-          .html('l eave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 450);
-      setTimeout(function(){
-        $filterOnText
-          .html('l eav e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 600);
-      setTimeout(function(){
-        $filterOnText
-          .html('l e av e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 750);
-      setTimeout(function(){
-        $filterOnText
-          .html('l e a v e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 900);
-      setTimeout(function(){
-        $filterOnText
-          .html('l e a ve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1000);
-      setTimeout(function(){
-        $filterOnText
-          .html('le a ve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1100);
-      setTimeout(function(){
-        $filterOnText
-          .html('le ave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1200);
-      setTimeout(function(){
-        $filterOnText
-          .html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1300);  
-          
-      $filterOffText.html('tk<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
-      setTimeout(function(){
-        $filterOffText
-          .html('tak<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 150);
-      setTimeout(function(){
-        $filterOffText
-          .html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 300);
-      setTimeout(function(){
-        $filterOffText
-          .html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 450);
-      setTimeout(function(){
-        $filterOffText
-          .html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 600);
-      setTimeout(function(){
-        $filterOffText
-          .html('ta k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 750);
-      setTimeout(function(){
-        $filterOffText
-          .html('t a k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 900);
-      setTimeout(function(){
-        $filterOffText
-          .html('t a ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1000);
-      setTimeout(function(){
-        $filterOffText
-          .html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1100);
-      setTimeout(function(){
-        $filterOffText
-          .html('t a ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1200);
-      setTimeout(function(){
-        $filterOffText
-          .html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1300);
-      setTimeout(function(){
-        $filterOffText
-          .html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1400);
-    }
-  }, 250);
-});
+$settingButton.one("mouseover", settingButtonUnfold);
 
+function settingButtonUnfold(){
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      if(setting == false){
+        $filterOnText.html('lev<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOnText.html('leve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 150);
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 300);
+        });
+        requestAnimationFrame(function(){setTimeout(function(){
+          $filterOnText.html('l eave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 450);
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOnText.html('l eav e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 600);
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOnText.html('l e av e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 750);
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOnText.html('l e a v e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 900);    
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOnText.html('l e a ve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1000);      
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOnText.html('le a ve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1100);    
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOnText.html('le ave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1200);
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1300);      
+        });
+
+        $filterOffText.html('tk<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOffText.html('tak<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 150);    
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 300);    
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOffText.html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 450);    
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOffText.html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 600);    
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOffText.html('ta k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 750);    
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOffText.html('t a k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 900);    
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOffText.html('t a ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1000);    
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOffText.html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1100);    
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOffText.html('t a ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1200);    
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOffText.html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1300);    
+        });
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1400);    
+        });
+      } 
+    }, 250);
+  }); 
+}
 
 //click button
 $filterOn.click(function(){
@@ -877,9 +899,9 @@ $filterOff.click(function(){
     /*setting for no filter at all*/
     twinkleBrighterOpa = 1;
     twinkleOpa = 0.38;
-    defaultTwinklwOpa1 = 0.38;
-    defaultTwinklwOpa2 = 0.5;
-    defaultTwinklwOpa3 = 0.6;
+    defaultTwinklwOpa1 = 0.42;
+    defaultTwinklwOpa2 = 0.55;
+    defaultTwinklwOpa3 = 0.65;
     $redLine.css("background", "var(--redLineGradient2)");
     $redLightArea.css("background", "var(--redAreaGradient2)");
     defaultFlareOpa = 0.85;
@@ -923,7 +945,9 @@ function scrollDisppear(){
   });
 }
 
+var IDscrollRAF;
 $document.scroll(function(){
+  cancelAnimationFrame(IDscrollRAF);
   clearTimeout(scrollTimeOut);
   if(!scrollForbid){scrolling = true;}
   let curScrollBarWidth = scrollBarWidth;
@@ -938,7 +962,7 @@ $document.scroll(function(){
       scrolling = false;
     }
   });
-  scrollTimeOut = setTimeout(scrollDisppear, 1000);
+  IDscrollRAF = requestAnimationFrame(function(){scrollTimeOut = setTimeout(scrollDisppear, 1000);});
 })
 
 /******************************spotlight*********************************/
@@ -1016,6 +1040,7 @@ $settingButton.one("click", function(){
 });
 
 /********************spotlight change******************* */
+var IDslc;
 var SLCtimer;
 var sunsetStart = false;
 var backtoSpotLight = false;
@@ -1702,42 +1727,51 @@ $rotate.click(function () {
     if (moonCount == 1) {
       $namesDiv.css("display", "initial");
       selfTwinkle(nameTextStart, nameTextEnd);
-      setTimeout(function(){
-        $rotate.toggleClass("one");
-        $rotateTextTwo.removeClass("hide");
-        $rotateTextOne.toggleClass("up");
-  
-        $timesDiv.removeClass("hideRotateLeft");
-        $namesDiv.toggleClass("showRotateLeft");
+      requestAnimationFrame(function(){
         setTimeout(function(){
-          //if(parseFloat($namesDiv.css("opacity")) > 0.95){
-            moonCanSwitch2 = true;
-          //}
-          //console.log($namesDiv.css("opacity") + " : " + moonCanSwitch2);
-        }, 1100);
-      }, 250);
+          $rotate.toggleClass("one");
+          $rotateTextTwo.removeClass("hide");
+          $rotateTextOne.toggleClass("up");
+          $timesDiv.removeClass("hideRotateLeft");
+          $namesDiv.toggleClass("showRotateLeft");
+
+          requestAnimationFrame(function(){
+            setTimeout(function(){
+              //if(parseFloat($namesDiv.css("opacity")) > 0.95){
+                moonCanSwitch2 = true;
+              //}
+              //console.log($namesDiv.css("opacity") + " : " + moonCanSwitch2);
+            }, 1100);
+          });
+        }, 250);
+      });
     } 
     else if (moonCount == 2) {
       $timesDiv.css("display", "initial");
       selfTwinkle(timeTextStart, timeTextEnd);
-      setTimeout(function(){
-        cancelTwinkle(nameTextStart, nameTextEnd);
-        $rotate.removeClass("one");
-        $rotate.toggleClass("two");
-        $rotateTextOne.removeClass("up");
-        $rotateTextOne.toggleClass("hide");
-        $rotateTextTwo.toggleClass("down");
-  
-        $namesDiv.removeClass("showRotateLeft");
-        $namesDiv.toggleClass("hideRotateLeft");
-        $timesDiv.toggleClass("showRotateLeft");
+      requestAnimationFrame(function(){
         setTimeout(function(){
-          //if(parseFloat($namesDiv.css("opacity")) < 0.05){
-            $namesDiv.css("display", "none"); 
-            moonCanSwitch0 = true;
-          //}
-        }, 1100);
-      }, 250);
+          cancelTwinkle(nameTextStart, nameTextEnd);
+          $rotate.removeClass("one");
+          $rotate.toggleClass("two");
+          $rotateTextOne.removeClass("up");
+          $rotateTextOne.toggleClass("hide");
+          $rotateTextTwo.toggleClass("down");
+          $namesDiv.removeClass("showRotateLeft");
+          $namesDiv.toggleClass("hideRotateLeft");
+          $timesDiv.toggleClass("showRotateLeft");
+
+          requestAnimationFrame(function(){
+            setTimeout(function(){
+              //if(parseFloat($namesDiv.css("opacity")) < 0.05){
+                $namesDiv.css("display", "none"); 
+                moonCanSwitch0 = true;
+              //}
+            }, 1100);
+          });
+        }, 250);
+      });
+      
     } 
     else if(moonCount == 0) {
       cancelTwinkle(timeTextStart, timeTextEnd);
@@ -1752,12 +1786,15 @@ $rotate.click(function () {
       let scrollDest = $rotateBackCircle.offset().top - 0.8 * window.innerHeight;
       if (scrollDest < 0){scrollDest = 0;}
       $htmlAndBody.animate({ scrollTop: scrollDest}, 1000);
-      moonCountTimeOut = setTimeout(function(){
-        //if(parseFloat($timesDiv.css("opacity")) < 0.05){
-          $timesDiv.css("display", "none"); 
-          moonCanSwitch1 = true;
-        //}
-      }, 1100);
+
+      requestAnimationFrame(function(){
+        moonCountTimeOut = setTimeout(function(){
+          //if(parseFloat($timesDiv.css("opacity")) < 0.05){
+            $timesDiv.css("display", "none"); 
+            moonCanSwitch1 = true;
+          //}
+        }, 1100);
+      });
     }
     
     nameInputSubmitted = 0;
@@ -1766,19 +1803,23 @@ $rotate.click(function () {
     sunsetStart = false;
     nightStart = false;
     backtoSpotLight = true;
+
+    cancelAnimationFrame(IDslc);
     clearTimeout(SLCtimer);
-    SLCtimer = setTimeout(function() {
-      mouseState = 1;
-      updateR();
-      cancelSLCid();
-      LR1.ID = requestAnimationFrame(function(){spotlightColor(LR1, 0, "--LR1");});
-      LG1.ID = requestAnimationFrame(function(){spotlightColor(LG1, 0, "--LG1");});
-      LB1.ID = requestAnimationFrame(function(){spotlightColor(LB1, 0, "--LB1");});
-      LR2.ID = requestAnimationFrame(function(){spotlightColor(LR2, 0, "--LR2");});
-      LG2.ID = requestAnimationFrame(function(){spotlightColor(LG2, 0, "--LG2");});
-      LB2.ID = requestAnimationFrame(function(){spotlightColor(LB2, 0, "--LB2");});
-      LA037.ID = requestAnimationFrame(function(){spotlightAlpha(LA037, 0.37, "--LA0-37");});
-    }, 500);
+    IDslc = requestAnimationFrame(function(){
+      SLCtimer = setTimeout(function() {
+        mouseState = 1;
+        updateR();
+        cancelSLCid();
+        LR1.ID = requestAnimationFrame(function(){spotlightColor(LR1, 0, "--LR1");});
+        LG1.ID = requestAnimationFrame(function(){spotlightColor(LG1, 0, "--LG1");});
+        LB1.ID = requestAnimationFrame(function(){spotlightColor(LB1, 0, "--LB1");});
+        LR2.ID = requestAnimationFrame(function(){spotlightColor(LR2, 0, "--LR2");});
+        LG2.ID = requestAnimationFrame(function(){spotlightColor(LG2, 0, "--LG2");});
+        LB2.ID = requestAnimationFrame(function(){spotlightColor(LB2, 0, "--LB2");});
+        LA037.ID = requestAnimationFrame(function(){spotlightAlpha(LA037, 0.37, "--LA0-37");});
+      }, 500);
+    });
   }
    //}, 100);
 });
@@ -1855,10 +1896,11 @@ var canFlash = 0;
 addEvent(borderName, animationStartEvent, function (e) {
   canFlash = 1;
   if (e.animationName == "inputFormButton") {
-    borderName.nextElementSibling.style.transitionDelay = "0s";
+    borderName.nextElementSibling.style.setProperty("transition-delay", "0s");
     validAnimationEnd = 0;
-  } else if (e.animationName == "inputBackToLine") {
-    borderName.nextElementSibling.style.transitionDelay = "1s";
+  } 
+  else if (e.animationName == "inputBackToLine") {
+    borderName.nextElementSibling.style.setProperty("transition-delay", "1s");
   }
 });
 
@@ -1869,13 +1911,14 @@ addEvent(borderName, animationEndEvent, function (e) {
     if (bufferRevealBarCode == 1) {
       let checkName = document.getElementsByClassName("check")[0];
       if (inputFocused == 1 && nameInputSubmitted == 0) {
-        checkName.style.opacity = "1";
+        checkName.style.setProperty("opacity", "1");
         let border = checkName.previousElementSibling;
-        border.style.opacity = "0";
-      } else {
-        checkName.style.opacity = "0";
+        border.style.setProperty("opacity", "0");
+      } 
+      else {
+        checkName.style.setProperty("opacity", "0");
         let border = checkName.previousElementSibling;
-        border.style.opacity = "1";
+        border.style.setProperty("opacity", "1");
       }
     }
   }
@@ -1932,13 +1975,13 @@ JQcheck.mouseover(function () {
   if (validAnimationEnd == 1) {
     bufferRevealBarCode = 0;
     if (inputFocused == 1 && nameInputSubmitted == 0) {
-      this.style.opacity = "1";
+      this.style.setProperty("opacity", "1");
       let border = this.previousElementSibling;
-      border.style.opacity = "0";
+      border.style.setProperty("opacity", "0");
     } else {
-      this.style.opacity = "0";
+      this.style.setProperty("opacity", "0");
       let border = this.previousElementSibling;
-      border.style.opacity = "1";
+      border.style.setProperty("opacity", "1");
     }
   } else {
     bufferRevealBarCode = 1;
@@ -1946,16 +1989,16 @@ JQcheck.mouseover(function () {
 });
 
 JQcheck.mouseleave(function () {
-  this.style.opacity = "0";
+  this.style.setProperty("opacity", "0");
   let border = this.previousElementSibling;
-  border.style.opacity = "1";
+  border.style.setProperty("opacity", "1");
   bufferRevealBarCode = 0;
 });
 
 addEvent(JSinput, "invalid", function () {
   JQcheck.css("opacity", "0");
   let border = this.nextElementSibling;
-  border.style.opacity = "1";
+  border.style.setProperty("opacity", "1");
   //bufferRevealBarCode = 0;
 });
 
@@ -1965,9 +2008,9 @@ JQcheck.mousedown(function () {
                                                     //&& canChange == 1) {
   if (inputFocused == 1 && JSinput.checkValidity()){ 
     let input = this.previousElementSibling.previousElementSibling;
-    this.style.opacity = "0";
+    this.style.setProperty("opacity", "0");
     let border = this.previousElementSibling;
-    border.style.opacity = "1";
+    border.style.setProperty("opacity", "1");
 
     validity = false;
     nameData = input.value; //get val
@@ -1980,19 +2023,23 @@ JQcheck.mousedown(function () {
     sunsetStart = true;
     nightStart = false;
     backtoSpotLight = false;
+
+    cancelAnimationFrame(IDslc);
     clearTimeout(SLCtimer);
-    SLCtimer = setTimeout(function() {
-      mouseState = 0;
-      updateR();
-      cancelSLCid();
-      LR1.ID = requestAnimationFrame(function(){sunsetColor(LR1, sunsetR1, "--LR1", 9500);});
-      LG1.ID = requestAnimationFrame(function(){sunsetColor(LG1, sunsetG1, "--LG1");});
-      LB1.ID = requestAnimationFrame(function(){sunsetColor(LB1, sunsetB1, "--LB1", 7500);});
-      LR2.ID = requestAnimationFrame(function(){sunsetColor(LR2, sunsetR2, "--LR2", 9000);});
-      LG2.ID = requestAnimationFrame(function(){sunsetColor(LG2, sunsetG2, "--LG2");});
-      LB2.ID = requestAnimationFrame(function(){sunsetColor(LB2, sunsetB2, "--LB2", 7500);});
-      LA037.ID = requestAnimationFrame(function(){sunsetAlpha(LA037, sunsetA037, "--LA0-37");});
-    }, 500);
+    IDslc = requestAnimationFrame(function(){
+      SLCtimer = setTimeout(function(){
+        mouseState = 0;
+        updateR();
+        cancelSLCid();
+        LR1.ID = requestAnimationFrame(function(){sunsetColor(LR1, sunsetR1, "--LR1", 9500);});
+        LG1.ID = requestAnimationFrame(function(){sunsetColor(LG1, sunsetG1, "--LG1");});
+        LB1.ID = requestAnimationFrame(function(){sunsetColor(LB1, sunsetB1, "--LB1", 7500);});
+        LR2.ID = requestAnimationFrame(function(){sunsetColor(LR2, sunsetR2, "--LR2", 9000);});
+        LG2.ID = requestAnimationFrame(function(){sunsetColor(LG2, sunsetG2, "--LG2");});
+        LB2.ID = requestAnimationFrame(function(){sunsetColor(LB2, sunsetB2, "--LB2", 7500);});
+        LA037.ID = requestAnimationFrame(function(){sunsetAlpha(LA037, sunsetA037, "--LA0-37");});
+      }, 500);
+    });
   }
 });
 
@@ -2048,6 +2095,7 @@ function rotateSlider(deg){
       duration: 600,
       easing: "easeInOutBack",
       step: function(now){
+        if(sliderMdown == false){return;}
         sliderDeg = now % 360;
         TIsliderX = sliderRadius * Math.sin((sliderDeg * Math.PI) / 180);
         TIsliderY = sliderRadius * -Math.cos((sliderDeg * Math.PI) / 180);
@@ -2071,6 +2119,7 @@ function rotateCircle(deg){
       duration: 600,
       easing: "easeInOutBack",
       step: function(now){
+        if(circleMdown == false){return;}
         circleDeg = (360 + now) % 360;
         TIcircleX = circleRdius * Math.sin((circleDeg * Math.PI) / 180);
         TIcircleY = circleRdius * -Math.cos((circleDeg * Math.PI) / 180);
@@ -2135,6 +2184,8 @@ var TIMdown = false;
 
 $window.mouseup(function () {
   if(moonCount == 2){
+    cancelAnimationFrame(IDsliderRAF);
+    cancelAnimationFrame(IDcircleRAF);
     clearTimeout(sliderTimeOut);
     clearTimeout(circleTimeOut);
     sliderMdown = false;
@@ -2159,36 +2210,44 @@ let sliderMDPos = { x: sliderPos.x - elPos.x, y: sliderPos.y - elPos.y };
 let sliderAtan = Math.atan2(sliderMDPos.x - sliderRadius, sliderMDPos.y - sliderRadius);
 var sliderDeg = -sliderAtan / (Math.PI / 180) + 180;
 var sliderTimeOut;
+var IDsliderRAF;
 $TIslider.mousedown(function () {
+  cancelAnimationFrame(IDsliderRAF);
   clearTimeout(sliderTimeOut);
-  sliderTimeOut = setTimeout(function(){
-    TIMdown = true;
-    sliderMdown = true;
-    timeInputSubmitted = false;
-    TIslider.style.setProperty("--sliderBlur", "1.25px");
-    timeContainer.style.setProperty("--timeContainerBlur", "1px");
-    IDsliderRotate = requestAnimationFrame(function(){rotateSlider(sliderDeg);});
-
-    $(document.body).css("cursor", "grabbing");
-  }, 400);
+  IDsliderRAF = requestAnimationFrame(function(){
+    sliderTimeOut = setTimeout(function(){
+      TIMdown = true;
+      sliderMdown = true;
+      timeInputSubmitted = false;
+      TIslider.style.setProperty("--sliderBlur", "1.25px");
+      timeContainer.style.setProperty("--timeContainerBlur", "1px");
+      IDsliderRotate = requestAnimationFrame(function(){rotateSlider(sliderDeg);});
+  
+      $(document.body).css("cursor", "grabbing");
+    }, 400);
+  });
 });
 //circle mouse down
 let circleMDPos = { x: circlePos.x - elPos.x, y: circlePos.y - elPos.y };
 let circleAtan = Math.atan2(circleMDPos.x - circleRdius, circleMDPos.y - circleRdius);
 var circleDeg = -circleAtan / (Math.PI / 180) + 180;
 var circleTimeOut;
+var IDcircleRAF;
 $TIcircle.mousedown(function () {
-  clearTimeout(circleTimeOut);
-  circleTimeOut = setTimeout(function(){
-    circleMdown = true;
-    TIMdown = true;
-    timeInputSubmitted = false;
-    TIcircle.style.setProperty("--circleBlur", "1.25px");
-    timeContainer.style.setProperty("--timeContainerBlur", "1px");
-    IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
-
-    $(document.body).css("cursor", "grabbing");
-  }, 400);
+  cancelAnimationFrame(IDcircleRAF);
+  clearTimeout(circleTimeOut);   
+  IDcircleRAF = requestAnimationFrame(function(){
+    circleTimeOut = setTimeout(function(){
+      circleMdown = true;
+      TIMdown = true;
+      timeInputSubmitted = false;
+      TIcircle.style.setProperty("--circleBlur", "1.25px");
+      timeContainer.style.setProperty("--timeContainerBlur", "1px");
+      IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
+  
+      $(document.body).css("cursor", "grabbing");
+    }, 400);
+  });
 });
 
 
@@ -2207,34 +2266,41 @@ $TIslider.mouseleave(function(){
 
 var timeContainerTimeOut;
 var timeButtonMouseOverFunc = 0;
+var IDtimeContainerRAF;
 addEvent(timeContainer, "mouseover", function(){
   if(!TIMdown){
+    cancelAnimationFrame(IDtimeContainerRAF);
     clearTimeout(timeContainerTimeOut);
-    timeContainerTimeOut = setTimeout(function(){
-      if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "1px");}
-
-      if(timeButtonMouseOverFunc == 0){
-        timeContainer.style.setProperty("padding-left", "60px");
-        timeContainer.style.setProperty("padding-right", "60px");
-        let yearStr = yearVal.toString();
-        $yearMonthButton.text(yearStr.charAt(2) + yearStr.charAt(3) + "." + monthVal);
-      }
-      else{
-        $yearMonthButton.css("color", "#c4c2cc");
-      }
-    }, 100);
+    IDtimeContainerRAF = requestAnimationFrame(function(){
+      timeContainerTimeOut = setTimeout(function(){
+        if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "1px");}
+  
+        if(timeButtonMouseOverFunc == 0){
+          timeContainer.style.setProperty("padding-left", "60px");
+          timeContainer.style.setProperty("padding-right", "60px");
+          let yearStr = yearVal.toString();
+          $yearMonthButton.text(yearStr.charAt(2) + yearStr.charAt(3) + "." + monthVal);
+        }
+        else{
+          $yearMonthButton.css("color", "#c4c2cc");
+        }
+      }, 100);
+    });
   }
 });
 addEvent(timeContainer, "mouseleave", function(){
   if(!TIMdown){
+    cancelAnimationFrame(IDtimeContainerRAF);
     clearTimeout(timeContainerTimeOut);
-    timeContainerTimeOut = setTimeout(function(){
-      if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
-      timeContainer.style.setProperty("padding-left", "0px");
-      timeContainer.style.setProperty("padding-right", "0px");
-      $yearMonthButton.css("color", "#2a2835");
-      $yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);
-    }, 100);
+    IDtimeContainerRAF = requestAnimationFrame(function(){
+      timeContainerTimeOut = setTimeout(function(){
+        if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
+        timeContainer.style.setProperty("padding-left", "0px");
+        timeContainer.style.setProperty("padding-right", "0px");
+        $yearMonthButton.css("color", "#2a2835");
+        $yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);
+      }, 100);
+    });
   }
 });
 
@@ -2250,19 +2316,22 @@ $yearMonthButton.click(function(){
   sunsetStart = false;
   backtoSpotLight = false;
   nightStart = true;
+  cancelAnimationFrame(IDslc);
   clearTimeout(SLCtimer);
-  SLCtimer = setTimeout(function() {
-    mouseState = 2;
-    updateR();
-    cancelSLCid();
-    LR1.ID = requestAnimationFrame(function(){nightColor(LR1, nightR1, "--LR1");});
-    LG1.ID = requestAnimationFrame(function(){nightColor(LG1, nightG1, "--LG1");});
-    LB1.ID = requestAnimationFrame(function(){nightColor(LB1, nightB1, "--LB1", 8500);});
-    LR2.ID = requestAnimationFrame(function(){nightColor(LR2, nightR2, "--LR2");});
-    LG2.ID = requestAnimationFrame(function(){nightColor(LG2, nightG2, "--LG2", 7900);});
-    LB2.ID = requestAnimationFrame(function(){nightColor(LB2, nightB2, "--LB2", 9000);});
-    LA037.ID = requestAnimationFrame(function(){nightAlpha(LA037, nightA037, "--LA0-37");});
-  }, 500);
+  IDslc = requestAnimationFrame(function(){
+    SLCtimer = setTimeout(function() {
+      mouseState = 2;
+      updateR();
+      cancelSLCid();
+      LR1.ID = requestAnimationFrame(function(){nightColor(LR1, nightR1, "--LR1");});
+      LG1.ID = requestAnimationFrame(function(){nightColor(LG1, nightG1, "--LG1");});
+      LB1.ID = requestAnimationFrame(function(){nightColor(LB1, nightB1, "--LB1", 8500);});
+      LR2.ID = requestAnimationFrame(function(){nightColor(LR2, nightR2, "--LR2");});
+      LG2.ID = requestAnimationFrame(function(){nightColor(LG2, nightG2, "--LG2", 7900);});
+      LB2.ID = requestAnimationFrame(function(){nightColor(LB2, nightB2, "--LB2", 9000);});
+      LA037.ID = requestAnimationFrame(function(){nightAlpha(LA037, nightA037, "--LA0-37");});
+    }, 500);
+  });
   
   //scan
   scanAnim();
@@ -2301,49 +2370,63 @@ var signs = {
 var barcodeNum = 0;
 
 function redLineAppear(){
-  setTimeout(function(){
-    $redLine.css("opacity", "1");
-    $redLightArea.css("opacity", "1");
-    $redLine.css("--redLineBlur", "2px");
-    $redLightArea.css("--redAreaBlur", "2.7px");
-    $redLightBG.css("opacity", "1");
-    $redLightBG.css("--redLightBGblur", "15px");
-  }, 4000);
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      $redLine.css("opacity", "1");
+      $redLightArea.css("opacity", "1");
+      $redLine.css("--redLineBlur", "2px");
+      $redLightArea.css("--redAreaBlur", "2.7px");
+      $redLightBG.css("opacity", "1");
+      $redLightBG.css("--redLightBGblur", "15px");
+    }, 4000);
+  });
 }
 
 function barCodeAppear($code,time){
   $code.text(signs[barcodeNum]);
-  setTimeout(function(){
-    $code.addClass("goDown");
-    $code.css("--barCodeOpacity", "1");
-    $code.css("--barCodeBlur", "0.75px");
-  }, time);
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      $code.addClass("goDown");
+      $code.css("--barCodeOpacity", "1");
+      $code.css("--barCodeBlur", "0.75px");
+    }, time);
+  });
 }
 
 function barCodeGoToScan($code, time){
   nextToScan = false;
-  setTimeout(function(){
-    $code.removeClass("goDown");
-    $code.addClass("toScan");
-  }, time);
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      $code.removeClass("goDown");
+      $code.addClass("toScan");
+    }, time);
+  });
 }
 
 function incorrectCode($code, order){
-  setTimeout(function(){
-    $code.removeClass("toScan");
-    $code.addClass("incorrect");
+  requestAnimationFrame(function(){
     setTimeout(function(){
-      $code.css("--barCodeOpacity", "0");
-      $code.css("--barCodeBlur", "8px");
-      setTimeout(function(){
-        //if(parseFloat($code.css("opacity")) <= 0.01){
-          $code.removeClass("incorrect");
-          if(order == 1){scanBarCode2();}
-          else{scanBarCode();}
-        //}
-      }, 750);
-    }, 50);
-  }, 150);
+      $code.removeClass("toScan");
+      $code.addClass("incorrect");
+
+      requestAnimationFrame(function(){
+        setTimeout(function(){
+          $code.css("--barCodeOpacity", "0");
+          $code.css("--barCodeBlur", "8px");
+
+          requestAnimationFrame(function(){
+            setTimeout(function(){
+              //if(parseFloat($code.css("opacity")) <= 0.01){
+                $code.removeClass("incorrect");
+                if(order == 1){scanBarCode2();}
+                else{scanBarCode();}
+              //}
+            }, 750);
+          });
+        }, 50);
+      });
+    }, 150);
+  });
 }
 
 function scanBarCode(){
@@ -2351,11 +2434,13 @@ function scanBarCode(){
   barCodeGoToScan($barCode, 100);
   barcodeNum += 1;
   if(barcodeNum < 10){barCodeAppear($barCode2, 250);}
-  setTimeout(function(){
-    if(barCodeCorrect == false){
-      incorrectCode($barCode, 1);
-    }
-  }, 800);
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      if(barCodeCorrect == false){
+        incorrectCode($barCode, 1);
+      }
+    }, 800);
+  });
 }
 
 function scanBarCode2(){
@@ -2363,37 +2448,49 @@ function scanBarCode2(){
   barCodeGoToScan($barCode2, 100);
   barcodeNum += 1;
   if(barcodeNum < 10){barCodeAppear($barCode, 250);}
-  setTimeout(function(){
-    if(barCodeCorrect == false){
-      incorrectCode($barCode2, 2);
-    }
-  }, 800);
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      if(barCodeCorrect == false){
+        incorrectCode($barCode2, 2);
+      }
+    }, 800);
+  });
 }
 
 function spotLightSwirl(){
   mouseFollowing = false;
   mouseX = 0.05 * window.innerWidth;
   mouseY = 0.95 * window.innerHeight;
-  setTimeout(function(){
-    mouseX = 0.05 * window.innerWidth;
-    mouseY = 0.05 * window.innerHeight;
-  }, 2000);
-  setTimeout(function(){
-    mouseX = 0.95 * window.innerWidth;
-    mouseY = 0.05 * window.innerHeight;
-  }, 4500);
-  setTimeout(function(){
-    mouseX = 0.95 * window.innerWidth;
-    mouseY = 0.95 * window.innerHeight;
-  }, 7000);
-  setTimeout(function(){
-    mouseX = 0.5 * window.innerWidth;
-    mouseY = 0.5 * window.innerHeight;
-  }, 9000);
-  setTimeout(function(){
-    mouseFollowing = true;
-    limitedCursor = true;
-  }, 10000);
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      mouseX = 0.05 * window.innerWidth;
+      mouseY = 0.05 * window.innerHeight;
+    }, 2000);
+  });
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      mouseX = 0.95 * window.innerWidth;
+      mouseY = 0.05 * window.innerHeight;
+    }, 4500);
+  });
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      mouseX = 0.95 * window.innerWidth;
+      mouseY = 0.95 * window.innerHeight;
+    }, 7000);
+  });
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      mouseX = 0.5 * window.innerWidth;
+      mouseY = 0.5 * window.innerHeight;
+    }, 9000);
+  });
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      mouseFollowing = true;
+      limitedCursor = true;
+    }, 9500);
+  });
 }
 
 var barCodeCorrect = false;
@@ -2406,18 +2503,25 @@ function scanAnim(){
   scrolling = false;
   scrollForbid = true;
   scrollDisppear();
-  setTimeout(function(){
-    $(document.body).css("overflow", "hidden");
-  }, 350);
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      $(document.body).css("overflow", "hidden");
+    }, 300);
+  });
 
   spotLightSwirl();
-  setTimeout(function(){
-    redLineAppear();
-    barCodeAppear($barCode, 8500);
+  requestAnimationFrame(function(){
     setTimeout(function(){
-      scanBarCode();
-    }, 10000);
-  }, 8000);
+      redLineAppear();
+      barCodeAppear($barCode, 8500);
+
+      requestAnimationFrame(function(){
+        setTimeout(function(){
+          scanBarCode();
+        }, 10000);
+      });
+    }, 7500);
+  });
 }
 
 //flare
