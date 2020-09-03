@@ -381,11 +381,21 @@ var mouseX = 0.5 * window.innerWidth,
 //var followInterv = 0;
 
 var IDfollowCursor;
+var mouseFollowing = true;
+var limitedCursor = false;
 
 var NOWfollow;
 function update(e) {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
+  if(mouseFollowing){
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if(limitedCursor){
+      if(mouseX < 0.45*window.innerWidth){mouseX = 0.45*window.innerWidth;}
+      else if(mouseX > 0.55*window.innerWidth){mouseX = 0.55*window.innerWidth;}
+      if(mouseY < 0.4*window.innerHeight){mouseY = 0.4*window.innerHeight;}
+      else if(mouseY > 0.6*window.innerHeight){mouseY = 0.6*window.innerHeight;}
+    }
+  }
   //clearInterval(followInterv);
   //followInterv = setInterval(followCursor, 1000 / frameRate, mouseX, mouseY);
   cancelAnimationFrame(IDfollowCursor);
@@ -836,6 +846,10 @@ $filterOn.click(function(){
     },1100);
     setTimeout(function(){$settingClass.css("display", "none");}, 2100);
 
+    $flare2.addClass("colorAdjust1");
+    $flare3.addClass("colorAdjust1");
+    $flare4.addClass("colorAdjust1");
+
     $filterOn.css("cursor", "grabbing");
 
     $filterOn.off();
@@ -866,6 +880,11 @@ $filterOff.click(function(){
     defaultTwinklwOpa3 = 0.7;
     $redLine.css("background", "var(--redLineGradient2)");
     $redLightArea.css("background", "var(--redAreaGradient2)");
+    defaultFlareOpa = 1;
+    $scan.css("--flareOpacity", defaultFlareOpa);
+    $flare2.addClass("colorAdjust2");
+    $flare3.addClass("colorAdjust2");
+    $flare4.addClass("colorAdjust2");
 
     $filterOff.css("cursor", "grabbing"); 
     
@@ -878,6 +897,7 @@ $filterOff.click(function(){
 var scrollBarWidth = 0;
 var scrollTimeOut;
 var scrolling = false;
+var scrollForbid = false;
 
 function scrollDisppear(){
   let curScrollBarWidth = scrollBarWidth;
@@ -898,7 +918,7 @@ function scrollDisppear(){
 
 $document.scroll(function(){
   clearTimeout(scrollTimeOut);
-  scrolling = true;
+  if(!scrollForbid){scrolling = true;}
   let curScrollBarWidth = scrollBarWidth;
   $({w: curScrollBarWidth}).animate({w: 9},{
     duration: 300,
@@ -911,7 +931,7 @@ $document.scroll(function(){
       scrolling = false;
     }
   });
-  scrollTimeOut = setTimeout(scrollDisppear, 1500);
+  scrollTimeOut = setTimeout(scrollDisppear, 1000);
 })
 
 /******************************spotlight*********************************/
@@ -1687,7 +1707,7 @@ $rotate.click(function () {
             moonCanSwitch2 = true;
           //}
           //console.log($namesDiv.css("opacity") + " : " + moonCanSwitch2);
-        }, 1200);
+        }, 1100);
       }, 250);
     } 
     else if (moonCount == 2) {
@@ -1709,7 +1729,7 @@ $rotate.click(function () {
             $namesDiv.css("display", "none"); 
             moonCanSwitch0 = true;
           //}
-        }, 1200);
+        }, 1100);
       }, 250);
     } 
     else if(moonCount == 0) {
@@ -1730,7 +1750,7 @@ $rotate.click(function () {
           $timesDiv.css("display", "none"); 
           moonCanSwitch1 = true;
         //}
-      }, 1200);
+      }, 1100);
     }
     
     nameInputSubmitted = 0;
@@ -2250,7 +2270,9 @@ $yearMonthButton.mouseup(function(){
 
 /*******************scanArea*************************************/
 var $scan = $("#scanArea");
-var $allNotScan = $("* :not(#scanArea):not(#redLine):not(#redLightArea):not(#barCodeToScan):not(#barCodeToScan2):not(body):not(#bodyRotate)");
+var $allNotScan = $("* :not(#scanArea):not(#redLine):not(#redLightArea):not(#redLightBG):not(#barCodeToScan):not(#barCodeToScan2)\
+                    :not(#flare1):not(#flare2):not(#flare3):not(#flare4):not(#marker)\
+                    :not(body):not(#bodyRotate)");
 var $redLine = $("#redLine");
 var $redLightArea = $("#redLightArea");
 var $redLightBG = $("#redLightBG");
@@ -2272,16 +2294,13 @@ var signs = {
 var barcodeNum = 0;
 
 function redLineAppear(){
-  $scan.css("display", "initial");
-  $scan.css("top", $window.scrollTop()+"px");
-  $(document.body).css("overflow", "hidden");
   setTimeout(function(){
     $redLine.css("opacity", "1");
     $redLightArea.css("opacity", "1");
     $redLine.css("--redLineBlur", "2px");
     $redLightArea.css("--redAreaBlur", "2.7px");
     $redLightBG.css("opacity", "1");
-    $redLightBG.css("--redLightBGblur", "18px");
+    $redLightBG.css("--redLightBGblur", "15px");
   }, 4000);
 }
 
@@ -2344,13 +2363,60 @@ function scanBarCode2(){
   }, 800);
 }
 
+function spotLightSwirl(){
+  mouseFollowing = false;
+  mouseX = 0.05 * window.innerWidth;
+  mouseY = 0.95 * window.innerHeight;
+  setTimeout(function(){
+    mouseX = 0.05 * window.innerWidth;
+    mouseY = 0.05 * window.innerHeight;
+  }, 2000);
+  setTimeout(function(){
+    mouseX = 0.95 * window.innerWidth;
+    mouseY = 0.05 * window.innerHeight;
+  }, 4500);
+  setTimeout(function(){
+    mouseX = 0.95 * window.innerWidth;
+    mouseY = 0.95 * window.innerHeight;
+  }, 7000);
+  setTimeout(function(){
+    mouseX = 0.5 * window.innerWidth;
+    mouseY = 0.5 * window.innerHeight;
+  }, 9000);
+  setTimeout(function(){
+    mouseFollowing = true;
+    limitedCursor = true;
+  }, 10000);
+}
+
 var barCodeCorrect = false;
 function scanAnim(){
   $allNotScan.addClass("scan");
   twinkleOpa = defaultTwinklwOpa3;
-  redLineAppear();
-  barCodeAppear($barCode, 8000);
+  $scan.css("display", "initial");
+  $scan.css("top", $window.scrollTop()+"px");
+
+  scrolling = false;
+  scrollForbid = true;
+  scrollDisppear();
   setTimeout(function(){
-    scanBarCode();
-  }, 9500);
+    $(document.body).css("overflow", "hidden");
+  }, 350);
+
+  spotLightSwirl();
+  setTimeout(function(){
+    redLineAppear();
+    barCodeAppear($barCode, 8500);
+    setTimeout(function(){
+      scanBarCode();
+    }, 10000);
+  }, 8000);
 }
+
+//flare
+var $flare1 = $("#flare1"),
+    $flare2 = $("#flare2"),
+    $flare3 = $("#flare3"),
+    $flare4 = $("#flare4"),
+    $marker = $("#marker");
+var defaultFlareOpa = 0.75;

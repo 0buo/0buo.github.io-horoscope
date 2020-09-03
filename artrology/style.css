@@ -776,6 +776,7 @@ input::-ms-reveal, input::-ms-clear {
 
 /* scanArea */
 #scanArea {
+  --flareOpacity: 0.75;
   position: absolute;
   /* z-index: 6; */
   left: 0;
@@ -788,34 +789,37 @@ input::-ms-reveal, input::-ms-clear {
 
   display: none;
 }
-* :not(#scanArea):not(#redLine):not(#redLightArea):not(#barCodeToScan):not(#barCodeToScan2):not(body):not(#bodyRotate) .scan{
+
+* :not(#scanArea):not(#redLine):not(#redLightArea):not(#redLightBG):not(#barCodeToScan):not(#barCodeToScan2)
+  :not(#flare1):not(#flare2):not(#flare3):not(#flare4):not(#marker)
+  :not(body):not(#bodyRotate) .scan{
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 5s ease-in-out, padding-left 0s ease-in-out, padding-right 0s ease-in-out;
-  -webkit-filter: blur(7px);
-          filter: blur(7px);
+  -webkit-filter: blur(7.5px);
+          filter: blur(7.5px);
 }
 
 #redLine{
   position: absolute;
   --redLineGradient1: linear-gradient(180deg, 
-  rgba(255,0,0,0) 0%, 
-  rgba(255,0,0,0) 25%, 
-  rgba(255,0,0,0.1) 45%, 
-  rgba(255,0,0,0.5) 49.5%, 
-  rgba(255,0,0,0.6) 50%, 
-  rgba(255,0,0,0.5) 50.5%, 
-  rgba(255,0,0,0.1) 55%, 
-  rgba(255,0,0,0) 75%, 
-  rgba(255,0,0,0) 100%);
+  rgba(220,0,0,0) 0%, 
+  rgba(220,0,0,0) 25%, 
+  rgba(220,0,0,0.1) 45%, 
+  rgba(220,0,0,0.5) 49.5%, 
+  rgba(220,0,0,0.6) 50%, 
+  rgba(220,0,0,0.5) 50.5%, 
+  rgba(220,0,0,0.1) 55%, 
+  rgba(220,0,0,0) 75%, 
+  rgba(220,0,0,0) 100%);
   --redLineGradient2: linear-gradient(180deg, 
-  rgba(255,0,0,0) 0%, 
-  rgba(255,0,0,0) 25%, 
-  rgba(255,0,0,0.3) 45%, 
-  rgba(255,0,0,0.6) 49.5%, 
-  rgba(255,0,0,0.8) 50%, 
-  rgba(255,0,0,0.6) 50.5%, 
-  rgba(255,0,0,0.3) 55%, 
-  rgba(255,0,0,0) 75%, 
-  rgba(255,0,0,0) 100%);
+  rgba(220,0,0,0) 0%, 
+  rgba(220,0,0,0) 25%, 
+  rgba(220,0,0,0.3) 45%, 
+  rgba(220,0,0,0.6) 49.5%, 
+  rgba(220,0,0,0.8) 50%, 
+  rgba(220,0,0,0.6) 50.5%, 
+  rgba(220,0,0,0.3) 55%, 
+  rgba(220,0,0,0) 75%, 
+  rgba(220,0,0,0) 100%);
   --redLineBlur: 6px;
   top: calc(50vh - 6px);
   left: calc(50vw - 175px);
@@ -836,27 +840,27 @@ input::-ms-reveal, input::-ms-clear {
 #redLightArea{
   position: absolute;
   --redAreaGradient1: linear-gradient(180deg,
-  rgba(255,0,0,0) 0%, 
-  rgba(255,0,0,0) 20%, 
-  rgba(255,0,0,0.05) 35%,
-  rgba(255,0,0,0.28) 48%,
-  rgba(255,0,0,0.32) 49%, 
-  rgba(255,0,0,0.32) 51%,
-  rgba(255,0,0,0.28) 52%, 
-  rgba(255,0,0,0.05) 65%, 
-  rgba(255,0,0,0) 80%,
-  rgba(255,0,0,0) 100%);
+  rgba(220,0,0,0) 0%, 
+  rgba(220,0,0,0) 20%, 
+  rgba(220,0,0,0.05) 35%,
+  rgba(220,0,0,0.28) 48%,
+  rgba(220,0,0,0.32) 49%, 
+  rgba(220,0,0,0.32) 51%,
+  rgba(220,0,0,0.28) 52%, 
+  rgba(220,0,0,0.05) 65%, 
+  rgba(220,0,0,0) 80%,
+  rgba(220,0,0,0) 100%);
   --redAreaGradient2: linear-gradient(180deg,
-  rgba(255,0,0,0) 0%, 
-  rgba(255,0,0,0) 20%, 
-  rgba(255,0,0,0.12) 35%,
-  rgba(255,0,0,0.62) 48%,
-  rgba(255,0,0,0.67) 49%, 
-  rgba(255,0,0,0.67) 51%,
-  rgba(255,0,0,0.62) 52%, 
-  rgba(255,0,0,0.12) 65%, 
-  rgba(255,0,0,0) 80%,
-  rgba(255,0,0,0) 100%);
+  rgba(220,0,0,0) 0%, 
+  rgba(220,0,0,0) 20%, 
+  rgba(220,0,0,0.12) 35%,
+  rgba(220,0,0,0.62) 48%,
+  rgba(220,0,0,0.67) 49%, 
+  rgba(220,0,0,0.67) 51%,
+  rgba(220,0,0,0.62) 52%, 
+  rgba(220,0,0,0.12) 65%, 
+  rgba(220,0,0,0) 80%,
+  rgba(220,0,0,0) 100%);
   --redAreaBlur: 8px;
   top: calc(50vh - 125px);
   left: calc(50vw - 175px);
@@ -873,21 +877,21 @@ input::-ms-reveal, input::-ms-clear {
 }
 
 #redLightBG{
-  --redLightBGblur: 28px;
+  --redLightBGblur: 25px;
   position: absolute;
-  top: calc(50vh - 125px);
-  left: calc(50vw - 180px);
-  width: 360px;
-  height: 250px;
+  top: calc(50vh - 150px);
+  left: calc(50vw - 200px);
+  width: 400px;
+  height: 300px;
   background-color: linear-gradient(180deg,
   rgba(255,255,255,0) 0%, 
   rgba(255,255,255,0) 20%, 
-  rgba(255,255,255,0.04) 35%,
-  rgba(255,255,255,0.08) 48%,
-  rgba(255,255,255,0.1) 49%, 
-  rgba(255,255,255,0.1) 51%,
-  rgba(255,255,255,0.08) 52%, 
-  rgba(255,255,255,0.04) 65%, 
+  rgba(255,255,255,0.07) 35%,
+  rgba(255,255,255,0.12) 48%,
+  rgba(255,255,255,0.15) 49%, 
+  rgba(255,255,255,0.15) 51%,
+  rgba(255,255,255,0.12) 52%, 
+  rgba(255,255,255,0.07) 65%, 
   rgba(255,255,255,0) 80%,
   rgba(255,255,255,0) 100%);
 
@@ -912,7 +916,7 @@ input::-ms-reveal, input::-ms-clear {
   filter: blur(var(--barCodeBlur));
   transform: scale(1, 0.7);
   top: calc(50vh - 200px);
-  color: #232330;
+  color: #272738;
 }
 #barCodeToScan2{
   position: absolute;
@@ -928,20 +932,20 @@ input::-ms-reveal, input::-ms-clear {
   filter: blur(var(--barCodeBlur));
   transform: scale(1, 0.7);
   top: calc(50vh - 200px);
-  color: #232330;
+  color: #272738;
 }
 
 #barCodeToScan.goDown, #barCodeToScan2.goDown{
   transform: scale(1.75, 0.7);
   top: calc(50vh - 260px);
-  color: #232330;
+  color: #272738;
 }
 
 #barCodeToScan.toScan, #barCodeToScan2.toScan{
   transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .75s ease-in-out;
   transform: scale(1.75, 0.7);
   top: calc(50vh - 60px);
-  color: #232330;
+  color: #272738;
 }
 
 #barCodeToScan.incorrect, #barCodeToScan2.incorrect{
@@ -949,4 +953,53 @@ input::-ms-reveal, input::-ms-clear {
   transform: scale(1.85, 0.7);
   top: calc(50vh - 60px);
   color: rgba(210, 0, 0, 0.5);
+}
+
+#flare1, #flare2, #flare3, #flare4{
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  opacity: var(--flareOpacity);
+}
+
+#marker{
+  position: absolute;
+}
+
+#flare1{
+  bottom: 5vh;
+  left: 2.5vw;
+  filter: contrast(110%) brightness(110%) blur(2.5px);
+}
+#flare2{
+  top: 5vh;
+  left: 2.5vw;
+}
+#flare2.colorAdjust1{
+  filter: contrast(95%) brightness(160%) saturate(135%) blur(2.5px);
+}
+#flare2.colorAdjust2{
+  filter: contrast(95%) brightness(140%) saturate(220%) blur(2.5px);
+}
+
+#flare3{
+  top: 5vh;
+  right: 2.5vw;
+}
+#flare3.colorAdjust1{
+  filter: contrast(80%) brightness(170%) saturate(130%) blur(2.5px);
+}
+#flare3.colorAdjust2{
+  filter: contrast(70%) brightness(140%) saturate(250%) blur(2.5px);
+}
+
+#flare4{
+  bottom: 5vh;
+  right: 2.5vw;
+}
+#flare4.colorAdjust1{
+  filter: contrast(80%) brightness(120%) saturate(120%) blur(2.5px);
+}
+#flare4.colorAdjust2{
+  filter: contrast(80%) brightness(90%) saturate(150%) blur(2.5px);
 }
