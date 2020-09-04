@@ -241,10 +241,24 @@ vis(function(){
     lastNOWincE2 = undefined;
     lastNOWdecE = undefined;
     lastNOWecA = undefined;
+
+    lastNOWref = undefined;
     //cancelTwinkle(openingTextStart, openingTextEnd);
   }
 });
 
+$window.resize(function(){
+  maxDistToLightCenter =
+    window.innerWidth >= window.innerHeight
+    ? Math.pow(window.innerWidth * maxToLightDistIndex, 2)
+    : Math.pow(window.innerHeight * maxToLightDistIndex, 2);
+
+   screenMax = -1*window.screen.width/2 + 0.75 * window.screen.width;
+   screenMin = -1*window.screen.width/2 + 0.04 * window.screen.width;
+  });
+
+
+/**************************************************************************** */
 //spotlight funcs
 var lightV;
 const lightMass = 15;//15, 50
@@ -273,12 +287,6 @@ var maxDistToLightCenter =
 //var alphaBias = 0.2;
 var randNum = 0;
 
-$window.resize(function(){
-  maxDistToLightCenter =
-    window.innerWidth >= window.innerHeight
-    ? Math.pow(window.innerWidth * maxToLightDistIndex, 2)
-    : Math.pow(window.innerHeight * maxToLightDistIndex, 2);
-  });
 
 var cursorLerpX = 0.25;
 var cursorLerpY = 0.2;
@@ -948,7 +956,7 @@ $filterOff.on("click", function(){
     defaultTwinklwOpa3 = 0.45;
     $redLine.css("background", "var(--redLineGradient2)");
     $redLightArea.css("background", "var(--redAreaGradient2)");
-    defaultFlareOpa = 0.85;
+    defaultFlareOpa = 0.75;
     $scan.css("--flareOpacity", defaultFlareOpa);
     $flare2.addClass("colorAdjust2");
     $flare3.addClass("colorAdjust2");
@@ -1003,7 +1011,7 @@ $document.scroll(function(){
     if(!scrollForbid){scrolling = true;}
     let curScrollBarWidth = scrollBarWidth;
     $({w: curScrollBarWidth}).animate({w: 9},{
-      duration: 300,
+      duration: 150,
       easing: "easeInOutSine",
       step: function(now){
         scrollBarWidth = now;
@@ -1019,7 +1027,6 @@ $document.scroll(function(){
 
 function adjustBodyRotateOrigin(){
   let originY = 100 * (0.5 * window.innerHeight + $document.scrollTop()) / $bodyRotate.outerHeight();
-  console.log(originY);
   $bodyRotate.css("transform-origin", "50% " + originY + "% " + "0");
 }
 
@@ -1114,9 +1121,9 @@ var LR1 = {val: 0, ID: undefined},
     LG2 = {val: 0, ID: undefined},
     LB2 = {val: 0, ID: undefined},
     LA037 = {val: 0.37, ID: undefined};
-var sunsetR1 = 61,
-    sunsetG1 = 34,
-    sunsetB1 = 35,
+var sunsetR1 = 112, //61
+    sunsetG1 = 47, //34
+    sunsetB1 = 35, //35
     sunsetR2= 76,
     sunsetG2 = 17,
     sunsetB2 = 6,
@@ -1293,7 +1300,7 @@ function hblurAnim(){
 /*************************body roate********************************/
 var bodyRY = parseInt(getComputedStyle(document.body).getPropertyValue("--bodyRotateY"),10);
 $bodyRotate = $("#bodyRotate");
-var screenMax = -1*window.screen.width/2 + 0.75 * window.screen.width;
+var screenMax = -1*window.screen.width/2 + 0.85 * window.screen.width;
 var screenMin = -1*window.screen.width/2 + 0.04 * window.screen.width;
 var leftDeg = -1;
 var rightDeg = 1;
@@ -1302,7 +1309,7 @@ function bodyRotate(e){
   if(sx > screenMax){sx = screenMax;}
   else if (sx < screenMin){sx = screenMin;}
 
-  if(setting){leftDeg = -1; rightDeg = 2;} 
+  if(setting){leftDeg = -1.7; rightDeg = 2.5;} 
   bodyRY = Math.round(scale(sx, screenMin, screenMax, leftDeg, rightDeg));
   document.body.style.setProperty("--bodyRotateY", bodyRY+"deg");
   //let sy = e.screenY;
@@ -1310,6 +1317,90 @@ function bodyRotate(e){
 
 addEvent(document, "mousemove", bodyRotate);
 
+var brightRef = 48;
+var brightRef2 = 52;
+var darkRef = 33;
+var darkRef2 = 67;
+var lastNOWref;
+var NOWref;
+var IDreflection;
+
+var destBrightRef,
+    destBrightRef2, 
+    destDarkRef,
+    destDarkRef2;
+
+function BGreflection(timestamp){
+  IDreflection = requestAnimationFrame(BGreflection);
+
+  let smx = mouseX;
+
+  if(limitedCursor){
+    if(mouseState == 0){
+      destBrightRef = Math.round(scale(smx, 0.45*window.innerWidth, 0.55*window.innerWidth, 40, 50));
+      destBrightRef2 = Math.round(scale(smx, 0.45*window.innerWidth, 0.55*window.innerWidth, 50, 60));
+      destDarkRef = Math.round(scale(smx, 0.45*window.innerWidth, 0.55*window.innerWidth, 20, 36));
+      destDarkRef2 = Math.round(scale(smx, 0.45*window.innerWidth, 0.55*window.innerWidth, 70, 80));
+    }
+    else if(mouseState == 2){
+      destBrightRef = Math.round(scale(smx, 0.45*window.innerWidth, 0.55*window.innerWidth, 45, 53));
+      destBrightRef2 = Math.round(scale(smx, 0.45*window.innerWidth, 0.55*window.innerWidth, 47, 55));
+      destDarkRef = Math.round(scale(smx, 0.45*window.innerWidth, 0.55*window.innerWidth, 33, 41));
+      destDarkRef2 = Math.round(scale(smx, 0.45*window.innerWidth, 0.55*window.innerWidth, 59, 67));
+    }
+    else{
+      destBrightRef = Math.round(scale(smx, 0.45*window.innerWidth, 0.55*window.innerWidth, 45, 51));
+      destBrightRef2 = Math.round(scale(smx, 0.45*window.innerWidth, 0.55*window.innerWidth, 49, 55));
+      destDarkRef = Math.round(scale(smx, 0.45*window.innerWidth, 0.55*window.innerWidth, 30, 46));
+      destDarkRef2 = Math.round(scale(smx, 0.45*window.innerWidth, 0.55*window.innerWidth, 64, 70));
+    }
+  }
+  else{
+    if(mouseState == 0){
+      destBrightRef = Math.round(scale(smx, 0, window.innerWidth, 17, 75));
+      destBrightRef2 = Math.round(scale(smx, 0, window.innerWidth, 25, 83));
+      destDarkRef = Math.round(scale(smx, 0, window.innerWidth, 0, 58));
+      destDarkRef2 = Math.round(scale(smx, 0, window.innerWidth, 42, 100));
+    }
+    else if(mouseState == 1){
+      destBrightRef = Math.round(scale(smx, 0, window.innerWidth, 12, 86));
+      destBrightRef2 = Math.round(scale(smx, 0, window.innerWidth, 14, 88));
+      destDarkRef = Math.round(scale(smx, 0, window.innerWidth, 0, 74));
+      destDarkRef2 = Math.round(scale(smx, 0, window.innerWidth, 26, 100));
+    }
+    else{
+      destBrightRef = Math.round(scale(smx, 0, window.innerWidth, 15, 81));
+      destBrightRef2 = Math.round(scale(smx, 0, window.innerWidth, 19, 85));
+      destDarkRef = Math.round(scale(smx, 0, window.innerWidth, 0, 66));
+      destDarkRef2 = Math.round(scale(smx, 0, window.innerWidth, 34, 100));
+    }
+  }
+  
+
+  if(lastNOWref === undefined){
+    lastNOWref = timestamp;
+  }
+  NOWref = timestamp;
+  let dt = (NOWref - lastNOWref)/1000;
+  lastNOWref = NOWref;
+
+  brightRef = lerp(brightRef, destBrightRef, 1-Math.pow(0.37, dt));
+  brightRef2 = lerp(brightRef2, destBrightRef2, 1-Math.pow(0.37, dt));
+  darkRef = lerp(darkRef, destDarkRef, 1-Math.pow(0.42, dt));
+  darkRef2 = lerp(darkRef2, destDarkRef2, 1-Math.pow(0.42, dt));
+
+  document.body.style.setProperty("--brightReflectionPos", brightRef+"%");
+  document.body.style.setProperty("--brightReflectionPos2", brightRef2+"%");
+  document.body.style.setProperty("--darkReflectionPos", darkRef+"%");
+  document.body.style.setProperty("--darkReflectionPos2", darkRef2+"%");
+}
+
+addEvent(document, "mousemove", function(){
+  if(setting){
+    cancelAnimationFrame(IDreflection);
+    IDreflection = requestAnimationFrame(BGreflection);
+  }
+});
 /*********************cloud displacement map*****************************/
 var cloudFilter = document.getElementById("cloud-filter");
 var cloudDisp = document.getElementById("cloud-disp");
@@ -1517,7 +1608,7 @@ var hFontSize = 72;
 var bodyBlur = 0.85;
 function adjustElementSize(){
   if(window.innerWidth < 2400 && window.innerWidth >= 1000){
-    plaintextFontSize = 26; 
+    plaintextFontSize = 27; 
     moonScale = 1; 
     moonMarginL = 6; 
     hMarginL = 5; 
@@ -1527,7 +1618,7 @@ function adjustElementSize(){
     $h1.text("Self-Help Guide : Artrology");
     $yearMonthButton.css("display", "inline-block");
     timeButtonMouseOverFunc = 0;
-    $plaintext.css("margin-right", "20%");
+    $plaintext.css("margin-right", "9%");
     $timeInput.css("width", "55%");
     bodyBlur = 0.65;
   }
@@ -1541,12 +1632,12 @@ function adjustElementSize(){
     $h1.text("Self-Help Guide : Artrology");
     $yearMonthButton.css("display", "inline-block");
     timeButtonMouseOverFunc = 0;
-    $plaintext.css("margin-right", "20%");
+    $plaintext.css("margin-right", "6%");
     $timeInput.css("width", "55%");
     bodyBlur = 0.6;
   }
   else if(window.innerWidth < 800 && window.innerWidth >= 700){
-    plaintextFontSize = 22; 
+    plaintextFontSize = 24; 
     moonMarginL = 5; 
     hFontSize = 60;
     hMarginL = 5; 
@@ -1555,7 +1646,7 @@ function adjustElementSize(){
     $h1.text("Self-Help Guide : Artrology");
     $yearMonthButton.css("display", "inline-block");
     timeButtonMouseOverFunc = 0;
-    $plaintext.css("margin-right", "20%");
+    $plaintext.css("margin-right", "3%");
     $timeInput.css("width", "55%");
     bodyBlur = 0.55;
   }
@@ -1626,7 +1717,7 @@ function adjustElementSize(){
     $h1.text("Self-Help Guide : Artrology");
     $yearMonthButton.css("display", "inline-block");
     timeButtonMouseOverFunc = 0;
-    $plaintext.css("margin-right", "20%");
+    $plaintext.css("margin-right", "12%");
     $timeInput.css("width", "55%");
     bodyBlur = 0.85;
   }
@@ -1646,8 +1737,8 @@ var plaintexts = document.getElementsByClassName("plaintext");
 var twinkleIDs = new Array(plaintexts.length);
 var twinkleDirects = new Array(plaintexts.length);
 
-var twinkleOpa = 0.23;
-var defaultTwinklwOpa1 = 0.23;
+var twinkleOpa = 0.25;
+var defaultTwinklwOpa1 = 0.25;
 var defaultTwinklwOpa2 = 0.3;
 var defaultTwinklwOpa3 = 0.4;
 function textTwinkle($this, index){
@@ -1773,9 +1864,9 @@ var moonCanSwitch0 = false;
 var moonCanSwitch1 = true;
 var moonCanSwitch2 = false;
 var nameTextStart = 3;
-var nameTextEnd = 3;
-var timeTextStart = 4;
-var timeTextEnd = 4;
+var nameTextEnd = 4;
+var timeTextStart = 5;
+var timeTextEnd = 7;
 
 //var moonClickTimeOut;
 $rotate.click(function () {
@@ -1905,16 +1996,42 @@ $rotate.mouseup(function(){
   $rotate.css("cursor", "grab");
 })
 
+var rotateGlowColor = "#c5c6cfab";
+var rotateBG = "rgba(180, 180, 180, 0.5)";
+var rotateMouseOver = false;
+$document.mousemove(function(e){
+  if(setting){
+    let d = Math.pow(e.clientX + 0.15 * window.innerWidth - $rotate.offset().left, 2);
+    let yCondition = window.innerWidth > window.innerHeight ? spotLightRadius/300*window.innerWidth : spotLightRadius/300*window.innerHeight;
+    let myCondition = e.pageY > $rotate.offset().top ? e.pageY > $rotate.offset().top + yCondition : e.pageY < $rotate.offset().top - yCondition;
+    let condition = e.clientX - 0.12 * window.innerWidth < $rotate.offset().left &&  myCondition;
+    if(d < 0.04 * Math.pow(window.innerWidth,2) && !condition){
+      rotateGlowColor = "#d5d9d9ca";
+    }
+    else{
+      if(mouseState == 0){rotateGlowColor = "#c49f999b";}
+      else if(mouseState == 2){rotateGlowColor = "#a9b3cf9b";}
+      else{rotateGlowColor = "#c5c6cfab"; }
+    }
+    if(mouseState == 0){rotateBG = "rgba(181, 117, 107, 0.5)";}
+    else if(mouseState == 2){rotateBG = "rgba(135, 144, 201, 0.5)";}
+    else{rotateBG = "rgba(180, 180, 180, 0.5)";}
+  
+    $rotate.css("--rotateGlow", rotateGlowColor);
+    $rotate.css("--rotateBGcolor", rotateBG);
+  }
+})
+
 $rotateBackCircle.mouseover(function(){
   $rotateBackCircle.css("box-shadow", "0px 0px 10px #232323, 0px 0px 10px #3f3d52, 0px 0px 10px #3f3d52, 0px 0px 10px #232323")
-  $rotate.css("box-shadow", "0px 0px 10px #ebebeb, 0px 0px 10px #ebebeb, 0px 0px 10px #ebebeb, 0px 0px 10px #ebebeb")
+  $rotate.css("box-shadow", "8px 8px 10px var(--rotateGlow), -8px -8px 10px var(--rotateGlow), 8px -8px 10px var(--rotateGlow), -8px 8px 10px var(--rotateGlow)");
   $rotateTextOne.css("color", "#13131c");
   $rotateTextTwo.css("color", "#13131c");
   document.getElementsByClassName("SelectionDiv")[0].style.setProperty("--blurPx", "1px");
 });
 $rotateBackCircle.mouseleave(function(){
   $rotateBackCircle.css("box-shadow", "8px -8px 10px #232323, -8px 8px 10px #3f3d52, 8px 8px 10px #3f3d52, -8px -8px 10px #232323")
-  $rotate.css("box-shadow", "8px 8px 10px #ebebeb, -8px -8px 10px #ebebeb, 8px -8px 10px #ebebeb, -8px 8px 10px #ebebeb")
+  $rotate.css("box-shadow", "8px 8px 10px var(--rotateGlow), -8px -8px 10px var(--rotateGlow), 8px -8px 10px var(--rotateGlow), -8px 8px 10px var(--rotateGlow)");
   $rotateTextOne.css("color", "#1b1b24");
   $rotateTextOne.css("color", "#1b1b24");
   document.getElementsByClassName("SelectionDiv")[0].style.setProperty("--blurPx", "3.5px");
@@ -2177,9 +2294,11 @@ function rotateSlider(deg){
         $TIslider.css("left", TIsliderX + sliderRadius - sliderW2); 
         $TIslider.css("top", TIsliderY + sliderRadius - sliderH2);
         $TIslider.css("transform", "rotate(" + sliderDeg + "deg");
-        calculateTime(sliderDeg);
       },
       complete: function(){
+        destMonth = monthVal + Math.round(degIncrement/30);
+        destMonth = destMonth > 12 ? destMonth - 12 : destMonth;
+        calculateTime(sliderDeg);
         cancelAnimationFrame(IDsliderRotate);
         IDsliderRotate = requestAnimationFrame(function(){rotateSlider(sliderDeg);});
       }
@@ -2201,9 +2320,11 @@ function rotateCircle(deg){
         $TIcircle.css("left", TIcircleX + circleRdius - circleW2); 
         $TIcircle.css("top", TIcircleY + circleRdius - circleH2);
         $TIcircle.css("transform", "rotate(" + circleDeg + "deg");
-        calculateTime(circleDeg);
       },
       complete: function(){
+        destMonth = monthVal - Math.round(degIncrement/30);
+        destMonth = destMonth < 0 ? destMonth + 12 : destMonth;
+        calculateTime(circleDeg);
         cancelAnimationFrame(IDcircleRotate);
         IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
       }
@@ -2211,12 +2332,15 @@ function rotateCircle(deg){
   }
 }
 
+var destMonth = curMonth;
 $document.ready(function(){$yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);})
 function calculateTime(deg){
-  deg = Math.round(deg);
-  monthVal = (curMonth + Math.ceil(deg / 30)) % 12 + 1;
+  let degMonth = Math.ceil(deg / 30) % 12;
+  let monthDiff = destMonth - degMonth;
+  monthVal = degMonth + monthDiff;
+
   if(sliderMdown && circleMdown == false){
-    if(monthVal == 1 && lastMonthVal == 12){
+    if(lastMonthVal > monthVal){
       yearVal += changeVal;
       lap += 1
       //if(direction == -1){ lap = 0; changeVal = 1; degIncrement = 30;}
@@ -2230,7 +2354,7 @@ function calculateTime(deg){
     }
   }
   else if(sliderMdown == false && circleMdown){
-    if(monthVal == 12 && lastMonthVal == 1){
+    if(lastMonthVal < monthVal){
       yearVal -= changeVal; 
       lap += 1;
       //if(direction == 1){ lap = 0; changeVal = 1; degIncrement = 30;}
@@ -2276,6 +2400,8 @@ $window.mouseup(function () {
     timeContainer.style.setProperty("--timeContainerBlur", "3px");
 
     $(document.body).css("cursor", "pointer");
+    $TIslider.css("cursor", "grab");
+    $TIcircle.css("cursor", "grab");
   }
 });
 //slider mouse down
@@ -2298,6 +2424,7 @@ $TIslider.mousedown(function () {
       IDsliderRotate = requestAnimationFrame(function(){rotateSlider(sliderDeg);});
   
       $(document.body).css("cursor", "grabbing");
+      $TIslider.css("cursor", "grabbing");
     }, 400);
   });
 });
@@ -2320,6 +2447,7 @@ $TIcircle.mousedown(function () {
       IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
   
       $(document.body).css("cursor", "grabbing");
+      $TIcircle.css("cursor", "grabbing");
     }, 400);
   });
 });
@@ -2604,4 +2732,4 @@ var $flare1 = $("#flare1"),
     $flare3 = $("#flare3"),
     $flare4 = $("#flare4"),
     $marker = $("#marker");
-var defaultFlareOpa = 0.75;
+var defaultFlareOpa = 0.65;

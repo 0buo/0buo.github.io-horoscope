@@ -68,23 +68,26 @@ html, body{
 /* scroll bar */
 /* The emerging W3C standard
    that is currently Firefox-only */
-   * {
-    scrollbar-width: var(--scrollBarWidth);
-    scrollbar-color: #232323 #dbdae0;
-  }
+* {
+  scrollbar-width: var(--scrollBarWidth);
+  scrollbar-color: #232323 #dbdae000;
+}
   
-  /* Works on Chrome/Edge/Safari */
-  *::-webkit-scrollbar {
-    width: var(--scrollBarWidth);
-  }
-  *::-webkit-scrollbar-track {
-    background: #dbdae0;
-  }
-  *::-webkit-scrollbar-thumb {
-    background-color: #232323;
-    /* border-radius: 10px; */
-    border: none;
-  }
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: var(--scrollBarWidth);
+  background:transparent
+}
+
+/* *::-webkit-scrollbar-track{
+  background: transparent url('./img/sliderTrack.png') repeat-y !important;
+} */
+
+*::-webkit-scrollbar-thumb {
+  background-color: #232323;
+  /* border-radius: 10px; */
+  border: none;
+}
 
 body {
   border: 0.01px solid transparent;
@@ -93,20 +96,33 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-image: no-repeat url('./img/paperBG.png') 0 0;
-  background-color: #ebebeb;
-  background-repeat: repeat;
+  --brightReflectionPos: 45%;
+  --brightReflectionPos2: 55%;
+  --darkReflectionPos: 40%;
+  --darkReflectionPos2: 60%;
+  background-color: rgba(255,255,255,1);
+  background: linear-gradient(90deg, 
+  rgba(134,136,138,1) 0%, 
+  rgba(128,133,141,1) var(--darkReflectionPos), 
+  rgba(255,255,255,1) var(--brightReflectionPos), 
+  rgba(255,255,255,1) var(--brightReflectionPos2), 
+  rgba(128,133,141,1) var(--darkReflectionPos2), 
+  rgba(134,136,138,1) 100%);
+
+  background-attachment: fixed;
+  transition: background-image 0.5s ease;
+
   overflow-x: hidden;
   /* position: relative; */
   -webkit-filter: blur(var(--bodyBlur));
           filter: blur(var(--bodyBlur));
 }
 
-body.offFilter{
+.offFilter{
   -webkit-filter: blur(var(--bodyBlur)) url('#OFFcloud');
           filter: blur(var(--bodyBlur)) url('#OFFcloud');
 }
-body.svgFilter{
+.svgFilter{
   -webkit-filter: blur(var(--bodyBlur)) url('#cloud');
           filter: blur(var(--bodyBlur)) url('#cloud');
 }
@@ -143,7 +159,7 @@ body.svgFilter{
   overflow-x: hidden; */
 
   padding-left: 1vw;
-  padding-right: 1vw;
+  padding-right: 3vw;
   text-align: left;
   color: white;
   font-family: 'Codystar', cursive;
@@ -222,7 +238,6 @@ body.svgFilter{
 
 #bodyRotate{ 
   /* clear: both; */
-  background: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -235,6 +250,8 @@ body.svgFilter{
   transform: perspective(1200px) rotateY(var(--bodyRotateY));
   clear: both;
   display: none;
+
+  background: none;
 }
 
 * :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(body):not(#bodyRotate).inputFocused{
@@ -278,7 +295,7 @@ h1 {
   outline: none;
   --hblur: 5px;
   width: 100%;
-  max-width: 90%;
+  max-width: 96%;
   padding: 10px, 0px;
   margin-top: 12%;
   margin-left: var(--hMarginL);
@@ -311,7 +328,7 @@ h1 {
   font-size: var(--plaintextFontSize);
   line-height: 1.8;
   margin-left: 5vw;
-  margin-right: 20%;
+  margin-right: 12%;
   padding-left: 10px;
   opacity: 0.15;
   color: black;
@@ -353,21 +370,24 @@ h1 {
 }
 
 .rotate {
+  --rotateGlow: #c5c6cf8e;
+  --rotateBGcolor:rgba(180, 180, 180, 0.5);
   display: inline-block;
   width: 80px;
   height: 80px;
   margin-left: 7px;
-  background: radial-gradient(circle at 48%, #efefef 0%, #ebebeb 64%, #ebebeb 80%, transparent);
+  background-color: var(--rotateBGcolor);
+  /* background: radial-gradient(circle at 48%, #efefef 0%, #ebebeb 64%, #ebebeb 80%, transparent); */
   border-radius: 50%;
   -webkit-filter: blur(1px);
           filter: blur(1px);
-  box-shadow: 8px 8px 10px #ebebeb, 
-              -8px -8px 10px #ebebeb,
-              8px -8px 10px #ebebeb, 
-              -8px 8px 10px #ebebeb;
-  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, box-shadow 2s ease-in-out, -webkit-filter 2s ease-in-out;
-  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, box-shadow 2s ease-in-out, filter 2s ease-in-out;
-  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, box-shadow 2s ease-in-out, filter 2s ease-in-out, -webkit-filter 2s ease-in-out;
+  box-shadow: 8px 8px 10px var(--rotateGlow), 
+              -8px -8px 10px var(--rotateGlow),
+              8px -8px 10px var(--rotateGlow), 
+              -8px 8px 10px var(--rotateGlow);
+  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, background-color 2s ease, box-shadow 2s ease-in-out, -webkit-filter 2s ease-in-out;
+  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, background-color 2s ease, box-shadow 2s ease-in-out, filter 2s ease-in-out;
+  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, background-color 2s ease, box-shadow 2s ease-in-out, filter 2s ease-in-out, -webkit-filter 2s ease-in-out;
   transform-origin: 60% 60%;
   transform: translate(7%, 60%) rotate(-100deg);
   cursor: -webkit-grab;
@@ -511,8 +531,8 @@ h1 {
   filter:blur(0.8px);
 }
 .inp {
-  --primary: #2a2835;
-  --unfocused: #d4d2db;
+  --primary: #2c2a38;
+  --unfocused: #5c5e69;
   --d1: path(
     "M 0 50 L 210 50 C 211 48 215 45 218 43 C 234 35 247 36 261 43 C 265 45 268 48 270 50 C 280 50 280 50 280 50"
   );
@@ -746,6 +766,9 @@ input::-ms-reveal, input::-ms-clear {
   transition: filter 0.5s ease-in-out, -webkit-filter 0.5s ease-in-out;
   z-index: 4;
 }
+#circle, #slider{
+  cursor: grab;
+}
 
 #timeContainer{
   --timeContainerBlur: 2.25px;
@@ -783,7 +806,7 @@ input::-ms-reveal, input::-ms-clear {
 
 /* scanArea */
 #scanArea {
-  --flareOpacity: 0.75;
+  --flareOpacity: 0.65;
   position: absolute;
   /* z-index: 6; */
   left: 0;
@@ -799,11 +822,11 @@ input::-ms-reveal, input::-ms-clear {
 }
 
 * :not(#scanArea):not(#redLine):not(#redLightArea):not(#redLightBG):not(#barCodeToScan):not(#barCodeToScan2)
-  :not(#flare1):not(#flare2):not(#flare3):not(#flare4):not(#marker)
+  :not(#flare1):not(#flare2):not(#flare3):not(#flare4)
   :not(body):not(#bodyRotate) .scan{
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 5s ease-in-out, padding-left 0s ease-in-out, padding-right 0s ease-in-out;
-  -webkit-filter: blur(7.5px);
-          filter: blur(7.5px);
+  -webkit-filter: blur(5.5px);
+          filter: blur(5.5px);
 }
 
 #redLine{
@@ -851,10 +874,10 @@ input::-ms-reveal, input::-ms-clear {
   rgba(220,0,0,0) 0%, 
   rgba(220,0,0,0) 20%, 
   rgba(220,0,0,0.05) 35%,
-  rgba(220,0,0,0.28) 48%,
-  rgba(220,0,0,0.32) 49%, 
-  rgba(220,0,0,0.32) 51%,
-  rgba(220,0,0,0.28) 52%, 
+  rgba(220,0,0,0.25) 48%,
+  rgba(220,0,0,0.3) 49%, 
+  rgba(220,0,0,0.3) 51%,
+  rgba(220,0,0,0.25) 52%, 
   rgba(220,0,0,0.05) 65%, 
   rgba(220,0,0,0) 80%,
   rgba(220,0,0,0) 100%);
@@ -982,10 +1005,10 @@ input::-ms-reveal, input::-ms-clear {
   left: 2.5vw;
 }
 #flare2.colorAdjust1{
-  filter: contrast(95%) brightness(160%) saturate(135%) blur(2.5px);
+  filter: contrast(95%) brightness(180%) saturate(135%) blur(2.5px);
 }
 #flare2.colorAdjust2{
-  filter: contrast(95%) brightness(140%) saturate(220%) blur(2.5px);
+  filter: contrast(95%) brightness(160%) saturate(220%) blur(2.5px);
 }
 
 #flare3{
