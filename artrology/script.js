@@ -416,18 +416,18 @@ function SLR1(timestamp) {
   lastNOWslr2 = timestamp;
   lastNOWslr3 = timestamp;
 
-  if (spotLightRadius < 36) {
+  if (spotLightRadius < 34) {
     //canChange = 0;
     spotLightRadius += 3.788 * dt; //0.125
-    if (spotLightRadius > 36) {
-      spotLightRadius = 36;
+    if (spotLightRadius > 34) {
+      spotLightRadius = 34;
     }
   } 
-  else if(spotLightRadius > 36){
+  else if(spotLightRadius > 34){
     //canChange = 0;
     spotLightRadius -= 3.788 * dt;
-    if (spotLightRadius < 36) {
-      spotLightRadius = 36;
+    if (spotLightRadius < 34) {
+      spotLightRadius = 34;
     }
   }
   // else {
@@ -699,7 +699,7 @@ function adjustSettingFont(event){
     else{settingFontSize = Math.round(window.innerWidth * 0.0215);}
     if(settingFontSize < 20){settingFontSize = 20;}
     settingDOM.style.setProperty("--settingFontSize", settingFontSize + "px");
-    let smaller = Math.round(settingFontSize*0.85)
+    let smaller = Math.round(settingFontSize*0.8)
     settingDOM.style.setProperty("--smallerSettingFontSize", smaller + "px");
     
     if(window.innerWidth < 1960 && window.innerWidth > 1700){
@@ -753,6 +753,7 @@ $document.ready(adjustSettingFont);
 $window.resize(adjustSettingFont);
 
 //hover button
+var settingButtonCanClick = false;
 $settingButton.one("mouseover", settingButtonUnfold);
 
 function settingButtonUnfold(){
@@ -768,8 +769,9 @@ function settingButtonUnfold(){
           setTimeout(function(){
             $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 300);
         });
-        requestAnimationFrame(function(){setTimeout(function(){
-          $filterOnText.html('l eave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 450);
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            $filterOnText.html('l eave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 450);
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
@@ -843,21 +845,48 @@ function settingButtonUnfold(){
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1400);    
+            $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+            settingButtonCanClick = true;
+            $filterOn.css("cursor", "grab");
+            $filterOff.css("cursor", "grab");
+          }, 1400);    
         });
       } 
     }, 250);
   }); 
 }
 
+function settingButtonFold(){
+  $filterOnText.html('leav<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      $filterOnText.html('lev<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 150);
+  });
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      $filterOnText.html('lv<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 300);
+  });
+  $filterOffText.html('tak<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      $filterOffText.html('tke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 150);    
+  });
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      $filterOffText.html('tk<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">f</span>');
+    }, 300);    
+  });
+}
+
 //click button
-$filterOn.click(function(){
-  if(setting == false){
+$filterOn.on("click", function(){
+  if(setting == false && settingButtonCanClick){
     setting = true;
     $(document.body).addClass("svgFilter");
     setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
     //$(document.documentElement).addClass("svgFilter");
 
+    settingButtonFold();
     $settingText.css("opacity", "0");
     $settingButton.css("filter", "blur(6px)");
     $settingButton.css("opacity", "0");
@@ -866,25 +895,33 @@ $filterOn.click(function(){
       document.documentElement.pseudoStyle('before', 'z-index','20');
       $settingClass.css("opacity", "0");
     },1100);
-    setTimeout(function(){$settingClass.css("display", "none");}, 2100);
+    setTimeout(function(){
+      $settingClass.css("display", "none");
+      settingDOM.children().prop("disabled", true);
+    }, 2500);
 
     $flare2.addClass("colorAdjust1");
     $flare3.addClass("colorAdjust1");
     $flare4.addClass("colorAdjust1");
-
-    $filterOn.css("cursor", "grabbing");
-
+    
     $filterOn.off();
     $filterOff.off();
   }
 });
+$filterOn.mousedown(function(){
+  if(settingButtonCanClick){$filterOn.css("cursor", "grabbing");}
+});
+$filterOn.mouseover(function(){
+  if(settingButtonCanClick){$filterOn.css("cursor", "grab");}
+});
 
-$filterOff.click(function(){
-  if(setting == false){
+$filterOff.on("click", function(){
+  if(setting == false && settingButtonCanClick){
     setting = true;
     $(document.body).addClass("offFilter");
     setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
 
+    settingButtonFold();
     $settingText.css("opacity", "0");
     $settingButton.css("filter", "blur(6px)");
     $settingButton.css("opacity", "0");
@@ -894,14 +931,17 @@ $filterOff.click(function(){
       $settingClass.css("opacity", "0");
       $(".plaintext").css("font-weight", "600");
     },1100);
-    setTimeout(function(){$settingClass.css("display", "none");}, 2100);
+    setTimeout(function(){
+      $settingClass.css("display", "none");
+      settingDOM.children().prop("disabled", true);
+    }, 2500);
 
     /*setting for no filter at all*/
     twinkleBrighterOpa = 1;
     twinkleOpa = 0.38;
-    defaultTwinklwOpa1 = 0.42;
-    defaultTwinklwOpa2 = 0.55;
-    defaultTwinklwOpa3 = 0.65;
+    defaultTwinklwOpa1 = 0.35;
+    defaultTwinklwOpa2 = 0.4;
+    defaultTwinklwOpa3 = 0.45;
     $redLine.css("background", "var(--redLineGradient2)");
     $redLightArea.css("background", "var(--redAreaGradient2)");
     defaultFlareOpa = 0.85;
@@ -915,11 +955,15 @@ $filterOff.click(function(){
     // $flare3.addClass("colorAdjust1");
     // $flare4.addClass("colorAdjust1");
 
-    $filterOff.css("cursor", "grabbing"); 
-    
     $filterOn.off();
     $filterOff.off();
   }
+});
+$filterOff.mousedown(function(){
+  if(settingButtonCanClick){$filterOff.css("cursor", "grabbing");} 
+});
+$filterOff.mouseover(function(){
+  if(settingButtonCanClick){$filterOff.css("cursor", "grab");}
 });
 
 /******************************* scrollBar *****************************/
@@ -1028,7 +1072,7 @@ var start = true;
 var IDstart;
 var darkness = 0.99;
 var IDdarkness;
-$settingButton.one("click", function(){
+$settingButton.on("click", function(){
   if(setting){
     setTimeout(function(){
       IDfollowCursor = requestAnimationFrame(followCursor);
@@ -1203,10 +1247,12 @@ var h1 = document.getElementsByTagName("h1")[0];
 var hblurDir = -1;
 var IDhblur;
 
-$settingButton.one("click", function(){
-  setTimeout(function(){
-    if(setting){IDhblur = requestAnimationFrame(hblurAnim);}
-  }, 500);
+$settingButton.on("click", function(){
+  if(setting){
+    setTimeout(function(){
+      IDhblur = requestAnimationFrame(hblurAnim);
+    }, 500);
+  }
 });
 function hblurAnim(){
   setTimeout(function(){
@@ -1272,7 +1318,7 @@ var bfDir = -1;
 var scDir = -1;
 var ocDir = 1;
 
-$settingButton.one("click", function(){
+$settingButton.on("click", function(){
   setTimeout(function(){
     if(setting){
       if(start){

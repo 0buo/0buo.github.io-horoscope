@@ -135,15 +135,15 @@ body.canScroll{
   position: relative;
   width: 100%;
   /* height: 200px; */
-  top: 25vh;
+  top: 15vh;
   transition: transform 2s ease-in-out, opacity 0.5s ease-in-out;
   font-size: var(--settingFontSize);
   opacity: 0;
   /* overflow-y: auto;
   overflow-x: hidden; */
 
-  padding-left: 1.5vw;
-  padding-right: 1.5vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
   text-align: left;
   color: white;
   font-family: 'Codystar', cursive;
@@ -158,7 +158,7 @@ body.canScroll{
   background: none;
   position: relative;
   
-  top: 30vh;
+  top: 20vh;
   transition: transform 2.5s ease-in-out, opacity 1s ease-in-out, -webkit-filter 1s ease-in-out;
   transition: transform 2.5s ease-in-out, opacity 1s ease-in-out, filter 1s ease-in-out;
   transition: transform 2.5s ease-in-out, opacity 1s ease-in-out, filter 1s ease-in-out, -webkit-filter 1s ease-in-out;
@@ -188,8 +188,7 @@ body.canScroll{
   left: 1.5vw;
   top: 0;
 
-  cursor: -webkit-grab;
-  cursor: grab;
+  cursor: pointer;
 }
 #filterOff{
   position:fixed;
@@ -203,8 +202,7 @@ body.canScroll{
   right: 2vw;
   top: 0;
 
-  cursor: -webkit-grab;
-  cursor: grab;
+  cursor: pointer;
 }
 
 /* .settingButtonHover{
@@ -556,7 +554,7 @@ h1 {
   font-size: 45px;
   font-weight: bold;
   color: var(--unfocused);
-  opacity: 1;
+  opacity: 0;
   cursor: grab;
 }
 
@@ -882,20 +880,18 @@ input::-ms-reveal, input::-ms-clear {
 #redLightBG{
   --redLightBGblur: 25px;
   position: absolute;
-  top: calc(50vh - 150px);
+  top: calc(50vh - 350px);
   left: calc(50vw - 200px);
   width: 400px;
-  height: 300px;
+  height: 700px;
   background-color: linear-gradient(180deg,
-  rgba(255,255,255,0) 0%, 
-  rgba(255,255,255,0) 20%, 
-  rgba(255,255,255,0.04) 35%,
-  rgba(255,255,255,0.08) 48%,
-  rgba(255,255,255,0.1) 49%, 
-  rgba(255,255,255,0.1) 51%,
-  rgba(255,255,255,0.08) 52%, 
-  rgba(255,255,255,0.04) 65%, 
-  rgba(255,255,255,0) 80%,
+  rgba(255,255,255,0) 0%,  
+  rgba(255,255,255,0.1) 15%,
+  rgba(255,255,255,0.17) 48%,
+  rgba(255,255,255,0.2) 49%, 
+  rgba(255,255,255,0.2) 51%,
+  rgba(255,255,255,0.17) 52%, 
+  rgba(255,255,255,0.1) 85%,
   rgba(255,255,255,0) 100%);
 
   transition: opacity 8s ease-in-out, filter 8s ease-in-out;
