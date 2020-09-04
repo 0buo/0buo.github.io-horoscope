@@ -59,67 +59,65 @@
     </div>
   
   <!--   <div id="scanBar"></div> -->
-  
-    <div class="switchDiv" id="namesDiv">
-      <div class="noselect selectionDivText">
-        <p class="plaintext" id="3">THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER 
-          TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS 
-          PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER <br> enter the number of strokes of a name:
-        </p>
+    <div class=switchDiv>
+      <div id="namesDiv">
+        <div class="noselect selectionDivText">
+          <p class="plaintext" id="3">THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER 
+            TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS 
+            PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER <br>
+          </p>
+          <p class="plaintext" id="4">  
+            enter the number of strokes of a name:
+          </p>
+        </div>
+    
+        <!-- input box name -->
+        <div id="nameInput">
+          <label for="inp" class="inp">
+            <input type="password" id="inp" pattern="[0-9]{1,4}" required>
+            <svg xmlns="http://www.w3.org/2000/svg" width="280px" height="100px" class="border" id="borderName">
+              <path d="M 0 50 L 170 50 C 200 50 200 50 200 50 C 230 50 230 50 230 50 C 270 50 270 50 270 50 C 280 50 280 50 280 50"></path>
+            </svg>
+            <button width="50px" height="50px" viewBox="0 0 50 50" class="check">-</button>
+          </label>
+        </div>
+        <!-- </form> -->
       </div>
-  
-      <!-- input box name -->
-      <div id="nameInput">
-        <label for="inp" class="inp">
-          <input type="password" id="inp" pattern="[0-9]{1,4}" required>
-          <svg xmlns="http://www.w3.org/2000/svg" width="280px" height="100px" class="border" id="borderName">
-            <path d="M 0 50 L 170 50 C 200 50 200 50 200 50 C 230 50 230 50 230 50 C 270 50 270 50 270 50 C 280 50 280 50 280 50"></path>
-          </svg>
-          <button width="50px" height="50px" viewBox="0 0 50 50" class="check">-</button>
-        </label>
-      </div>
-      <!-- </form> -->
-      
-  <!--     1 -->
-  <!--     <button class="collapsible noselect">c
-        <div class="scanTrigger"></div>
-      </button>
-      <div class="content">
-        <p class="noselect">My statement is an evasive statement. It in minimal ways identifies my identity as an artist. I avoid using the words like artist, designer, object maker, etc. to identify me. I am a [1][<span class="smalltab">] &nbsp;[2][ &nbsp;&nbsp;or do I have to put it into a noun?&nbsp;&nbsp; ] At this moment, I need to word and structure my statement in a way of [3][<span class="bigtab">].
-        </p>
-      </div> -->
-    </div>
-  
-    <div class="switchDiv" id="timesDiv">
-      <div class="noselect selectionDivText">
-        <p class="plaintext" id="4">THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER 
-          FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER 
-          TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER <br>
-          choose a time; clicking and holding on the lighter circle goes backward in time, and the darker one goes forward.
-        </p>
-      </div>
-  
-      <div class="noselect"> 
-        <div id="timeInput">
-          <div id="TIcontainer">
-            <div id="circle"></div>
-            <div id="slider"></div>
+    
+      <div id="timesDiv">
+        <div class="noselect selectionDivText">
+          <p class="plaintext" id="5">THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER 
+            FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER 
+            TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER <br>
+          </p>
+          <p class="plaintext" id="6"> 
+            choose a time; clicking and holding on the lighter circle goes backward in time, and the darker one goes forward.
+          </p>
+        </div>
+    
+        <div class="noselect"> 
+          <div id="timeInput">
+            <div id="TIcontainer">
+              <div id="circle"></div>
+              <div id="slider"></div>
+            </div>
+            <div id="timeContainer" class="noselect"><button id="yearMonthButton"></button></div>
           </div>
-          <div id="timeContainer" class="noselect"><button id="yearMonthButton"></button></div>
+        </div>
+
+        <div class="noselect selectionDivText">
+          <p class="plaintext" id="7">THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER 
+            FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER 
+            TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER <br><br>
+
+            THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER 
+            FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER 
+            TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER
+          </p>
         </div>
       </div>
-  <!--     1 -->
-  <!--     <button class="collapsible noselect">c
-        <div class="scanTrigger"></div>
-      </button>
-      <div class="content">
-        <p class="noselect">My statement is an evasive statement. It in minimal ways identifies my identity as an artist. I avoid using the words like artist, designer, object maker, etc. to identify me. I am a [1][<span class="smalltab">] &nbsp;[2][ &nbsp;&nbsp;or do I have to put it into a noun?&nbsp;&nbsp; ] At this moment, I need to word and structure my statement in a way of [3][<span class="bigtab">].</p>
-  
-        <p class="noselect">I sometimes avoid using the word “I”. Instead I divert it to a [4][ &nbsp;&nbsp;concept / metaphor / narrative / &nbsp;&nbsp;?&nbsp;&nbsp; ]. I need a word or phrase or expression such as [5][<span class="smalltab">]. I use [6][ &nbsp;&nbsp;terms or self created lingos or &nbsp;&nbsp;?&nbsp;&nbsp; ] such as [7][<span class="bigtab">], while I also manage to recontextualize and reinterpret the meaning of a word, like that of [8][<span class="smalltab">].</p>
-  
-        <p class="noselect">In my statement, I am a refraction of my [9][ &nbsp;&nbsp;practice or position or job or body of work &nbsp;&nbsp;?&nbsp;&nbsp; ], a placeholder and probably also a storyline of it. I [10][<span class="bigtab">] my statement for [11][<span class="bigtab">].</p>
-      </div> -->
     </div>
+    
   </div>
 
   <div id="scanArea">

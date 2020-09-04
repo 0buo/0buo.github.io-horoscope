@@ -258,8 +258,12 @@ var shadeY = 0;
 var shadeV = new Vector(shadeX, shadeY);
 //var canChangeAlpha = 0;
 //var eclipseSpeed = 0.125;
-var x = 0.5*window.innerWidth;
-var y = 1.5*window.innerHeight;
+
+//variables for function update
+var mouseX = 0.5 * window.innerWidth,
+    mouseY = 1.15 * window.innerHeight;
+var LdestX = 0.5*window.innerWidth,
+    LdestY = 1.15*window.innerHeight;
 
 var maxToLightDistIndex = 0.9;
 var maxDistToLightCenter =
@@ -295,14 +299,14 @@ function followCursor(timestamp) {
 
   //draw code
   if(start == false){
-    x = lerp(x, mouseX, 1-Math.pow(cursorLerpX, dt)); 
+    LdestX = lerp(LdestX, mouseX, 1-Math.pow(cursorLerpX, dt)); 
   }
-  y = lerp(y, mouseY, 1-Math.pow(cursorLerpY, dt)); 
-  document.documentElement.style.setProperty("--cursorY", y + "px");
-  document.documentElement.style.setProperty("--cursorX", x + "px");
+  LdestY = lerp(LdestY, mouseY, 1-Math.pow(cursorLerpY, dt)); 
+  document.documentElement.style.setProperty("--cursorY", LdestY + "px");
+  document.documentElement.style.setProperty("--cursorX", LdestX + "px");
   
 
-  lightV = new Vector(x, y); //lightV is the attracting gravity
+  lightV = new Vector(LdestX, LdestY); //lightV is the attracting gravity
   acceleration.multiply(0);
   shadeX = shadeV.x;
   shadeY = shadeV.y;
@@ -329,7 +333,7 @@ function followCursor(timestamp) {
 
     //change alpha and acc modifier
     let distanceToLightCenter =
-      Math.pow(shadeX - x, 2) + Math.pow(shadeY - y, 2);
+      Math.pow(shadeX - LdestX, 2) + Math.pow(shadeY - LdestY, 2);
 
     //let aBias = Math.pow(document.body.clientWidth * alphaBias, 2);
     let d2 = distanceToLightCenter; //+ aBias;
@@ -375,9 +379,7 @@ function followCursor(timestamp) {
   document.documentElement.style.setProperty("--eclipseY", shadeY + "px");
 }
 
-//variables for function update
-var mouseX = 0.5 * window.innerWidth,
-    mouseY = 1.15 * window.innerHeight;
+
 //var followInterv = 0;
 
 var IDfollowCursor;
@@ -882,8 +884,9 @@ function settingButtonFold(){
 $filterOn.on("click", function(){
   if(setting == false && settingButtonCanClick){
     setting = true;
+    $bodyRotate.css("display", "initial");
     $(document.body).addClass("svgFilter");
-    setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
+    // setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
     //$(document.documentElement).addClass("svgFilter");
 
     settingButtonFold();
@@ -897,7 +900,7 @@ $filterOn.on("click", function(){
     },1100);
     setTimeout(function(){
       $settingClass.css("display", "none");
-      settingDOM.children().prop("disabled", true);
+      $settingClass.children().prop("disabled", true);
     }, 2500);
 
     $flare2.addClass("colorAdjust1");
@@ -918,8 +921,9 @@ $filterOn.mouseover(function(){
 $filterOff.on("click", function(){
   if(setting == false && settingButtonCanClick){
     setting = true;
+    $bodyRotate.css("display", "initial");
     $(document.body).addClass("offFilter");
-    setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
+    // setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
 
     settingButtonFold();
     $settingText.css("opacity", "0");
@@ -933,7 +937,7 @@ $filterOff.on("click", function(){
     },1100);
     setTimeout(function(){
       $settingClass.css("display", "none");
-      settingDOM.children().prop("disabled", true);
+      $settingClass.children().prop("disabled", true);
     }, 2500);
 
     /*setting for no filter at all*/
@@ -991,23 +995,33 @@ function scrollDisppear(){
 
 var IDscrollRAF;
 $document.scroll(function(){
-  cancelAnimationFrame(IDscrollRAF);
-  clearTimeout(scrollTimeOut);
-  if(!scrollForbid){scrolling = true;}
-  let curScrollBarWidth = scrollBarWidth;
-  $({w: curScrollBarWidth}).animate({w: 9},{
-    duration: 300,
-    easing: "easeInOutSine",
-    step: function(now){
-      scrollBarWidth = now;
-      document.documentElement.style.setProperty("--scrollBarWidth", scrollBarWidth + "px");
-    },
-    complete: function(){
-      scrolling = false;
-    }
-  });
-  IDscrollRAF = requestAnimationFrame(function(){scrollTimeOut = setTimeout(scrollDisppear, 1000);});
+  adjustBodyRotateOrigin();
+
+  if(setting){
+    cancelAnimationFrame(IDscrollRAF);
+    clearTimeout(scrollTimeOut);
+    if(!scrollForbid){scrolling = true;}
+    let curScrollBarWidth = scrollBarWidth;
+    $({w: curScrollBarWidth}).animate({w: 9},{
+      duration: 300,
+      easing: "easeInOutSine",
+      step: function(now){
+        scrollBarWidth = now;
+        document.documentElement.style.setProperty("--scrollBarWidth", scrollBarWidth + "px");
+      },
+      complete: function(){
+        scrolling = false;
+      }
+    });
+    IDscrollRAF = requestAnimationFrame(function(){scrollTimeOut = setTimeout(scrollDisppear, 1000);});
+  }
 })
+
+function adjustBodyRotateOrigin(){
+  let originY = 100 * (0.5 * window.innerHeight + $document.scrollTop()) / $bodyRotate.outerHeight();
+  console.log(originY);
+  $bodyRotate.css("transform-origin", "50% " + originY + "% " + "0");
+}
 
 /******************************spotlight*********************************/
 var mouseState = 1;
@@ -1075,6 +1089,10 @@ var IDdarkness;
 $settingButton.on("click", function(){
   if(setting){
     setTimeout(function(){
+      mouseX = 0.5 * window.innerWidth;
+      mouseY = 1.15 * window.innerHeight;
+      LdestX = mouseX;
+      LdestY = mouseY;
       IDfollowCursor = requestAnimationFrame(followCursor);
       IDstart = requestAnimationFrame(startAnim);
       IDdarkness = requestAnimationFrame(darknessStartAnim);
@@ -1274,6 +1292,7 @@ function hblurAnim(){
 
 /*************************body roate********************************/
 var bodyRY = parseInt(getComputedStyle(document.body).getPropertyValue("--bodyRotateY"),10);
+$bodyRotate = $("#bodyRotate");
 var screenMax = -1*window.screen.width/2 + 0.75 * window.screen.width;
 var screenMin = -1*window.screen.width/2 + 0.04 * window.screen.width;
 var leftDeg = -1;
@@ -1283,7 +1302,7 @@ function bodyRotate(e){
   if(sx > screenMax){sx = screenMax;}
   else if (sx < screenMin){sx = screenMin;}
 
-  if(setting){leftDeg = -2; rightDeg = 3;} 
+  if(setting){leftDeg = -1; rightDeg = 2;} 
   bodyRY = Math.round(scale(sx, screenMin, screenMax, leftDeg, rightDeg));
   document.body.style.setProperty("--bodyRotateY", bodyRY+"deg");
   //let sy = e.screenY;
@@ -1781,6 +1800,9 @@ $rotate.click(function () {
           $timesDiv.removeClass("hideRotateLeft");
           $namesDiv.toggleClass("showRotateLeft");
 
+          let height = window.innerHeight + $namesDiv.outerHeight(true);
+          $bodyRotate.css("height", height + "px");
+
           requestAnimationFrame(function(){
             setTimeout(function(){
               //if(parseFloat($namesDiv.css("opacity")) > 0.95){
@@ -1807,6 +1829,9 @@ $rotate.click(function () {
           $namesDiv.toggleClass("hideRotateLeft");
           $timesDiv.toggleClass("showRotateLeft");
 
+          let height = window.innerHeight + $timesDiv.outerHeight(true);
+          $bodyRotate.css("height", height + "px");
+
           requestAnimationFrame(function(){
             setTimeout(function(){
               //if(parseFloat($namesDiv.css("opacity")) < 0.05){
@@ -1832,6 +1857,9 @@ $rotate.click(function () {
       let scrollDest = $rotateBackCircle.offset().top - 0.8 * window.innerHeight;
       if (scrollDest < 0){scrollDest = 0;}
       $htmlAndBody.animate({ scrollTop: scrollDest}, 1000);
+
+      let height = window.innerHeight;
+      $bodyRotate.css("height", height + "px");
 
       requestAnimationFrame(function(){
         moonCountTimeOut = setTimeout(function(){
@@ -1989,7 +2017,7 @@ JQinput.on("input", function () {
 var inputFocused = 0;
 var nameInputSubmitted = 0;
 
-var $allNotNameInput = $("* :not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(body)");
+var $allNotNameInput = $("* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(body):not(#bodyRotate)");
 // var JQbodyNswitch = $("body > *:not(.switchDiv)");
 // var JQswitchNinp = $(".switchDiv > *:not(#nameInput)");
 var $inp = $(".inp");
