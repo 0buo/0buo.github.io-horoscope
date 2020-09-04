@@ -371,7 +371,7 @@ h1 {
 
 .rotate {
   --rotateGlow: #c5c6cf8e;
-  --rotateBGcolor:rgba(180, 180, 180, 0.5);
+  --rotateBGcolor:rgba(190, 190, 190, 0.5);
   display: inline-block;
   width: 80px;
   height: 80px;

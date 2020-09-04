@@ -1384,10 +1384,10 @@ function BGreflection(timestamp){
   let dt = (NOWref - lastNOWref)/1000;
   lastNOWref = NOWref;
 
-  brightRef = lerp(brightRef, destBrightRef, 1-Math.pow(0.37, dt));
-  brightRef2 = lerp(brightRef2, destBrightRef2, 1-Math.pow(0.37, dt));
-  darkRef = lerp(darkRef, destDarkRef, 1-Math.pow(0.42, dt));
-  darkRef2 = lerp(darkRef2, destDarkRef2, 1-Math.pow(0.42, dt));
+  brightRef = lerp(brightRef, destBrightRef, 1-Math.pow(0.33, dt));
+  brightRef2 = lerp(brightRef2, destBrightRef2, 1-Math.pow(0.33, dt));
+  darkRef = lerp(darkRef, destDarkRef, 1-Math.pow(0.38, dt));
+  darkRef2 = lerp(darkRef2, destDarkRef2, 1-Math.pow(0.38, dt));
 
   document.body.style.setProperty("--brightReflectionPos", brightRef+"%");
   document.body.style.setProperty("--brightReflectionPos2", brightRef2+"%");
@@ -1997,7 +1997,7 @@ $rotate.mouseup(function(){
 })
 
 var rotateGlowColor = "#c5c6cfab";
-var rotateBG = "rgba(180, 180, 180, 0.5)";
+var rotateBG = "rgba(190, 190, 190, 0.5)";
 var rotateMouseOver = false;
 $document.mousemove(function(e){
   if(setting){
@@ -2011,11 +2011,11 @@ $document.mousemove(function(e){
     else{
       if(mouseState == 0){rotateGlowColor = "#c49f999b";}
       else if(mouseState == 2){rotateGlowColor = "#a9b3cf9b";}
-      else{rotateGlowColor = "#c5c6cfab"; }
+      else{rotateGlowColor = "#c5c6cf9a"; }
     }
     if(mouseState == 0){rotateBG = "rgba(181, 117, 107, 0.5)";}
     else if(mouseState == 2){rotateBG = "rgba(135, 144, 201, 0.5)";}
-    else{rotateBG = "rgba(180, 180, 180, 0.5)";}
+    else{rotateBG = "rgba(190, 190, 190, 0.5)";}
   
     $rotate.css("--rotateGlow", rotateGlowColor);
     $rotate.css("--rotateBGcolor", rotateBG);
