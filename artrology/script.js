@@ -725,12 +725,12 @@ function adjustSettingFont(event){
 
     if(window.innerWidth < 800 && window.innerWidth >= 700){buttonFontSize = 50; modifiedButtonFontSize = buttonFontSize;}
     else if(window.innerWidth < 700 && window.innerWidth >= 540){buttonFontSize = 45; modifiedButtonFontSize = buttonFontSize;}
-    else if(window.innerWidth < 540 && window.innerWidth >= 400){buttonFontSize = 30; modifiedButtonFontSize = buttonFontSize;}
-    else if(window.innerWidth < 400 && window.innerWidth >= 350){buttonFontSize = 25; modifiedButtonFontSize = buttonFontSize;}
-    else if(window.innerWidth < 350){buttonFontSize = 20; modifiedButtonFontSize = buttonFontSize; }
+    else if(window.innerWidth < 540 && window.innerWidth >= 400){buttonFontSize = 40; modifiedButtonFontSize = buttonFontSize;}
+    else if(window.innerWidth < 400 && window.innerWidth >= 350){buttonFontSize = 35; modifiedButtonFontSize = buttonFontSize;}
+    else if(window.innerWidth < 350){buttonFontSize = 30; modifiedButtonFontSize = buttonFontSize; }
 
     if(window.innerHeight < 600){
-      buttonFontSize = Math.round(window.innerHeight * 0.09);
+      if(window.innerWidth < 700){buttonFontSize = Math.round(window.innerHeight * 0.1);}
       if(modifiedButtonFontSize < buttonFontSize){buttonFontSize = modifiedButtonFontSize;}
       settingBlur = modifiedBlur - ((600 - window.innerHeight)/50) * 0.5;
       settingBlur.toFixed(2);
@@ -1274,16 +1274,16 @@ function hblurAnim(){
 
 /*************************body roate********************************/
 var bodyRY = parseInt(getComputedStyle(document.body).getPropertyValue("--bodyRotateY"),10);
-var screenMax = 0.6 * window.screen.width;
+var screenMax = -1*window.screen.width/2 + 0.75 * window.screen.width;
 var screenMin = -1*window.screen.width/2 + 0.04 * window.screen.width;
-var leftDeg = -3;
-var rightDeg = 3;
+var leftDeg = -1;
+var rightDeg = 1;
 function bodyRotate(e){
   let sx = e.screenX - window.screen.width/2;
   if(sx > screenMax){sx = screenMax;}
   else if (sx < screenMin){sx = screenMin;}
 
-  if(setting){leftDeg = -3; rightDeg = 6;} 
+  if(setting){leftDeg = -2; rightDeg = 3;} 
   bodyRY = Math.round(scale(sx, screenMin, screenMax, leftDeg, rightDeg));
   document.body.style.setProperty("--bodyRotateY", bodyRY+"deg");
   //let sy = e.screenY;

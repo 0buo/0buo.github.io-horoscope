@@ -129,6 +129,7 @@ body.canScroll{
   transform: perspective(2000px) rotateY(var(--bodyRotateY));
   -webkit-filter: blur(0.9px);
           filter: blur(0.9px);
+  overflow: auto;
 }
 
 .settingText{
