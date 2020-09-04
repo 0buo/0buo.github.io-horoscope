@@ -888,10 +888,12 @@ function settingButtonFold(){
   });
 }
 
+var cloudOn = false;
 //click button
 $filterOn.on("click", function(){
   if(setting == false && settingButtonCanClick){
     setting = true;
+    cloudOn = true;
     $bodyRotate.css("display", "initial");
     $(document.body).addClass("svgFilter");
     // setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
@@ -926,9 +928,11 @@ $filterOn.mouseover(function(){
   if(settingButtonCanClick){$filterOn.css("cursor", "grab");}
 });
 
+
 $filterOff.on("click", function(){
   if(setting == false && settingButtonCanClick){
     setting = true;
+    cloudOn = true;
     $bodyRotate.css("display", "initial");
     $(document.body).addClass("offFilter");
     // setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
@@ -989,9 +993,9 @@ function scrollDisppear(){
   $({w: curScrollBarWidth}).animate({w: 0},{
     duration: 300,
     easing: "easeInOutSine",
-    step: function(now){
+    step: function(now, fx){
       clearTimeout(scrollTimeOut);
-      if(scrolling){return;}
+      if(scrolling){$(fx.elem).stop(true); return;}
       scrollBarWidth = now;
       document.documentElement.style.setProperty("--scrollBarWidth", scrollBarWidth + "px");
     },
@@ -1153,9 +1157,9 @@ function sunsetColor(src, dst, varString, time=8000){
   $({ c: curColor }).stop().animate({ c: dst }, {
     duration: time,
     easing: "easeInOutElastic", 
-    step: function(now) {
-      if(backtoSpotLight){return;}
-      if(nightStart){return;}
+    step: function(now, fx) {
+      if(backtoSpotLight){$(fx.elem).stop(true); return;}
+      if(nightStart){$(fx.elem).stop(true); return;}
       src.val = Math.round(now);
       if(src.val > 255){src.val = 255;}
       else if(src.val < 0){src.val = 0;}
@@ -1172,9 +1176,9 @@ function sunsetAlpha(src, dst, varString, time=5000){
   $({ a: curAlpha }).stop().animate({ a: dst }, {
     duration: time,
     easing: "easeInOutBack", 
-    step: function(now) {
-      if(backtoSpotLight){return;}
-      if(nightStart){return;}
+    step: function(now, fx) {
+      if(backtoSpotLight){$(fx.elem).stop(true); return;}
+      if(nightStart){$(fx.elem).stop(true); return;}
       src.val = now;
       if(src.val > 1){src.val = 1;}
       else if(src.val < 0){src.val = 0;}
@@ -1192,9 +1196,9 @@ function nightColor(src, dst, varString, time=8000){
   $({ c: curColor }).stop().animate({ c: dst }, {
     duration: time,
     easing: "easeInOutElastic", 
-    step: function(now) {
-      if(backtoSpotLight){return;}
-      if(sunsetStart){return;}
+    step: function(now, fx) {
+      if(backtoSpotLight){$(fx.elem).stop(true); return;}
+      if(sunsetStart){$(fx.elem).stop(true); return;}
       src.val = Math.round(now);
       if(src.val > 255){src.val = 255;}
       else if(src.val < 0){src.val = 0;}
@@ -1211,9 +1215,9 @@ function nightAlpha(src, dst, varString, time=5000){
   $({ a: curAlpha }).stop().animate({ a: dst }, {
     duration: time,
     easing: "easeInOutBack", 
-    step: function(now) {
-      if(backtoSpotLight){return;}
-      if(sunsetStart){return;}
+    step: function(now, fx) {
+      if(backtoSpotLight){$(fx.elem).stop(true); return;}
+      if(sunsetStart){$(fx.elem).stop(true); return;}
       src.val = now;
       if(src.val > 1){src.val = 1;}
       else if(src.val < 0){src.val = 0;}
@@ -1231,9 +1235,9 @@ function spotlightColor(src, dst, varString, time=8000){
   $({ c: curColor }).stop().animate({ c: dst }, {
     duration: time,
     easing: "easeInOutQuad", 
-    step: function(now) {
-      if(sunsetStart){return;}
-      if(nightStart){return;}
+    step: function(now, fx) {
+      if(sunsetStart){$(fx.elem).stop(true); return;}
+      if(nightStart){$(fx.elem).stop(true); return;}
       src.val = Math.round(now);
       if(src.val > 255){src.val = 255;}
       else if(src.val < 0){src.val = 0;}
@@ -1250,9 +1254,9 @@ function spotlightAlpha(src, dst, varString, time=5000){
   $({ a: curAlpha }).stop().animate({ a: dst }, {
     duration: time,
     easing: "easeInOutQuad", 
-    step: function(now) {
-      if(sunsetStart){return;}
-      if(nightStart){return;}
+    step: function(now, fx) {
+      if(sunsetStart){$(fx.elem).stop(true); return;}
+      if(nightStart){$(fx.elem).stop(true); return;}
       src.val = now;
       if(src.val > 1){src.val = 1;}
       else if(src.val < 0){src.val = 0;}
@@ -1410,27 +1414,29 @@ var IDbf;
 var IDoc;
 var IDsc;
 
-var baseFrequency = 0.07;
+var baseFrequency = 0.06;
 var octave = 1;
-var cloudScale = 100;
+var cloudScale = 90;
 
-var bfMax = 0.025;
-var bfMiddle = 0.015;
+var bfMax = 0.017;
 var bfMin = 0.007;
-var scaleMax = 110;
 var scaleMiddle = 90;
 var scaleMin = 37;
-var ocMax = 10;
-var ocMiddle = 6;
+var ocMax = 15;
+var ocMiddle = 10;
 var ocMin = 1;
 
 var bfDir = -1;
 var scDir = -1;
 var ocDir = 1;
 
+var cloudFlounderBf = false;
+var cloudFlounderSc = false;
+var cloudFlounderOc = false;
+
 $settingButton.on("click", function(){
   setTimeout(function(){
-    if(setting){
+    if(setting && cloudOn){
       if(start){
         IDbf = requestAnimationFrame(cloudBfStart);
         IDsc = requestAnimationFrame(cloudScStart);
@@ -1440,155 +1446,330 @@ $settingButton.on("click", function(){
   }, 500);
 });
 
+var curBf,
+    curSc,
+    curOc;
+
+//start
+var bfStartEnd = false,
+    scStartEnd = false,
+    ocStartEnd = false;
 function cloudBfStart(){
-  let curBf = baseFrequency;
+  curBf = baseFrequency;
   $({ bf: curBf }).animate({ bf: bfMin }, {
     duration: 11000,
     easing: "easeOutQuad", 
-    step: function(now, fx) {
+    step: function(now) {
       baseFrequency = now;
       cloudFilter.setAttribute("baseFrequency", baseFrequency);
     },
     complete: function(){
-      bfDir = 1;
-      cancelAnimationFrame(IDbf);
-      IDbf = requestAnimationFrame(cloudBfDrift);
-    }
-  });
-}
-function cloudScStart(){
-  let curSc = cloudScale;
-  $({ sc: curSc }).animate({ sc: scaleMin }, {
-    duration: 19500,
-    easing: "easeOutQuad",
-    step: function(now, fx) {
-      cloudScale = now;
-      cloudDisp.setAttribute("scale", cloudScale);
-    },
-    complete: function(){
-      ScDir = 1;
-      cancelAnimationFrame(IDsc);
-      IDsc = requestAnimationFrame(cloudScDrift);
-    }
-  });
-}
-function cloudOcStart(){
-  let curOc = octave;
-  $({ oc: curOc }).animate({ oc: scaleMax }, {
-    duration: 14500,
-    easing: "easeOutQuad",
-    step: function(now, fx) {
-      octave = Math.round(now);
-      cloudFilter.setAttribute("numOctaves", octave);
-    },
-    complete: function(){
-      OcDir = -1;
-      cancelAnimationFrame(IDoc);
-      IDoc = requestAnimationFrame(cloudOcDrift);
-    }
-  });
-}
-
-function cloudBfDrift(){
-  if(bfDir == -1){
-    let curBf = baseFrequency;
-    $({ bf: curBf }).animate({ bf: bfMin }, {
-      duration: 35000,
-      easing: "easeInOutSine",
-      step: function(now, fx) {
-        baseFrequency = now;
-        cloudFilter.setAttribute("baseFrequency", baseFrequency);
-      },
-      complete: function(){
+      if(!bfStartEnd){
+        bfStartEnd = true;
+        curBf = baseFrequency;
         bfDir = 1;
         cancelAnimationFrame(IDbf);
         IDbf = requestAnimationFrame(cloudBfDrift);
       }
-    });
-  }
-  else{
-    let curBf = baseFrequency;
-    $({ bf: curBf }).animate({ bf: bfMiddle }, {
-      duration: 35000,
-      easing: "easeOutSine",
-      step: function(now, fx) {
-        baseFrequency = now;
-        cloudFilter.setAttribute("baseFrequency", baseFrequency);
-      },
-      complete: function(){
-        bfDir = -1;
-        cancelAnimationFrame(IDbf);
-        IDbf = requestAnimationFrame(cloudBfDrift);
-      }
-    });
-  }
+    }
+  });
 }
-
-function cloudScDrift(){
-  if(scDir == -1){
-    let curSc = cloudScale;
-    $({ sc: curSc }).animate({ sc: scaleMin }, {
-      duration: 25000,
-      easing: "easeOutSine",
-      step: function(now, fx) {
-        cloudScale = now;
-        cloudDisp.setAttribute("scale", cloudScale);
-      },
-      complete: function(){
+function cloudScStart(){
+  curSc = cloudScale;
+  $({ sc: curSc }).animate({ sc: scaleMin }, {
+    duration: 19500,
+    easing: "easeOutQuad",
+    step: function(now) {
+      cloudScale = now;
+      cloudDisp.setAttribute("scale", cloudScale);
+    },
+    complete: function(){
+      if(!scStartEnd){
+        scStartEnd = true;
+        curSc = cloudScale;
         ScDir = 1;
         cancelAnimationFrame(IDsc);
         IDsc = requestAnimationFrame(cloudScDrift);
       }
-    });
+    }
+  });
+}
+function cloudOcStart(){
+  curOc = octave;
+  $({ oc: curOc }).animate({ oc: ocMax }, {
+    duration: 14500,
+    easing: "easeOutQuad",
+    step: function(now) {
+      octave = Math.round(now);
+      cloudFilter.setAttribute("numOctaves", octave);
+    },
+    complete: function(){
+      if(!ocStartEnd){
+        curOc = octave;
+        OcDir = -1;
+        cancelAnimationFrame(IDoc);
+        IDoc = requestAnimationFrame(cloudOcDrift);  
+      }
+    }
+  });
+}
+
+//drift
+var curBfSet1 = false,
+    curBfSet2 = false;
+
+var backToDriftBf;
+function cloudBfDrift(){
+  if(!cloudFlounderBf){
+    if(bfDir == -1){
+      if(!curBfSet1){curBf = baseFrequency; curBfSet1 = true;}
+      $({ bf: curBf }).stop(true).animate({ bf: bfMin }, {
+        duration: 35000,
+        easing: "easeInOutSine",
+        step: function(now, fx) {
+          if(cloudFlounderBf){$(fx.elem).stop(true); return;}
+          if(bfDir == 1){$(fx.elem).stop(true); return;}
+
+          baseFrequency = now;
+          cloudFilter.setAttribute("baseFrequency", baseFrequency);
+        },
+        complete: function(){
+          curBfSet1 = false;
+          curBf = baseFrequency;
+          backToDriftBf = baseFrequency;
+          bfDir = 1;
+          cancelAnimationFrame(IDbf);
+          if(!cloudFlounderBf){IDbf = requestAnimationFrame(cloudBfDrift);}
+        }
+      });
+    }
+    else{
+      if(!curBfSet2){curBf = baseFrequency; curBfSet2 = true;}
+      $({ bf: curBf }).stop(true).animate({ bf: bfMax }, {
+        duration: 35000,
+        easing: "easeOutSine",
+        step: function(now, fx) {
+          if(cloudFlounderBf){$(fx.elem).stop(true); return;}
+          if(bfDir == -1){$(fx.elem).stop(true); return;}
+          baseFrequency = now;
+          cloudFilter.setAttribute("baseFrequency", baseFrequency);
+        },
+        complete: function(){
+          curBfSet2 = false;
+          curBf = baseFrequency;
+          bfDir = -1;
+          cancelAnimationFrame(IDbf);
+          if(!cloudFlounderBf){IDbf = requestAnimationFrame(cloudBfDrift);}
+        }
+      });
+    }
   }
-  else{
-    let curSc = cloudScale;
-    $({ sc: curSc }).animate({ sc: scaleMiddle }, {
-      duration: 25000,
-      easing: "easeOutSine",
-      step: function(now) {
-        cloudScale = now;
-        cloudDisp.setAttribute("scale", cloudScale);
+}
+
+var curScSet1 = false,
+    curScSet2 = false;
+function cloudScDrift(){
+  if(!cloudFlounderSc){
+    if(scDir == -1){
+      if(!curScSet1){curSc = cloudScale; curScSet1 = true;}
+      $({ sc: curSc }).stop().animate({ sc: scaleMin }, {
+        duration: 25000,
+        easing: "easeOutSine",
+        step: function(now, fx) {
+          if(cloudFlounderSc){$(fx.elem).stop(true); return;}
+          if(scDir == 1){$(fx.elem).stop(true); return;}
+          cloudScale = now;
+          cloudDisp.setAttribute("scale", cloudScale);
+        },
+        complete: function(){
+          curScSet1 = false;
+          curSc = cloudScale;
+          ScDir = 1;
+          cancelAnimationFrame(IDsc);
+          if(!cloudFlounderSc){IDsc = requestAnimationFrame(cloudScDrift);}
+        }
+      });
+    }
+    else{
+      if(!curScSet2){curSc = cloudScale; curScSet2 = true;}
+      $({ sc: curSc }).stop().animate({ sc: scaleMiddle }, {
+        duration: 25000,
+        easing: "easeOutSine",
+        step: function(now, fx) {
+          if(cloudFlounderSc){$(fx.elem).stop(true); return;}
+          if(scDir == -1){$(fx.elem).stop(true); return;}
+          cloudScale = now;
+          cloudDisp.setAttribute("scale", cloudScale);
+        },
+        complete: function(){
+          curScSet2 = false;
+          curSc = cloudScale;
+          ScDir = -1;
+          cancelAnimationFrame(IDsc);
+          if(!cloudFlounderSc){IDsc = requestAnimationFrame(cloudScDrift);}
+        }
+      });
+    }
+  }
+}
+
+var curOcSet1 = false,
+    curOcSet2 = false;
+function cloudOcDrift(){
+  if(!cloudFlounderOc){
+    if(ocDir == -1){
+      if(!curOcSet1){curOc = octave; curOcSet1 = true;}
+      $({ oc: curOc }).stop().animate({ oc: ocMiddle }, {
+        duration: 20000,
+        easing: "easeOutSine",
+        step: function(now, fx) {
+          if(cloudFlounderOc){$(fx.elem).stop(true); return;}
+          if(ocDir == 1){$(fx.elem).stop(true); return;}
+          octave = Math.round(now);
+          cloudFilter.setAttribute("numOctaves", octave);
+        },
+        complete: function(){
+          curOcSet1 = false;
+          OcDir = 1;
+          curOc = octave;
+          cancelAnimationFrame(IDoc);
+          if(!cloudFlounderOc){IDoc = requestAnimationFrame(cloudOcDrift);}
+        }
+      });
+    }
+    else{
+      if(!curOcSet2){curOc = octave; curOcSet2 = true;}
+      $({ oc: curOc }).stop().animate({ oc: ocMax }, {
+        duration: 20000,
+        easing: "easeOutSine",
+        step: function(now, fx) {
+          if(cloudFlounderOc){$(fx.elem).stop(true); return;}
+          if(ocDir == -1){$(fx.elem).stop(true); return;}
+          octave = Math.round(now);
+          cloudFilter.setAttribute("numOctaves", octave);
+        },
+        complete: function(){
+          curOcSet2 = false;
+          OcDir = -1;
+          curOc = octave;
+          cancelAnimationFrame(IDoc);
+          if(!cloudFlounderOc){IDoc = requestAnimationFrame(cloudOcDrift);}
+        }
+      });
+    }
+  }
+}
+
+//flounder
+var bfFlounderEnd = false,
+    scFlounderEnd = false,
+    ocFlounderEnd = false;
+
+function setCloudFlounder(){
+  cloudFlounderBf = true;
+  cloudFlounderSc = true;
+  cloudFlounderOc = true;
+  bfFlounderEnd = false,
+  scFlounderEnd = false,
+  ocFlounderEnd = false;
+  cancelAnimationFrame(IDbf);
+  cancelAnimationFrame(IDsc);
+  cancelAnimationFrame(IDoc);
+  IDbf = requestAnimationFrame(cloudBfFlounder);
+  IDsc = requestAnimationFrame(cloudScFlounder);
+  IDoc = requestAnimationFrame(cloudOcFlounder);
+}
+
+var bfFlounderSet = false,
+    scFlounderSet = false,
+    ocFlounderSet = false;
+var destBfFlounder, destScFlounder, destOcFlounder;
+function cloudBfFlounder(){
+  if(cloudFlounderBf){
+    if(!bfFlounderSet){
+      curBf = baseFrequency; 
+      destBfFlounder = Math.abs(baseFrequency - bfMax) >= Math.abs(baseFrequency - bfMin) ? bfMax + 0.007 - Math.abs(baseFrequency - bfMax) : bfMin - (0.007 - Math.abs(baseFrequency - bfMin));
+      if(destBfFlounder < 0.001){destBfFlounder == 0.001;} 
+      bfFlounderSet = true;
+    }
+    $({ bf: curBf }).stop().animate({ bf: destBfFlounder }, {
+      duration: 3500,
+      easing: "easeOutQuad", 
+      step: function(now, fx) {
+        if(!cloudFlounderBf){$(fx.elem).stop(true); return;}
+        baseFrequency = now;
+        cloudFilter.setAttribute("baseFrequency", baseFrequency);
       },
       complete: function(){
-        ScDir = -1;
-        cancelAnimationFrame(IDsc);
-        IDsc = requestAnimationFrame(cloudScDrift);
+        if(!bfFlounderEnd){
+          bfFlounderEnd = true;
+          bfFlounderSet = false;
+          bfDir = Math.abs(destBfFlounder - bfMax) <= Math.abs(destBfFlounder - bfMin) ? -1 : 1;
+          cloudFlounderBf = false;
+          curBf = baseFrequency;
+          cancelAnimationFrame(IDbf);
+          IDbf = requestAnimationFrame(cloudBfDrift);  
+        }
       }
     });
   }
 }
-
-function cloudOcDrift(){
-  if(ocDir == -1){
-    let curOc = octave;
-    $({ oc: curOc }).animate({ oc: scaleMiddle }, {
-      duration: 20000,
-      easing: "easeOutSine",
-      step: function(now) {
-        octave = Math.round(now);
-        cloudFilter.setAttribute("numOctaves", octave);
+function cloudScFlounder(){
+  if(cloudFlounderSc){
+    if(!scFlounderSet){
+      curSc = cloudScale; 
+      destScFlounder = Math.abs(cloudScale - scaleMiddle) >= Math.abs(cloudScale - scaleMin) ? scaleMiddle + 40 - Math.abs(cloudScale - scaleMiddle) : scaleMin - (40 - Math.abs(cloudScale - scaleMin));
+      if(destScFlounder < 10){destBfFlounder == 10;}
+      scFlounderSet = true;
+    }
+    $({ sc: curSc }).stop().animate({ sc: destScFlounder }, {
+      duration: 3500,
+      easing: "easeOutQuad",
+      step: function(now, fx) {
+        if(!cloudFlounderSc){$(fx.elem).stop(true); return;}
+        cloudScale = now;
+        cloudDisp.setAttribute("scale", cloudScale);
       },
       complete: function(){
-        OcDir = 1;
-        cancelAnimationFrame(IDoc);
-        IDoc = requestAnimationFrame(cloudOcDrift);
+        if(!scFlounderEnd){
+          scFlounderEnd = true;
+          scFlounderSet = false;
+          ScDir = Math.abs(destScFlounder - scaleMiddle) <= Math.abs(destScFlounder - scaleMin) ? -1 : 1;
+          cloudFlounderSc = false;
+          curSc = cloudScale;
+          cancelAnimationFrame(IDsc);
+          IDsc = requestAnimationFrame(cloudScDrift);
+        }
       }
     });
   }
-  else{
-    let curOc = octave;
-    $({ oc: curOc }).animate({ oc: scaleMax }, {
-      duration: 20000,
-      easing: "easeOutSine",
-      step: function(now) {
+}
+function cloudOcFlounder(){
+  if(cloudFlounderOc){
+    if(!ocFlounderSet){
+      curOc = octave;
+      destOcFlounder = Math.abs(octave - ocMax) >= Math.abs(octave - ocMiddle) ? ocMax + 4 - Math.abs(octave - ocMax) : scaleMin - (4 - Math.abs(octave - ocMiddle));
+      if(destOcFlounder < 3){destBfFlounder == 3;}
+      ocFlounderSet = true;
+    }
+    $({ oc: curOc }).stop().animate({ oc: destOcFlounder }, {
+      duration: 3500,
+      easing: "easeOutQuad",
+      step: function(now, fx) {
+        if(!cloudFlounderOc){$(fx.elem).stop(true); return;}
         octave = Math.round(now);
         cloudFilter.setAttribute("numOctaves", octave);
       },
       complete: function(){
-        OcDir = -1;
-        cancelAnimationFrame(IDoc);
-        IDoc = requestAnimationFrame(cloudOcDrift);
+        if(!ocFlounderEnd){
+          ocFlounderEnd = true;
+          ocFlounderSet = false;
+          OcDir = Math.abs(destOcFlounder - ocMax) <= Math.abs(destOcFlounder - ocMiddle) ? -1 : 1;
+          cloudFlounderOc = false;
+          curOc = octave;
+          cancelAnimationFrame(IDoc);
+          IDoc = requestAnimationFrame(cloudOcDrift);  
+        }
       }
     });
   }
@@ -2002,16 +2183,16 @@ var rotateMouseOver = false;
 $document.mousemove(function(e){
   if(setting){
     let d = Math.pow(e.clientX + 0.15 * window.innerWidth - $rotate.offset().left, 2);
-    let yCondition = window.innerWidth > window.innerHeight ? spotLightRadius/300*window.innerWidth : spotLightRadius/300*window.innerHeight;
+    let yCondition = window.innerWidth > window.innerHeight ? spotLightRadius/400*window.innerWidth : spotLightRadius/400*window.innerHeight;
     let myCondition = e.pageY > $rotate.offset().top ? e.pageY > $rotate.offset().top + yCondition : e.pageY < $rotate.offset().top - yCondition;
     let condition = e.clientX - 0.12 * window.innerWidth < $rotate.offset().left &&  myCondition;
     if(d < 0.04 * Math.pow(window.innerWidth,2) && !condition){
-      rotateGlowColor = "#d5d9d9ca";
+      rotateGlowColor = "#d5d9d9bb";
     }
     else{
-      if(mouseState == 0){rotateGlowColor = "#c49f999b";}
-      else if(mouseState == 2){rotateGlowColor = "#a9b3cf9b";}
-      else{rotateGlowColor = "#c5c6cf9a"; }
+      if(mouseState == 0){rotateGlowColor = "#c49f999d";}
+      else if(mouseState == 2){rotateGlowColor = "#a9b3cf9d";}
+      else{rotateGlowColor = "#c5c6cf93"; }
     }
     if(mouseState == 0){rotateBG = "rgba(181, 117, 107, 0.5)";}
     else if(mouseState == 2){rotateBG = "rgba(135, 144, 201, 0.5)";}
@@ -2231,6 +2412,8 @@ JQcheck.mousedown(function () {
         LA037.ID = requestAnimationFrame(function(){sunsetAlpha(LA037, sunsetA037, "--LA0-37");});
       }, 500);
     });
+
+    setCloudFlounder();
   }
 });
 
@@ -2285,8 +2468,8 @@ function rotateSlider(deg){
     $({d: curDeg}).animate({d: curDeg + degIncrement},{
       duration: 600,
       easing: "easeInOutBack",
-      step: function(now){
-        if(sliderMdown == false){return;}
+      step: function(now, fx){
+        if(sliderMdown == false){$(fx.elem).stop(true); return;}
         sliderDeg = now % 360;
         TIsliderX = sliderRadius * Math.sin((sliderDeg * Math.PI) / 180);
         TIsliderY = sliderRadius * -Math.cos((sliderDeg * Math.PI) / 180);
@@ -2311,8 +2494,8 @@ function rotateCircle(deg){
     $({d: curDeg}).animate({d: curDeg - degIncrement},{
       duration: 600,
       easing: "easeInOutBack",
-      step: function(now){
-        if(circleMdown == false){return;}
+      step: function(now, fx){
+        if(circleMdown == false){$(fx.elem).stop(true); return;}
         circleDeg = (360 + now) % 360;
         TIcircleX = circleRdius * Math.sin((circleDeg * Math.PI) / 180);
         TIcircleY = circleRdius * -Math.cos((circleDeg * Math.PI) / 180);
@@ -2697,6 +2880,8 @@ function spotLightSwirl(){
 
 var barCodeCorrect = false;
 function scanAnim(){
+  setCloudFlounder();
+
   $allNotScan.addClass("scan");
   twinkleOpa = defaultTwinklwOpa3;
   $scan.css("display", "initial");

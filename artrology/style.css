@@ -103,10 +103,10 @@ body {
   background-color: rgba(255,255,255,1);
   background: linear-gradient(90deg, 
   rgba(134,136,138,1) 0%, 
-  rgba(128,133,141,1) var(--darkReflectionPos), 
+  rgba(130,135,143,1) var(--darkReflectionPos), 
   rgba(255,255,255,1) var(--brightReflectionPos), 
   rgba(255,255,255,1) var(--brightReflectionPos2), 
-  rgba(128,133,141,1) var(--darkReflectionPos2), 
+  rgba(130,135,143,1) var(--darkReflectionPos2), 
   rgba(134,136,138,1) 100%);
 
   background-attachment: fixed;
