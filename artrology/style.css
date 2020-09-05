@@ -59,6 +59,10 @@
       transparent 100%);
 }
 
+html{
+  scroll-behavior: smooth;
+}
+
 html, body{
   margin: 0;
   padding: 0;
@@ -68,25 +72,42 @@ html, body{
 /* scroll bar */
 /* The emerging W3C standard
    that is currently Firefox-only */
-* {
+/* body {
   scrollbar-width: var(--scrollBarWidth);
   scrollbar-color: #232323 #dbdae000;
-}
+} */
   
 /* Works on Chrome/Edge/Safari */
-*::-webkit-scrollbar {
+/* body ::-webkit-scrollbar {
   width: var(--scrollBarWidth);
-  background:transparent
+  background-color: transparent;
+  overflow: hidden;
 }
 
-/* *::-webkit-scrollbar-track{
-  background: transparent url('./img/sliderTrack.png') repeat-y !important;
+body ::-webkit-scrollbar-track{
+  background-color: rgba(200,200,200,0.1);
+}
+
+body ::-webkit-scrollbar-track-piece{
+  display: none;
+}
+
+body ::-webkit-scrollbar-thumb {
+  background-color: #232323;
+  border: none;
 } */
 
-*::-webkit-scrollbar-thumb {
-  background-color: #232323;
-  /* border-radius: 10px; */
-  border: none;
+/* .body-scroll-bar > .os-scrollbar-vertical > .os-scrollbar-track > .os-scrollbar-handle {
+  width: 80px;
+}
+.body-scroll-bar> .os-scrollbar-horizontal > .os-scrollbar-track > .os-scrollbar-handle {
+  height: 80px;
+} */
+.body-scroll-bar > .os-scrollbar-vertical{
+  right: 30px;
+} 
+.body-scroll-bar> .os-scrollbar-horizontal{
+  bottom: 30px;
 }
 
 body {
@@ -102,17 +123,16 @@ body {
   --darkReflectionPos2: 60%;
   background-color: rgba(255,255,255,1);
   background: linear-gradient(90deg, 
-  rgba(134,136,138,1) 0%, 
-  rgba(130,135,143,1) var(--darkReflectionPos), 
+  rgba(135,137,139,1) 0%, 
+  rgba(128,133,141,1) var(--darkReflectionPos), 
   rgba(255,255,255,1) var(--brightReflectionPos), 
   rgba(255,255,255,1) var(--brightReflectionPos2), 
-  rgba(130,135,143,1) var(--darkReflectionPos2), 
-  rgba(134,136,138,1) 100%);
+  rgba(128,133,141,1) var(--darkReflectionPos2), 
+  rgba(133,134,136,1) 100%);
 
   background-attachment: fixed;
   transition: background-image 0.5s ease;
 
-  overflow-x: hidden;
   /* position: relative; */
   -webkit-filter: blur(var(--bodyBlur));
           filter: blur(var(--bodyBlur));

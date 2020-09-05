@@ -203,6 +203,7 @@ function addEvent(obj, evt, fn) {
   }
 }
 
+/****************************check tab or window out of focus******************************** */
 var vis = (function(){
   var stateKey, 
       eventKey, 
@@ -247,6 +248,43 @@ vis(function(){
   }
 });
 
+var notIE = (document.documentMode === undefined),
+    isChromium = window.chrome;
+if (notIE && !isChromium) {
+    // checks for Firefox and other  NON IE Chrome versions
+    $window.on("focusout", function () {
+      // blur
+      lastNOWfollow = undefined;
+      lastNOWslr1 = undefined;
+      lastNOWslr2 = undefined;
+      lastNOWslr3 = undefined;
+      lastNOWincE = undefined;
+      lastNOWincE2 = undefined;
+      lastNOWdecE = undefined;
+      lastNOWecA = undefined;
+
+      lastNOWref = undefined;
+    });
+} 
+else {
+    // checks for IE and Chromium versions
+    // bind blur event
+    addEvent(window, "blur", function () {
+      // blur
+      lastNOWfollow = undefined;
+      lastNOWslr1 = undefined;
+      lastNOWslr2 = undefined;
+      lastNOWslr3 = undefined;
+      lastNOWincE = undefined;
+      lastNOWincE2 = undefined;
+      lastNOWdecE = undefined;
+      lastNOWecA = undefined;
+
+      lastNOWref = undefined;
+    });
+}
+
+/*********************** on resize ************************ */
 $window.resize(function(){
   maxDistToLightCenter =
     window.innerWidth >= window.innerHeight
@@ -288,7 +326,7 @@ var maxDistToLightCenter =
 var randNum = 0;
 
 
-var cursorLerpX = 0.25;
+var cursorLerpX = 0.95;
 var cursorLerpY = 0.2;
 
 var finishLerpCursorLerpX = false;
@@ -307,6 +345,10 @@ function followCursor(timestamp) {
 
   //draw code
   if(start == false){
+    if(Math.abs(cursorLerpX - 0.25) >= 0.0005){cursorLerpX = lerp(cursorLerpX, 0.25, 1-Math.pow(0.85, dt));}
+    else{cursorLerpX = 0.25;}
+    if(Math.abs(cursorLerpY - 0.2) >= 0.0005){cursorLerpY = lerp(cursorLerpY, 0.2, 1-Math.pow(0.85, dt));}
+    else{cursorLerpY = 0.2;}
     LdestX = lerp(LdestX, mouseX, 1-Math.pow(cursorLerpX, dt)); 
   }
   LdestY = lerp(LdestY, mouseY, 1-Math.pow(cursorLerpY, dt)); 
@@ -680,8 +722,30 @@ function updateR() {
   //}
 }
 
+/*******************************scroll***********************************/
+// $htmlAndBody.animate({ scrollTop: 0 }, 1000);
+var scrollinstance;
+$(function() {
+  scrollinstance = $(document.body).overlayScrollbars({
+    className : "os-theme-round-light body-scroll-bar",
+    paddingAbsolute : true,
+    overflowBehavior : {
+      x : "h",
+      y : "s"
+    },
+    scrollbars : {
+      visibility: "a",
+      autoHide: "s",
+      autoHideDelay: 800
+    }
+  }).overlayScrollbars();
 
-$htmlAndBody.animate({ scrollTop: 0 }, 1000);
+  // scrollinstance.options("callbacks.onScroll", function(){
+  //   let scrX = scrollinstance.scroll().position.x;
+  //   let scrY = scrollinstance.scroll().position.y;
+  //   scrollinstance.scroll({x:}, 400, "easeInOutSine");
+  // })
+});
 /*****************************filter setting*************************** */
 var setting = false;
 var $settingClass = $(".setting");
@@ -733,11 +797,12 @@ function adjustSettingFont(event){
     else if(settingBlur > 0.9){settingBlur = 0.9;}
     modifiedBlur = settingBlur;
 
-    if(window.innerWidth < 800 && window.innerWidth >= 700){buttonFontSize = 50; modifiedButtonFontSize = buttonFontSize;}
-    else if(window.innerWidth < 700 && window.innerWidth >= 540){buttonFontSize = 45; modifiedButtonFontSize = buttonFontSize;}
-    else if(window.innerWidth < 540 && window.innerWidth >= 400){buttonFontSize = 40; modifiedButtonFontSize = buttonFontSize;}
-    else if(window.innerWidth < 400 && window.innerWidth >= 350){buttonFontSize = 35; modifiedButtonFontSize = buttonFontSize;}
-    else if(window.innerWidth < 350){buttonFontSize = 30; modifiedButtonFontSize = buttonFontSize; }
+    if(window.innerWidth < 800 && window.innerWidth >= 700){buttonFontSize = 50; modifiedButtonFontSize = buttonFontSize; scrollinstance.options("overflowBehavior.x", "h");}
+    else if(window.innerWidth < 700 && window.innerWidth >= 540){buttonFontSize = 45; modifiedButtonFontSize = buttonFontSize; scrollinstance.options("overflowBehavior.x", "s");}
+    else if(window.innerWidth < 540 && window.innerWidth >= 400){buttonFontSize = 40; modifiedButtonFontSize = buttonFontSize; scrollinstance.options("overflowBehavior.x", "s");}
+    else if(window.innerWidth < 400 && window.innerWidth >= 350){buttonFontSize = 35; modifiedButtonFontSize = buttonFontSize; scrollinstance.options("overflowBehavior.x", "s");}
+    else if(window.innerWidth < 350){buttonFontSize = 30; modifiedButtonFontSize = buttonFontSize; scrollinstance.options("overflowBehavior.x", "s");}
+    else{scrollinstance.options("overflowBehavior.x", "h");}
 
     if(window.innerHeight < 600){
       if(window.innerWidth < 700){buttonFontSize = Math.round(window.innerHeight * 0.1);}
@@ -983,56 +1048,58 @@ $filterOff.mouseover(function(){
 });
 
 /******************************* scrollBar *****************************/
-var scrollBarWidth = 0;
-var scrollTimeOut;
-var scrolling = false;
-var scrollForbid = false;
+// var scrollBarWidth = 0;
+// var scrollTimeOut;
+// var scrolling = false;
+// var scrollForbid = false;
 
-function scrollDisppear(){
-  let curScrollBarWidth = scrollBarWidth;
-  $({w: curScrollBarWidth}).animate({w: 0},{
-    duration: 300,
-    easing: "easeInOutSine",
-    step: function(now, fx){
-      clearTimeout(scrollTimeOut);
-      if(scrolling){$(fx.elem).stop(true); return;}
-      scrollBarWidth = now;
-      document.documentElement.style.setProperty("--scrollBarWidth", scrollBarWidth + "px");
-    },
-    complete: function(){
-      scrolling = true;
-    }
-  });
-}
-
-var IDscrollRAF;
-$document.scroll(function(){
-  adjustBodyRotateOrigin();
-
-  if(setting){
-    cancelAnimationFrame(IDscrollRAF);
-    clearTimeout(scrollTimeOut);
-    if(!scrollForbid){scrolling = true;}
-    let curScrollBarWidth = scrollBarWidth;
-    $({w: curScrollBarWidth}).animate({w: 9},{
-      duration: 150,
-      easing: "easeInOutSine",
-      step: function(now){
-        scrollBarWidth = now;
-        document.documentElement.style.setProperty("--scrollBarWidth", scrollBarWidth + "px");
-      },
-      complete: function(){
-        scrolling = false;
-      }
-    });
-    IDscrollRAF = requestAnimationFrame(function(){scrollTimeOut = setTimeout(scrollDisppear, 1000);});
-  }
-})
+// function scrollDisppear(){
+//   let curScrollBarWidth = scrollBarWidth;
+//   $({w: curScrollBarWidth}).animate({w: 0},{
+//     duration: 300,
+//     easing: "easeInOutSine",
+//     step: function(now, fx){
+//       clearTimeout(scrollTimeOut);
+//       if(scrolling){$(fx.elem).stop(true); return;}
+//       scrollBarWidth = now;
+//       document.documentElement.style.setProperty("--scrollBarWidth", scrollBarWidth + "px");
+//     },
+//     complete: function(){
+//       scrolling = true;
+//     }
+//   });
+// }
+$settingButton.on("click", function(){
+  scrollinstance.options("className", "os-theme-round-dark body-scroll-bar");
+});
 
 function adjustBodyRotateOrigin(){
   let originY = 100 * (0.5 * window.innerHeight + $document.scrollTop()) / $bodyRotate.outerHeight();
   $bodyRotate.css("transform-origin", "50% " + originY + "% " + "0");
 }
+// var IDscrollRAF;
+$document.scroll(function(){
+  adjustBodyRotateOrigin();
+
+  // if(setting){
+  //   cancelAnimationFrame(IDscrollRAF);
+  //   clearTimeout(scrollTimeOut);
+  //   if(!scrollForbid){scrolling = true;}
+  //   let curScrollBarWidth = scrollBarWidth;
+  //   $({w: curScrollBarWidth}).animate({w: 9},{
+  //     duration: 150,
+  //     easing: "easeInOutSine",
+  //     step: function(now){
+  //       scrollBarWidth = now;
+  //       document.documentElement.style.setProperty("--scrollBarWidth", scrollBarWidth + "px");
+  //     },
+  //     complete: function(){
+  //       scrolling = false;
+  //     }
+  //   });
+  //   IDscrollRAF = requestAnimationFrame(function(){scrollTimeOut = setTimeout(scrollDisppear, 1000);});
+  // }
+})
 
 /******************************spotlight*********************************/
 var mouseState = 1;
@@ -1071,7 +1138,7 @@ function startAnim(){
     }, 4500);
     setTimeout(function() {
       start = false;
-      //cursorLerpY = 0.001;
+      cursorLerpY = 0.95;
       //finishLerpCursorLerpY = false;
       addEvent(document, "mousemove", update);
       cancelAnimationFrame(IDstart);
@@ -1388,10 +1455,10 @@ function BGreflection(timestamp){
   let dt = (NOWref - lastNOWref)/1000;
   lastNOWref = NOWref;
 
-  brightRef = lerp(brightRef, destBrightRef, 1-Math.pow(0.33, dt));
-  brightRef2 = lerp(brightRef2, destBrightRef2, 1-Math.pow(0.33, dt));
-  darkRef = lerp(darkRef, destDarkRef, 1-Math.pow(0.38, dt));
-  darkRef2 = lerp(darkRef2, destDarkRef2, 1-Math.pow(0.38, dt));
+  brightRef = lerp(brightRef, destBrightRef, 1-Math.pow(0.4, dt));
+  brightRef2 = lerp(brightRef2, destBrightRef2, 1-Math.pow(0.4, dt));
+  darkRef = lerp(darkRef, destDarkRef, 1-Math.pow(0.45, dt));
+  darkRef2 = lerp(darkRef2, destDarkRef2, 1-Math.pow(0.45, dt));
 
   document.body.style.setProperty("--brightReflectionPos", brightRef+"%");
   document.body.style.setProperty("--brightReflectionPos2", brightRef2+"%");
@@ -1414,9 +1481,9 @@ var IDbf;
 var IDoc;
 var IDsc;
 
-var baseFrequency = 0.06;
+var baseFrequency = 0.045;
 var octave = 1;
-var cloudScale = 90;
+var cloudScale = 80;
 
 var bfMax = 0.017;
 var bfMin = 0.007;
@@ -1802,6 +1869,7 @@ function adjustElementSize(){
     $plaintext.css("margin-right", "9%");
     $timeInput.css("width", "55%");
     bodyBlur = 0.65;
+    scrollinstance.options("overflowBehavior.x", "h");
   }
   else if(window.innerWidth < 1000 && window.innerWidth >= 800){
     plaintextFontSize = 26; 
@@ -1816,6 +1884,7 @@ function adjustElementSize(){
     $plaintext.css("margin-right", "6%");
     $timeInput.css("width", "55%");
     bodyBlur = 0.6;
+    scrollinstance.options("overflowBehavior.x", "h");
   }
   else if(window.innerWidth < 800 && window.innerWidth >= 700){
     plaintextFontSize = 24; 
@@ -1830,6 +1899,7 @@ function adjustElementSize(){
     $plaintext.css("margin-right", "3%");
     $timeInput.css("width", "55%");
     bodyBlur = 0.55;
+    scrollinstance.options("overflowBehavior.x", "h");
   }
   else if(window.innerWidth < 700 && window.innerWidth >= 600){
     plaintextFontSize = 22;
@@ -1844,6 +1914,7 @@ function adjustElementSize(){
     $plaintext.css("margin-right", "25px");
     $timeInput.css("width", "100%");
     bodyBlur = 0.5;
+    scrollinstance.options("overflowBehavior.x", "h");
   }
   else if(window.innerWidth < 600 && window.innerWidth >= 500){
     plaintextFontSize = 22;
@@ -1858,6 +1929,7 @@ function adjustElementSize(){
     $plaintext.css("margin-right", "25px");
     $timeInput.css("width", "100%");
     bodyBlur = 0.4;
+    scrollinstance.options("overflowBehavior.x", "s");
   }
   else if(window.innerWidth < 500 && window.innerWidth >= 400){
     plaintextFontSize = 20;
@@ -1872,6 +1944,7 @@ function adjustElementSize(){
     $plaintext.css("margin-right", "25px");
     $timeInput.css("width", "100%");
     bodyBlur = 0.35;
+    scrollinstance.options("overflowBehavior.x", "s");
   }
   else if(window.innerWidth <400){
     plaintextFontSize = 20; 
@@ -1886,6 +1959,7 @@ function adjustElementSize(){
     $plaintext.css("margin-right", "25px");
     $timeInput.css("width", "100%");
     bodyBlur = 0.25;
+    scrollinstance.options("overflowBehavior.x", "s");
   }
   else{
     plaintextFontSize = 30; 
@@ -1901,6 +1975,7 @@ function adjustElementSize(){
     $plaintext.css("margin-right", "12%");
     $timeInput.css("width", "55%");
     bodyBlur = 0.85;
+    scrollinstance.options("overflowBehavior.x", "h");
   }
   document.documentElement.style.setProperty("--plaintextFontSize", plaintextFontSize + "px");
   document.documentElement.style.setProperty("--moonMarginL", moonMarginL + "vw");
@@ -2128,7 +2203,8 @@ $rotate.click(function () {
       $timesDiv.toggleClass("hideRotateLeft");
       let scrollDest = $rotateBackCircle.offset().top - 0.8 * window.innerHeight;
       if (scrollDest < 0){scrollDest = 0;}
-      $htmlAndBody.animate({ scrollTop: scrollDest}, 1000);
+      //$htmlAndBody.animate({ scrollTop: scrollDest}, 1000);
+      scrollinstance.scroll({x: 0, y:scrollDest}, 1000, "easeInOutSine");
 
       let height = window.innerHeight;
       $bodyRotate.css("height", height + "px");
@@ -2183,19 +2259,19 @@ var rotateMouseOver = false;
 $document.mousemove(function(e){
   if(setting){
     let d = Math.pow(e.clientX + 0.15 * window.innerWidth - $rotate.offset().left, 2);
-    let yCondition = window.innerWidth > window.innerHeight ? spotLightRadius/400*window.innerWidth : spotLightRadius/400*window.innerHeight;
+    let yCondition = window.innerWidth > window.innerHeight ? spotLightRadius/900*window.innerWidth : spotLightRadius/900*window.innerHeight;
     let myCondition = e.pageY > $rotate.offset().top ? e.pageY > $rotate.offset().top + yCondition : e.pageY < $rotate.offset().top - yCondition;
     let condition = e.clientX - 0.12 * window.innerWidth < $rotate.offset().left &&  myCondition;
     if(d < 0.04 * Math.pow(window.innerWidth,2) && !condition){
-      rotateGlowColor = "#d5d9d9bb";
+      rotateGlowColor = "#d5d9d9c0";
     }
     else{
       if(mouseState == 0){rotateGlowColor = "#c49f999d";}
       else if(mouseState == 2){rotateGlowColor = "#a9b3cf9d";}
-      else{rotateGlowColor = "#c5c6cf93"; }
+      else{rotateGlowColor = "#c5c6cf9a"; }
     }
-    if(mouseState == 0){rotateBG = "rgba(181, 117, 107, 0.5)";}
-    else if(mouseState == 2){rotateBG = "rgba(135, 144, 201, 0.5)";}
+    if(mouseState == 0){rotateBG = "rgba(181, 117, 107, 0.6)";}
+    else if(mouseState == 2){rotateBG = "rgba(135, 144, 201, 0.6)";}
     else{rotateBG = "rgba(190, 190, 190, 0.5)";}
   
     $rotate.css("--rotateGlow", rotateGlowColor);
@@ -2887,14 +2963,16 @@ function scanAnim(){
   $scan.css("display", "initial");
   $scan.css("top", $window.scrollTop()+"px");
 
-  scrolling = false;
-  scrollForbid = true;
-  scrollDisppear();
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      $(document.body).css("overflow", "hidden");
-    }, 300);
-  });
+  //scrolling = false;
+  //scrollForbid = true;
+  // scrollDisppear();
+  scrollinstance.options("overflowBehavior.y", "hidden");
+  scrollinstance.options("overflowBehavior.x", "hidden");
+  // requestAnimationFrame(function(){
+  //   setTimeout(function(){
+  //     $(document.body).css("overflow", "hidden");
+  //   }, 800);
+  // });
 
   spotLightSwirl();
   requestAnimationFrame(function(){

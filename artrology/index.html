@@ -3,8 +3,11 @@
 <head>
   <title>artrology</title>
 
-  <link rel="stylesheet" href="./normalize/normalize.css">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./normalize/normalize.css"/>
+  <link type="text/css" href="./overlayScroll/OverlayScrollbars.min.css" rel="stylesheet"/>
+  <link type="text/css" href="./overlayScroll/os-theme-round-dark.css" rel="stylesheet"/>
+  <link type="text/css" href="./overlayScroll/os-theme-round-light.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="./style.css"/>
 
   <!-- partial:index.partial.html -->
   <meta charset="utf-8">
@@ -137,8 +140,8 @@
   <svg xmlns="http://www.w3.org/2000/svg" x="0" y="0" width="0" height="0" id="svgFilter1">
     <defs>
       <filter id="cloud">
-        <feTurbulence id="cloud-filter" type="fractalNoise" baseFrequency="0.06" numOctaves="1" seed="0" result="noise"></feTurbulence>
-        <feDisplacementMap id="cloud-disp" in="SourceGraphic" in2="noise" scale="90" result="noiseMap"></feDisplacementMap>
+        <feTurbulence id="cloud-filter" type="fractalNoise" baseFrequency="0.045" numOctaves="1" seed="0" result="noise"></feTurbulence>
+        <feDisplacementMap id="cloud-disp" in="SourceGraphic" in2="noise" scale="80" result="noiseMap"></feDisplacementMap>
         
         <feGaussianBlur stdDeviation="8" result="blur" />
         <feSpecularLighting in="blur" result="spec" specularConstant="3000" specularExponent="3000" surfaceScale="3000" lighting-color="0a0a2b">
@@ -177,9 +180,10 @@
   </svg>
 
   <!-- partial -->
-  <script defer src='./jquery/jquery-3.5.1.min.js'></script>
-  <script defer src='./jquery.ui/jquery-ui.min.js'></script>
-  <script defer src="./script.js"></script>
+  <script type="text/javascript" src='./jquery/jquery-3.5.1.min.js'></script>
+  <script type="text/javascript" src='./jquery.ui/jquery-ui.min.js'></script>
+  <script defer type="text/javascript" src="./overlayScroll/jquery.overlayScrollbars.min.js"></script>
+  <script defer type="text/javascript" src="./script.js"></script>
 </body>
 
 </html>
