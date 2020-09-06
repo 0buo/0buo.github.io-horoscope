@@ -326,7 +326,7 @@ var maxDistToLightCenter =
 var randNum = 0;
 
 
-var cursorLerpX = 0.95;
+var cursorLerpX = 0.9;
 var cursorLerpY = 0.2;
 
 var finishLerpCursorLerpX = false;
@@ -345,7 +345,7 @@ function followCursor(timestamp) {
 
   //draw code
   if(start == false){
-    if(Math.abs(cursorLerpX - 0.25) >= 0.0005){cursorLerpX = lerp(cursorLerpX, 0.25, 1-Math.pow(0.85, dt));}
+    if(Math.abs(cursorLerpX - 0.23) >= 0.0005){cursorLerpX = lerp(cursorLerpX, 0.23, 1-Math.pow(0.85, dt));}
     else{cursorLerpX = 0.25;}
     if(Math.abs(cursorLerpY - 0.2) >= 0.0005){cursorLerpY = lerp(cursorLerpY, 0.2, 1-Math.pow(0.85, dt));}
     else{cursorLerpY = 0.2;}
@@ -411,7 +411,7 @@ function followCursor(timestamp) {
         : Math.pow(window.innerHeight * maxToLightDistIndex, 2);
     }
     else if(timeInputSubmitted){
-      randNum = Math.random() * (1.8 - 0.8) + 0.8;
+      randNum = Math.random() * (1.8 - 0.9) + 0.9;
       maxToLightDistIndex = 0.5;
       maxDistToLightCenter =
         window.innerWidth >= window.innerHeight
@@ -723,7 +723,7 @@ function updateR() {
 }
 
 /*******************************scroll***********************************/
-// $htmlAndBody.animate({ scrollTop: 0 }, 1000);
+$htmlAndBody.animate({ scrollTop: 0 }, 1000);
 var scrollinstance;
 $(function() {
   scrollinstance = $(document.body).overlayScrollbars({
@@ -739,12 +739,6 @@ $(function() {
       autoHideDelay: 800
     }
   }).overlayScrollbars();
-
-  // scrollinstance.options("callbacks.onScroll", function(){
-  //   let scrX = scrollinstance.scroll().position.x;
-  //   let scrY = scrollinstance.scroll().position.y;
-  //   scrollinstance.scroll({x:}, 400, "easeInOutSine");
-  // })
 });
 /*****************************filter setting*************************** */
 var setting = false;
@@ -797,12 +791,34 @@ function adjustSettingFont(event){
     else if(settingBlur > 0.9){settingBlur = 0.9;}
     modifiedBlur = settingBlur;
 
-    if(window.innerWidth < 800 && window.innerWidth >= 700){buttonFontSize = 50; modifiedButtonFontSize = buttonFontSize; scrollinstance.options("overflowBehavior.x", "h");}
-    else if(window.innerWidth < 700 && window.innerWidth >= 540){buttonFontSize = 45; modifiedButtonFontSize = buttonFontSize; scrollinstance.options("overflowBehavior.x", "s");}
-    else if(window.innerWidth < 540 && window.innerWidth >= 400){buttonFontSize = 40; modifiedButtonFontSize = buttonFontSize; scrollinstance.options("overflowBehavior.x", "s");}
-    else if(window.innerWidth < 400 && window.innerWidth >= 350){buttonFontSize = 35; modifiedButtonFontSize = buttonFontSize; scrollinstance.options("overflowBehavior.x", "s");}
-    else if(window.innerWidth < 350){buttonFontSize = 30; modifiedButtonFontSize = buttonFontSize; scrollinstance.options("overflowBehavior.x", "s");}
-    else{scrollinstance.options("overflowBehavior.x", "h");}
+    if(window.innerWidth < 800 && window.innerWidth >= 700){
+      buttonFontSize = 50; 
+      modifiedButtonFontSize = buttonFontSize; 
+      scrollinstance.options("overflowBehavior.x", "h");
+    }
+    else if(window.innerWidth < 700 && window.innerWidth >= 540){
+      buttonFontSize = 45; 
+      modifiedButtonFontSize = buttonFontSize; 
+      scrollinstance.options("overflowBehavior.x", "s");
+    }
+    else if(window.innerWidth < 540 && window.innerWidth >= 400){
+      buttonFontSize = 40; 
+      modifiedButtonFontSize = buttonFontSize; 
+      scrollinstance.options("overflowBehavior.x", "s");
+    }
+    else if(window.innerWidth < 400 && window.innerWidth >= 350){
+      buttonFontSize = 35; 
+      modifiedButtonFontSize = buttonFontSize; 
+      scrollinstance.options("overflowBehavior.x", "s");
+    }
+    else if(window.innerWidth < 350){
+      buttonFontSize = 30; 
+      modifiedButtonFontSize = buttonFontSize; 
+      scrollinstance.options("overflowBehavior.x", "s");
+    }
+    else{
+      scrollinstance.options("overflowBehavior.x", "h");
+    }
 
     if(window.innerHeight < 600){
       if(window.innerWidth < 700){buttonFontSize = Math.round(window.innerHeight * 0.1);}
@@ -960,7 +976,7 @@ $filterOn.on("click", function(){
     setting = true;
     cloudOn = true;
     $bodyRotate.css("display", "initial");
-    $(document.body).addClass("svgFilter");
+    $(".filtered").addClass("svgFilter");
     // setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
     //$(document.documentElement).addClass("svgFilter");
 
@@ -977,10 +993,6 @@ $filterOn.on("click", function(){
       $settingClass.css("display", "none");
       $settingClass.children().prop("disabled", true);
     }, 2500);
-
-    $flare2.addClass("colorAdjust1");
-    $flare3.addClass("colorAdjust1");
-    $flare4.addClass("colorAdjust1");
     
     $filterOn.off();
     $filterOff.off();
@@ -999,7 +1011,7 @@ $filterOff.on("click", function(){
     setting = true;
     cloudOn = true;
     $bodyRotate.css("display", "initial");
-    $(document.body).addClass("offFilter");
+    $(".filtered").addClass("offFilter");
     // setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
 
     settingButtonFold();
@@ -1026,10 +1038,6 @@ $filterOff.on("click", function(){
     $redLine.css("background", "var(--redLineGradient2)");
     $redLightArea.css("background", "var(--redAreaGradient2)");
     defaultFlareOpa = 0.75;
-    $scan.css("--flareOpacity", defaultFlareOpa);
-    $flare2.addClass("colorAdjust2");
-    $flare3.addClass("colorAdjust2");
-    $flare4.addClass("colorAdjust2");
 
     //setting for not moving filter
     // $flare2.addClass("colorAdjust1");
@@ -1138,7 +1146,7 @@ function startAnim(){
     }, 4500);
     setTimeout(function() {
       start = false;
-      cursorLerpY = 0.95;
+      cursorLerpY = 0.9;
       //finishLerpCursorLerpY = false;
       addEvent(document, "mousemove", update);
       cancelAnimationFrame(IDstart);
@@ -1455,8 +1463,8 @@ function BGreflection(timestamp){
   let dt = (NOWref - lastNOWref)/1000;
   lastNOWref = NOWref;
 
-  brightRef = lerp(brightRef, destBrightRef, 1-Math.pow(0.4, dt));
-  brightRef2 = lerp(brightRef2, destBrightRef2, 1-Math.pow(0.4, dt));
+  brightRef = lerp(brightRef, destBrightRef, 1-Math.pow(0.35, dt));
+  brightRef2 = lerp(brightRef2, destBrightRef2, 1-Math.pow(0.35, dt));
   darkRef = lerp(darkRef, destDarkRef, 1-Math.pow(0.45, dt));
   darkRef2 = lerp(darkRef2, destDarkRef2, 1-Math.pow(0.45, dt));
 
@@ -2291,7 +2299,7 @@ $rotateBackCircle.mouseleave(function(){
   $rotate.css("box-shadow", "8px 8px 10px var(--rotateGlow), -8px -8px 10px var(--rotateGlow), 8px -8px 10px var(--rotateGlow), -8px 8px 10px var(--rotateGlow)");
   $rotateTextOne.css("color", "#1b1b24");
   $rotateTextOne.css("color", "#1b1b24");
-  document.getElementsByClassName("SelectionDiv")[0].style.setProperty("--blurPx", "3.5px");
+  document.getElementsByClassName("SelectionDiv")[0].style.setProperty("--blurPx", "3px");
 });
 
 /*****************************input box line*************************************/
@@ -2391,7 +2399,7 @@ JQinput.on("input", function () {
 var inputFocused = 0;
 var nameInputSubmitted = 0;
 
-var $allNotNameInput = $("* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(body):not(#bodyRotate)");
+var $allNotNameInput = $("* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(.filtered):not(body):not(#bodyRotate)");
 // var JQbodyNswitch = $("body > *:not(.switchDiv)");
 // var JQswitchNinp = $(".switchDiv > *:not(#nameInput)");
 var $inp = $(".inp");
@@ -2808,8 +2816,8 @@ $yearMonthButton.mouseup(function(){
 /*******************scanArea*************************************/
 var $scan = $("#scanArea");
 var $allNotScan = $("* :not(#scanArea):not(#redLine):not(#redLightArea):not(#redLightBG):not(#barCodeToScan):not(#barCodeToScan2)\
-                    :not(#flare1):not(#flare2):not(#flare3):not(#flare4):not(#marker)\
-                    :not(body):not(#bodyRotate)");
+:not(#flare1):not(#flare2):not(#flare3):not(#flare4)\
+:not(#bodyRotate):not(.filtered):not(body)");
 var $redLine = $("#redLine");
 var $redLightArea = $("#redLightArea");
 var $redLightBG = $("#redLightBG");
@@ -2961,20 +2969,12 @@ function scanAnim(){
   $allNotScan.addClass("scan");
   twinkleOpa = defaultTwinklwOpa3;
   $scan.css("display", "initial");
-  $scan.css("top", $window.scrollTop()+"px");
-
-  //scrolling = false;
-  //scrollForbid = true;
-  // scrollDisppear();
   scrollinstance.options("overflowBehavior.y", "hidden");
   scrollinstance.options("overflowBehavior.x", "hidden");
-  // requestAnimationFrame(function(){
-  //   setTimeout(function(){
-  //     $(document.body).css("overflow", "hidden");
-  //   }, 800);
-  // });
+  $scan.css("top", scrollinstance.scroll().position.y+"px");
+  //$scan.css("top", $document.scrollTop()+"px");
 
-  spotLightSwirl();
+  //spotLightSwirl();
   requestAnimationFrame(function(){
     setTimeout(function(){
       redLineAppear();

@@ -59,55 +59,17 @@
       transparent 100%);
 }
 
-html{
-  scroll-behavior: smooth;
-}
-
 html, body{
   margin: 0;
   padding: 0;
   height: 100vh;
 }
 
-/* scroll bar */
-/* The emerging W3C standard
-   that is currently Firefox-only */
-/* body {
-  scrollbar-width: var(--scrollBarWidth);
-  scrollbar-color: #232323 #dbdae000;
-} */
-  
-/* Works on Chrome/Edge/Safari */
-/* body ::-webkit-scrollbar {
-  width: var(--scrollBarWidth);
-  background-color: transparent;
-  overflow: hidden;
-}
-
-body ::-webkit-scrollbar-track{
-  background-color: rgba(200,200,200,0.1);
-}
-
-body ::-webkit-scrollbar-track-piece{
-  display: none;
-}
-
-body ::-webkit-scrollbar-thumb {
-  background-color: #232323;
-  border: none;
-} */
-
-/* .body-scroll-bar > .os-scrollbar-vertical > .os-scrollbar-track > .os-scrollbar-handle {
-  width: 80px;
-}
-.body-scroll-bar> .os-scrollbar-horizontal > .os-scrollbar-track > .os-scrollbar-handle {
-  height: 80px;
-} */
 .body-scroll-bar > .os-scrollbar-vertical{
-  right: 30px;
+  right: 2vw;
 } 
 .body-scroll-bar> .os-scrollbar-horizontal{
-  bottom: 30px;
+  bottom: 2vh;
 }
 
 body {
@@ -134,8 +96,15 @@ body {
   transition: background-image 0.5s ease;
 
   /* position: relative; */
+}
+
+.filtered{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   -webkit-filter: blur(var(--bodyBlur));
-          filter: blur(var(--bodyBlur));
+  filter: blur(var(--bodyBlur));
 }
 
 .offFilter{
@@ -274,7 +243,7 @@ body {
   background: none;
 }
 
-* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(body):not(#bodyRotate).inputFocused{
+* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(.filtered):not(body):not(#bodyRotate).inputFocused{
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1.5s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
@@ -361,7 +330,7 @@ h1 {
 }
 
 .SelectionDiv {
-  --blurPx: 3.5px;
+  --blurPx: 3px;
   margin-left: var(--moonMarginL);
   margin-bottom: 50px;
   margin-top: 70px;
@@ -380,9 +349,9 @@ h1 {
   background-image: radial-gradient(circle at center, black 0%, black 57%, rgba(0, 0, 0, 0.7) 70%, rgba(0, 0, 0, 0.01) 82%, transparent);
   border-radius: 50%;
   display: inline-block;
-  -webkit-filter: blur(1.5px);
-          filter: blur(1.5px);
-  transition: box-shadow 3s ease-in-out;
+  -webkit-filter: blur(0.5px);
+          filter: blur(0.5px);
+  transition: box-shadow 2s ease-in-out;
   box-shadow: 8px -8px 10px #232323, 
               -8px 8px 10px #3f3d52, 
               8px 8px 10px #3f3d52, 
@@ -405,9 +374,9 @@ h1 {
               -8px -8px 10px var(--rotateGlow),
               8px -8px 10px var(--rotateGlow), 
               -8px 8px 10px var(--rotateGlow);
-  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, background-color 2s ease, box-shadow 2s ease-in-out, -webkit-filter 2s ease-in-out;
-  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, background-color 2s ease, box-shadow 2s ease-in-out, filter 2s ease-in-out;
-  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, background-color 2s ease, box-shadow 2s ease-in-out, filter 2s ease-in-out, -webkit-filter 2s ease-in-out;
+  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, background-color 2s ease, box-shadow 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
+  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, background-color 2s ease, box-shadow 1.5s ease-in-out, filter 1.5s ease-in-out;
+  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, background-color 2s ease, box-shadow 1.5s ease-in-out, filter 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
   transform-origin: 60% 60%;
   transform: translate(7%, 60%) rotate(-100deg);
   cursor: -webkit-grab;
@@ -432,9 +401,9 @@ h1 {
   padding-left: 50px;
   margin-left: 20px;
   /* -webkit-backface-visibility: hidden; */
-  transition: transform 1s ease-in-out, margin-left 1s ease-in-out, opacity 1s ease-in-out, color 2s ease-in-out, -webkit-filter 2s ease-in-out;
-  transition: transform 1s ease-in-out, margin-left 1s ease-in-out, opacity 1s ease-in-out, filter 2s ease-in-out, color 2s ease-in-out;
-  transition: transform 1s ease-in-out, margin-left 1s ease-in-out, opacity 1s ease-in-out, filter 2s ease-in-out, color 2s ease-in-out, -webkit-filter 2s ease-in-out;
+  transition: transform 1s ease-in-out, margin-left 1s ease-in-out, opacity 1s ease-in-out, color 2s ease-in-out, -webkit-filter 1s ease-in-out;
+  transition: transform 1s ease-in-out, margin-left 1s ease-in-out, opacity 1s ease-in-out, filter 1s ease-in-out, color 2s ease-in-out;
+  transition: transform 1s ease-in-out, margin-left 1s ease-in-out, opacity 1s ease-in-out, filter 1s ease-in-out, color 2s ease-in-out, -webkit-filter 1s ease-in-out;
 
   transform-origin: 10% 50%;
   transform: translate(0, 0) rotate(4deg);
@@ -465,9 +434,9 @@ h1 {
   height: 130px;
   padding-left: 1px;
   /* -webkit-backface-visibility: hidden; */
-  transition: transform 1s ease-in-out, opacity 1s ease-in-out, color 2s ease-in-out, -webkit-filter 2s ease-in-out;
-  transition: transform 1s ease-in-out, opacity 1s ease-in-out, filter 2s ease-in-out, color 2s ease-in-out;
-  transition: transform 1s ease-in-out, opacity 1s ease-in-out, filter 2s ease-in-out, color 2s ease-in-out, -webkit-filter 2s ease-in-out;
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out, color 2s ease-in-out, -webkit-filter 1s ease-in-out;
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out, filter 1s ease-in-out, color 2s ease-in-out;
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out, filter 1s ease-in-out, color 2s ease-in-out, -webkit-filter 1s ease-in-out;
 
   transform-origin: 20% 50%;
   transform: translate(10px, -50%) rotate(-4deg);
@@ -602,6 +571,7 @@ h1 {
   font-weight: bold;
   color: var(--unfocused);
   opacity: 0;
+  cursor: -webkit-grab;
   cursor: grab;
 }
 
@@ -787,6 +757,7 @@ input::-ms-reveal, input::-ms-clear {
   z-index: 4;
 }
 #circle, #slider{
+  cursor: -webkit-grab;
   cursor: grab;
 }
 
@@ -836,6 +807,7 @@ input::-ms-reveal, input::-ms-clear {
   height: 100vh;
   background: none;
   border: 0.01px solid transparent;
+  cursor: -webkit-grab;
   cursor: grab;
 
   display: none;
@@ -843,8 +815,10 @@ input::-ms-reveal, input::-ms-clear {
 
 * :not(#scanArea):not(#redLine):not(#redLightArea):not(#redLightBG):not(#barCodeToScan):not(#barCodeToScan2)
   :not(#flare1):not(#flare2):not(#flare3):not(#flare4)
-  :not(body):not(#bodyRotate) .scan{
+  :not(#bodyRotate):not(.filtered):not(body) .scan{
+  transition: all 3s ease-in-out, transform 2.5s ease-in-out, padding-left 0s ease-in-out, padding-right 0s ease-in-out, -webkit-filter 5s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 5s ease-in-out, padding-left 0s ease-in-out, padding-right 0s ease-in-out;
+  transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 5s ease-in-out, padding-left 0s ease-in-out, padding-right 0s ease-in-out, -webkit-filter 5s ease-in-out;
   -webkit-filter: blur(5.5px);
           filter: blur(5.5px);
 }
@@ -944,7 +918,11 @@ input::-ms-reveal, input::-ms-clear {
   rgba(255,255,255,0.1) 85%,
   rgba(255,255,255,0) 100%);
 
+  transition: opacity 8s ease-in-out, -webkit-filter 8s ease-in-out;
+
   transition: opacity 8s ease-in-out, filter 8s ease-in-out;
+
+  transition: opacity 8s ease-in-out, filter 8s ease-in-out, -webkit-filter 8s ease-in-out;
   opacity: 0;
   -webkit-filter: blur(var(--redLightBGblur));
           filter: blur(var(--redLightBGblur));
@@ -960,9 +938,14 @@ input::-ms-reveal, input::-ms-clear {
   font-family: 'Libre Barcode 39 Extended', cursive;
   font-size: 140px;
 
+  transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
+
   transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity 1.5s ease-in-out, filter 1.5s ease-in-out;
+
+  transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity 1.5s ease-in-out, filter 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
   opacity: var(--barCodeOpacity);
-  filter: blur(var(--barCodeBlur));
+  -webkit-filter: blur(var(--barCodeBlur));
+          filter: blur(var(--barCodeBlur));
   transform: scale(1, 0.7);
   top: calc(50vh - 200px);
   color: #272738;
@@ -976,9 +959,14 @@ input::-ms-reveal, input::-ms-clear {
   font-family: 'Libre Barcode 39 Extended', cursive;
   font-size: 140px;
 
+  transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
+
   transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity 1.5s ease-in-out, filter 1.5s ease-in-out;
+
+  transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity 1.5s ease-in-out, filter 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
   opacity: var(--barCodeOpacity);
-  filter: blur(var(--barCodeBlur));
+  -webkit-filter: blur(var(--barCodeBlur));
+          filter: blur(var(--barCodeBlur));
   transform: scale(1, 0.7);
   top: calc(50vh - 200px);
   color: #272738;
@@ -991,64 +979,66 @@ input::-ms-reveal, input::-ms-clear {
 }
 
 #barCodeToScan.toScan, #barCodeToScan2.toScan{
+  transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, -webkit-filter .75s ease-in-out;
   transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .75s ease-in-out;
+  transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .75s ease-in-out, -webkit-filter .75s ease-in-out;
   transform: scale(1.75, 0.7);
   top: calc(50vh - 60px);
   color: #272738;
 }
 
 #barCodeToScan.incorrect, #barCodeToScan2.incorrect{
+  transition: top .75s ease-in-out, transform .25s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, -webkit-filter .75s ease-in-out;
   transition: top .75s ease-in-out, transform .25s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .75s ease-in-out;
+  transition: top .75s ease-in-out, transform .25s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .75s ease-in-out, -webkit-filter .75s ease-in-out;
   transform: scale(1.85, 0.7);
   top: calc(50vh - 60px);
   color: rgba(210, 0, 0, 0.5);
 }
 
-#flare1, #flare2, #flare3, #flare4{
+.flare{
   position: absolute;
-  width: 180px;
-  height: 180px;
   opacity: var(--flareOpacity);
+  filter: blur(1px);
 }
 
-#marker{
-  position: absolute;
-}
-
+/* far right */
 #flare1{
-  bottom: 5vh;
-  left: 2.5vw;
-  filter: contrast(110%) brightness(110%) blur(2.5px);
+  width: 80px;
+  height: 80px;
+  left: calc(50vw + 135px);
+  top: calc(50vh - 40px);
+
+  transform-origin: -168.75% 50% 0;
+  transform: perspective(1000px) rotate3d(1,1,1,-120deg);
 }
+/* far top */
 #flare2{
-  top: 5vh;
-  left: 2.5vw;
-}
-#flare2.colorAdjust1{
-  filter: contrast(95%) brightness(180%) saturate(135%) blur(2.5px);
-}
-#flare2.colorAdjust2{
-  filter: contrast(95%) brightness(160%) saturate(220%) blur(2.5px);
-}
+  width: 80px;
+  height: 80px;
+  left: calc(50vw - 40px);
+  top: calc(50vh - 215px);
 
+  transform-origin: 50% 268.75% 0;
+  transform: perspective(1000px) rotate3d(1,1,1,120deg);
+}
+/* near upper-left  */
 #flare3{
-  top: 5vh;
-  right: 2.5vw;
-}
-#flare3.colorAdjust1{
-  filter: contrast(65%) brightness(200%) saturate(140%) blur(2.5px);
-}
-#flare3.colorAdjust2{
-  filter: contrast(70%) brightness(140%) saturate(250%) blur(2.5px);
-}
+  width: 50px;
+  height: 50px;
+  left: calc(50vw - 125px);
+  top: calc(50vh - 85px);
 
+  transform-origin: 156.25% 106.25% 0;
+  transform: perspective(1000px) rotate3d(1,1,1,120deg);
+}
+/* near lower left */
 #flare4{
-  bottom: 5vh;
-  right: 2.5vw;
-}
-#flare4.colorAdjust1{
-  filter: contrast(80%) brightness(120%) saturate(120%) blur(2.5px);
-}
-#flare4.colorAdjust2{
-  filter: contrast(80%) brightness(90%) saturate(150%) blur(2.5px);
+  width: 50px;
+  height: 50px;
+  left: calc(50vw - 125px);
+  top: calc(50vh + 45px);
+
+  transform-origin: 156.25% -56.25% 0;
+  transform: perspective(1000px) rotate3d(1,1,1,-120deg);
 }

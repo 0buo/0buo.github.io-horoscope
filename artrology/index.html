@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" >
+  <!-- use var to change blur in css; plaintext need to be the leaf / smallest child and 
+can not be used with other classes -->
 <head>
   <title>artrology</title>
 
@@ -33,107 +35,108 @@
     </div>
   </div>
 
-  <div id="bodyRotate">
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Extended+Text&display=swap" rel="stylesheet">
-    <h1 class="noselect">Self-Help Guide : Artrology</h1>
-  
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Text&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Extended&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Codystar&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&display=swap" rel="stylesheet">
-  
-    <div class="noselect">
-      <p class="plaintext" id ="0">
-        This is a self-help document based on the astrology of art, aka artrology, whose 11 signs appear in 11 single snippets of barcodes. The guide predicts and advises on the artistic affairs in the near future.
-      </p>
-      <p class="plaintext" id ="1">
-        The basis of artrology lies on the cusp of the observational study of art events, arbitrary wishes, wishful seriousness, in-experiencial movements, personalized lack of assurance, and relative positions among roles, words, and practices. 
-      </p>
-      <p class="plaintext" id="2">If you wonder how to present yourself / your practice or some general career advice, proceed with names or times.</p>
-    </div>
-  
-    <div class="SelectionDiv noselect">
-      <div class="rotateBackCircle">
-        <div class="rotate"></div>
-      </div>
-      <div class="rotateTextOne noselect">names</div>
-      <div class="rotateTextTwo noselect">times</div>
-    </div>
-  
-  <!--   <div id="scanBar"></div> -->
-    <div class=switchDiv>
-      <div id="namesDiv">
-        <div class="noselect selectionDivText">
-          <p class="plaintext" id="3">THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER 
-            TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS 
-            PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER <br>
-          </p>
-          <p class="plaintext" id="4">  
-            enter the number of strokes of a name:
-          </p>
-        </div>
+  <div class="filtered">
+    <div id="bodyRotate">
+      <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Extended+Text&display=swap" rel="stylesheet">
+      <h1 class="noselect">Self-Help Guide : Artrology</h1>
     
-        <!-- input box name -->
-        <div id="nameInput">
-          <label for="inp" class="inp">
-            <input type="password" id="inp" pattern="[0-9]{1,4}" required>
-            <svg xmlns="http://www.w3.org/2000/svg" width="280px" height="100px" class="border" id="borderName">
-              <path d="M 0 50 L 170 50 C 200 50 200 50 200 50 C 230 50 230 50 230 50 C 270 50 270 50 270 50 C 280 50 280 50 280 50"></path>
-            </svg>
-            <button width="50px" height="50px" viewBox="0 0 50 50" class="check">-</button>
-          </label>
-        </div>
-        <!-- </form> -->
+      <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Text&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Extended&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Codystar&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&display=swap" rel="stylesheet">
+    
+      <div class="noselect">
+        <p class="plaintext" id ="0">
+          This is a self-help document based on the astrology of art, aka artrology, whose 11 signs appear in 11 single snippets of barcodes. The guide predicts and advises on the artistic affairs in the near future.
+        </p>
+        <p class="plaintext" id ="1">
+          The basis of artrology lies on the cusp of the observational study of art events, arbitrary wishes, wishful seriousness, in-experiencial movements, personalized lack of assurance, and relative positions among roles, words, and practices. 
+        </p>
+        <p class="plaintext" id="2">If you wonder how to present yourself / your practice or some general career advice, proceed with names or times.</p>
       </div>
     
-      <div id="timesDiv">
-        <div class="noselect selectionDivText">
-          <p class="plaintext" id="5">THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER 
-            FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER 
-            TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER <br>
-          </p>
-          <p class="plaintext" id="6"> 
-            choose a time; clicking and holding on the lighter circle goes backward in time, and the darker one goes forward.
-          </p>
+      <div class="SelectionDiv noselect">
+        <div class="rotateBackCircle">
+          <div class="rotate"></div>
         </div>
+        <div class="rotateTextOne noselect">names</div>
+        <div class="rotateTextTwo noselect">times</div>
+      </div>
     
-        <div class="noselect"> 
-          <div id="timeInput">
-            <div id="TIcontainer">
-              <div id="circle"></div>
-              <div id="slider"></div>
+    <!--   <div id="scanBar"></div> -->
+      <div class=switchDiv>
+        <div id="namesDiv">
+          <div class="noselect selectionDivText">
+            <p class="plaintext" id="3">THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER 
+              TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS 
+              PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER <br>
+            </p>
+            <p class="plaintext" id="4">  
+              enter the number of strokes of a name:
+            </p>
+          </div>
+      
+          <!-- input box name -->
+          <div id="nameInput">
+            <label for="inp" class="inp">
+              <input type="password" id="inp" pattern="[0-9]{1,4}" required>
+              <svg xmlns="http://www.w3.org/2000/svg" width="280px" height="100px" class="border" id="borderName">
+                <path d="M 0 50 L 170 50 C 200 50 200 50 200 50 C 230 50 230 50 230 50 C 270 50 270 50 270 50 C 280 50 280 50 280 50"></path>
+              </svg>
+              <button width="50px" height="50px" viewBox="0 0 50 50" class="check">-</button>
+            </label>
+          </div>
+          <!-- </form> -->
+        </div>
+      
+        <div id="timesDiv">
+          <div class="noselect selectionDivText">
+            <p class="plaintext" id="5">THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER 
+              FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER 
+              TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER <br>
+            </p>
+            <p class="plaintext" id="6"> 
+              choose a time; clicking and holding on the lighter circle goes backward in time, and the darker one goes forward.
+            </p>
+          </div>
+      
+          <div class="noselect"> 
+            <div id="timeInput">
+              <div id="TIcontainer">
+                <div id="circle"></div>
+                <div id="slider"></div>
+              </div>
+              <div id="timeContainer" class="noselect"><button id="yearMonthButton"></button></div>
             </div>
-            <div id="timeContainer" class="noselect"><button id="yearMonthButton"></button></div>
+          </div>
+  
+          <div class="noselect selectionDivText">
+            <p class="plaintext" id="7">THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER 
+              FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER 
+              TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER <br><br>
+  
+              THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER 
+              FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER 
+              TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER
+            </p>
           </div>
         </div>
-
-        <div class="noselect selectionDivText">
-          <p class="plaintext" id="7">THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER 
-            FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER 
-            TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER <br><br>
-
-            THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER 
-            FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER 
-            TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER
-          </p>
-        </div>
       </div>
+      
     </div>
-    
-  </div>
-
-  <div id="scanArea">
-    <img id="flare1" src="./img/elem1.svg">
-    <img id="flare2" src="./img/elem2.svg">
-    <img id="flare3" src="./img/elem3.svg">
-    <img id="flare4" src="./img/elem4.svg">
-    <!-- <img id="marker" src="./img/marker.svg"> -->
-    <div id="redLightBG"></div>
-    <div class="noselect" id="barCodeToScan">c</div>
-    <div class="noselect" id="barCodeToScan2">k</div>
-    <div id="redLightArea"></div>
-    <div id="redLine"></div>
+  
+    <div id="scanArea">
+      <img class="flare" id="flare1" src="./img/flare.svg">
+      <img class="flare" id="flare2" src="./img/flare.svg">
+      <img class="flare" id="flare3" src="./img/flare.svg">
+      <img class="flare" id="flare4" src="./img/flare.svg">
+      <div id="redLightBG"></div>
+      <div class="noselect" id="barCodeToScan">c</div>
+      <div class="noselect" id="barCodeToScan2">k</div>
+      <div id="redLightArea"></div>
+      <div id="redLine"></div>
+    </div>
   </div>
 
   <!-- filter -->
@@ -180,8 +183,8 @@
   </svg>
 
   <!-- partial -->
-  <script type="text/javascript" src='./jquery/jquery-3.5.1.min.js'></script>
-  <script type="text/javascript" src='./jquery.ui/jquery-ui.min.js'></script>
+  <script defer type="text/javascript" src='./jquery/jquery-3.5.1.min.js'></script>
+  <script defer type="text/javascript" src='./jquery.ui/jquery-ui.min.js'></script>
   <script defer type="text/javascript" src="./overlayScroll/jquery.overlayScrollbars.min.js"></script>
   <script defer type="text/javascript" src="./script.js"></script>
 </body>
