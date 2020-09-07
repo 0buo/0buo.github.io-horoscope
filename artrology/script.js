@@ -722,24 +722,28 @@ function updateR() {
   //}
 }
 
-/*******************************scroll***********************************/
-$htmlAndBody.animate({ scrollTop: 0 }, 1000);
+/*******************************setting scroll***********************************/
 var scrollinstance;
+
 $(function() {
-  scrollinstance = $(document.body).overlayScrollbars({
+  scrollinstance = $("#scrollContainer").overlayScrollbars({
     className : "os-theme-round-light body-scroll-bar",
     paddingAbsolute : true,
     overflowBehavior : {
-      x : "h",
+      x : "s",
       y : "s"
     },
     scrollbars : {
       visibility: "a",
       autoHide: "s",
       autoHideDelay: 800
+    },
+    callbacks : {
+      onScroll: adjustBodyRotateOrigin
     }
   }).overlayScrollbars();
 });
+
 /*****************************filter setting*************************** */
 var setting = false;
 var $settingClass = $(".setting");
@@ -794,30 +798,30 @@ function adjustSettingFont(event){
     if(window.innerWidth < 800 && window.innerWidth >= 700){
       buttonFontSize = 50; 
       modifiedButtonFontSize = buttonFontSize; 
-      scrollinstance.options("overflowBehavior.x", "h");
+      //scrollinstance.options("overflowBehavior.x", "h");
     }
     else if(window.innerWidth < 700 && window.innerWidth >= 540){
       buttonFontSize = 45; 
       modifiedButtonFontSize = buttonFontSize; 
-      scrollinstance.options("overflowBehavior.x", "s");
+      //scrollinstance.options("overflowBehavior.x", "s");
     }
     else if(window.innerWidth < 540 && window.innerWidth >= 400){
       buttonFontSize = 40; 
       modifiedButtonFontSize = buttonFontSize; 
-      scrollinstance.options("overflowBehavior.x", "s");
+      //scrollinstance.options("overflowBehavior.x", "s");
     }
     else if(window.innerWidth < 400 && window.innerWidth >= 350){
       buttonFontSize = 35; 
       modifiedButtonFontSize = buttonFontSize; 
-      scrollinstance.options("overflowBehavior.x", "s");
+      //scrollinstance.options("overflowBehavior.x", "s");
     }
     else if(window.innerWidth < 350){
       buttonFontSize = 30; 
       modifiedButtonFontSize = buttonFontSize; 
-      scrollinstance.options("overflowBehavior.x", "s");
+      //scrollinstance.options("overflowBehavior.x", "s");
     }
     else{
-      scrollinstance.options("overflowBehavior.x", "h");
+      //scrollinstance.options("overflowBehavior.x", "h");
     }
 
     if(window.innerHeight < 600){
@@ -975,6 +979,7 @@ $filterOn.on("click", function(){
   if(setting == false && settingButtonCanClick){
     setting = true;
     cloudOn = true;
+    $(".filtered").css("display", "initial");
     $bodyRotate.css("display", "initial");
     $(".filtered").addClass("svgFilter");
     // setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
@@ -1010,6 +1015,7 @@ $filterOff.on("click", function(){
   if(setting == false && settingButtonCanClick){
     setting = true;
     cloudOn = true;
+    $(".filtered").css("display", "initial");
     $bodyRotate.css("display", "initial");
     $(".filtered").addClass("offFilter");
     // setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
@@ -1056,58 +1062,22 @@ $filterOff.mouseover(function(){
 });
 
 /******************************* scrollBar *****************************/
-// var scrollBarWidth = 0;
-// var scrollTimeOut;
-// var scrolling = false;
-// var scrollForbid = false;
-
-// function scrollDisppear(){
-//   let curScrollBarWidth = scrollBarWidth;
-//   $({w: curScrollBarWidth}).animate({w: 0},{
-//     duration: 300,
-//     easing: "easeInOutSine",
-//     step: function(now, fx){
-//       clearTimeout(scrollTimeOut);
-//       if(scrolling){$(fx.elem).stop(true); return;}
-//       scrollBarWidth = now;
-//       document.documentElement.style.setProperty("--scrollBarWidth", scrollBarWidth + "px");
-//     },
-//     complete: function(){
-//       scrolling = true;
-//     }
-//   });
-// }
 $settingButton.on("click", function(){
-  scrollinstance.options("className", "os-theme-round-dark body-scroll-bar");
+  if(setting){
+    scrollinstance.options("className", "os-theme-round-dark body-scroll-bar");
+  }
 });
 
+//adjust body rotate transform origin when scrolling
 function adjustBodyRotateOrigin(){
-  let originY = 100 * (0.5 * window.innerHeight + $document.scrollTop()) / $bodyRotate.outerHeight();
+  let originY = 100 * (0.5 * window.innerHeight + scrollinstance.scroll().position.y) / $bodyRotate.outerHeight();
   $bodyRotate.css("transform-origin", "50% " + originY + "% " + "0");
 }
 // var IDscrollRAF;
-$document.scroll(function(){
-  adjustBodyRotateOrigin();
+// $document.scroll(function(){
+//   adjustBodyRotateOrigin();
 
-  // if(setting){
-  //   cancelAnimationFrame(IDscrollRAF);
-  //   clearTimeout(scrollTimeOut);
-  //   if(!scrollForbid){scrolling = true;}
-  //   let curScrollBarWidth = scrollBarWidth;
-  //   $({w: curScrollBarWidth}).animate({w: 9},{
-  //     duration: 150,
-  //     easing: "easeInOutSine",
-  //     step: function(now){
-  //       scrollBarWidth = now;
-  //       document.documentElement.style.setProperty("--scrollBarWidth", scrollBarWidth + "px");
-  //     },
-  //     complete: function(){
-  //       scrolling = false;
-  //     }
-  //   });
-  //   IDscrollRAF = requestAnimationFrame(function(){scrollTimeOut = setTimeout(scrollDisppear, 1000);});
-  // }
-})
+// })
 
 /******************************spotlight*********************************/
 var mouseState = 1;
@@ -1877,7 +1847,7 @@ function adjustElementSize(){
     $plaintext.css("margin-right", "9%");
     $timeInput.css("width", "55%");
     bodyBlur = 0.65;
-    scrollinstance.options("overflowBehavior.x", "h");
+    //scrollinstance.options("overflowBehavior.x", "h");
   }
   else if(window.innerWidth < 1000 && window.innerWidth >= 800){
     plaintextFontSize = 26; 
@@ -1892,7 +1862,7 @@ function adjustElementSize(){
     $plaintext.css("margin-right", "6%");
     $timeInput.css("width", "55%");
     bodyBlur = 0.6;
-    scrollinstance.options("overflowBehavior.x", "h");
+    //scrollinstance.options("overflowBehavior.x", "h");
   }
   else if(window.innerWidth < 800 && window.innerWidth >= 700){
     plaintextFontSize = 24; 
@@ -1907,7 +1877,7 @@ function adjustElementSize(){
     $plaintext.css("margin-right", "3%");
     $timeInput.css("width", "55%");
     bodyBlur = 0.55;
-    scrollinstance.options("overflowBehavior.x", "h");
+    //scrollinstance.options("overflowBehavior.x", "h");
   }
   else if(window.innerWidth < 700 && window.innerWidth >= 600){
     plaintextFontSize = 22;
@@ -1922,7 +1892,7 @@ function adjustElementSize(){
     $plaintext.css("margin-right", "25px");
     $timeInput.css("width", "100%");
     bodyBlur = 0.5;
-    scrollinstance.options("overflowBehavior.x", "h");
+    //scrollinstance.options("overflowBehavior.x", "h");
   }
   else if(window.innerWidth < 600 && window.innerWidth >= 500){
     plaintextFontSize = 22;
@@ -1937,7 +1907,7 @@ function adjustElementSize(){
     $plaintext.css("margin-right", "25px");
     $timeInput.css("width", "100%");
     bodyBlur = 0.4;
-    scrollinstance.options("overflowBehavior.x", "s");
+    //scrollinstance.options("overflowBehavior.x", "s");
   }
   else if(window.innerWidth < 500 && window.innerWidth >= 400){
     plaintextFontSize = 20;
@@ -1952,7 +1922,7 @@ function adjustElementSize(){
     $plaintext.css("margin-right", "25px");
     $timeInput.css("width", "100%");
     bodyBlur = 0.35;
-    scrollinstance.options("overflowBehavior.x", "s");
+    //scrollinstance.options("overflowBehavior.x", "s");
   }
   else if(window.innerWidth <400){
     plaintextFontSize = 20; 
@@ -1967,7 +1937,7 @@ function adjustElementSize(){
     $plaintext.css("margin-right", "25px");
     $timeInput.css("width", "100%");
     bodyBlur = 0.25;
-    scrollinstance.options("overflowBehavior.x", "s");
+    //scrollinstance.options("overflowBehavior.x", "s");
   }
   else{
     plaintextFontSize = 30; 
@@ -1983,7 +1953,7 @@ function adjustElementSize(){
     $plaintext.css("margin-right", "12%");
     $timeInput.css("width", "55%");
     bodyBlur = 0.85;
-    scrollinstance.options("overflowBehavior.x", "h");
+    //scrollinstance.options("overflowBehavior.x", "h");
   }
   document.documentElement.style.setProperty("--plaintextFontSize", plaintextFontSize + "px");
   document.documentElement.style.setProperty("--moonMarginL", moonMarginL + "vw");
@@ -2399,7 +2369,7 @@ JQinput.on("input", function () {
 var inputFocused = 0;
 var nameInputSubmitted = 0;
 
-var $allNotNameInput = $("* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(.filtered):not(body):not(#bodyRotate)");
+var $allNotNameInput = $("* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(.filtered):not(.scrollContainer):not(body):not(#bodyRotate)");
 // var JQbodyNswitch = $("body > *:not(.switchDiv)");
 // var JQswitchNinp = $(".switchDiv > *:not(#nameInput)");
 var $inp = $(".inp");
@@ -2817,7 +2787,7 @@ $yearMonthButton.mouseup(function(){
 var $scan = $("#scanArea");
 var $allNotScan = $("* :not(#scanArea):not(#redLine):not(#redLightArea):not(#redLightBG):not(#barCodeToScan):not(#barCodeToScan2)\
 :not(#flare1):not(#flare2):not(#flare3):not(#flare4)\
-:not(#bodyRotate):not(.filtered):not(body)");
+:not(.scrollContainer):not(#bodyRotate):not(.filtered):not(body)");
 var $redLine = $("#redLine");
 var $redLightArea = $("#redLightArea");
 var $redLightBG = $("#redLightBG");

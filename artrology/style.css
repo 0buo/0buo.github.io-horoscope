@@ -95,7 +95,16 @@ body {
   background-attachment: fixed;
   transition: background-image 0.5s ease;
 
+  overflow: hidden;
   /* position: relative; */
+}
+
+#scrollContainer{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid transparent;
 }
 
 .filtered{
@@ -103,8 +112,10 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
+  border: 1px solid transparent;
   -webkit-filter: blur(var(--bodyBlur));
   filter: blur(var(--bodyBlur));
+  display: none;
 }
 
 .offFilter{
@@ -243,7 +254,7 @@ body {
   background: none;
 }
 
-* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(.filtered):not(body):not(#bodyRotate).inputFocused{
+* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(.filtered):not(.scrollContainer):not(body):not(#bodyRotate).inputFocused{
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1.5s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
@@ -815,7 +826,7 @@ input::-ms-reveal, input::-ms-clear {
 
 * :not(#scanArea):not(#redLine):not(#redLightArea):not(#redLightBG):not(#barCodeToScan):not(#barCodeToScan2)
   :not(#flare1):not(#flare2):not(#flare3):not(#flare4)
-  :not(#bodyRotate):not(.filtered):not(body) .scan{
+  :not(.scrollContainer):not(#bodyRotate):not(.filtered):not(body) .scan{
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, padding-left 0s ease-in-out, padding-right 0s ease-in-out, -webkit-filter 5s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 5s ease-in-out, padding-left 0s ease-in-out, padding-right 0s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 5s ease-in-out, padding-left 0s ease-in-out, padding-right 0s ease-in-out, -webkit-filter 5s ease-in-out;
@@ -999,7 +1010,7 @@ input::-ms-reveal, input::-ms-clear {
 .flare{
   position: absolute;
   opacity: var(--flareOpacity);
-  filter: blur(1px);
+  filter: blur(0.75px);
 }
 
 /* far right */
