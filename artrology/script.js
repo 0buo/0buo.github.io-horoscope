@@ -291,8 +291,8 @@ $window.resize(function(){
     ? Math.pow(window.innerWidth * maxToLightDistIndex, 2)
     : Math.pow(window.innerHeight * maxToLightDistIndex, 2);
 
-   screenMax = -1*window.screen.width/2 + 0.75 * window.screen.width;
-   screenMin = -1*window.screen.width/2 + 0.04 * window.screen.width;
+   screenMax = -1*window.innerWidth/2 + 0.75 * window.innerWidth;
+   screenMin = -1*window.innerWidth/2 + 0.04 * window.innerWidth;
   });
 
 
@@ -345,8 +345,8 @@ function followCursor(timestamp) {
 
   //draw code
   if(start == false){
-    if(Math.abs(cursorLerpX - 0.23) >= 0.0005){cursorLerpX = lerp(cursorLerpX, 0.23, 1-Math.pow(0.85, dt));}
-    else{cursorLerpX = 0.25;}
+    if(Math.abs(cursorLerpX - 0.2) >= 0.0005){cursorLerpX = lerp(cursorLerpX, 0.2, 1-Math.pow(0.85, dt));}
+    else{cursorLerpX = 0.2;}
     if(Math.abs(cursorLerpY - 0.2) >= 0.0005){cursorLerpY = lerp(cursorLerpY, 0.2, 1-Math.pow(0.85, dt));}
     else{cursorLerpY = 0.2;}
     LdestX = lerp(LdestX, mouseX, 1-Math.pow(cursorLerpX, dt)); 
@@ -403,7 +403,7 @@ function followCursor(timestamp) {
   } 
   else if (mouseState == 1 && eclipseR <= 0 && (nameInputSubmitted == 1 || timeInputSubmitted)) {
     if(nameInputSubmitted == 1){
-      randNum = Math.random() * (2.5 - 1.5) + 1.5;
+      randNum = Math.random() * (2.4 - 1.4) + 1.4;
       maxToLightDistIndex = 0.9;
       maxDistToLightCenter =
         window.innerWidth >= window.innerHeight
@@ -411,7 +411,7 @@ function followCursor(timestamp) {
         : Math.pow(window.innerHeight * maxToLightDistIndex, 2);
     }
     else if(timeInputSubmitted){
-      randNum = Math.random() * (1.8 - 0.9) + 0.9;
+      randNum = Math.random() * (1.7 - 0.7) + 0.7;
       maxToLightDistIndex = 0.5;
       maxDistToLightCenter =
         window.innerWidth >= window.innerHeight
@@ -734,7 +734,7 @@ $(function() {
       y : "s"
     },
     scrollbars : {
-      visibility: "a",
+      visibility: "h",
       autoHide: "s",
       autoHideDelay: 800
     },
@@ -1039,16 +1039,10 @@ $filterOff.on("click", function(){
     twinkleBrighterOpa = 1;
     twinkleOpa = 0.38;
     defaultTwinklwOpa1 = 0.35;
-    defaultTwinklwOpa2 = 0.4;
-    defaultTwinklwOpa3 = 0.45;
-    $redLine.css("background", "var(--redLineGradient2)");
-    $redLightArea.css("background", "var(--redAreaGradient2)");
-    defaultFlareOpa = 0.75;
-
-    //setting for not moving filter
-    // $flare2.addClass("colorAdjust1");
-    // $flare3.addClass("colorAdjust1");
-    // $flare4.addClass("colorAdjust1");
+    defaultTwinklwOpa2 = 0.45;
+    defaultTwinklwOpa3 = 0.5;
+    // $redLine.css("background", "var(--redLineGradient2)");
+    // $redLightArea.css("background", "var(--redAreaGradient2)");
 
     $filterOn.off();
     $filterOff.off();
@@ -1065,6 +1059,9 @@ $filterOff.mouseover(function(){
 $settingButton.on("click", function(){
   if(setting){
     scrollinstance.options("className", "os-theme-round-dark body-scroll-bar");
+    scrollinstance.options("overflowBehavior.x", "h");
+    scrollinstance.options("overflowBehavior.y", "h");
+    scrollinstance.options("scrollbars.visibility", "a");
   }
 });
 
@@ -1119,6 +1116,8 @@ function startAnim(){
       cursorLerpY = 0.9;
       //finishLerpCursorLerpY = false;
       addEvent(document, "mousemove", update);
+      scrollinstance.options("overflowBehavior.x", "s");
+      scrollinstance.options("overflowBehavior.y", "s");
       cancelAnimationFrame(IDstart);
     }, 9000);
   }
@@ -1140,7 +1139,7 @@ function darknessStartAnim(){
 
 var start = true;
 var IDstart;
-var darkness = 0.99;
+var darkness = 1;
 var IDdarkness;
 $settingButton.on("click", function(){
   if(setting){
@@ -1349,16 +1348,16 @@ function hblurAnim(){
 /*************************body roate********************************/
 var bodyRY = parseInt(getComputedStyle(document.body).getPropertyValue("--bodyRotateY"),10);
 $bodyRotate = $("#bodyRotate");
-var screenMax = -1*window.screen.width/2 + 0.85 * window.screen.width;
-var screenMin = -1*window.screen.width/2 + 0.04 * window.screen.width;
-var leftDeg = -1;
-var rightDeg = 1;
+var screenMax = -1*window.innerWidth/2 + 0.85 * window.innerWidth;
+var screenMin = -1*window.innerWidth/2 + 0.04 * window.innerWidth;
+var leftDeg = -6;
+var rightDeg = 8;
 function bodyRotate(e){
-  let sx = e.screenX - window.screen.width/2;
+  let sx = e.screenX - window.innerWidth/2;
   if(sx > screenMax){sx = screenMax;}
   else if (sx < screenMin){sx = screenMin;}
 
-  if(setting){leftDeg = -1.7; rightDeg = 2.5;} 
+  if(setting){leftDeg = -10; rightDeg = 12;} 
   bodyRY = Math.round(scale(sx, screenMin, screenMax, leftDeg, rightDeg));
   document.body.style.setProperty("--bodyRotateY", bodyRY+"deg");
   //let sy = e.screenY;
@@ -1383,6 +1382,10 @@ function BGreflection(timestamp){
   IDreflection = requestAnimationFrame(BGreflection);
 
   let smx = mouseX;
+  if(limitedCursor){
+    if(smx < 0.45*window.innerWidth){smx = 0.45*window.innerWidth;}
+    else if(smx > 0.55*window.innerWidth){smx = 0.55*window.innerWidth;}
+  }
 
   if(limitedCursor){
     if(mouseState == 0){
@@ -1433,10 +1436,10 @@ function BGreflection(timestamp){
   let dt = (NOWref - lastNOWref)/1000;
   lastNOWref = NOWref;
 
-  brightRef = lerp(brightRef, destBrightRef, 1-Math.pow(0.35, dt));
-  brightRef2 = lerp(brightRef2, destBrightRef2, 1-Math.pow(0.35, dt));
-  darkRef = lerp(darkRef, destDarkRef, 1-Math.pow(0.45, dt));
-  darkRef2 = lerp(darkRef2, destDarkRef2, 1-Math.pow(0.45, dt));
+  brightRef = lerp(brightRef, destBrightRef, 1-Math.pow(0.4, dt));
+  brightRef2 = lerp(brightRef2, destBrightRef2, 1-Math.pow(0.4, dt));
+  darkRef = lerp(darkRef, destDarkRef, 1-Math.pow(0.5, dt));
+  darkRef2 = lerp(darkRef2, destDarkRef2, 1-Math.pow(0.5, dt));
 
   document.body.style.setProperty("--brightReflectionPos", brightRef+"%");
   document.body.style.setProperty("--brightReflectionPos2", brightRef2+"%");
@@ -1463,7 +1466,7 @@ var baseFrequency = 0.045;
 var octave = 1;
 var cloudScale = 80;
 
-var bfMax = 0.017;
+var bfMax = 0.015;
 var bfMin = 0.007;
 var scaleMiddle = 90;
 var scaleMin = 37;
@@ -1973,8 +1976,8 @@ var twinkleDirects = new Array(plaintexts.length);
 
 var twinkleOpa = 0.25;
 var defaultTwinklwOpa1 = 0.25;
-var defaultTwinklwOpa2 = 0.3;
-var defaultTwinklwOpa3 = 0.4;
+var defaultTwinklwOpa2 = 0.32;
+var defaultTwinklwOpa3 = 0.42;
 function textTwinkle($this, index){
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkle($this, index);});
   $this.css("transition", "all 3s ease-in-out");
@@ -2369,7 +2372,7 @@ JQinput.on("input", function () {
 var inputFocused = 0;
 var nameInputSubmitted = 0;
 
-var $allNotNameInput = $("* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(.filtered):not(.scrollContainer):not(body):not(#bodyRotate)");
+var $allNotNameInput = $("* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(.filtered):not(#scrollContainer):not(body):not(#bodyRotate)");
 // var JQbodyNswitch = $("body > *:not(.switchDiv)");
 // var JQswitchNinp = $(".switchDiv > *:not(#nameInput)");
 var $inp = $(".inp");
@@ -2786,8 +2789,8 @@ $yearMonthButton.mouseup(function(){
 /*******************scanArea*************************************/
 var $scan = $("#scanArea");
 var $allNotScan = $("* :not(#scanArea):not(#redLine):not(#redLightArea):not(#redLightBG):not(#barCodeToScan):not(#barCodeToScan2)\
-:not(#flare1):not(#flare2):not(#flare3):not(#flare4)\
-:not(.scrollContainer):not(#bodyRotate):not(.filtered):not(body)");
+:not(.paperContainer):not(.paper):not(.segment):not(.segment2):not(.icon)\
+:not(#scrollContainer):not(#bodyRotate):not(.filtered):not(body)");
 var $redLine = $("#redLine");
 var $redLightArea = $("#redLightArea");
 var $redLightBG = $("#redLightBG");
@@ -2826,8 +2829,8 @@ function barCodeAppear($code,time){
   requestAnimationFrame(function(){
     setTimeout(function(){
       $code.addClass("goDown");
-      $code.css("--barCodeOpacity", "1");
-      $code.css("--barCodeBlur", "0.75px");
+      $code.css("--barCodeOpacity", "0.22");
+      $code.css("--barCodeBlur", "1.25px");
     }, time);
   });
 }
@@ -2838,6 +2841,7 @@ function barCodeGoToScan($code, time){
     setTimeout(function(){
       $code.removeClass("goDown");
       $code.addClass("toScan");
+      $code.css("--barCodeOpacity", "0.85");
     }, time);
   });
 }
@@ -2851,7 +2855,7 @@ function incorrectCode($code, order){
       requestAnimationFrame(function(){
         setTimeout(function(){
           $code.css("--barCodeOpacity", "0");
-          $code.css("--barCodeBlur", "8px");
+          $code.css("--barCodeBlur", "12px");
 
           requestAnimationFrame(function(){
             setTimeout(function(){
@@ -2869,84 +2873,80 @@ function incorrectCode($code, order){
 }
 
 function scanBarCode(){
-  if(barcodeNum == 11){return;}
-  barCodeGoToScan($barCode, 100);
-  barcodeNum += 1;
-  if(barcodeNum < 10){barCodeAppear($barCode2, 250);}
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      if(barCodeCorrect == false){
-        incorrectCode($barCode, 1);
-      }
-    }, 800);
-  });
+  if(barcodeNum < 11){
+    console.log("1: " + barcodeNum + ": " + $barCode.text());
+    barCodeGoToScan($barCode, 100);
+    barcodeNum += 1;
+    if(barcodeNum < 10){barCodeAppear($barCode2, 350);}
+    requestAnimationFrame(function(){
+      setTimeout(function(){
+        if(barCodeCorrect == false){
+          incorrectCode($barCode, 1);
+        }
+      }, 800);
+    });
+  }
 }
 
 function scanBarCode2(){
-  if(barcodeNum == 11){return;}
-  barCodeGoToScan($barCode2, 100);
-  barcodeNum += 1;
-  if(barcodeNum < 10){barCodeAppear($barCode, 250);}
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      if(barCodeCorrect == false){
-        incorrectCode($barCode2, 2);
-      }
-    }, 800);
-  });
+  if(barcodeNum < 11){
+    console.log("2: " + barcodeNum + ": " + $barCode2.text());
+    barCodeGoToScan($barCode2, 100);
+    barcodeNum += 1;
+    if(barcodeNum < 11){barCodeAppear($barCode, 350);}
+    requestAnimationFrame(function(){
+      setTimeout(function(){
+        if(barCodeCorrect == false){
+          incorrectCode($barCode2, 2);
+        }
+      }, 800);
+    });
+  }
 }
 
-function spotLightSwirl(){
-  mouseFollowing = false;
-  mouseX = 0.05 * window.innerWidth;
-  mouseY = 0.95 * window.innerHeight;
+function paperAnim(){
   requestAnimationFrame(function(){
+    $segment.css("--paperRotate", "30deg");
     setTimeout(function(){
-      mouseX = 0.05 * window.innerWidth;
-      mouseY = 0.05 * window.innerHeight;
-    }, 2000);
+      $segment.css("--paperRotate", "0deg");
+    }, 2500);
   });
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      mouseX = 0.95 * window.innerWidth;
-      mouseY = 0.05 * window.innerHeight;
-    }, 4500);
-  });
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      mouseX = 0.95 * window.innerWidth;
-      mouseY = 0.95 * window.innerHeight;
-    }, 7000);
-  });
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      mouseX = 0.5 * window.innerWidth;
-      mouseY = 0.5 * window.innerHeight;
-    }, 9000);
-  });
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      mouseFollowing = true;
-      limitedCursor = true;
-    }, 9500);
-  });
-}
+ }
 
 var barCodeCorrect = false;
 function scanAnim(){
   setCloudFlounder();
 
-  $allNotScan.addClass("scan");
   twinkleOpa = defaultTwinklwOpa3;
-  $scan.css("display", "initial");
   scrollinstance.options("overflowBehavior.y", "hidden");
   scrollinstance.options("overflowBehavior.x", "hidden");
-  $scan.css("top", scrollinstance.scroll().position.y+"px");
   //$scan.css("top", $document.scrollTop()+"px");
+  
+  requestAnimationFrame(function(){
+    mouseX = 0.5 * window.innerWidth;
+    mouseY = 0.5 * window.innerHeight;
+    mouseFollowing = false;
+  })
 
-  //spotLightSwirl();
   requestAnimationFrame(function(){
     setTimeout(function(){
+      $scan.css("display", "initial");
+      let t = 0.5*window.innerHeight - 210;
+      t = t + scrollinstance.scroll().position.y;
+      $scan.css("top", t+"px");
+      $allNotScan.addClass("scan");
+    }, 500);
+  })
+
+  requestAnimationFrame(function(){
+    setTimeout(paperAnim, 5500);
+  });
+
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      $scan.addClass("svgFilter2");
+      mouseFollowing = true;
+      limitedCursor = true;
       redLineAppear();
       barCodeAppear($barCode, 8500);
 
@@ -2959,10 +2959,5 @@ function scanAnim(){
   });
 }
 
-//flare
-var $flare1 = $("#flare1"),
-    $flare2 = $("#flare2"),
-    $flare3 = $("#flare3"),
-    $flare4 = $("#flare4"),
-    $marker = $("#marker");
-var defaultFlareOpa = 0.65;
+//paper
+var $segment = $(".segment");

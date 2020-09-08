@@ -8,7 +8,7 @@
   --eclipseR: 0vmax;
   --eclipseA1: 0.1;
   --eclipseA2: 0.06;
-  --darkness: 0.99;
+  --darkness: 1;
 
   --LR1: 0;
   --LG1: 0;
@@ -105,6 +105,8 @@ body {
   width: 100%;
   height: 100%;
   border: 1px solid transparent;
+
+  transform-style: preserve-3d;
 }
 
 .filtered{
@@ -138,11 +140,11 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgb(4,4,4);
+  background-color: rgb(0,0,0);
   z-index: 7;
 
   transition: transform 2.5s ease-in-out, opacity 1s ease-in-out;
-  transform: perspective(1200px) rotateY(var(--bodyRotateY));
+  transform: perspective(10000px) rotateY(var(--bodyRotateY));
   -webkit-filter: blur(0.9px);
           filter: blur(0.9px);
 }
@@ -247,14 +249,14 @@ body {
   margin-bottom: 30vh;
   border: 0.01px solid transparent;
   transition: transform 2.5s ease-in-out, height 2s ease-in-out;
-  transform: perspective(1200px) rotateY(var(--bodyRotateY));
+  transform: perspective(10000px) rotateY(var(--bodyRotateY));
   clear: both;
   display: none;
 
   background: none;
 }
 
-* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(.filtered):not(.scrollContainer):not(body):not(#bodyRotate).inputFocused{
+* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(.filtered):not(#scrollContainer):not(body):not(#bodyRotate).inputFocused{
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1.5s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
@@ -385,9 +387,9 @@ h1 {
               -8px -8px 10px var(--rotateGlow),
               8px -8px 10px var(--rotateGlow), 
               -8px 8px 10px var(--rotateGlow);
-  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, background-color 2s ease, box-shadow 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
-  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, background-color 2s ease, box-shadow 1.5s ease-in-out, filter 1.5s ease-in-out;
-  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, background-color 2s ease, box-shadow 1.5s ease-in-out, filter 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
+  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, background-color 2s ease, box-shadow 1.5s ease-in-out, -webkit-filter 1s ease-in-out;
+  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, background-color 2s ease, box-shadow 1.5s ease-in-out, filter 1s ease-in-out;
+  transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, background-color 2s ease, box-shadow 1.5s ease-in-out, filter 1s ease-in-out, -webkit-filter 1s ease-in-out;
   transform-origin: 60% 60%;
   transform: translate(7%, 60%) rotate(-100deg);
   cursor: -webkit-grab;
@@ -810,12 +812,12 @@ input::-ms-reveal, input::-ms-clear {
 #scanArea {
   --flareOpacity: 0.65;
   position: absolute;
-  /* z-index: 6; */
-  left: 0;
-  top:0;
-  bottom: 0;
-  width: 100vw;
-  height: 100vh;
+  left: calc(50vw - 200px);
+  /* top  - 150 - 60 */
+  top: calc(50vh - 210px); 
+  /* bottom: 0; */
+  width: 400px;
+  height: 300px;
   background: none;
   border: 0.01px solid transparent;
   cursor: -webkit-grab;
@@ -823,45 +825,49 @@ input::-ms-reveal, input::-ms-clear {
 
   display: none;
 }
+#scanArea.svgFilter2{
+  filter: url("#OFFcloud");
+}
 
 * :not(#scanArea):not(#redLine):not(#redLightArea):not(#redLightBG):not(#barCodeToScan):not(#barCodeToScan2)
-  :not(#flare1):not(#flare2):not(#flare3):not(#flare4)
-  :not(.scrollContainer):not(#bodyRotate):not(.filtered):not(body) .scan{
-  transition: all 3s ease-in-out, transform 2.5s ease-in-out, padding-left 0s ease-in-out, padding-right 0s ease-in-out, -webkit-filter 5s ease-in-out;
-  transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 5s ease-in-out, padding-left 0s ease-in-out, padding-right 0s ease-in-out;
-  transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 5s ease-in-out, padding-left 0s ease-in-out, padding-right 0s ease-in-out, -webkit-filter 5s ease-in-out;
+  :not(.paperContainer):not(.paper):not(.segment):not(.segment2):not(.icon)
+  :not(#scrollContainer):not(.filtered):not(#bodyRotate):not(body) .scan{
+  transition: all 3s ease-in-out, transform 2.5s ease-in-out, padding-left 0s ease-in-out, padding-right 0s ease-in-out, -webkit-filter 2s ease-in-out;
+  transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 2s ease-in-out, padding-left 0s ease-in-out, padding-right 0s ease-in-out;
+  transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 2s ease-in-out, padding-left 0s ease-in-out, padding-right 0s ease-in-out, -webkit-filter 2s ease-in-out;
   -webkit-filter: blur(5.5px);
           filter: blur(5.5px);
 }
 
 #redLine{
   position: absolute;
+  /* use 1 when using moving svg filter */
   --redLineGradient1: linear-gradient(180deg, 
-  rgba(220,0,0,0) 0%, 
-  rgba(220,0,0,0) 25%, 
-  rgba(220,0,0,0.1) 45%, 
-  rgba(220,0,0,0.55) 49.5%, 
-  rgba(220,0,0,0.65) 50%, 
-  rgba(220,0,0,0.55) 50.5%, 
-  rgba(220,0,0,0.1) 55%, 
-  rgba(220,0,0,0) 75%, 
-  rgba(220,0,0,0) 100%);
+  rgba(240,0,0,0) 0%, 
+  rgba(240,0,0,0) 25%, 
+  rgba(240,0,0,0.1) 45%, 
+  rgba(240,0,0,0.55) 49.5%, 
+  rgba(240,0,0,0.65) 50%, 
+  rgba(240,0,0,0.55) 50.5%, 
+  rgba(240,0,0,0.1) 55%, 
+  rgba(240,0,0,0) 75%, 
+  rgba(240,0,0,0) 100%);
   --redLineGradient2: linear-gradient(180deg, 
-  rgba(220,0,0,0) 0%, 
-  rgba(220,0,0,0) 25%, 
-  rgba(220,0,0,0.3) 45%, 
-  rgba(220,0,0,0.6) 49.5%, 
-  rgba(220,0,0,0.8) 50%, 
-  rgba(220,0,0,0.6) 50.5%, 
-  rgba(220,0,0,0.3) 55%, 
-  rgba(220,0,0,0) 75%, 
-  rgba(220,0,0,0) 100%);
+  rgba(240,0,0,0) 0%, 
+  rgba(240,0,0,0) 25%, 
+  rgba(240,0,0,0.3) 45%, 
+  rgba(240,0,0,0.6) 49.5%, 
+  rgba(240,0,0,0.8) 50%, 
+  rgba(240,0,0,0.6) 50.5%, 
+  rgba(240,0,0,0.3) 55%, 
+  rgba(240,0,0,0) 75%, 
+  rgba(240,0,0,0) 100%);
   --redLineBlur: 6px;
-  top: calc(50vh - 6px);
-  left: calc(50vw - 175px);
+  top: calc(50% - 6px + 60px);
+  left: calc(50% - 175px);
   width: 350px;
   height: 12px;
-  background: var(--redLineGradient1);
+  background: var(--redLineGradient2);
 
   transition: opacity 5s ease-in-out, -webkit-filter 5s ease-in-out;
 
@@ -875,34 +881,35 @@ input::-ms-reveal, input::-ms-clear {
 
 #redLightArea{
   position: absolute;
+  /* use 1 when using moving svg filter */
   --redAreaGradient1: linear-gradient(180deg,
-  rgba(220,0,0,0) 0%, 
-  rgba(220,0,0,0) 20%, 
-  rgba(220,0,0,0.05) 35%,
-  rgba(220,0,0,0.25) 48%,
-  rgba(220,0,0,0.3) 49%, 
-  rgba(220,0,0,0.3) 51%,
-  rgba(220,0,0,0.25) 52%, 
-  rgba(220,0,0,0.05) 65%, 
-  rgba(220,0,0,0) 80%,
-  rgba(220,0,0,0) 100%);
+  rgba(230,0,0,0) 0%, 
+  rgba(230,0,0,0) 20%, 
+  rgba(230,0,0,0.05) 35%,
+  rgba(230,0,0,0.25) 48%,
+  rgba(230,0,0,0.3) 49%, 
+  rgba(230,0,0,0.3) 51%,
+  rgba(230,0,0,0.25) 52%, 
+  rgba(230,0,0,0.05) 65%, 
+  rgba(230,0,0,0) 80%,
+  rgba(230,0,0,0) 100%);
   --redAreaGradient2: linear-gradient(180deg,
-  rgba(220,0,0,0) 0%, 
-  rgba(220,0,0,0) 20%, 
-  rgba(220,0,0,0.1) 35%,
-  rgba(220,0,0,0.37) 48%,
-  rgba(220,0,0,0.42) 49%, 
-  rgba(220,0,0,0.42) 51%,
-  rgba(220,0,0,0.37) 52%, 
-  rgba(220,0,0,0.1) 65%, 
-  rgba(220,0,0,0) 80%,
-  rgba(220,0,0,0) 100%);
+  rgba(230,0,0,0) 0%, 
+  rgba(230,0,0,0) 20%, 
+  rgba(230,0,0,0.1) 35%,
+  rgba(230,0,0,0.37) 48%,
+  rgba(230,0,0,0.42) 49%, 
+  rgba(230,0,0,0.42) 51%,
+  rgba(230,0,0,0.37) 52%, 
+  rgba(230,0,0,0.1) 65%, 
+  rgba(230,0,0,0) 80%,
+  rgba(230,0,0,0) 100%);
   --redAreaBlur: 8px;
-  top: calc(50vh - 125px);
-  left: calc(50vw - 175px);
+  top: calc(50% - 65px);
+  left: calc(50% - 175px);
   width: 350px;
   height: 250px;
-  background: var(--redAreaGradient1);
+  background: var(--redAreaGradient2);
 
   transition: opacity 6s ease-in-out, -webkit-filter 6s ease-in-out;
   transition: opacity 6s ease-in-out, filter 6s ease-in-out;
@@ -942,9 +949,9 @@ input::-ms-reveal, input::-ms-clear {
 
 #barCodeToScan{
   position: absolute;
-  --barCodeBlur: 8px;
+  --barCodeBlur: 12px;
   --barCodeOpacity: 0;
-  left: calc(50vw - 70px);
+  left: calc(50% - 70px);
   text-align: center;
   font-family: 'Libre Barcode 39 Extended', cursive;
   font-size: 140px;
@@ -958,14 +965,14 @@ input::-ms-reveal, input::-ms-clear {
   -webkit-filter: blur(var(--barCodeBlur));
           filter: blur(var(--barCodeBlur));
   transform: scale(1, 0.7);
-  top: calc(50vh - 200px);
+  top: calc(50% - 100px);
   color: #272738;
 }
 #barCodeToScan2{
   position: absolute;
-  --barCodeBlur: 8px;
+  --barCodeBlur: 12px;
   --barCodeOpacity: 0;
-  left: calc(50vw - 70px);
+  left: calc(50% - 70px);
   text-align: center;
   font-family: 'Libre Barcode 39 Extended', cursive;
   font-size: 140px;
@@ -979,77 +986,152 @@ input::-ms-reveal, input::-ms-clear {
   -webkit-filter: blur(var(--barCodeBlur));
           filter: blur(var(--barCodeBlur));
   transform: scale(1, 0.7);
-  top: calc(50vh - 200px);
+  top: calc(50% - 100px);
   color: #272738;
 }
 
 #barCodeToScan.goDown, #barCodeToScan2.goDown{
   transform: scale(1.75, 0.7);
-  top: calc(50vh - 260px);
+  top: calc(50% - 130px);
   color: #272738;
 }
 
 #barCodeToScan.toScan, #barCodeToScan2.toScan{
-  transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, -webkit-filter .75s ease-in-out;
-  transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .75s ease-in-out;
-  transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .75s ease-in-out, -webkit-filter .75s ease-in-out;
+  transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, -webkit-filter 1.5s ease-in-out;
+  transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter 1.5s ease-in-out;
+  transition: top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
   transform: scale(1.75, 0.7);
-  top: calc(50vh - 60px);
+  top: 50%;
   color: #272738;
 }
 
 #barCodeToScan.incorrect, #barCodeToScan2.incorrect{
-  transition: top .75s ease-in-out, transform .25s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, -webkit-filter .75s ease-in-out;
-  transition: top .75s ease-in-out, transform .25s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .75s ease-in-out;
-  transition: top .75s ease-in-out, transform .25s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .75s ease-in-out, -webkit-filter .75s ease-in-out;
+  transition: top .75s ease-in-out, transform .25s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, -webkit-filter .65s ease-in-out;
+  transition: top .75s ease-in-out, transform .25s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .65s ease-in-out;
+  transition: top .75s ease-in-out, transform .25s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .65s ease-in-out, -webkit-filter .65s ease-in-out;
   transform: scale(1.85, 0.7);
-  top: calc(50vh - 60px);
+  top: 50%;
   color: rgba(210, 0, 0, 0.5);
 }
 
-.flare{
+.paperContainer{
+  position: fixed;
+  top: calc(50vh - 260px);
+  left: calc(50vw - 150px);
+  height: 400px;
+  width: 300px;
+  border: 0.01px solid transparent;
+  transform: rotateZ(-90deg);
+}
+.paper {
+  --segments: 10;
+  --segment: calc(100% / var(--segments));
   position: absolute;
-  opacity: var(--flareOpacity);
-  filter: blur(0.75px);
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  animation: fly-in 10s cubic-bezier(.36,.07,.25,1) forwards;
+}
+.paper > .segment {
+  height: var(--segment);
+  top: calc(50% - var(--segment));
+}
+.paper > .segment2 {
+  height: var(--segment);
+  top: 50%;
+}
+@keyframes fly-in {
+  0% { 
+    transform: perspective(2500px) translateY(150px) translateZ(-800px) rotateX(-5deg) rotateY( -5deg);
+    opacity: 0;
+    filter: blur(8px); 
+  }
+  25%{
+    opacity: 0.9;
+    filter: blur(3.5px);
+  }
+  45% { 
+    transform: perspective(2500px) translateY(0px) translateZ(0) rotateX(0deg) rotateY(0deg);
+    filter: blur(1px);
+  }
+  100% {
+    transform: perspective(2500px) translateY(0px) translateZ(0) rotateX(0deg) rotateY(0deg);
+    filter: blur(1.5px);
+  }
 }
 
-/* far right */
-#flare1{
-  width: 80px;
-  height: 80px;
-  left: calc(50vw + 135px);
-  top: calc(50vh - 40px);
-
-  transform-origin: -168.75% 50% 0;
-  transform: perspective(1000px) rotate3d(1,1,1,-120deg);
+.segment {
+  --paperRotate: 40deg;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  right: 0;
+  transform-origin: bottom center;
+  
+  animation: inherit;
+  animation-name: curve-paper;
 }
-/* far top */
-#flare2{
-  width: 80px;
-  height: 80px;
-  left: calc(50vw - 40px);
-  top: calc(50vh - 215px);
-
-  transform-origin: 50% 268.75% 0;
-  transform: perspective(1000px) rotate3d(1,1,1,120deg);
+.segment > .segment {
+  bottom: 100%;
 }
-/* near upper-left  */
-#flare3{
-  width: 50px;
-  height: 50px;
-  left: calc(50vw - 125px);
-  top: calc(50vh - 85px);
 
-  transform-origin: 156.25% 106.25% 0;
-  transform: perspective(1000px) rotate3d(1,1,1,120deg);
+@keyframes curve-paper {
+  0% { 
+    transform: perspective(2500px) rotateX(var(--paperRotate)); 
+    background-color: rgba(24, 24, 48, 0.4);
+    color: rgba(0,0,0,0.5);
+  }
+  50% { 
+    transform: perspective(2500px) rotateX(0deg); 
+    background-color: rgba(80, 80, 80, 0.2);
+    color: rgba(0,0,0,0.45);
+  }
+  75%{
+    background-color: rgba(90, 90, 90, 0.25);
+    color: rgba(0,0,0,0.5);
+  }
+  100%{
+    background-color: rgba(90, 90, 90, 0.25);
+    color: rgba(0,0,0,0.5);
+  }
 }
-/* near lower left */
-#flare4{
-  width: 50px;
-  height: 50px;
-  left: calc(50vw - 125px);
-  top: calc(50vh + 45px);
 
-  transform-origin: 156.25% -56.25% 0;
-  transform: perspective(1000px) rotate3d(1,1,1,-120deg);
+.segment2 {
+  --paperRotate2: -70deg;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  right: 0;
+  transform-origin: top center;
+  
+  animation: inherit;
+  animation-name: curve-paper2;
+}
+.segment2 > .segment2 {
+  top: 100%;
+}
+
+@keyframes curve-paper2 {
+  0% { 
+    transform: perspective(2500px) rotateX(var(--paperRotate2)); 
+    background-color: rgba(24, 24, 48, 0.4);
+    color: rgba(0,0,0,0.5);
+  }
+  50% { 
+    transform: perspective(2500px) rotateX(0deg); 
+    background-color: rgba(80, 80, 80, 0.2);
+    color: rgba(0,0,0,0.45);
+  }
+  75%{
+    background-color: rgba(90, 90, 90, 0.25);
+    color: rgba(0,0,0,0.5);
+  }
+  100%{
+    background-color: rgba(90, 90, 90, 0.25);
+    color: rgba(0,0,0,0.5);
+  }
 }

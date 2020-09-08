@@ -11,22 +11,20 @@ can not be used with other classes -->
   <link type="text/css" href="./overlayScroll/os-theme-round-light.css" rel="stylesheet"/>
   <link rel="stylesheet" href="./style.css"/>
 
+  <script defer src="https://kit.fontawesome.com/21d3302b57.js" crossorigin="anonymous"></script>
+
   <!-- partial:index.partial.html -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=6.0">
 </head>
 
 <body>
-  <div class="settingScroll">
-    
-  </div>
-
   <div id="scrollContainer">
     <div class="setting noselect">
       <div class="settingText">
         <p>Hello, <br><br>this site uses a moving SVG fitler on the entire page, 
           which may slow down or even crash your browser due to inadequate machine performance.<br><br>
-          you can choose to leave it or not below.<br><br>
+          you can choose to leave it or not.<br><br>
           <span id="smallerST">* Chrome or Microsoft Edge recommended for the site *</span>
         </p>
       </div>
@@ -130,19 +128,47 @@ can not be used with other classes -->
         </div>
         
       </div>
+
+    </div>
     
-      <div id="scanArea">
-        <img class="flare" id="flare1" src="./img/flare.svg">
-        <img class="flare" id="flare2" src="./img/flare.svg">
-        <img class="flare" id="flare3" src="./img/flare.svg">
-        <img class="flare" id="flare4" src="./img/flare.svg">
-        <div id="redLightBG"></div>
-        <div class="noselect" id="barCodeToScan">c</div>
-        <div class="noselect" id="barCodeToScan2">k</div>
-        <div id="redLightArea"></div>
-        <div id="redLine"></div>
+    <div id="scanArea">
+      <!-- <div id="redLightBG"></div> -->
+      <div class="noselect" id="barCodeToScan"></div>
+      <div class="noselect" id="barCodeToScan2"></div>
+      <div id="redLightArea"></div>
+      <div id="redLine"></div>
+    </div>
+
+    <div class="paperContainer">
+      <div class="paper">
+        <div class="segment">
+          <div class="segment">
+            <div class="segment">
+              <div class="segment">
+                <div class="segment" style="text-align: right; font-size: 30px; line-height: 20%;">
+                  <br><i class="fas fa-atom icon">&nbsp</i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="segment2">
+          <div class="segment2">
+            <div class="segment2">
+              <div class="segment2" style="text-align: left; font-size: 30px;">
+                &nbsp<i class="fas fa-expand icon"></i>
+                <div class="segment2" style="text-align: left; font-size: 30px;">
+                  &nbsp<i class="fas fa-bars icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
+    
   </div>
 
   
