@@ -996,6 +996,7 @@ $filterOn.on("click", function(){
     
     setTimeout(function(){
       document.documentElement.pseudoStyle('before', 'z-index','20');
+      $scrollContainer.css("background", "var(--reflectionBG)");
       $settingClass.css("opacity", "0");
     },1100);
     setTimeout(function(){
@@ -1031,6 +1032,7 @@ $filterOff.on("click", function(){
     
     setTimeout(function(){
       document.documentElement.pseudoStyle('before', 'z-index','20');
+      $scrollContainer.css("background", "var(--reflectionBG)");
       $settingClass.css("opacity", "0");
       $(".plaintext").css("font-weight", "600");
     },1100);
@@ -1369,6 +1371,7 @@ function bodyRotate(e){
 
 addEvent(document, "mousemove", bodyRotate);
 
+var $scrollContainer = $("#scrollContainer");
 var brightRef = 48;
 var brightRef2 = 52;
 var darkRef = 33;
@@ -1445,11 +1448,12 @@ function BGreflection(timestamp){
   darkRef = lerp(darkRef, destDarkRef, 1-Math.pow(0.5, dt));
   darkRef2 = lerp(darkRef2, destDarkRef2, 1-Math.pow(0.5, dt));
 
-  document.body.style.setProperty("--brightReflectionPos", brightRef+"%");
-  document.body.style.setProperty("--brightReflectionPos2", brightRef2+"%");
-  document.body.style.setProperty("--darkReflectionPos", darkRef+"%");
-  document.body.style.setProperty("--darkReflectionPos2", darkRef2+"%");
+  $scrollContainer.css("--brightReflectionPos", brightRef+"%");
+  $scrollContainer.css("--brightReflectionPos2", brightRef2+"%");
+  $scrollContainer.css("--darkReflectionPos", darkRef+"%");
+  $scrollContainer.css("--darkReflectionPos2", darkRef2+"%");
 }
+
 
 addEvent(document, "mousemove", function(){
   if(setting){
