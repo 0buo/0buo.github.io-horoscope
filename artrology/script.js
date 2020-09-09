@@ -805,18 +805,18 @@ function adjustSettingFont(event){
       modifiedButtonFontSize = buttonFontSize; 
       //scrollinstance.options("overflowBehavior.x", "s");
     }
-    else if(window.innerWidth < 540 && window.innerWidth >= 400){
+    else if(window.innerWidth < 540 && window.innerWidth >= 470){
       buttonFontSize = 40; 
       modifiedButtonFontSize = buttonFontSize; 
       //scrollinstance.options("overflowBehavior.x", "s");
     }
-    else if(window.innerWidth < 400 && window.innerWidth >= 350){
-      buttonFontSize = 35; 
+    else if(window.innerWidth < 470 && window.innerWidth >= 400){
+      buttonFontSize = 34; 
       modifiedButtonFontSize = buttonFontSize; 
       //scrollinstance.options("overflowBehavior.x", "s");
     }
-    else if(window.innerWidth < 350){
-      buttonFontSize = 30; 
+    else if(window.innerWidth < 400){
+      buttonFontSize = 28; 
       modifiedButtonFontSize = buttonFontSize; 
       //scrollinstance.options("overflowBehavior.x", "s");
     }
@@ -2776,6 +2776,7 @@ $yearMonthButton.click(function(){
   });
   
   //scan
+  getSignTime();
   scanAnim();
   
 });
@@ -2786,14 +2787,27 @@ $yearMonthButton.mouseup(function(){
   $yearMonthButton.css("cursor", "grab");
 });
 
+var curSign;
+function getSignTime(){
+  let c = (yearSubmitted % 356) / monthSubmitted;
+  let thetaL = Math.atan2(monthSubmitted, c);
+  let epsilon = Math.atan2(yearSubmitted / monthSubmitted, c);
+  let phi = Math.atan2(yearSubmitted, c);
+
+  let asc = Math.atan(Math.cos(thetaL) / (Math.sin(thetaL)*Math.cos(epsilon)+Math.tan(phi)*Math.sin(epsilon)));
+  asc *= (yearSubmitted*monthSubmitted)%(356*12*11);
+  curSign = Math.round(asc) % 11;
+  console.log(curSign);
+}
+
 /*******************scanArea*************************************/
 var $scan = $("#scanArea");
-var $allNotScan = $("* :not(#scanArea):not(#redLine):not(#redLightArea):not(#redLightBG):not(#barCodeToScan):not(#barCodeToScan2)\
+var $allNotScan = $("* :not(#scanArea):not(#redLine):not(#redLightArea):not(#barCodeToScan):not(#barCodeToScan2)\
 :not(.paperContainer):not(.paper):not(.segment):not(.segment2):not(.icon)\
 :not(#scrollContainer):not(#bodyRotate):not(.filtered):not(body)");
 var $redLine = $("#redLine");
 var $redLightArea = $("#redLightArea");
-var $redLightBG = $("#redLightBG");
+// var $redLightBG = $("#redLightBG");
 var $barCode = $("#barCodeToScan");
 var $barCode2 = $("#barCodeToScan2");
 var signs = {
@@ -2809,7 +2823,7 @@ var signs = {
   9: "j",
   10: "{"
 }
-var barcodeNum = 0;
+var curBarCodeNum = 0;
 
 function redLineAppear(){
   requestAnimationFrame(function(){
@@ -2818,19 +2832,26 @@ function redLineAppear(){
       $redLightArea.css("opacity", "1");
       $redLine.css("--redLineBlur", "2px");
       $redLightArea.css("--redAreaBlur", "2.7px");
-      $redLightBG.css("opacity", "1");
-      $redLightBG.css("--redLightBGblur", "15px");
+      $redLine.css("--redLineScaleY", "1");
+      $redLightArea.css("--redAreaScaleY", "1");
+      $redLine.css("--redLineScaleX", "1");
+      $redLightArea.css("--redAreaScaleX", "1");
+      // $redLightBG.css("opacity", "1");
+      // $redLightBG.css("--redLightBGblur", "15px");
     }, 4000);
   });
 }
 
 function barCodeAppear($code,time){
-  $code.text(signs[barcodeNum]);
+  $code.text(signs[curBarCodeNum]);
   requestAnimationFrame(function(){
     setTimeout(function(){
       $code.addClass("goDown");
-      $code.css("--barCodeOpacity", "0.22");
-      $code.css("--barCodeBlur", "1.25px");
+      $code.css("--barCodeOpacity", "0.2");
+      $code.css("--barCodeBlur", "2px");
+
+      mouseFollowing = true;
+      limitedCursor = true;
     }, time);
   });
 }
@@ -2841,7 +2862,7 @@ function barCodeGoToScan($code, time){
     setTimeout(function(){
       $code.removeClass("goDown");
       $code.addClass("toScan");
-      $code.css("--barCodeOpacity", "0.85");
+      $code.css("--barCodeOpacity", "0.9");
     }, time);
   });
 }
@@ -2855,7 +2876,7 @@ function incorrectCode($code, order){
       requestAnimationFrame(function(){
         setTimeout(function(){
           $code.css("--barCodeOpacity", "0");
-          $code.css("--barCodeBlur", "12px");
+          $code.css("--barCodeBlur", "15px");
 
           requestAnimationFrame(function(){
             setTimeout(function(){
@@ -2873,11 +2894,11 @@ function incorrectCode($code, order){
 }
 
 function scanBarCode(){
-  if(barcodeNum < 11){
-    console.log("1: " + barcodeNum + ": " + $barCode.text());
+  if(curBarCodeNum < 11){
+    console.log("1: " + curBarCodeNum + ": " + $barCode.text());
     barCodeGoToScan($barCode, 100);
-    barcodeNum += 1;
-    if(barcodeNum < 10){barCodeAppear($barCode2, 350);}
+    curBarCodeNum += 1;
+    if(curBarCodeNum < 10){barCodeAppear($barCode2, 350);}
     requestAnimationFrame(function(){
       setTimeout(function(){
         if(barCodeCorrect == false){
@@ -2889,11 +2910,11 @@ function scanBarCode(){
 }
 
 function scanBarCode2(){
-  if(barcodeNum < 11){
-    console.log("2: " + barcodeNum + ": " + $barCode2.text());
+  if(curBarCodeNum < 11){
+    console.log("2: " + curBarCodeNum + ": " + $barCode2.text());
     barCodeGoToScan($barCode2, 100);
-    barcodeNum += 1;
-    if(barcodeNum < 11){barCodeAppear($barCode, 350);}
+    curBarCodeNum += 1;
+    if(curBarCodeNum < 11){barCodeAppear($barCode, 350);}
     requestAnimationFrame(function(){
       setTimeout(function(){
         if(barCodeCorrect == false){
@@ -2904,17 +2925,25 @@ function scanBarCode2(){
   }
 }
 
-function paperAnim(){
-  requestAnimationFrame(function(){
-    $segment.css("--paperRotate", "30deg");
-    setTimeout(function(){
-      $segment.css("--paperRotate", "0deg");
-    }, 2500);
-  });
- }
+//paper
+var $segment = $(".segment");
+var $segment2 = $(".segment2");
+var $paper = $(".paper");
+var $icon = $(".icon");
+var $paperContainer = $(".paperContainer");
 
+function paperAppear(){
+  $paperContainer.css("display", "initial");
+  $paper.addClass("appear");
+  $segment.addClass("appear");
+  $segment2.addClass("appear");
+  $icon.addClass("appear");
+}
+
+//barcode scam whole process
 var barCodeCorrect = false;
 function scanAnim(){
+  $allNotScan.addClass("scan");
   setCloudFlounder();
 
   twinkleOpa = defaultTwinklwOpa3;
@@ -2922,42 +2951,33 @@ function scanAnim(){
   scrollinstance.options("overflowBehavior.x", "hidden");
   //$scan.css("top", $document.scrollTop()+"px");
   
-  requestAnimationFrame(function(){
-    mouseX = 0.5 * window.innerWidth;
-    mouseY = 0.5 * window.innerHeight;
-    mouseFollowing = false;
-  })
+  mouseFollowing = false;
+  mouseY = 0.5 * window.innerHeight;
+  mouseX = 0.5 * window.innerWidth;
+
+  paperAppear();
 
   requestAnimationFrame(function(){
     setTimeout(function(){
-      $scan.css("display", "initial");
       let t = 0.5*window.innerHeight - 210;
       t = t + scrollinstance.scroll().position.y;
       $scan.css("top", t+"px");
-      $allNotScan.addClass("scan");
+      $scan.css("display", "initial");
     }, 500);
   })
 
   requestAnimationFrame(function(){
-    setTimeout(paperAnim, 5500);
-  });
-
-  requestAnimationFrame(function(){
     setTimeout(function(){
       $scan.addClass("svgFilter2");
-      mouseFollowing = true;
-      limitedCursor = true;
       redLineAppear();
-      barCodeAppear($barCode, 8500);
+      barCodeAppear($barCode, 7500);
 
       requestAnimationFrame(function(){
         setTimeout(function(){
           scanBarCode();
-        }, 10000);
+        },9000);
       });
-    }, 7500);
+    }, 1000);
   });
 }
 
-//paper
-var $segment = $(".segment");
