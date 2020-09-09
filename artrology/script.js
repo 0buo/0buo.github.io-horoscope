@@ -291,8 +291,12 @@ $window.resize(function(){
     ? Math.pow(window.innerWidth * maxToLightDistIndex, 2)
     : Math.pow(window.innerHeight * maxToLightDistIndex, 2);
 
-   screenMax = -1*window.innerWidth/2 + 0.75 * window.innerWidth;
-   screenMin = -1*window.innerWidth/2 + 0.04 * window.innerWidth;
+  screenMax = -1*window.innerWidth/2 + 0.75 * window.innerWidth;
+  screenMin = -1*window.innerWidth/2 + 0.04 * window.innerWidth;
+
+  let t = 0.5*window.innerHeight - 210;
+  t = t + scrollinstance.scroll().position.y;
+  $scan.css("top", t+"px");
   });
 
 
