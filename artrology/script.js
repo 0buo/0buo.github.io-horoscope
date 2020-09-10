@@ -285,6 +285,12 @@ else {
 }
 
 /*********************** on resize ************************ */
+$(function(){
+  let left = 0.15 * window.innerWidth;
+  if (left > 250){left = 250;}
+  // else if(left < 100){left = 100;}
+  timeContainer.style.setProperty("--timeContainerLeft", left + "px");
+});
 $window.resize(function(){
   maxDistToLightCenter =
     window.innerWidth >= window.innerHeight
@@ -297,6 +303,12 @@ $window.resize(function(){
   let t = 0.5*window.innerHeight - 210;
   t = t + scrollinstance.scroll().position.y;
   $scan.css("top", t+"px");
+  $block.css("top", t+"px");
+
+  let left = 0.15 * window.innerWidth;
+  if (left > 250){left = 250;}
+  // else if(left < 100){left = 100;}
+  timeContainer.style.setProperty("--timeContainerLeft", left + "px");
   });
 
 
@@ -1045,7 +1057,7 @@ $filterOff.on("click", function(){
     twinkleBrighterOpa = 1;
     twinkleOpa = 0.38;
     defaultTwinklwOpa1 = 0.35;
-    defaultTwinklwOpa2 = 0.45;
+    defaultTwinklwOpa2 = 0.4;
     defaultTwinklwOpa3 = 0.5;
     // $redLine.css("background", "var(--redLineGradient2)");
     // $redLightArea.css("background", "var(--redAreaGradient2)");
@@ -1064,6 +1076,7 @@ $filterOff.mouseover(function(){
 /******************************* scrollBar *****************************/
 $settingButton.on("click", function(){
   if(setting){
+    scrollinstance.scroll({x:0, y:0}, 1000, "easeInOutSine");
     scrollinstance.options("className", "os-theme-round-dark body-scroll-bar");
     scrollinstance.options("overflowBehavior.x", "h");
     scrollinstance.options("overflowBehavior.y", "h");
@@ -1984,7 +1997,7 @@ var twinkleDirects = new Array(plaintexts.length);
 
 var twinkleOpa = 0.25;
 var defaultTwinklwOpa1 = 0.25;
-var defaultTwinklwOpa2 = 0.32;
+var defaultTwinklwOpa2 = 0.3;
 var defaultTwinklwOpa3 = 0.42;
 function textTwinkle($this, index){
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkle($this, index);});
@@ -2725,15 +2738,13 @@ addEvent(timeContainer, "mouseover", function(){
       timeContainerTimeOut = setTimeout(function(){
         if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "1px");}
   
-        if(timeButtonMouseOverFunc == 0){
-          timeContainer.style.setProperty("padding-left", "60px");
-          timeContainer.style.setProperty("padding-right", "60px");
+        //if(timeButtonMouseOverFunc == 0){
           let yearStr = yearVal.toString();
           $yearMonthButton.text(yearStr.charAt(2) + yearStr.charAt(3) + "." + monthVal);
-        }
-        else{
-          $yearMonthButton.css("color", "#c4c2cc");
-        }
+        // }
+        // else{
+        //   $yearMonthButton.css("color", "#c4c2cc");
+        // }
       }, 100);
     });
   }
@@ -2745,8 +2756,6 @@ addEvent(timeContainer, "mouseleave", function(){
     IDtimeContainerRAF = requestAnimationFrame(function(){
       timeContainerTimeOut = setTimeout(function(){
         if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
-        timeContainer.style.setProperty("padding-left", "0px");
-        timeContainer.style.setProperty("padding-right", "0px");
         $yearMonthButton.css("color", "#2a2835");
         $yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);
       }, 100);
@@ -2832,6 +2841,7 @@ var signs = {
   10: "{"
 }
 var curBarCodeNum = 0;
+var $block = $(".block");
 
 function redLineAppear(){
   requestAnimationFrame(function(){
@@ -2846,6 +2856,8 @@ function redLineAppear(){
       $redLightArea.css("--redAreaScaleX", "1");
       // $redLightBG.css("opacity", "1");
       // $redLightBG.css("--redLightBGblur", "15px");
+      mouseFollowing = true;
+      limitedCursor = true;
     }, 4000);
   });
 }
@@ -2857,9 +2869,6 @@ function barCodeAppear($code,time){
       $code.addClass("goDown");
       $code.css("--barCodeOpacity", "0.2");
       $code.css("--barCodeBlur", "2px");
-
-      mouseFollowing = true;
-      limitedCursor = true;
     }, time);
   });
 }
@@ -2948,6 +2957,7 @@ function paperAppear(){
   $icon.addClass("appear");
 }
 
+
 //barcode scam whole process
 var barCodeCorrect = false;
 function scanAnim(){
@@ -2963,15 +2973,20 @@ function scanAnim(){
   mouseY = 0.5 * window.innerHeight;
   mouseX = 0.5 * window.innerWidth;
 
+  let t = 0.5*window.innerHeight - 210;
+  t = t + scrollinstance.scroll().position.y;
+  $block.css("top", t+"px");
+  $block.css("display", "initial");
+
   paperAppear();
 
   requestAnimationFrame(function(){
     setTimeout(function(){
-      let t = 0.5*window.innerHeight - 210;
-      t = t + scrollinstance.scroll().position.y;
+      // let t = 0.5*window.innerHeight - 210;
+      // t = t + scrollinstance.scroll().position.y;
       $scan.css("top", t+"px");
       $scan.css("display", "initial");
-    }, 500);
+    }, 900);
   })
 
   requestAnimationFrame(function(){
