@@ -284,6 +284,26 @@ else {
     });
 }
 
+function getWidth() {
+  return Math.max(
+    document.body.scrollWidth,
+    document.documentElement.scrollWidth,
+    document.body.offsetWidth,
+    document.documentElement.offsetWidth,
+    document.documentElement.clientWidth
+  );
+}
+
+function getHeight() {
+  return Math.max(
+    document.body.scrollHeight,
+    document.documentElement.scrollHeight,
+    document.body.offsetHeight,
+    document.documentElement.offsetHeight,
+    document.documentElement.clientHeight
+  );
+}
+
 /*********************** on resize ************************ */
 $(function(){
   let left = 0.15 * window.innerWidth;
@@ -303,14 +323,20 @@ $window.resize(function(){
   let t = 0.5*window.innerHeight - 210;
   t = t + scrollinstance.scroll().position.y;
   $scan.css("top", t+"px");
-  $block.css("top", t+"px");
+
+  let h = getHeight();
+  let w = getWidth();
+  let bt = scrollinstance.scroll().position.y;
+  
+  $block.css("height", h+"px");
+  $block.css("width", w+"px");
+  $block.css("top", bt+"px");
+  $block.css("display", "initial");
 
   let left = 0.15 * window.innerWidth;
   if (left > 250){left = 250;}
   // else if(left < 100){left = 100;}
   timeContainer.style.setProperty("--timeContainerLeft", left + "px");
-
-  console.log($scrollContainer.outerHeight());
   });
 
 
@@ -876,85 +902,85 @@ function settingButtonUnfold(){
         $filterOnText.html('lev<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOnText.html('leve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 150);
+            $filterOnText.html('leve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 100);
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 300);
+            $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 200);
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOnText.html('l eave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 450);
+            $filterOnText.html('l eave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 300);
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOnText.html('l eav e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 600);
+            $filterOnText.html('l eav e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 400);
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOnText.html('l e av e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 750);
+            $filterOnText.html('l e av e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 500);
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOnText.html('l e a v e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 900);    
+            $filterOnText.html('l e a v e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 600);    
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOnText.html('l e a ve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1000);      
+            $filterOnText.html('l e a ve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 700);      
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOnText.html('le a ve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1100);    
+            $filterOnText.html('le a ve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 800);    
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOnText.html('le ave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1200);
+            $filterOnText.html('le ave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 900);
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1300);      
+            $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1000);      
         });
 
         $filterOffText.html('tk<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOffText.html('tak<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 150);    
+            $filterOffText.html('tak<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 100);    
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 300);    
+            $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 200);    
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOffText.html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 450);    
+            $filterOffText.html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 300);    
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOffText.html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 600);    
+            $filterOffText.html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 400);    
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOffText.html('ta k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 750);    
+            $filterOffText.html('ta k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 500);    
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOffText.html('t a k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 900);    
+            $filterOffText.html('t a k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 600);    
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOffText.html('t a ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1000);    
+            $filterOffText.html('t a ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 700);    
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOffText.html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1100);    
+            $filterOffText.html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 800);    
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOffText.html('t a ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1200);    
+            $filterOffText.html('t a ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 900);    
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
-            $filterOffText.html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1300);    
+            $filterOffText.html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1000);    
         });
         requestAnimationFrame(function(){
           setTimeout(function(){
@@ -1489,7 +1515,7 @@ var baseFrequency = 0.045;
 var octave = 1;
 var cloudScale = 80;
 
-var bfMax = 0.015;
+var bfMax = 0.018;
 var bfMin = 0.007;
 var scaleMiddle = 90;
 var scaleMin = 37;
@@ -2000,7 +2026,7 @@ var twinkleDirects = new Array(plaintexts.length);
 var twinkleOpa = 0.25;
 var defaultTwinklwOpa1 = 0.25;
 var defaultTwinklwOpa2 = 0.3;
-var defaultTwinklwOpa3 = 0.42;
+var defaultTwinklwOpa3 = 0.4;
 function textTwinkle($this, index){
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkle($this, index);});
   $this.css("transition", "all 3s ease-in-out");
@@ -2269,11 +2295,10 @@ var rotateBG = "rgba(190, 190, 190, 0.5)";
 var rotateMouseOver = false;
 $document.mousemove(function(e){
   if(setting){
-    let d = Math.pow(e.clientX + 0.15 * window.innerWidth - $rotate.offset().left, 2);
-    let yCondition = window.innerWidth > window.innerHeight ? spotLightRadius/900*window.innerWidth : spotLightRadius/900*window.innerHeight;
-    let myCondition = e.pageY > $rotate.offset().top ? e.pageY > $rotate.offset().top + yCondition : e.pageY < $rotate.offset().top - yCondition;
-    let condition = e.clientX - 0.12 * window.innerWidth < $rotate.offset().left &&  myCondition;
-    if(d < 0.04 * Math.pow(window.innerWidth,2) && !condition){
+    let dmax = Math.pow(window.innerWidth,2) + Math.pow(window.innerHeight,2)
+    let d = Math.pow(e.pageX - $rotate.offset().left, 2) + Math.pow(e.pageY - $rotate.offset().top, 2)
+
+    if(d < 0.006 * dmax){
       rotateGlowColor = "#d5d9d9c0";
     }
     else{
@@ -2814,6 +2839,9 @@ $yearMonthButton.mouseup(function(){
 });
 
 var curSign;
+var barcodeFinish;
+var codeAlreadyScanned = 0;
+var largerCodeNum = false;
 function getSignTime(){
   let c = (yearSubmitted % 356) / monthSubmitted;
   let thetaL = Math.atan2(monthSubmitted, c);
@@ -2823,7 +2851,12 @@ function getSignTime(){
   let asc = Math.atan(Math.cos(thetaL) / (Math.sin(thetaL)*Math.cos(epsilon)+Math.tan(phi)*Math.sin(epsilon)));
   asc *= (yearSubmitted*monthSubmitted)%(356*12*11);
   curSign = Math.round(asc) % 11;
-  console.log(curSign);
+  //reset barcode start, finish, condition
+  curBarCodeNum = (curSign + Math.floor(Math.random() * Math.floor(4)) + 1) % 11;
+  barcodeFinish = (curBarCodeNum + 10) % 11;
+  codeAlreadyScanned = 0;
+  if(curBarCodeNum > barcodeFinish){largerCodeNum = true;}
+  else{largerCodeNum = false;}
 }
 
 /*******************scanArea*************************************/
@@ -2877,18 +2910,19 @@ function barCodeAppear($code,time){
     setTimeout(function(){
       $code.addClass("goDown");
       $code.css("--barCodeOpacity", "0.2");
-      $code.css("--barCodeBlur", "2px");
+      $code.css("--barCodeBlur", "1.25px");
     }, time);
   });
 }
 
 function barCodeGoToScan($code, time){
+  console.log(curSign + ", " + curBarCodeNum + " -- " + barcodeFinish);
   nextToScan = false;
   requestAnimationFrame(function(){
     setTimeout(function(){
       $code.removeClass("goDown");
       $code.addClass("toScan");
-      $code.css("--barCodeOpacity", "0.9");
+      $code.css("--barCodeOpacity", "0.85");
     }, time);
   });
 }
@@ -2918,34 +2952,73 @@ function incorrectCode($code, order){
     }, 150);
   });
 }
+function correctCode($code){
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      $code.removeClass("toScan");
+      $code.addClass("correct");
+      $code.css("--barCodeOpacity", "0");
+      $code.css("--barCodeBlur", "3px");
+
+      requestAnimationFrame(function(){
+        setTimeout(function(){
+          $code.removeClass("correct");
+          $code.addClass("toScan");
+          $code.css("--barCodeOpacity", "0.85");
+          $code.css("--barCodeBlur", "1.25px");
+
+          // requestAnimationFrame(function(){
+          //   setTimeout(function(){
+          //     $code.removeClass("incorrect");
+          //   }, 750);
+          // });
+        }, 250);
+      });
+    }, 300);
+  });
+}
 
 function scanBarCode(){
-  if(curBarCodeNum < 11){
-    console.log("1: " + curBarCodeNum + ": " + $barCode.text());
+  if(codeAlreadyScanned < 11){
     barCodeGoToScan($barCode, 100);
+    codeAlreadyScanned += 1;
     curBarCodeNum += 1;
-    if(curBarCodeNum < 10){barCodeAppear($barCode2, 350);}
+    curBarCodeNum %= 11;
+    if(curBarCodeNum <= barcodeFinish){largerCodeNum = false;}
+
+    console.log(curBarCodeNum == curSign);
+    if(curBarCodeNum != curSign){
+      if(largerCodeNum || curBarCodeNum < barcodeFinish){barCodeAppear($barCode2, 350);}
+    }
     requestAnimationFrame(function(){
       setTimeout(function(){
-        if(barCodeCorrect == false){
+        if(curBarCodeNum != curSign){
           incorrectCode($barCode, 1);
         }
+        else{correctCode($barCode);}
       }, 800);
     });
   }
 }
 
 function scanBarCode2(){
-  if(curBarCodeNum < 11){
-    console.log("2: " + curBarCodeNum + ": " + $barCode2.text());
+  if(codeAlreadyScanned < 11){
     barCodeGoToScan($barCode2, 100);
+    codeAlreadyScanned += 1;
     curBarCodeNum += 1;
-    if(curBarCodeNum < 11){barCodeAppear($barCode, 350);}
+    curBarCodeNum %= 11;
+    if(curBarCodeNum <= barcodeFinish){largerCodeNum = false;}
+
+    console.log(curBarCodeNum == curSign);
+    if(curBarCodeNum != curSign){
+      if(largerCodeNum || curBarCodeNum < barcodeFinish + 1){barCodeAppear($barCode, 350);}
+    }
     requestAnimationFrame(function(){
       setTimeout(function(){
-        if(barCodeCorrect == false){
+        if(curBarCodeNum != curSign){
           incorrectCode($barCode2, 2);
         }
+        else{correctCode($barCode2);}
       }, 800);
     });
   }
@@ -2966,36 +3039,52 @@ function paperAppear(){
   $icon.addClass("appear");
 }
 
+//barcode get transparent
+var $timeContainer = $("#timeContainer");
+function barcodeGetTransparent(){
+  if(moonCount == 1){
+    $rotateTextOne.addClass("barcodeTransparent");
+  }
+  else if(moonCount == 2){
+    $rotateTextTwo.addClass("barcodeTransparent");
+  }
+  $timeContainer.addClass("barcodeTransparent");
+}
 
 //barcode scam whole process
-var barCodeCorrect = false;
 function scanAnim(){
-  $allNotScan.addClass("scan");
   setCloudFlounder();
 
-  twinkleOpa = defaultTwinklwOpa3;
-  scrollinstance.options("overflowBehavior.y", "hidden");
-  scrollinstance.options("overflowBehavior.x", "hidden");
-  //$scan.css("top", $document.scrollTop()+"px");
+  requestAnimationFrame(function(){
+    twinkleOpa = defaultTwinklwOpa3;
+    scrollinstance.options("overflowBehavior.y", "hidden");
+    scrollinstance.options("overflowBehavior.x", "hidden");
+    
+    mouseFollowing = false;
+    mouseY = 0.5 * window.innerHeight - 70;
+    mouseX = 0.5 * window.innerWidth;
   
-  mouseFollowing = false;
-  mouseY = 0.5 * window.innerHeight;
-  mouseX = 0.5 * window.innerWidth;
-
-  let t = 0.5*window.innerHeight - 210;
-  t = t + scrollinstance.scroll().position.y;
-  $block.css("top", t+"px");
-  $block.css("display", "initial");
-
-  paperAppear();
+    let h = getHeight();
+    let w = getWidth();
+    let bt = scrollinstance.scroll().position.y;
+  
+    $block.css("height", h+"px");
+    $block.css("width", w+"px");
+    $block.css("top", bt+"px");
+    $block.css("display", "initial");
+  });
 
   requestAnimationFrame(function(){
-    setTimeout(function(){
-      // let t = 0.5*window.innerHeight - 210;
-      // t = t + scrollinstance.scroll().position.y;
-      $scan.css("top", t+"px");
-      $scan.css("display", "initial");
-    }, 900);
+    barcodeGetTransparent();
+    paperAppear();
+  });
+  
+  requestAnimationFrame(function(){
+    let t = 0.5*window.innerHeight - 210;
+    t = t + scrollinstance.scroll().position.y;
+    $allNotScan.addClass("scan");
+    $scan.css("top", t+"px");
+    $scan.css("display", "initial");
   })
 
   requestAnimationFrame(function(){
@@ -3012,4 +3101,3 @@ function scanAnim(){
     }, 1000);
   });
 }
-
