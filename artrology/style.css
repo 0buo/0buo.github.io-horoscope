@@ -76,25 +76,7 @@ html, body{
 body {
   /* border: 0.01px solid transparent; */
   --bodyRotateY: 0deg;
-  
-  /* --brightReflectionPos: 45%;
-  --brightReflectionPos2: 55%;
-  --darkReflectionPos: 40%;
-  --darkReflectionPos2: 60%; */
-  /* background: linear-gradient(90deg, 
-  rgba(135,137,139,1) 0%, 
-  rgba(128,133,141,1) var(--darkReflectionPos), 
-  rgba(255,255,255,1) var(--brightReflectionPos), 
-  rgba(255,255,255,1) var(--brightReflectionPos2), 
-  rgba(128,133,141,1) var(--darkReflectionPos2), 
-  rgba(133,134,136,1) 100%);
-
-  background-attachment: fixed; */
-  /* transition: background-image 0.5s ease; */
-
   overflow: hidden;
-
-  /* position: relative; */
 }
 
 #scrollContainer{
@@ -270,7 +252,11 @@ body {
   display: none;
 
   background: none;
-  margin-bottom: 30vh;
+}
+
+/* add margin bottom to last div of bodyRotate */
+.bottom{
+  margin-bottom: 35vh !important;
 }
 
 * :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(.filtered):not(#scrollContainer):not(body):not(#bodyRotate).inputFocused{
@@ -367,6 +353,7 @@ h1 {
   height: 110px;
   z-index: 3;
   border: 0.01px solid transparent;
+  transition: all 1s ease-in-out;
 }
 
 .selectionDivText{
@@ -381,7 +368,7 @@ h1 {
   display: inline-block;
   -webkit-filter: blur(0.5px);
           filter: blur(0.5px);
-  transition: box-shadow 2s ease-in-out;
+  transition: all 2s ease-in-out;
   box-shadow: 8px -8px 10px #232323, 
               -8px 8px 10px #3f3d52, 
               8px 8px 10px #3f3d52, 

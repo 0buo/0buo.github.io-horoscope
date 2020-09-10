@@ -309,6 +309,8 @@ $window.resize(function(){
   if (left > 250){left = 250;}
   // else if(left < 100){left = 100;}
   timeContainer.style.setProperty("--timeContainerLeft", left + "px");
+
+  console.log($scrollContainer.outerHeight());
   });
 
 
@@ -996,7 +998,6 @@ $filterOn.on("click", function(){
     setting = true;
     cloudOn = true;
     $(".filtered").css("display", "initial");
-    $bodyRotate.css("display", "initial");
     $(".filtered").addClass("svgFilter");
     // setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
     //$(document.documentElement).addClass("svgFilter");
@@ -1010,6 +1011,7 @@ $filterOn.on("click", function(){
       document.documentElement.pseudoStyle('before', 'z-index','20');
       $scrollContainer.css("background", "var(--reflectionBG)");
       $settingClass.css("opacity", "0");
+      $bodyRotate.css("display", "initial");
     },1100);
     setTimeout(function(){
       $settingClass.css("display", "none");
@@ -1033,7 +1035,6 @@ $filterOff.on("click", function(){
     setting = true;
     cloudOn = true;
     $(".filtered").css("display", "initial");
-    $bodyRotate.css("display", "initial");
     $(".filtered").addClass("offFilter");
     // setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
 
@@ -1046,6 +1047,7 @@ $filterOff.on("click", function(){
       document.documentElement.pseudoStyle('before', 'z-index','20');
       $scrollContainer.css("background", "var(--reflectionBG)");
       $settingClass.css("opacity", "0");
+      $bodyRotate.css("display", "initial");
       $(".plaintext").css("font-weight", "600");
     },1100);
     setTimeout(function(){
@@ -2111,6 +2113,7 @@ for(i = 0; i < plaintexts.length; i++){
 
 /**********************************rotation*************************************/
 var moonCount = 0;
+var $selectionDiv = $(".SelectionDiv")
 var $rotateBackCircle = $(".rotateBackCircle");
 var $rotate = $(".rotate");
 
@@ -2139,6 +2142,8 @@ $rotate.click(function () {
     else{moonCount = -1;}
 
     if (moonCount == 1) {
+      $selectionDiv.removeClass("bottom");
+      $namesDiv.addClass("bottom");
       $namesDiv.css("display", "initial");
       selfTwinkle(nameTextStart, nameTextEnd);
       requestAnimationFrame(function(){
@@ -2164,6 +2169,8 @@ $rotate.click(function () {
       });
     } 
     else if (moonCount == 2) {
+      $namesDiv.removeClass("bottom");
+      $timesDiv.addClass("bottom");
       $timesDiv.css("display", "initial");
       selfTwinkle(timeTextStart, timeTextEnd);
       requestAnimationFrame(function(){
@@ -2194,6 +2201,8 @@ $rotate.click(function () {
       
     } 
     else if(moonCount == 0) {
+      $timesDiv.removeClass("bottom");
+      $selectionDiv.addClass("bottom");
       cancelTwinkle(timeTextStart, timeTextEnd);
       $rotate.removeClass("two");
       $rotateTextTwo.removeClass("down");
@@ -2206,7 +2215,7 @@ $rotate.click(function () {
       let scrollDest = $rotateBackCircle.offset().top - 0.8 * window.innerHeight;
       if (scrollDest < 0){scrollDest = 0;}
       //$htmlAndBody.animate({ scrollTop: scrollDest}, 1000);
-      scrollinstance.scroll({x: 0, y:scrollDest}, 1000, "easeInOutSine");
+      scrollinstance.scroll({x: 0, y:scrollDest}, 600, "easeInOutSine");
 
       let height = window.innerHeight;
       $bodyRotate.css("height", height + "px");
