@@ -2178,8 +2178,8 @@ $rotate.click(function () {
           $timesDiv.removeClass("hideRotateLeft");
           $namesDiv.toggleClass("showRotateLeft");
 
-          let height = window.innerHeight + $namesDiv.outerHeight(true);
-          $bodyRotate.css("height", height + "px");
+          // let height = window.innerHeight + $namesDiv.outerHeight(true);
+          // $bodyRotate.css("height", height + "px");
 
           requestAnimationFrame(function(){
             setTimeout(function(){
@@ -2209,8 +2209,8 @@ $rotate.click(function () {
           $namesDiv.toggleClass("hideRotateLeft");
           $timesDiv.toggleClass("showRotateLeft");
 
-          let height = window.innerHeight + $timesDiv.outerHeight(true);
-          $bodyRotate.css("height", height + "px");
+          // let height = window.innerHeight + $timesDiv.outerHeight(true);
+          // $bodyRotate.css("height", height + "px");
 
           requestAnimationFrame(function(){
             setTimeout(function(){
@@ -2239,10 +2239,10 @@ $rotate.click(function () {
       let scrollDest = $rotateBackCircle.offset().top - 0.75 * window.innerHeight;
       if (scrollDest < 0){scrollDest = 0;}
       //$htmlAndBody.animate({ scrollTop: scrollDest}, 1000);
-      scrollinstance.scroll({x: 0, y:scrollDest}, 1000, "easeInOutSine");
+      scrollinstance.scroll({x: 0, y: scrollDest}, 1500, "easeInOutQuad");
 
-      let height = window.innerHeight;
-      $bodyRotate.css("height", height + "px");
+      // let height = window.innerHeight;
+      // $bodyRotate.css("height", height + "px");
 
       requestAnimationFrame(function(){
         moonCountTimeOut = setTimeout(function(){
