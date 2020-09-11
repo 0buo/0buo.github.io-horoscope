@@ -2247,13 +2247,9 @@ $rotate.click(function () {
       $namesDiv.removeClass("hideRotateLeft");
       $timesDiv.removeClass("showRotateLeft");
       $timesDiv.toggleClass("hideRotateLeft");
-      let scrollDest = $rotateBackCircle.offset().top - 0.7 * window.innerHeight;
+      let scrollDest = $rotateBackCircle.offset().top;
       if (scrollDest < 0){scrollDest = 0;}
-      //$htmlAndBody.animate({ scrollTop: scrollDest}, 1000);
       scrollinstance.scroll({x: 0, y: scrollDest}, 1500, "easeInOutQuad");
-
-      // let height = window.innerHeight;
-      // $bodyRotate.css("height", height + "px");
 
       requestAnimationFrame(function(){
         moonCountTimeOut = setTimeout(function(){
