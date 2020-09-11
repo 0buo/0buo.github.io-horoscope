@@ -2828,7 +2828,7 @@ $yearMonthButton.click(function(){
   
   //scan
   getSignTime();
-  scanAnim();
+  
   
 });
 $yearMonthButton.mousedown(function(){
@@ -2838,6 +2838,7 @@ $yearMonthButton.mouseup(function(){
   $yearMonthButton.css("cursor", "grab");
 });
 
+//time sign func
 var curSign;
 var barcodeFinish;
 var codeAlreadyScanned = 0;
@@ -2857,6 +2858,10 @@ function getSignTime(){
   codeAlreadyScanned = 0;
   if(curBarCodeNum > barcodeFinish){largerCodeNum = true;}
   else{largerCodeNum = false;}
+
+  requestAnimationFrame(function(){
+    scanAnim();
+  });
 }
 
 /*******************scanArea*************************************/
