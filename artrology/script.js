@@ -2247,7 +2247,7 @@ $rotate.click(function () {
       $namesDiv.removeClass("hideRotateLeft");
       $timesDiv.removeClass("showRotateLeft");
       $timesDiv.toggleClass("hideRotateLeft");
-      let scrollDest = $rotateBackCircle.offset().top;
+      let scrollDest = $rotateBackCircle.offset().top + $rotateBackCircle.outerHeight(true);
       if (scrollDest < 0){scrollDest = 0;}
       scrollinstance.scroll({x: 0, y: scrollDest}, 1500, "easeInOutQuad");
 
@@ -3068,13 +3068,6 @@ function scanAnim(){
   twinkleOpa = defaultTwinklwOpa3;
 
   requestAnimationFrame(function(){
-    // let h = getHeight();
-    // let w = getWidth();
-    // let bt = scrollinstance.scroll().position.y;
-  
-    // $block.css("height", h+"px");
-    // $block.css("width", w+"px");
-    // $block.css("top", bt+"px");
     $block.css("display", "initial");
   });
 
@@ -3097,9 +3090,6 @@ function scanAnim(){
   });
   
   requestAnimationFrame(function(){
-    // let t = 0.5*window.innerHeight - 210;
-    // t = t + scrollinstance.scroll().position.y;
-    // $scan.css("top", t+"px");
     $scan.css("display", "initial");
   });
 

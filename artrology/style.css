@@ -851,6 +851,7 @@ input::-ms-reveal, input::-ms-clear {
   cursor: grab;
 
   display: none;
+  transition: all 2s ease-in-out;
 }
 #scanArea.svgFilter2{
   filter: url("#OFFcloud");
@@ -953,33 +954,6 @@ input::-ms-reveal, input::-ms-clear {
 
   transform: scaleY(var(--redAreaScaleY)) scaleX(var(--redAreaScaleX));
 }
-
-/* #redLightBG{
-  --redLightBGblur: 25px;
-  position: absolute;
-  top: calc(50vh - 350px);
-  left: calc(50vw - 200px);
-  width: 400px;
-  height: 700px;
-  background-color: linear-gradient(180deg,
-  rgba(255,255,255,0) 0%,  
-  rgba(255,255,255,0.1) 15%,
-  rgba(255,255,255,0.17) 48%,
-  rgba(255,255,255,0.2) 49%, 
-  rgba(255,255,255,0.2) 51%,
-  rgba(255,255,255,0.17) 52%, 
-  rgba(255,255,255,0.1) 85%,
-  rgba(255,255,255,0) 100%);
-
-  transition: opacity 8s ease-in-out, -webkit-filter 8s ease-in-out;
-
-  transition: opacity 8s ease-in-out, filter 8s ease-in-out;
-
-  transition: opacity 8s ease-in-out, filter 8s ease-in-out, -webkit-filter 8s ease-in-out;
-  opacity: 0;
-  -webkit-filter: blur(var(--redLightBGblur));
-          filter: blur(var(--redLightBGblur));
-} */
 
 
 #barCodeToScan{
@@ -1100,16 +1074,16 @@ input::-ms-reveal, input::-ms-clear {
   0% { 
     transform: perspective(2500px) translateY(-300px) translateZ(-300px) rotateX(5deg) rotateY( -10deg) scaleX(0.75);
     opacity: 0;
-    filter: blur(6px); 
+    filter: blur(8px); 
   }
   2%{
     transform: perspective(2500px) translateY(-300px) translateZ(-300px) rotateX(5deg) rotateY( -10deg) scaleX(0.75);
     opacity: 0;
-    filter: blur(6px); 
+    filter: blur(8px); 
   }
   15%{
     opacity: 0.35;
-    filter: blur(2.5px);
+    filter: blur(3.5px);
   }
   35%{
     opacity: 0.65;
