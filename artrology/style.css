@@ -899,11 +899,11 @@ input::-ms-reveal, input::-ms-clear {
   height: 12px;
   background: var(--redLineGradient2);
 
-  transition: transform 3s ease-in-out, opacity 6s ease-in-out, -webkit-filter 6s ease-in-out;
+  transition: transform 3s ease-in-out, opacity 6s ease-in-out, -webkit-filter 5s ease-in-out;
 
-  transition: transform 3s ease-in-out, opacity 6s ease-in-out, filter 6s ease-in-out;
+  transition: transform 3s ease-in-out, opacity 6s ease-in-out, filter 5s ease-in-out;
 
-  transition: transform 3s ease-in-out, opacity 6s ease-in-out, filter 6s ease-in-out, -webkit-filter 6s ease-in-out;
+  transition: transform 3s ease-in-out, opacity 6s ease-in-out, filter 5s ease-in-out, -webkit-filter 5s ease-in-out;
   -webkit-filter: blur(var(--redLineBlur));
           filter: blur(var(--redLineBlur));
   opacity: 0;
@@ -945,9 +945,9 @@ input::-ms-reveal, input::-ms-clear {
   height: 250px;
   background: var(--redAreaGradient2);
 
-  transition: transform 3s ease-in-out, opacity 5s ease-in-out, -webkit-filter 5s ease-in-out;
-  transition: transform 3s ease-in-out, opacity 5s ease-in-out, filter 5s ease-in-out;
-  transition: transform 3s ease-in-out, opacity 5s ease-in-out, filter 5s ease-in-out, -webkit-filter 5s ease-in-out;
+  transition: transform 3s ease-in-out, opacity 5s ease-in-out, -webkit-filter 4s ease-in-out;
+  transition: transform 3s ease-in-out, opacity 5s ease-in-out, filter 4s ease-in-out;
+  transition: transform 3s ease-in-out, opacity 5s ease-in-out, filter 4s ease-in-out, -webkit-filter 4s ease-in-out;
   -webkit-filter: blur(var(--redAreaBlur));
           filter: blur(var(--redAreaBlur));
   opacity: 0;
