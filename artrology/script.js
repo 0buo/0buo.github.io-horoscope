@@ -307,8 +307,7 @@ function getHeight() {
 /*********************** on resize ************************ */
 $(function(){
   let left = 0.15 * window.innerWidth;
-  if (left > 250){left = 250;}
-  // else if(left < 100){left = 100;}
+  if (left > 150){left = 150;}
   timeContainer.style.setProperty("--timeContainerLeft", left + "px");
 });
 $window.resize(function(){
@@ -332,8 +331,7 @@ $window.resize(function(){
   // $block.css("top", bt+"px");
 
   let left = 0.15 * window.innerWidth;
-  if (left > 250){left = 250;}
-  // else if(left < 100){left = 100;}
+  if (left > 150){left = 150;}
   timeContainer.style.setProperty("--timeContainerLeft", left + "px");
   });
 

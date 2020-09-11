@@ -787,7 +787,7 @@ input::-ms-reveal, input::-ms-clear {
 
 #timeContainer{
   --timeContainerBlur: 2.25px;
-  --timeContainerLeft: 250px;
+  --timeContainerLeft: 150px;
   /* display: inline-block; */
   position: absolute;
   top: 0;
