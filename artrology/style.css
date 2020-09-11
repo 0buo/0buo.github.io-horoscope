@@ -1044,9 +1044,9 @@ input::-ms-reveal, input::-ms-clear {
   color: rgba(210, 0, 0, 0.5);
 }
 #barCodeToScan.correct, #barCodeToScan2.correct{
-  transition: top .75s ease-in-out, transform .3s ease-in-out, color 0.25s linear, opacity .25s ease-in-out, -webkit-filter .25s ease-in-out;
-  transition: top .75s ease-in-out, transform .3s ease-in-out, color 0.25s linear, opacity .25s ease-in-out, filter .25s ease-in-out;
-  transition: top .75s ease-in-out, transform .3s ease-in-out, color 0.25s linear, opacity .25s ease-in-out, filter .25s ease-in-out, -webkit-filter .25s ease-in-out;
+  transition: top .75s ease-in-out, transform .3s ease-in-out, color 0.25s linear, opacity .2s ease-in-out, -webkit-filter .2s ease-in-out;
+  transition: top .75s ease-in-out, transform .3s ease-in-out, color 0.25s linear, opacity .2s ease-in-out, filter .5s ease-in-out;
+  transition: top .75s ease-in-out, transform .3s ease-in-out, color 0.25s linear, opacity .2s ease-in-out, filter .2s ease-in-out, -webkit-filter .2s ease-in-out;
   transform: scale(2, 0.55);
   top: calc(50% - 5px);
   color: #272730;

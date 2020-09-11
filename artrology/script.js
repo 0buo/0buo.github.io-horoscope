@@ -2958,14 +2958,14 @@ function correctCode($code){
       $code.removeClass("toScan");
       $code.addClass("correct");
       $code.css("--barCodeOpacity", "0");
-      $code.css("--barCodeBlur", "3px");
+      $code.css("--barCodeBlur", "2px");
 
       requestAnimationFrame(function(){
         setTimeout(function(){
           $code.removeClass("correct");
           $code.addClass("toScan");
           $code.css("--barCodeOpacity", "0.85");
-          $code.css("--barCodeBlur", "1.25px");
+          $code.css("--barCodeBlur", "1px");
 
           // requestAnimationFrame(function(){
           //   setTimeout(function(){
@@ -3053,17 +3053,11 @@ function barcodeGetTransparent(){
 
 //barcode scam whole process
 function scanAnim(){
-  setCloudFlounder();
+  scrollinstance.options("overflowBehavior.y", "hidden");
+  scrollinstance.options("overflowBehavior.x", "hidden");
+  twinkleOpa = defaultTwinklwOpa3;
 
   requestAnimationFrame(function(){
-    twinkleOpa = defaultTwinklwOpa3;
-    scrollinstance.options("overflowBehavior.y", "hidden");
-    scrollinstance.options("overflowBehavior.x", "hidden");
-    
-    mouseFollowing = false;
-    mouseY = 0.5 * window.innerHeight - 70;
-    mouseX = 0.5 * window.innerWidth;
-  
     let h = getHeight();
     let w = getWidth();
     let bt = scrollinstance.scroll().position.y;
@@ -3074,18 +3068,30 @@ function scanAnim(){
     $block.css("display", "initial");
   });
 
+  setCloudFlounder();
+
+  mouseFollowing = false;
+  mouseY = 0.5 * window.innerHeight - 70;
+  mouseX = 0.5 * window.innerWidth;
+
   requestAnimationFrame(function(){
     barcodeGetTransparent();
+  });
+
+  requestAnimationFrame(function(){
+    $allNotScan.addClass("scan");
+  });
+
+  requestAnimationFrame(function(){
     paperAppear();
   });
   
   requestAnimationFrame(function(){
     let t = 0.5*window.innerHeight - 210;
     t = t + scrollinstance.scroll().position.y;
-    $allNotScan.addClass("scan");
     $scan.css("top", t+"px");
     $scan.css("display", "initial");
-  })
+  });
 
   requestAnimationFrame(function(){
     setTimeout(function(){
