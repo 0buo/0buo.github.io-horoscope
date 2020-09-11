@@ -2236,7 +2236,7 @@ $rotate.click(function () {
       $namesDiv.removeClass("hideRotateLeft");
       $timesDiv.removeClass("showRotateLeft");
       $timesDiv.toggleClass("hideRotateLeft");
-      let scrollDest = $rotateBackCircle.offset().top - 0.8 * window.innerHeight;
+      let scrollDest = $rotateBackCircle.offset().top - 0.75 * window.innerHeight;
       if (scrollDest < 0){scrollDest = 0;}
       //$htmlAndBody.animate({ scrollTop: scrollDest}, 1000);
       scrollinstance.scroll({x: 0, y:scrollDest}, 1000, "easeInOutSine");
