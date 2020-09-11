@@ -374,6 +374,7 @@ var finishLerpCursorLerpY = false;
 
 var lastNOWfollow;
 function followCursor(timestamp) {
+  cancelAnimationFrame(IDfollowCursor);
   IDfollowCursor = requestAnimationFrame(followCursor);
 
   if(lastNOWfollow === undefined){
@@ -497,6 +498,7 @@ function update(e) {
 //var mouseStateUpdated = 0;
 var NOWslr1, lastNOWslr1;
 function SLR1(timestamp) {
+  cancelAnimationFrame(IDSLR);
   IDSLR = requestAnimationFrame(SLR1);
 
   if(lastNOWslr1 === undefined){
@@ -532,6 +534,7 @@ function SLR1(timestamp) {
 
 var NOWslr2, lastNOWslr2;
 function SLR2(timestamp) {
+  cancelAnimationFrame(IDSLR);
   IDSLR = requestAnimationFrame(SLR2);
 
   if(lastNOWslr2 === undefined){
@@ -566,6 +569,7 @@ function SLR2(timestamp) {
 
 var NOWslr3, lastNOWslr3;
 function SLR3(timestamp) {
+  cancelAnimationFrame(IDSLR);
   IDSLR = requestAnimationFrame(SLR3);
 
   if(lastNOWslr3 === undefined){
@@ -601,6 +605,7 @@ function SLR3(timestamp) {
 
 var NOWincE, lastNOWincE;
 function incEclipseR(timestamp) {
+  cancelAnimationFrame(IDECR);
   IDECR = requestAnimationFrame(incEclipseR);
 
   if(lastNOWincE === undefined){
@@ -636,6 +641,7 @@ function incEclipseR(timestamp) {
 
 var NOWincE2, lastNOWincE2;
 function incEclipseR2(timestamp) {
+  cancelAnimationFrame(IDECR);
   IDECR = requestAnimationFrame(incEclipseR2);
 
   if(lastNOWincE2 === undefined){
@@ -663,6 +669,7 @@ function incEclipseR2(timestamp) {
 
 var NOWdecE, lastNOWdecE;
 function decEclipseR(timestamp) {
+  cancelAnimationFrame(IDECR);
   IDECR = requestAnimationFrame(decEclipseR);
   
   if(lastNOWdecE === undefined){
@@ -689,6 +696,7 @@ function decEclipseR(timestamp) {
 
 var NOWecA, lastNOWecA;
 function eclipseFadeout(timestamp) {
+  cancelAnimationFrame(IDECA);
   IDECA = requestAnimationFrame(eclipseFadeout);
 
   if(lastNOWecA === undefined){
@@ -1414,7 +1422,6 @@ function bodyRotate(e){
   if(setting){leftDeg = -10; rightDeg = 12;} 
   bodyRY = Math.round(scale(sx, screenMin, screenMax, leftDeg, rightDeg));
   document.body.style.setProperty("--bodyRotateY", bodyRY+"deg");
-  //let sy = e.screenY;
 }
 
 addEvent(document, "mousemove", bodyRotate);
@@ -1434,6 +1441,7 @@ var destBrightRef,
     destDarkRef2;
 
 function BGreflection(timestamp){
+  cancelAnimationFrame(IDreflection);
   IDreflection = requestAnimationFrame(BGreflection);
 
   let smx = mouseX;
@@ -3078,23 +3086,20 @@ function scanAnim(){
   mouseX = 0.5 * window.innerWidth;
 
   requestAnimationFrame(function(){
-    barcodeGetTransparent();
+    paperAppear();
   });
-
+  
   requestAnimationFrame(function(){
     $allNotScan.addClass("scan");
   });
 
-  requestAnimationFrame(function(){
-    paperAppear();
-  });
-  
   requestAnimationFrame(function(){
     $scan.css("display", "initial");
   });
 
   requestAnimationFrame(function(){
     setTimeout(function(){
+      barcodeGetTransparent();
       $scan.addClass("svgFilter2");
       redLineAppear();
       barCodeAppear($barCode, 7500);

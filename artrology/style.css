@@ -1040,6 +1040,7 @@ input::-ms-reveal, input::-ms-clear {
   border: 0.01px solid transparent;
   transform: rotateZ(-90deg);
   display: none;
+  transition: all 1s ease-in-out;
 }
 .paper {
   --segments: 10;
