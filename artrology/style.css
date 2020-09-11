@@ -888,8 +888,8 @@ input::-ms-reveal, input::-ms-clear {
   --redLineScaleY: 0;
   --redLineScaleX: 0.96;
   top: calc(50% - 6px + 60px);
-  left: calc(50% - 196.5px);
-  width: 391.5px;
+  left: calc(50% - 196px);
+  width: 392px;
   height: 12px;
   background: var(--redLineGradient2);
 
@@ -934,7 +934,7 @@ input::-ms-reveal, input::-ms-clear {
   --redAreaScaleY: 0;
   --redAreaScaleX: 0.96;
   top: calc(50% - 65px);
-  left: calc(50% - 199.75px);
+  left: calc(50% - 199.5px);
   width: 399px;
   height: 250px;
   background: var(--redAreaGradient2);
@@ -1236,4 +1236,19 @@ input::-ms-reveal, input::-ms-clear {
 /* barcode become transparent */
 .barcodeTransparent{
   opacity: 0.25 !important;
+}
+
+.filterSwitch{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: grey;
+  border: none;
+  outline: none;
+  fill: lightcoral;
+  z-index: 30;
+  border-radius: 100%;
+  cursor: grab;
 }
