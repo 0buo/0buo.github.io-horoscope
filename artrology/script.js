@@ -1149,20 +1149,24 @@ var fadeInEcA2 = eclipseA2;
 
 function startAnim(){
   if(start){
-    setTimeout(function() {
-      mouseY = 0.2 * window.innerHeight;
-      cancelAnimationFrame(IDfollowCursor);
-      IDfollowCursor = requestAnimationFrame(followCursor);
-    }, 4500);
-    setTimeout(function() {
-      start = false;
-      cursorLerpY = 0.9;
-      //finishLerpCursorLerpY = false;
-      addEvent(document, "mousemove", update);
-      scrollinstance.options("overflowBehavior.x", "s");
-      scrollinstance.options("overflowBehavior.y", "s");
-      cancelAnimationFrame(IDstart);
-    }, 9000);
+    requestAnimationFrame(function(){
+      setTimeout(function() {
+        mouseY = 0.2 * window.innerHeight;
+        cancelAnimationFrame(IDfollowCursor);
+        IDfollowCursor = requestAnimationFrame(followCursor);
+      }, 4500);
+    });
+    requestAnimationFrame(function(){
+      setTimeout(function() {
+        start = false;
+        cursorLerpY = 0.9;
+        //finishLerpCursorLerpY = false;
+        addEvent(document, "mousemove", update);
+        scrollinstance.options("overflowBehavior.x", "s");
+        scrollinstance.options("overflowBehavior.y", "s");
+        cancelAnimationFrame(IDstart);
+      }, 9000);
+    });
   }
 }
 function darknessStartAnim(){
@@ -1186,16 +1190,19 @@ var darkness = 1;
 var IDdarkness;
 $settingButton.on("click", function(){
   if(setting){
-    setTimeout(function(){
-      mouseX = 0.5 * window.innerWidth;
-      mouseY = 1.15 * window.innerHeight;
-      LdestX = mouseX;
-      LdestY = mouseY;
-      IDfollowCursor = requestAnimationFrame(followCursor);
-      IDstart = requestAnimationFrame(startAnim);
-      IDdarkness = requestAnimationFrame(darknessStartAnim);
-      updateR();
-    }, 500);
+    requestAnimationFrame(function(){
+      setTimeout(function(){
+        mouseX = 0.5 * window.innerWidth;
+        mouseY = 1.15 * window.innerHeight;
+        LdestX = mouseX;
+        LdestY = mouseY;
+        IDfollowCursor = requestAnimationFrame(followCursor);
+        IDstart = requestAnimationFrame(startAnim);
+        IDdarkness = requestAnimationFrame(darknessStartAnim);
+        updateR();
+        IDreflection = requestAnimationFrame(BGreflection);
+      }, 500);
+    });
   }
 });
 
@@ -1365,27 +1372,31 @@ var IDhblur;
 
 $settingButton.on("click", function(){
   if(setting){
-    setTimeout(function(){
-      IDhblur = requestAnimationFrame(hblurAnim);
-    }, 500);
+    requestAnimationFrame(function(){
+      setTimeout(function(){
+        IDhblur = requestAnimationFrame(hblurAnim);
+      }, 500);
+    });
   }
 });
 function hblurAnim(){
-  setTimeout(function(){
-    if(hblurDir == -1){
-      hopacity = 0.9;
-      hblur = 1.25;
-    }
-    else{
-      hopacity = 0.8;
-      hblur = 5;
-    }
-    hblurDir *= -1;
-    h1.style.setProperty("opacity", hopacity);
-    h1.style.setProperty("--hblur", hblur+"px");
-    cancelAnimationFrame(IDhblur);
-    IDhblur = requestAnimationFrame(hblurAnim);
-  }, 7000);
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      if(hblurDir == -1){
+        hopacity = 0.9;
+        hblur = 1.25;
+      }
+      else{
+        hopacity = 0.8;
+        hblur = 5;
+      }
+      hblurDir *= -1;
+      h1.style.setProperty("opacity", hopacity);
+      h1.style.setProperty("--hblur", hblur+"px");
+      cancelAnimationFrame(IDhblur);
+      IDhblur = requestAnimationFrame(hblurAnim);
+    }, 7000);
+  });
 }
 
 /*************************body roate********************************/
@@ -1528,15 +1539,17 @@ var cloudFlounderSc = false;
 var cloudFlounderOc = false;
 
 $settingButton.on("click", function(){
-  setTimeout(function(){
-    if(setting && cloudOn){
-      if(start){
-        IDbf = requestAnimationFrame(cloudBfStart);
-        IDsc = requestAnimationFrame(cloudScStart);
-        IDoc = requestAnimationFrame(cloudOcStart);
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      if(setting && cloudOn){
+        if(start){
+          IDbf = requestAnimationFrame(cloudBfStart);
+          IDsc = requestAnimationFrame(cloudScStart);
+          IDoc = requestAnimationFrame(cloudOcStart);
+        }
       }
-    }
-  }, 500);
+    }, 500);
+  });
 });
 
 var curBf,
@@ -2234,7 +2247,7 @@ $rotate.click(function () {
       $namesDiv.removeClass("hideRotateLeft");
       $timesDiv.removeClass("showRotateLeft");
       $timesDiv.toggleClass("hideRotateLeft");
-      let scrollDest = $rotateBackCircle.offset().top - 0.75 * window.innerHeight;
+      let scrollDest = $rotateBackCircle.offset().top - 0.7 * window.innerHeight;
       if (scrollDest < 0){scrollDest = 0;}
       //$htmlAndBody.animate({ scrollTop: scrollDest}, 1000);
       scrollinstance.scroll({x: 0, y: scrollDest}, 1500, "easeInOutQuad");
