@@ -1021,14 +1021,15 @@ function settingButtonFold(){
   });
 }
 
+var $filtered = $(".filtered");
 var cloudOn = false;
 //click button
 $filterOn.on("click", function(){
   if(setting == false && settingButtonCanClick){
     setting = true;
     cloudOn = true;
-    $(".filtered").css("display", "initial");
-    $(".filtered").addClass("svgFilter");
+    $filtered.css("display", "initial");
+    $filtered.addClass("svgFilter");
     // setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
     //$(document.documentElement).addClass("svgFilter");
 
@@ -1048,6 +1049,12 @@ $filterOn.on("click", function(){
       $settingClass.children().prop("disabled", true);
     }, 2500);
     
+    /*setting for heavy filter*/
+    filterState = 2;
+    $filterSwitchButton.removeClass("light");
+    $filterSwitchButton.addClass("heavy");
+    $filterSwitchText.text("heavy filter");
+
     $filterOn.off();
     $filterOff.off();
   }
@@ -1064,8 +1071,8 @@ $filterOff.on("click", function(){
   if(setting == false && settingButtonCanClick){
     setting = true;
     cloudOn = true;
-    $(".filtered").css("display", "initial");
-    $(".filtered").addClass("offFilter");
+    $filtered.css("display", "initial");
+    $filtered.addClass("offFilter");
     // setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
 
     settingButtonFold();
@@ -1078,21 +1085,22 @@ $filterOff.on("click", function(){
       $scrollContainer.css("background", "var(--reflectionBG)");
       $settingClass.css("opacity", "0");
       $bodyRotate.css("display", "initial");
-      $(".plaintext").css("font-weight", "600");
     },1100);
     setTimeout(function(){
       $settingClass.css("display", "none");
       $settingClass.children().prop("disabled", true);
     }, 2500);
 
-    /*setting for no filter at all*/
+    /*setting for light filter*/
+    $filterSwitchButton.removeClass("heavy");
+    $filterSwitchButton.addClass("light");
+    $filterSwitchText.text("light filter");
+    filterState = 1;
     twinkleBrighterOpa = 1;
-    twinkleOpa = 0.38;
     defaultTwinklwOpa1 = 0.35;
     defaultTwinklwOpa2 = 0.4;
     defaultTwinklwOpa3 = 0.5;
-    // $redLine.css("background", "var(--redLineGradient2)");
-    // $redLightArea.css("background", "var(--redAreaGradient2)");
+    twinkleOpa = defaultTwinklwOpa1;
 
     $filterOn.off();
     $filterOff.off();
@@ -1103,6 +1111,75 @@ $filterOff.mousedown(function(){
 });
 $filterOff.mouseover(function(){
   if(settingButtonCanClick){$filterOff.css("cursor", "grab");}
+});
+
+/**********************************filter switch*************************** */
+var $filterSwitch = $(".filterSwitch");
+var $filterSwitchText = $(".filterSwitchText");
+var $filterSwitchButton = $(".filterButton");
+var filterState = 0;
+
+$filterSwitch.mouseover(function(){
+  $filterSwitchText.css("opacity", "1");
+});
+$filterSwitch.mouseleave(function(){
+  $filterSwitchText.css("opacity", "0");
+});
+
+$filterSwitchButton.click(function(){
+  if(!start){
+    filterState = (filterState + 1) % 3;
+    if(filterState == 0){
+      $filterSwitchButton.removeClass("light");
+      $filterSwitchButton.removeClass("heavy");
+      $filterSwitchText.text("no filter");
+
+      $filtered.removeClass("svgFilter");
+      $filtered.removeClass("offFilter");
+
+      twinkleBrighterOpa = 1;
+      defaultTwinklwOpa1 = 0.6;
+      defaultTwinklwOpa2 = 0.7;
+      defaultTwinklwOpa3 = 0.8;
+      twinkleOpa = defaultTwinklwOpa1;
+      $(".plaintext").css("font-weight", "1000");
+    }
+    else if(filterState == 1){
+      $filterSwitchButton.removeClass("heavy");
+      $filterSwitchButton.addClass("light");
+      $filterSwitchText.text("light filter");
+
+      $filtered.removeClass("svgFilter");
+      $filtered.addClass("offFilter");
+      twinkleBrighterOpa = 1;
+      defaultTwinklwOpa1 = 0.35;
+      defaultTwinklwOpa2 = 0.4;
+      defaultTwinklwOpa3 = 0.5;
+      twinkleOpa = defaultTwinklwOpa1;
+      $(".plaintext").css("font-weight", "600");
+    }
+    else{
+      $filterSwitchButton.removeClass("light");
+      $filterSwitchButton.addClass("heavy");
+      $filterSwitchText.text("heavy filter");
+
+      $filtered.removeClass("offFilter");
+      $filtered.addClass("svgFilter");
+      twinkleBrighterOpa = 0.65;
+      defaultTwinklwOpa1 = 0.25;
+      defaultTwinklwOpa2 = 0.3;
+      defaultTwinklwOpa3 = 0.4;
+      twinkleOpa = defaultTwinklwOpa1;
+      $(".plaintext").css("font-weight", "600");
+    }
+  }
+});
+
+$filterSwitchButton.mousedown(function(){
+  if(!start){$filterSwitchButton.css("cursor", "grabbing");}
+});
+$filterSwitchButton.mouseup(function(){
+  if(!start){$filterSwitchButton.css("cursor", "grab");}
 });
 
 /******************************* scrollBar *****************************/
@@ -1168,10 +1245,13 @@ function startAnim(){
       setTimeout(function() {
         start = false;
         cursorLerpY = 0.9;
-        //finishLerpCursorLerpY = false;
+
         addEvent(document, "mousemove", update);
         scrollinstance.options("overflowBehavior.x", "s");
         scrollinstance.options("overflowBehavior.y", "s");
+        $filterSwitchButton.css("cursor", "grab");
+        $filterSwitchText.css("color", "black");
+
         cancelAnimationFrame(IDstart);
       }, 9000);
     });
@@ -1412,7 +1492,7 @@ var bodyRY = parseInt(getComputedStyle(document.body).getPropertyValue("--bodyRo
 $bodyRotate = $("#bodyRotate");
 var screenMax = -1*window.innerWidth/2 + 0.85 * window.innerWidth;
 var screenMin = -1*window.innerWidth/2 + 0.04 * window.innerWidth;
-var leftDeg = -6;
+var leftDeg = -7;
 var rightDeg = 8;
 function bodyRotate(e){
   let sx = e.screenX - window.innerWidth/2;
@@ -1499,10 +1579,10 @@ function BGreflection(timestamp){
   let dt = (NOWref - lastNOWref)/1000;
   lastNOWref = NOWref;
 
-  brightRef = lerp(brightRef, destBrightRef, 1-Math.pow(0.4, dt));
-  brightRef2 = lerp(brightRef2, destBrightRef2, 1-Math.pow(0.4, dt));
-  darkRef = lerp(darkRef, destDarkRef, 1-Math.pow(0.5, dt));
-  darkRef2 = lerp(darkRef2, destDarkRef2, 1-Math.pow(0.5, dt));
+  brightRef = lerp(brightRef, destBrightRef, 1-Math.pow(0.35, dt));
+  brightRef2 = lerp(brightRef2, destBrightRef2, 1-Math.pow(0.35, dt));
+  darkRef = lerp(darkRef, destDarkRef, 1-Math.pow(0.45, dt));
+  darkRef2 = lerp(darkRef2, destDarkRef2, 1-Math.pow(0.45, dt));
 
   $scrollContainer.css("--brightReflectionPos", brightRef+"%");
   $scrollContainer.css("--brightReflectionPos2", brightRef2+"%");
@@ -2257,7 +2337,7 @@ $rotate.click(function () {
       $timesDiv.toggleClass("hideRotateLeft");
       let scrollDest = $rotateBackCircle.offset().top + $rotateBackCircle.outerHeight(true);
       if (scrollDest < 0){scrollDest = 0;}
-      scrollinstance.scroll({x: 0, y: scrollDest}, 1500, "easeInOutQuad");
+      scrollinstance.scroll({x: 0, y: scrollDest}, 900, "easeInOutQuad");
 
       requestAnimationFrame(function(){
         moonCountTimeOut = setTimeout(function(){
@@ -2631,7 +2711,7 @@ function rotateCircle(deg){
       },
       complete: function(){
         destMonth = monthVal - Math.round(degIncrement/30);
-        destMonth = destMonth < 0 ? destMonth + 12 : destMonth;
+        destMonth = destMonth <= 0 ? destMonth + 12 : destMonth;
         calculateTime(circleDeg);
         cancelAnimationFrame(IDcircleRotate);
         IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
@@ -2914,8 +2994,7 @@ function redLineAppear(){
       $redLightArea.css("--redAreaScaleY", "1");
       $redLine.css("--redLineScaleX", "1");
       $redLightArea.css("--redAreaScaleX", "1");
-      // $redLightBG.css("opacity", "1");
-      // $redLightBG.css("--redLightBGblur", "15px");
+
       mouseFollowing = true;
       limitedCursor = true;
     }, 4000);
@@ -3071,44 +3150,53 @@ function barcodeGetTransparent(){
 
 //barcode scam whole process
 function scanAnim(){
-  scrollinstance.options("overflowBehavior.y", "hidden");
-  scrollinstance.options("overflowBehavior.x", "hidden");
-  twinkleOpa = defaultTwinklwOpa3;
-
   requestAnimationFrame(function(){
-    $block.css("display", "initial");
-  });
+    scrollinstance.options("overflowBehavior.y", "hidden");
+    scrollinstance.options("overflowBehavior.x", "hidden");
 
-  setCloudFlounder();
+    twinkleOpa = defaultTwinklwOpa3;
 
-  mouseFollowing = false;
-  mouseY = 0.5 * window.innerHeight - 70;
-  mouseX = 0.5 * window.innerWidth;
+    mouseFollowing = false;
+    mouseY = 0.5 * window.innerHeight - 70;
+    mouseX = 0.5 * window.innerWidth;
 
-  requestAnimationFrame(function(){
-    paperAppear();
-  });
-  
-  requestAnimationFrame(function(){
-    $allNotScan.addClass("scan");
-  });
+    requestAnimationFrame(function(){
+      $block.css("display", "initial");
+      $filterSwitchText.css("color", "white");
+    });
 
-  requestAnimationFrame(function(){
-    $scan.css("display", "initial");
-  });
+    requestAnimationFrame(function(){
+      setCloudFlounder();
+    });
 
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      barcodeGetTransparent();
-      $scan.addClass("svgFilter2");
-      redLineAppear();
-      barCodeAppear($barCode, 7500);
+    requestAnimationFrame(function(){
+      paperAppear();
+    });
+    
+    requestAnimationFrame(function(){
+      $allNotScan.addClass("scan");
+    });
+
+    requestAnimationFrame(function(){
+      $scan.css("display", "initial");
 
       requestAnimationFrame(function(){
         setTimeout(function(){
-          scanBarCode();
-        },9000);
+          requestAnimationFrame(function(){barcodeGetTransparent();});
+          requestAnimationFrame(function(){$scan.addClass("svgFilter2");}); 
+          redLineAppear();
+          barCodeAppear($barCode, 7500);
+  
+          requestAnimationFrame(function(){
+            setTimeout(function(){
+              scanBarCode();
+            },9500);
+          });
+        }, 1000);
       });
-    }, 1000);
+
+    });
+    
   });
+  
 }
