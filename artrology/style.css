@@ -144,7 +144,7 @@ body {
   position: relative;
   width: 100%;
   /* height: 200px; */
-  top: 20vh;
+  top: 10vh;
   transition:all 2s ease-in-out, transform 2s ease-in-out, opacity 0.5s ease-in-out;
   font-size: var(--settingFontSize);
   opacity: 0;
@@ -152,11 +152,12 @@ body {
   overflow-x: hidden; */
 
   padding-left: 1vw;
-  padding-right: 3vw;
+  padding-right: 4vw;
   text-align: left;
   color: white;
   font-family: 'Codystar', cursive;
   font-weight: 600;
+  line-height: 1.2;
 }
 #smallerST{
   transition:all 2s ease-in-out, transform 3.5s ease-in-out, opacity 0.5s ease-in-out;
@@ -167,7 +168,7 @@ body {
   background: none;
   position: relative;
   
-  top: 25vh;
+  top: 15vh;
   transition:all 2s ease-in-out, transform 2.5s ease-in-out, opacity 1s ease-in-out, -webkit-filter 1s ease-in-out;
   transition:all 2s ease-in-out, transform 2.5s ease-in-out, opacity 1s ease-in-out, filter 1s ease-in-out;
   transition:all 2s ease-in-out, transform 2.5s ease-in-out, opacity 1s ease-in-out, filter 1s ease-in-out, -webkit-filter 1s ease-in-out;
@@ -1161,7 +1162,7 @@ input::-ms-reveal, input::-ms-clear {
   height: 50px;
   z-index: 30;
   border-radius: 100%;
-  cursor: pointer;
+  cursor: ew-resize;
 
   background-color: #111111;
   background-image: linear-gradient(315deg, #111111 0%, #958e69 74%);

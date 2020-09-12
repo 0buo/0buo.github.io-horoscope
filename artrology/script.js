@@ -819,7 +819,7 @@ function adjustSettingFont(event){
     else{settingFontSize = Math.round(window.innerWidth * 0.0215);}
     if(settingFontSize < 20){settingFontSize = 20;}
     settingDOM.style.setProperty("--settingFontSize", settingFontSize + "px");
-    let smaller = Math.round(settingFontSize*0.8)
+    let smaller = Math.round(settingFontSize*0.75)
     settingDOM.style.setProperty("--smallerSettingFontSize", smaller + "px");
     
     if(window.innerWidth < 1960 && window.innerWidth > 1700){
@@ -1099,7 +1099,7 @@ $filterOff.on("click", function(){
     twinkleBrighterOpa = 1;
     defaultTwinklwOpa1 = 0.35;
     defaultTwinklwOpa2 = 0.4;
-    defaultTwinklwOpa3 = 0.5;
+    defaultTwinklwOpa3 = 0.45;
     twinkleOpa = defaultTwinklwOpa1;
 
     $filterOn.off();
@@ -1139,9 +1139,11 @@ $filterSwitchButton.click(function(){
 
       twinkleBrighterOpa = 1;
       defaultTwinklwOpa1 = 0.6;
-      defaultTwinklwOpa2 = 0.7;
-      defaultTwinklwOpa3 = 0.8;
-      twinkleOpa = defaultTwinklwOpa1;
+      defaultTwinklwOpa2 = 0.72;
+      defaultTwinklwOpa3 = 0.82;
+      if(twinkleOpaState == 1){twinkleOpa = defaultTwinklwOpa1;}
+      else if(twinkleOpaState == 2){twinkleOpa = defaultTwinklwOpa2;}
+      else if(twinkleOpaState == 3){twinkleOpa = defaultTwinklwOpa3;}
       $(".plaintext").css("font-weight", "1000");
     }
     else if(filterState == 1){
@@ -1154,8 +1156,10 @@ $filterSwitchButton.click(function(){
       twinkleBrighterOpa = 1;
       defaultTwinklwOpa1 = 0.35;
       defaultTwinklwOpa2 = 0.4;
-      defaultTwinklwOpa3 = 0.5;
-      twinkleOpa = defaultTwinklwOpa1;
+      defaultTwinklwOpa3 = 0.45;
+      if(twinkleOpaState == 1){twinkleOpa = defaultTwinklwOpa1;}
+      else if(twinkleOpaState == 2){twinkleOpa = defaultTwinklwOpa2;}
+      else if(twinkleOpaState == 3){twinkleOpa = defaultTwinklwOpa3;}
       $(".plaintext").css("font-weight", "600");
     }
     else{
@@ -1165,11 +1169,13 @@ $filterSwitchButton.click(function(){
 
       $filtered.removeClass("offFilter");
       $filtered.addClass("svgFilter");
-      twinkleBrighterOpa = 0.65;
-      defaultTwinklwOpa1 = 0.25;
-      defaultTwinklwOpa2 = 0.3;
+      twinkleBrighterOpa = 0.8;
+      defaultTwinklwOpa1 = 0.27;
+      defaultTwinklwOpa2 = 0.32;
       defaultTwinklwOpa3 = 0.4;
-      twinkleOpa = defaultTwinklwOpa1;
+      if(twinkleOpaState == 1){twinkleOpa = defaultTwinklwOpa1;}
+      else if(twinkleOpaState == 2){twinkleOpa = defaultTwinklwOpa2;}
+      else if(twinkleOpaState == 3){twinkleOpa = defaultTwinklwOpa3;}
       $(".plaintext").css("font-weight", "600");
     }
   }
@@ -1492,8 +1498,8 @@ var bodyRY = parseInt(getComputedStyle(document.body).getPropertyValue("--bodyRo
 $bodyRotate = $("#bodyRotate");
 var screenMax = -1*window.innerWidth/2 + 0.85 * window.innerWidth;
 var screenMin = -1*window.innerWidth/2 + 0.04 * window.innerWidth;
-var leftDeg = -7;
-var rightDeg = 8;
+var leftDeg = -6;
+var rightDeg = 9;
 function bodyRotate(e){
   let sx = e.screenX - window.innerWidth/2;
   if(sx > screenMax){sx = screenMax;}
@@ -1610,8 +1616,8 @@ var baseFrequency = 0.045;
 var octave = 1;
 var cloudScale = 80;
 
-var bfMax = 0.018;
-var bfMin = 0.007;
+var bfMax = 0.015;
+var bfMin = 0.006;
 var scaleMiddle = 90;
 var scaleMin = 37;
 var ocMax = 15;
@@ -2120,10 +2126,12 @@ var plaintexts = document.getElementsByClassName("plaintext");
 var twinkleIDs = new Array(plaintexts.length);
 var twinkleDirects = new Array(plaintexts.length);
 
-var twinkleOpa = 0.25;
-var defaultTwinklwOpa1 = 0.25;
-var defaultTwinklwOpa2 = 0.3;
+var defaultTwinklwOpa1 = 0.27;
+var defaultTwinklwOpa2 = 0.32;
 var defaultTwinklwOpa3 = 0.4;
+var twinkleOpa = defaultTwinklwOpa1;
+var twinkleOpaState = 1;
+
 function textTwinkle($this, index){
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkle($this, index);});
   $this.css("transition", "all 3s ease-in-out");
@@ -2145,7 +2153,7 @@ function textTwinkle($this, index){
   else if($this.css("opacity") <= 0.05 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
 }
 
-var twinkleBrighterOpa = 0.65;
+var twinkleBrighterOpa = 0.8;
 function textTwinkleBright($this, index){ 
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkleBright($this, index);});
   $this.css("transition", "all 12s ease-in-out");
@@ -2213,7 +2221,7 @@ for(i = 0; i < plaintexts.length; i++){
         twinkleDirects[index] = 1;
         //twinkleIntervs[index] = setInterval(textTwinkleBright, 1000/frameRate, $argThis, index);
         twinkleIDs[index] = requestAnimationFrame(function(){textTwinkleBright($argThis, index);});
-      }, 4000));
+      }, 2500));
     }
   });
   
@@ -2335,7 +2343,7 @@ $rotate.click(function () {
       $namesDiv.removeClass("hideRotateLeft");
       $timesDiv.removeClass("showRotateLeft");
       $timesDiv.toggleClass("hideRotateLeft");
-      let scrollDest = $rotateBackCircle.offset().top + $rotateBackCircle.outerHeight(true);
+      let scrollDest = $rotateBackCircle.offset().top + $rotateBackCircle.outerHeight(true) - 0.75 * window.innerHeight;
       if (scrollDest < 0){scrollDest = 0;}
       scrollinstance.scroll({x: 0, y: scrollDest}, 900, "easeInOutQuad");
 
@@ -2408,14 +2416,14 @@ $document.mousemove(function(e){
   }
 })
 
-$rotateBackCircle.mouseover(function(){
+$selectionDiv.mouseover(function(){
   $rotateBackCircle.css("box-shadow", "0px 0px 10px #232323, 0px 0px 10px #3f3d52, 0px 0px 10px #3f3d52, 0px 0px 10px #232323")
   $rotate.css("box-shadow", "8px 8px 10px var(--rotateGlow), -8px -8px 10px var(--rotateGlow), 8px -8px 10px var(--rotateGlow), -8px 8px 10px var(--rotateGlow)");
   $rotateTextOne.css("color", "#13131c");
   $rotateTextTwo.css("color", "#13131c");
   document.getElementsByClassName("SelectionDiv")[0].style.setProperty("--blurPx", "1px");
 });
-$rotateBackCircle.mouseleave(function(){
+$selectionDiv.mouseleave(function(){
   $rotateBackCircle.css("box-shadow", "8px -8px 10px #232323, -8px 8px 10px #3f3d52, 8px 8px 10px #3f3d52, -8px -8px 10px #232323")
   $rotate.css("box-shadow", "8px 8px 10px var(--rotateGlow), -8px -8px 10px var(--rotateGlow), 8px -8px 10px var(--rotateGlow), -8px 8px 10px var(--rotateGlow)");
   $rotateTextOne.css("color", "#1b1b24");
@@ -2530,6 +2538,7 @@ function inputFocusIn() {
     nameInputSubmitted = 0;
     $allNotNameInput.addClass("inputFocused");
     twinkleOpa = defaultTwinklwOpa2;
+    twinkleOpaState = 2;
   }
   else{
     JSinput.blur();
@@ -2539,6 +2548,7 @@ function inputFocusOut() {
   inputFocused = 0;
   $allNotNameInput.removeClass("inputFocused");
   twinkleOpa = defaultTwinklwOpa1;
+  twinkleOpaState = 1;
 }
 
 var JSinput = document.getElementById("inp");
@@ -3154,6 +3164,7 @@ function scanAnim(){
     scrollinstance.options("overflowBehavior.y", "hidden");
     scrollinstance.options("overflowBehavior.x", "hidden");
 
+    twinkleOpaState = 3;
     twinkleOpa = defaultTwinklwOpa3;
 
     mouseFollowing = false;
