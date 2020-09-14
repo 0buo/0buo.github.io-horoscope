@@ -203,6 +203,63 @@ function addEvent(obj, evt, fn) {
   }
 }
 
+/*******************************request time out***************************************** */
+// requestAnimationFrame() shim by Paul Irish
+// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+window.requestAnimFrame = (function() {
+	return  window.requestAnimationFrame       || 
+			window.webkitRequestAnimationFrame || 
+			window.mozRequestAnimationFrame    || 
+			window.oRequestAnimationFrame      || 
+			window.msRequestAnimationFrame     || 
+			function(/* function */ callback, /* DOMElement */ element){
+				window.setTimeout(callback, 1000 / 60);
+			};
+})();
+
+/**
+ * Behaves the same as setTimeout except uses requestAnimationFrame() where possible for better performance
+ * @param {function} fn The callback function
+ * @param {int} delay The delay in milliseconds
+ */
+
+window.requestTimeout = function(fn, delay) {
+	if( !window.requestAnimationFrame      	&& 
+		!window.webkitRequestAnimationFrame && 
+		!(window.mozRequestAnimationFrame && window.mozCancelRequestAnimationFrame) && // Firefox 5 ships without cancel support
+		!window.oRequestAnimationFrame      && 
+		!window.msRequestAnimationFrame)
+			return window.setTimeout(fn, delay);
+			
+	var start = new Date().getTime(),
+		handle = new Object();
+		
+	function loop(){
+		var current = new Date().getTime(),
+			delta = current - start;
+			
+		delta >= delay ? fn.call() : handle.value = requestAnimFrame(loop);
+	};
+	
+	handle.value = requestAnimFrame(loop);
+	return handle;
+};
+
+/**
+ * Behaves the same as clearTimeout except uses cancelRequestAnimationFrame() where possible for better performance
+ * @param {int|object} fn The callback function
+ */
+window.clearRequestTimeout = function(handle) {
+  if(handle === undefined){handle = {value: undefined};}
+  window.cancelAnimationFrame ? window.cancelAnimationFrame(handle.value) :
+  window.webkitCancelAnimationFrame ? window.webkitCancelAnimationFrame(handle.value) :
+  window.webkitCancelRequestAnimationFrame ? window.webkitCancelRequestAnimationFrame(handle.value) : /* Support for legacy API */
+  window.mozCancelRequestAnimationFrame ? window.mozCancelRequestAnimationFrame(handle.value) :
+  window.oCancelRequestAnimationFrame	? window.oCancelRequestAnimationFrame(handle.value) :
+  window.msCancelRequestAnimationFrame ? window.msCancelRequestAnimationFrame(handle.value) :
+  clearTimeout(handle);
+};
+
 /****************************check tab or window out of focus******************************** */
 var vis = (function(){
   var stateKey, 
@@ -226,11 +283,7 @@ var vis = (function(){
 })();
 // check if current tab is active or not
 vis(function(){
-  // if(vis()){
-  // //tab focused
-  //   setTimeout(function(){            
-  //   //selfTwinkle(openingTextStart, openingTextEnd);
-  //   },300);		                   
+  // if(vis()){                   
   // } 
   if(vis() == false) {
   // tab not focused
@@ -900,125 +953,97 @@ var settingButtonCanClick = false;
 $settingButton.one("mouseover", settingButtonUnfold);
 
 function settingButtonUnfold(){
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      if(setting == false){
-        $filterOnText.html('lev<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOnText.html('leve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 100);
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 200);
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOnText.html('l eave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 300);
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOnText.html('l eav e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 400);
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOnText.html('l e av e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 500);
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOnText.html('l e a v e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 600);    
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOnText.html('l e a ve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 700);      
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOnText.html('le a ve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 800);    
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOnText.html('le ave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 900);
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 1000);      
-        });
+  requestTimeout(function(){
+    if(setting == false){
+      $filterOnText.html('lev<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+      requestTimeout(function(){
+        $filterOnText.html('leve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+      }, 100);
+      requestTimeout(function(){
+        $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+      }, 200);
+      requestTimeout(function(){
+        $filterOnText.html('l eave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+      }, 300);
+      requestTimeout(function(){
+        $filterOnText.html('l eav e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+      }, 400);
+      requestTimeout(function(){
+        $filterOnText.html('l e av e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+      }, 500);
+      requestTimeout(function(){
+        $filterOnText.html('l e a v e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+      }, 600);    
+      requestTimeout(function(){
+        $filterOnText.html('l e a ve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+      }, 700);      
+      requestTimeout(function(){
+        $filterOnText.html('le a ve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+      }, 800);    
+      requestTimeout(function(){
+        $filterOnText.html('le ave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+      }, 900);
+      requestTimeout(function(){
+        $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+      }, 1000);      
 
-        $filterOffText.html('tk<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOffText.html('tak<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 100);    
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 200);    
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOffText.html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 300);    
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOffText.html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 400);    
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOffText.html('ta k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 500);    
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOffText.html('t a k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 600);    
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOffText.html('t a ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 700);    
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOffText.html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 800);    
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOffText.html('t a ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 900);    
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOffText.html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 1000);    
-        });
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
-            settingButtonCanClick = true;
-            $filterOn.css("cursor", "grab");
-            $filterOff.css("cursor", "grab");
-          }, 1400);    
-        });
-      } 
-    }, 250);
-  }); 
+      $filterOffText.html('tk<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+      requestTimeout(function(){
+        $filterOffText.html('tak<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+      }, 100);    
+      requestTimeout(function(){
+        $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+      }, 200);    
+      requestTimeout(function(){
+        $filterOffText.html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+      }, 300);    
+      requestTimeout(function(){
+        $filterOffText.html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+      }, 400);    
+      requestTimeout(function(){
+        $filterOffText.html('ta k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+      }, 500);    
+      requestTimeout(function(){
+        $filterOffText.html('t a k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+      }, 600);    
+      requestTimeout(function(){
+        $filterOffText.html('t a ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+      }, 700);    
+      requestTimeout(function(){
+        $filterOffText.html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+      }, 800);    
+      requestTimeout(function(){
+        $filterOffText.html('t a ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+      }, 900);    
+      requestTimeout(function(){
+        $filterOffText.html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+      }, 1000);    
+      requestTimeout(function(){
+        $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+        settingButtonCanClick = true;
+        $filterOn.css("cursor", "grab");
+        $filterOff.css("cursor", "grab");
+      }, 1100);    
+    } 
+  }, 250);
 }
 
 function settingButtonFold(){
   $filterOnText.html('leav<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      $filterOnText.html('lev<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 150);
-  });
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      $filterOnText.html('lv<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');}, 300);
-  });
+  requestTimeout(function(){
+    $filterOnText.html('lev<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+  }, 150);
+  requestTimeout(function(){
+    $filterOnText.html('lv<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+  }, 300);
+
   $filterOffText.html('tak<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      $filterOffText.html('tke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');}, 150);    
-  });
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      $filterOffText.html('tk<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">f</span>');
-    }, 300);    
-  });
+  requestTimeout(function(){
+    $filterOffText.html('tke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+  }, 150);    
+  requestTimeout(function(){
+    $filterOffText.html('tk<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">f</span>');
+  }, 300);    
 }
 
 var $filtered = $(".filtered");
@@ -1030,23 +1055,23 @@ $filterOn.on("click", function(){
     cloudOn = true;
     $filtered.css("display", "initial");
     $filtered.addClass("svgFilter");
-    // setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
-    //$(document.documentElement).addClass("svgFilter");
 
     settingButtonFold();
     $settingText.css("opacity", "0");
     $settingButton.css("filter", "blur(6px)");
     $settingButton.css("opacity", "0");
     
-    setTimeout(function(){
+    var IDfilterOnClick1 = requestTimeout(function(){
       document.documentElement.pseudoStyle('before', 'z-index','20');
       $scrollContainer.css("background", "var(--reflectionBG)");
       $settingClass.css("opacity", "0");
       $bodyRotate.css("display", "initial");
-    },1100);
-    setTimeout(function(){
+      clearRequestTimeout(IDfilterOnClick1)
+    }, 1100);
+    var IDfilterOnClick2 = requestTimeout(function(){
       $settingClass.css("display", "none");
       $settingClass.children().prop("disabled", true);
+      clearRequestTimeout(IDfilterOnClick2);
     }, 2500);
     
     /*setting for heavy filter*/
@@ -1073,22 +1098,23 @@ $filterOff.on("click", function(){
     cloudOn = true;
     $filtered.css("display", "initial");
     $filtered.addClass("offFilter");
-    // setTimeout(function(){$(document.body).addClass("canScroll");}, 10000);
 
     settingButtonFold();
     $settingText.css("opacity", "0");
     $settingButton.css("filter", "blur(6px)");
     $settingButton.css("opacity", "0");
     
-    setTimeout(function(){
+    var IDfilterOffClick1 = requestTimeout(function(){
       document.documentElement.pseudoStyle('before', 'z-index','20');
       $scrollContainer.css("background", "var(--reflectionBG)");
       $settingClass.css("opacity", "0");
       $bodyRotate.css("display", "initial");
-    },1100);
-    setTimeout(function(){
+      clearRequestTimeout(IDfilterOffClick1);
+    }, 1100);
+    var IDfilterOffClick2 = requestTimeout(function(){
       $settingClass.css("display", "none");
       $settingClass.children().prop("disabled", true);
+      clearRequestTimeout(IDfilterOffClick2);
     }, 2500);
 
     /*setting for light filter*/
@@ -1240,27 +1266,23 @@ var fadeInEcA2 = eclipseA2;
 
 function startAnim(){
   if(start){
-    requestAnimationFrame(function(){
-      setTimeout(function() {
-        mouseY = 0.2 * window.innerHeight;
-        cancelAnimationFrame(IDfollowCursor);
-        IDfollowCursor = requestAnimationFrame(followCursor);
-      }, 4500);
-    });
-    requestAnimationFrame(function(){
-      setTimeout(function() {
-        start = false;
-        cursorLerpY = 0.9;
+    requestTimeout(function(){
+      mouseY = 0.2 * window.innerHeight;
+      cancelAnimationFrame(IDfollowCursor);
+      IDfollowCursor = requestAnimationFrame(followCursor);
+    }, 4500);
+    requestTimeout(function(){
+      start = false;
+      cursorLerpY = 0.9;
 
-        addEvent(document, "mousemove", update);
-        scrollinstance.options("overflowBehavior.x", "s");
-        scrollinstance.options("overflowBehavior.y", "s");
-        $filterSwitchButton.css("cursor", "grab");
-        $filterSwitchText.css("color", "black");
+      addEvent(document, "mousemove", update);
+      scrollinstance.options("overflowBehavior.x", "s");
+      scrollinstance.options("overflowBehavior.y", "s");
+      $filterSwitchButton.css("cursor", "grab");
+      $filterSwitchText.css("color", "black");
 
-        cancelAnimationFrame(IDstart);
-      }, 9000);
-    });
+      cancelAnimationFrame(IDstart);
+    }, 9000);
   }
 }
 function darknessStartAnim(){
@@ -1284,24 +1306,21 @@ var darkness = 1;
 var IDdarkness;
 $settingButton.on("click", function(){
   if(setting){
-    requestAnimationFrame(function(){
-      setTimeout(function(){
-        mouseX = 0.5 * window.innerWidth;
-        mouseY = 1.15 * window.innerHeight;
-        LdestX = mouseX;
-        LdestY = mouseY;
-        IDfollowCursor = requestAnimationFrame(followCursor);
-        IDstart = requestAnimationFrame(startAnim);
-        IDdarkness = requestAnimationFrame(darknessStartAnim);
-        updateR();
-        IDreflection = requestAnimationFrame(BGreflection);
-      }, 500);
-    });
+    requestTimeout(function(){
+      mouseX = 0.5 * window.innerWidth;
+      mouseY = 1.15 * window.innerHeight;
+      LdestX = mouseX;
+      LdestY = mouseY;
+      IDfollowCursor = requestAnimationFrame(followCursor);
+      IDstart = requestAnimationFrame(startAnim);
+      IDdarkness = requestAnimationFrame(darknessStartAnim);
+      updateR();
+      IDreflection = requestAnimationFrame(BGreflection);
+    }, 500);
   }
 });
 
 /********************spotlight change******************* */
-var IDslc;
 var SLCtimer;
 var sunsetStart = false;
 var backtoSpotLight = false;
@@ -1466,31 +1485,27 @@ var IDhblur;
 
 $settingButton.on("click", function(){
   if(setting){
-    requestAnimationFrame(function(){
-      setTimeout(function(){
-        IDhblur = requestAnimationFrame(hblurAnim);
-      }, 500);
-    });
+    requestTimeout(function(){
+      IDhblur = requestAnimationFrame(hblurAnim);
+    }, 500);
   }
 });
 function hblurAnim(){
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      if(hblurDir == -1){
-        hopacity = 0.9;
-        hblur = 1.25;
-      }
-      else{
-        hopacity = 0.8;
-        hblur = 5;
-      }
-      hblurDir *= -1;
-      h1.style.setProperty("opacity", hopacity);
-      h1.style.setProperty("--hblur", hblur+"px");
-      cancelAnimationFrame(IDhblur);
-      IDhblur = requestAnimationFrame(hblurAnim);
-    }, 7000);
-  });
+  requestTimeout(function(){
+    if(hblurDir == -1){
+      hopacity = 0.9;
+      hblur = 1.25;
+    }
+    else{
+      hopacity = 0.8;
+      hblur = 5;
+    }
+    hblurDir *= -1;
+    h1.style.setProperty("opacity", hopacity);
+    h1.style.setProperty("--hblur", hblur+"px");
+    cancelAnimationFrame(IDhblur);
+    IDhblur = requestAnimationFrame(hblurAnim);
+  }, 7000);
 }
 
 /*************************body roate********************************/
@@ -1633,17 +1648,15 @@ var cloudFlounderSc = false;
 var cloudFlounderOc = false;
 
 $settingButton.on("click", function(){
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      if(setting && cloudOn){
-        if(start){
-          IDbf = requestAnimationFrame(cloudBfStart);
-          IDsc = requestAnimationFrame(cloudScStart);
-          IDoc = requestAnimationFrame(cloudOcStart);
-        }
+  requestTimeout(function(){
+    if(setting && cloudOn){
+      if(start){
+        IDbf = requestAnimationFrame(cloudBfStart);
+        IDsc = requestAnimationFrame(cloudScStart);
+        IDoc = requestAnimationFrame(cloudOcStart);
       }
-    }, 500);
-  });
+    }
+  }, 500);
 });
 
 var curBf,
@@ -2043,7 +2056,7 @@ function adjustElementSize(){
     $rotateTextTwo.css("display", "none");
     $h1.text("Self-Help Guide : Artrology");
     $yearMonthButton.css("display", "initial");
-    timeButtonMouseOverFunc = 1;
+    timeButtonMouseOverFunc = 0;
     $plaintext.css("margin-right", "25px");
     $timeInput.css("width", "100%");
     bodyBlur = 0.5;
@@ -2058,7 +2071,7 @@ function adjustElementSize(){
     $rotateTextTwo.css("display", "none");
     $h1.text("Self-Help Guide : Artrology");
     $yearMonthButton.css("display", "initial");
-    timeButtonMouseOverFunc = 1;
+    timeButtonMouseOverFunc = 0;
     $plaintext.css("margin-right", "25px");
     $timeInput.css("width", "100%");
     bodyBlur = 0.4;
@@ -2073,7 +2086,7 @@ function adjustElementSize(){
     $rotateTextTwo.css("display", "none");
     $h1.text("Self-Help Guide : Art-trology");
     $yearMonthButton.css("display", "initial");
-    timeButtonMouseOverFunc = 1;
+    timeButtonMouseOverFunc = 0;
     $plaintext.css("margin-right", "25px");
     $timeInput.css("width", "100%");
     bodyBlur = 0.35;
@@ -2213,8 +2226,8 @@ for(i = 0; i < plaintexts.length; i++){
     if(parseFloat($(this).parent().css("opacity")) > 0 && parseFloat($(this).parent().parent().css("opacity")) > 0 && start == false){
       let $argThis = $(this);
       let index = parseInt($argThis.attr("id"), 10);
-      clearTimeout($.data(this, 'mouseoverTimer'));
-      $.data(this, 'mouseoverTimer', setTimeout(function() {
+      clearRequestTimeout($.data(this, 'mouseoverTimer'));
+      $.data(this, 'mouseoverTimer', requestTimeout(function() {
         // mouseover over ms
         //clearInterval(twinkleIntervs[index]);
         cancelAnimationFrame(twinkleIDs[index]);
@@ -2229,13 +2242,11 @@ for(i = 0; i < plaintexts.length; i++){
     if(parseFloat($(this).parent().css("opacity")) > 0 && parseFloat($(this).parent().parent().css("opacity")) > 0 && start == false){
       let $argThis = $(this);
       let index = parseInt($argThis.attr("id"), 10);
-      clearTimeout($.data(this, 'mouseoverTimer'));
-      $.data(this, 'mouseoverTimer', setTimeout(function() {
+      clearRequestTimeout($.data(this, 'mouseoverTimer'));
+      $.data(this, 'mouseoverTimer', requestTimeout(function() {
         // mouseover over ms
-        //clearInterval(twinkleIntervs[index]);
         cancelAnimationFrame(twinkleIDs[index]);
         twinkleDirects[index] = -1;
-        //twinkleIntervs[index] = setInterval(textTwinkle, 1000 / frameRate, $argThis, index);
         twinkleIDs[index] = requestAnimationFrame(function(){textTwinkle($argThis, index);});
       }, 10000));
     }
@@ -2262,8 +2273,6 @@ var timeTextEnd = 7;
 
 //var moonClickTimeOut;
 $rotate.click(function () {
-  // clearTimeout(moonClickTimeOut);
-  // moonClickTimeOut = setTimeout(function(){
                       //&& canChange == 1 ){
   if(start == false){ 
     //moonCount = (moonCount + 1) % 3;
@@ -2277,8 +2286,8 @@ $rotate.click(function () {
       $namesDiv.addClass("bottom");
       $namesDiv.css("display", "initial");
       selfTwinkle(nameTextStart, nameTextEnd);
-      requestAnimationFrame(function(){
-        setTimeout(function(){
+
+        requestTimeout(function(){
           $rotate.toggleClass("one");
           $rotateTextTwo.removeClass("hide");
           $rotateTextOne.toggleClass("up");
@@ -2287,25 +2296,20 @@ $rotate.click(function () {
 
           // let height = window.innerHeight + $namesDiv.outerHeight(true);
           // $bodyRotate.css("height", height + "px");
-
-          requestAnimationFrame(function(){
-            setTimeout(function(){
-              //if(parseFloat($namesDiv.css("opacity")) > 0.95){
-                moonCanSwitch2 = true;
-              //}
-              //console.log($namesDiv.css("opacity") + " : " + moonCanSwitch2);
-            }, 1100);
-          });
+          requestTimeout(function(){
+            //if(parseFloat($namesDiv.css("opacity")) > 0.95){
+              moonCanSwitch2 = true;
+            //}
+          }, 1100);
         }, 250);
-      });
     } 
     else if (moonCount == 2) {
       $namesDiv.removeClass("bottom");
       $timesDiv.addClass("bottom");
       $timesDiv.css("display", "initial");
       selfTwinkle(timeTextStart, timeTextEnd);
-      requestAnimationFrame(function(){
-        setTimeout(function(){
+
+        requestTimeout(function(){
           cancelTwinkle(nameTextStart, nameTextEnd);
           $rotate.removeClass("one");
           $rotate.toggleClass("two");
@@ -2318,18 +2322,13 @@ $rotate.click(function () {
 
           // let height = window.innerHeight + $timesDiv.outerHeight(true);
           // $bodyRotate.css("height", height + "px");
-
-          requestAnimationFrame(function(){
-            setTimeout(function(){
-              //if(parseFloat($namesDiv.css("opacity")) < 0.05){
-                $namesDiv.css("display", "none"); 
-                moonCanSwitch0 = true;
-              //}
-            }, 1100);
-          });
+          requestTimeout(function(){
+            //if(parseFloat($namesDiv.css("opacity")) < 0.05){
+              $namesDiv.css("display", "none"); 
+              moonCanSwitch0 = true;
+            //}
+          }, 1100);
         }, 250);
-      });
-      
     } 
     else if(moonCount == 0) {
       $timesDiv.removeClass("bottom");
@@ -2347,14 +2346,12 @@ $rotate.click(function () {
       if (scrollDest < 0){scrollDest = 0;}
       scrollinstance.scroll({x: 0, y: scrollDest}, 900, "easeInOutQuad");
 
-      requestAnimationFrame(function(){
-        moonCountTimeOut = setTimeout(function(){
-          //if(parseFloat($timesDiv.css("opacity")) < 0.05){
-            $timesDiv.css("display", "none"); 
-            moonCanSwitch1 = true;
-          //}
-        }, 1100);
-      });
+      moonCountTimeOut = requestTimeout(function(){
+        //if(parseFloat($timesDiv.css("opacity")) < 0.05){
+          $timesDiv.css("display", "none"); 
+          moonCanSwitch1 = true;
+        //}
+      }, 1100);
     }
     
     nameInputSubmitted = 0;
@@ -2364,22 +2361,19 @@ $rotate.click(function () {
     nightStart = false;
     backtoSpotLight = true;
 
-    cancelAnimationFrame(IDslc);
-    clearTimeout(SLCtimer);
-    IDslc = requestAnimationFrame(function(){
-      SLCtimer = setTimeout(function() {
-        mouseState = 1;
-        updateR();
-        cancelSLCid();
-        LR1.ID = requestAnimationFrame(function(){spotlightColor(LR1, 0, "--LR1");});
-        LG1.ID = requestAnimationFrame(function(){spotlightColor(LG1, 0, "--LG1");});
-        LB1.ID = requestAnimationFrame(function(){spotlightColor(LB1, 0, "--LB1");});
-        LR2.ID = requestAnimationFrame(function(){spotlightColor(LR2, 0, "--LR2");});
-        LG2.ID = requestAnimationFrame(function(){spotlightColor(LG2, 0, "--LG2");});
-        LB2.ID = requestAnimationFrame(function(){spotlightColor(LB2, 0, "--LB2");});
-        LA037.ID = requestAnimationFrame(function(){spotlightAlpha(LA037, 0.37, "--LA0-37");});
-      }, 500);
-    });
+    clearRequestTimeout(SLCtimer);
+    SLCtimer = requestTimeout(function() {
+      mouseState = 1;
+      updateR();
+      cancelSLCid();
+      LR1.ID = requestAnimationFrame(function(){spotlightColor(LR1, 0, "--LR1");});
+      LG1.ID = requestAnimationFrame(function(){spotlightColor(LG1, 0, "--LG1");});
+      LB1.ID = requestAnimationFrame(function(){spotlightColor(LB1, 0, "--LB1");});
+      LR2.ID = requestAnimationFrame(function(){spotlightColor(LR2, 0, "--LR2");});
+      LG2.ID = requestAnimationFrame(function(){spotlightColor(LG2, 0, "--LG2");});
+      LB2.ID = requestAnimationFrame(function(){spotlightColor(LB2, 0, "--LB2");});
+      LA037.ID = requestAnimationFrame(function(){spotlightAlpha(LA037, 0.37, "--LA0-37");});
+    }, 500);
   }
    //}, 100);
 });
@@ -2611,22 +2605,19 @@ JQcheck.mousedown(function () {
     nightStart = false;
     backtoSpotLight = false;
 
-    cancelAnimationFrame(IDslc);
-    clearTimeout(SLCtimer);
-    IDslc = requestAnimationFrame(function(){
-      SLCtimer = setTimeout(function(){
-        mouseState = 0;
-        updateR();
-        cancelSLCid();
-        LR1.ID = requestAnimationFrame(function(){sunsetColor(LR1, sunsetR1, "--LR1", 9500);});
-        LG1.ID = requestAnimationFrame(function(){sunsetColor(LG1, sunsetG1, "--LG1");});
-        LB1.ID = requestAnimationFrame(function(){sunsetColor(LB1, sunsetB1, "--LB1", 7500);});
-        LR2.ID = requestAnimationFrame(function(){sunsetColor(LR2, sunsetR2, "--LR2", 9000);});
-        LG2.ID = requestAnimationFrame(function(){sunsetColor(LG2, sunsetG2, "--LG2");});
-        LB2.ID = requestAnimationFrame(function(){sunsetColor(LB2, sunsetB2, "--LB2", 7500);});
-        LA037.ID = requestAnimationFrame(function(){sunsetAlpha(LA037, sunsetA037, "--LA0-37");});
-      }, 500);
-    });
+    clearRequestTimeout(SLCtimer);
+    SLCtimer = requestTimeout(function(){
+      mouseState = 0;
+      updateR();
+      cancelSLCid();
+      LR1.ID = requestAnimationFrame(function(){sunsetColor(LR1, sunsetR1, "--LR1", 9500);});
+      LG1.ID = requestAnimationFrame(function(){sunsetColor(LG1, sunsetG1, "--LG1");});
+      LB1.ID = requestAnimationFrame(function(){sunsetColor(LB1, sunsetB1, "--LB1", 7500);});
+      LR2.ID = requestAnimationFrame(function(){sunsetColor(LR2, sunsetR2, "--LR2", 9000);});
+      LG2.ID = requestAnimationFrame(function(){sunsetColor(LG2, sunsetG2, "--LG2");});
+      LB2.ID = requestAnimationFrame(function(){sunsetColor(LB2, sunsetB2, "--LB2", 7500);});
+      LA037.ID = requestAnimationFrame(function(){sunsetAlpha(LA037, sunsetA037, "--LA0-37");});
+    }, 500);
 
     setCloudFlounder();
   }
@@ -2769,7 +2760,8 @@ function calculateTime(deg){
   
   if(monthVal < 10){monthPadding = "0";}
   else{monthPadding = "";}
-  $yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);
+  if(timeButtonMouseOverFunc == 0){$yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);}
+  else{$yearMonthButton.text(yearVal + "." + monthPadding + monthVal);}
 }
 
 //events
@@ -2780,10 +2772,8 @@ var TIMdown = false;
 
 $window.mouseup(function () {
   if(moonCount == 2){
-    cancelAnimationFrame(IDsliderRAF);
-    cancelAnimationFrame(IDcircleRAF);
-    clearTimeout(sliderTimeOut);
-    clearTimeout(circleTimeOut);
+    clearRequestTimeout(sliderTimeOut);
+    clearRequestTimeout(circleTimeOut);
     sliderMdown = false;
     circleMdown = false;
     cancelAnimationFrame(IDsliderRotate);
@@ -2808,46 +2798,40 @@ let sliderMDPos = { x: sliderPos.x - elPos.x, y: sliderPos.y - elPos.y };
 let sliderAtan = Math.atan2(sliderMDPos.x - sliderRadius, sliderMDPos.y - sliderRadius);
 var sliderDeg = -sliderAtan / (Math.PI / 180) + 180;
 var sliderTimeOut;
-var IDsliderRAF;
+
 $TIslider.mousedown(function () {
-  cancelAnimationFrame(IDsliderRAF);
-  clearTimeout(sliderTimeOut);
-  IDsliderRAF = requestAnimationFrame(function(){
-    sliderTimeOut = setTimeout(function(){
-      TIMdown = true;
-      sliderMdown = true;
-      timeInputSubmitted = false;
-      TIslider.style.setProperty("--sliderBlur", "1.25px");
-      timeContainer.style.setProperty("--timeContainerBlur", "1px");
-      IDsliderRotate = requestAnimationFrame(function(){rotateSlider(sliderDeg);});
-  
-      $(document.body).css("cursor", "grabbing");
-      $TIslider.css("cursor", "grabbing");
-    }, 400);
-  });
+  clearRequestTimeout(sliderTimeOut);
+  sliderTimeOut = requestTimeout(function(){
+    TIMdown = true;
+    sliderMdown = true;
+    timeInputSubmitted = false;
+    TIslider.style.setProperty("--sliderBlur", "1.25px");
+    timeContainer.style.setProperty("--timeContainerBlur", "1px");
+    IDsliderRotate = requestAnimationFrame(function(){rotateSlider(sliderDeg);});
+
+    $(document.body).css("cursor", "grabbing");
+    $TIslider.css("cursor", "grabbing");
+  }, 400);
 });
 //circle mouse down
 let circleMDPos = { x: circlePos.x - elPos.x, y: circlePos.y - elPos.y };
 let circleAtan = Math.atan2(circleMDPos.x - circleRdius, circleMDPos.y - circleRdius);
 var circleDeg = -circleAtan / (Math.PI / 180) + 180;
 var circleTimeOut;
-var IDcircleRAF;
+
 $TIcircle.mousedown(function () {
-  cancelAnimationFrame(IDcircleRAF);
-  clearTimeout(circleTimeOut);   
-  IDcircleRAF = requestAnimationFrame(function(){
-    circleTimeOut = setTimeout(function(){
-      circleMdown = true;
-      TIMdown = true;
-      timeInputSubmitted = false;
-      TIcircle.style.setProperty("--circleBlur", "1.25px");
-      timeContainer.style.setProperty("--timeContainerBlur", "1px");
-      IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
-  
-      $(document.body).css("cursor", "grabbing");
-      $TIcircle.css("cursor", "grabbing");
-    }, 400);
-  });
+  clearRequestTimeout(circleTimeOut);   
+  circleTimeOut = requestTimeout(function(){
+    circleMdown = true;
+    TIMdown = true;
+    timeInputSubmitted = false;
+    TIcircle.style.setProperty("--circleBlur", "1.25px");
+    timeContainer.style.setProperty("--timeContainerBlur", "1px");
+    IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
+
+    $(document.body).css("cursor", "grabbing");
+    $TIcircle.css("cursor", "grabbing");
+  }, 400);
 });
 
 
@@ -2866,37 +2850,24 @@ $TIslider.mouseleave(function(){
 
 var timeContainerTimeOut;
 var timeButtonMouseOverFunc = 0;
-var IDtimeContainerRAF;
 addEvent(timeContainer, "mouseover", function(){
   if(!TIMdown){
-    cancelAnimationFrame(IDtimeContainerRAF);
-    clearTimeout(timeContainerTimeOut);
-    IDtimeContainerRAF = requestAnimationFrame(function(){
-      timeContainerTimeOut = setTimeout(function(){
-        if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "1px");}
-  
-        //if(timeButtonMouseOverFunc == 0){
-          let yearStr = yearVal.toString();
-          $yearMonthButton.text(yearStr.charAt(2) + yearStr.charAt(3) + "." + monthVal);
-        // }
-        // else{
-        //   $yearMonthButton.css("color", "#c4c2cc");
-        // }
-      }, 100);
-    });
+    clearRequestTimeout(timeContainerTimeOut);
+    timeContainerTimeOut = requestTimeout(function(){
+      if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "1px");}
+        let yearStr = yearVal.toString();
+        $yearMonthButton.text(yearStr.charAt(2) + yearStr.charAt(3) + "." + monthVal);
+    }, 100);
   }
 });
 addEvent(timeContainer, "mouseleave", function(){
   if(!TIMdown){
-    cancelAnimationFrame(IDtimeContainerRAF);
-    clearTimeout(timeContainerTimeOut);
-    IDtimeContainerRAF = requestAnimationFrame(function(){
-      timeContainerTimeOut = setTimeout(function(){
-        if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
-        $yearMonthButton.css("color", "#2a2835");
-        $yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);
-      }, 100);
-    });
+    clearRequestTimeout(timeContainerTimeOut);
+    timeContainerTimeOut = requestTimeout(function(){
+      if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
+      $yearMonthButton.css("color", "#2a2835");
+      $yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);
+    }, 100);
   }
 });
 
@@ -2912,28 +2883,25 @@ $yearMonthButton.click(function(){
   sunsetStart = false;
   backtoSpotLight = false;
   nightStart = true;
-  cancelAnimationFrame(IDslc);
-  clearTimeout(SLCtimer);
-  IDslc = requestAnimationFrame(function(){
-    SLCtimer = setTimeout(function() {
-      mouseState = 2;
-      updateR();
-      cancelSLCid();
-      LR1.ID = requestAnimationFrame(function(){nightColor(LR1, nightR1, "--LR1");});
-      LG1.ID = requestAnimationFrame(function(){nightColor(LG1, nightG1, "--LG1");});
-      LB1.ID = requestAnimationFrame(function(){nightColor(LB1, nightB1, "--LB1", 8500);});
-      LR2.ID = requestAnimationFrame(function(){nightColor(LR2, nightR2, "--LR2");});
-      LG2.ID = requestAnimationFrame(function(){nightColor(LG2, nightG2, "--LG2", 7900);});
-      LB2.ID = requestAnimationFrame(function(){nightColor(LB2, nightB2, "--LB2", 9000);});
-      LA037.ID = requestAnimationFrame(function(){nightAlpha(LA037, nightA037, "--LA0-37");});
-    }, 500);
-  });
+
+  clearRequestTimeout(SLCtimer);
+  SLCtimer = requestTimeout(function() {
+    mouseState = 2;
+    updateR();
+    cancelSLCid();
+    LR1.ID = requestAnimationFrame(function(){nightColor(LR1, nightR1, "--LR1");});
+    LG1.ID = requestAnimationFrame(function(){nightColor(LG1, nightG1, "--LG1");});
+    LB1.ID = requestAnimationFrame(function(){nightColor(LB1, nightB1, "--LB1", 8500);});
+    LR2.ID = requestAnimationFrame(function(){nightColor(LR2, nightR2, "--LR2");});
+    LG2.ID = requestAnimationFrame(function(){nightColor(LG2, nightG2, "--LG2", 7900);});
+    LB2.ID = requestAnimationFrame(function(){nightColor(LB2, nightB2, "--LB2", 9000);});
+    LA037.ID = requestAnimationFrame(function(){nightAlpha(LA037, nightA037, "--LA0-37");});
+  }, 500);
   
   //scan
   getSignTime();
-  
-  
 });
+
 $yearMonthButton.mousedown(function(){
   $yearMonthButton.css("cursor", "grabbing");
 });
@@ -2946,6 +2914,7 @@ var curSign;
 var barcodeFinish;
 var codeAlreadyScanned = 0;
 var largerCodeNum = false;
+
 function getSignTime(){
   let c = (yearSubmitted % 356) / monthSubmitted;
   let thetaL = Math.atan2(monthSubmitted, c);
@@ -2994,95 +2963,71 @@ var curBarCodeNum = 0;
 var $block = $(".block");
 
 function redLineAppear(){
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      $redLine.css("opacity", "1");
-      $redLightArea.css("opacity", "1");
-      $redLine.css("--redLineBlur", "2px");
-      $redLightArea.css("--redAreaBlur", "2.7px");
-      $redLine.css("--redLineScaleY", "1");
-      $redLightArea.css("--redAreaScaleY", "1");
-      $redLine.css("--redLineScaleX", "1");
-      $redLightArea.css("--redAreaScaleX", "1");
+  requestTimeout(function(){
+    $redLine.css("opacity", "1");
+    $redLightArea.css("opacity", "1");
+    $redLine.css("--redLineBlur", "2px");
+    $redLightArea.css("--redAreaBlur", "2.7px");
+    $redLine.css("--redLineScaleY", "1");
+    $redLightArea.css("--redAreaScaleY", "1");
+    $redLine.css("--redLineScaleX", "1");
+    $redLightArea.css("--redAreaScaleX", "1");
 
-      mouseFollowing = true;
-      limitedCursor = true;
-    }, 4000);
-  });
+    mouseFollowing = true;
+    limitedCursor = true;
+  }, 4000);
 }
 
 function barCodeAppear($code,time){
   $code.text(signs[curBarCodeNum]);
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      $code.addClass("goDown");
-      $code.css("--barCodeOpacity", "0.2");
-      $code.css("--barCodeBlur", "1.25px");
-    }, time);
-  });
+  requestTimeout(function(){
+    $code.addClass("goDown");
+    $code.css("--barCodeOpacity", "0.2");
+    $code.css("--barCodeBlur", "1.25px");
+  }, time);
 }
 
 function barCodeGoToScan($code, time){
-  console.log(curSign + ", " + curBarCodeNum + " -- " + barcodeFinish);
+  // console.log(curSign + ", " + curBarCodeNum + " -- " + barcodeFinish);
   nextToScan = false;
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      $code.removeClass("goDown");
-      $code.addClass("toScan");
-      $code.css("--barCodeOpacity", "0.85");
-    }, time);
-  });
+  requestTimeout(function(){
+    $code.removeClass("goDown");
+    $code.addClass("toScan");
+    $code.css("--barCodeOpacity", "0.85");
+  }, time);
 }
 
 function incorrectCode($code, order){
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      $code.removeClass("toScan");
-      $code.addClass("incorrect");
+  requestTimeout(function(){
+    $code.removeClass("toScan");
+    $code.addClass("incorrect");
 
-      requestAnimationFrame(function(){
-        setTimeout(function(){
-          $code.css("--barCodeOpacity", "0");
-          $code.css("--barCodeBlur", "15px");
+    requestTimeout(function(){
+      $code.css("--barCodeOpacity", "0");
+      $code.css("--barCodeBlur", "15px");
 
-          requestAnimationFrame(function(){
-            setTimeout(function(){
-              //if(parseFloat($code.css("opacity")) <= 0.01){
-                $code.removeClass("incorrect");
-                if(order == 1){scanBarCode2();}
-                else{scanBarCode();}
-              //}
-            }, 750);
-          });
-        }, 50);
-      });
-    }, 150);
-  });
+      requestTimeout(function(){
+          $code.removeClass("incorrect");
+          if(order == 1){scanBarCode2();}
+          else{scanBarCode();}
+      }, 750);
+    }, 50);
+  }, 150);
 }
 function correctCode($code){
-  requestAnimationFrame(function(){
-    setTimeout(function(){
-      $code.removeClass("toScan");
-      $code.addClass("correct");
-      $code.css("--barCodeOpacity", "0");
-      $code.css("--barCodeBlur", "2.25px");
+  requestTimeout(function(){
+    $code.removeClass("toScan");
+    $code.addClass("correct");
+    $code.css("--barCodeOpacity", "0");
+    $code.css("--barCodeBlur", "2.25px");
 
-      requestAnimationFrame(function(){
-        setTimeout(function(){
-          $code.removeClass("correct");
-          $code.addClass("toScan");
-          $code.css("--barCodeOpacity", "0.85");
-          $code.css("--barCodeBlur", "1.25px");
-
-          // requestAnimationFrame(function(){
-          //   setTimeout(function(){
-          //     $code.removeClass("incorrect");
-          //   }, 750);
-          // });
-        }, 250);
-      });
-    }, 300);
-  });
+    requestTimeout(function(){
+      $code.removeClass("correct");
+      $code.addClass("toScan");
+      $code.css("--barCodeOpacity", "0.85");
+      $code.css("--barCodeBlur", "1.25px");
+    }, 250);
+  }, 300);
 }
 
 function scanBarCode(){
@@ -3093,18 +3038,16 @@ function scanBarCode(){
     curBarCodeNum %= 11;
     if(curBarCodeNum <= barcodeFinish){largerCodeNum = false;}
 
-    //console.log(curBarCodeNum == curSign);
     if(curBarCodeNum != curSign){
       if(largerCodeNum || curBarCodeNum < barcodeFinish){barCodeAppear($barCode2, 350);}
     }
-    requestAnimationFrame(function(){
-      setTimeout(function(){
-        if(curBarCodeNum != curSign){
-          incorrectCode($barCode, 1);
-        }
-        else{correctCode($barCode);}
-      }, 800);
-    });
+
+    requestTimeout(function(){
+      if(curBarCodeNum != curSign){
+        incorrectCode($barCode, 1);
+      }
+      else{correctCode($barCode);}
+    }, 800);
   }
 }
 
@@ -3116,18 +3059,16 @@ function scanBarCode2(){
     curBarCodeNum %= 11;
     if(curBarCodeNum <= barcodeFinish){largerCodeNum = false;}
 
-    //console.log(curBarCodeNum == curSign);
     if(curBarCodeNum != curSign){
       if(largerCodeNum || curBarCodeNum < barcodeFinish + 1){barCodeAppear($barCode, 350);}
     }
-    requestAnimationFrame(function(){
-      setTimeout(function(){
-        if(curBarCodeNum != curSign){
-          incorrectCode($barCode2, 2);
-        }
-        else{correctCode($barCode2);}
-      }, 800);
-    });
+
+    requestTimeout(function(){
+      if(curBarCodeNum != curSign){
+        incorrectCode($barCode2, 2);
+      }
+      else{correctCode($barCode2);}
+    }, 800);
   }
 }
 
@@ -3163,51 +3104,40 @@ function scanAnim(){
   requestAnimationFrame(function(){
     scrollinstance.options("overflowBehavior.y", "hidden");
     scrollinstance.options("overflowBehavior.x", "hidden");
-
+  
     twinkleOpaState = 3;
     twinkleOpa = defaultTwinklwOpa3;
-
+  
     mouseFollowing = false;
     mouseY = 0.5 * window.innerHeight - 70;
     mouseX = 0.5 * window.innerWidth;
-
-    requestAnimationFrame(function(){
-      $block.css("display", "initial");
-      $filterSwitchText.css("color", "white");
-    });
-
-    requestAnimationFrame(function(){
-      setCloudFlounder();
-    });
-
-    requestAnimationFrame(function(){
-      paperAppear();
-    });
-    
-    requestAnimationFrame(function(){
-      $allNotScan.addClass("scan");
-    });
-
-    requestAnimationFrame(function(){
-      $scan.css("display", "initial");
-
-      requestAnimationFrame(function(){
-        setTimeout(function(){
-          requestAnimationFrame(function(){barcodeGetTransparent();});
-          requestAnimationFrame(function(){$scan.addClass("svgFilter2");}); 
-          redLineAppear();
-          barCodeAppear($barCode, 7500);
   
-          requestAnimationFrame(function(){
-            setTimeout(function(){
-              scanBarCode();
-            },9500);
-          });
-        }, 1000);
-      });
-
-    });
+    $block.css("display", "initial");
+    $filterSwitchText.css("color", "white");
+  
+    setCloudFlounder();
+  
+    paperAppear();
     
+    $allNotScan.addClass("scan");
+  
+    $scan.css("display", "initial");
+  
+    requestTimeout(function(){
+      requestAnimationFrame(function(){barcodeGetTransparent();});
+      requestAnimationFrame(function(){$scan.addClass("svgFilter2");}); 
+      redLineAppear();
+      barCodeAppear($barCode, 7500);
+  
+      requestTimeout(function(){
+        scanBarCode();
+      },9500);
+    }, 1000);
   });
-  
 }
+
+// function endScan(){
+//   requestAnimationFrame(function(){
+
+//   });
+// }
