@@ -106,7 +106,8 @@ body {
   background-attachment: fixed;
 
   transition: all 0.5s ease;
-  transform-style: preserve-3d;
+  /* transform-style: preserve-3d; */
+  will-change: filter, opacity, transform;
 }
 
 .filtered{

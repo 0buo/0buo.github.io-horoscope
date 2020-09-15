@@ -787,40 +787,24 @@ var IDSLR,
     IDECA,
     IDECR;
 function updateR() {
-  //if (canChange == 1) {
-    //if (mouseStateUpdated == 0) {
-      //mouseStateUpdated = 1;
-      //mouseState = (mouseState + 1) % 3;
-    //}
-    // clearInterval(interv);
-    // clearInterval(eclipseInterv);
-    // clearInterval(eclipseFadeInterv);
-    cancelAnimationFrame(IDSLR);
-    cancelAnimationFrame(IDECA);
-    cancelAnimationFrame(IDECR);
-    if (mouseState == 1) {
-      velocity.multiply(0); //reset eclipse velocity
+  cancelAnimationFrame(IDSLR);
+  cancelAnimationFrame(IDECA);
+  cancelAnimationFrame(IDECR);
+  if (mouseState == 1) {
+    velocity.multiply(0); //reset eclipse velocity
 
-      IDSLR = requestAnimationFrame(SLR1);
-      IDECA = requestAnimationFrame(eclipseFadeout);
-      IDECR = requestAnimationFrame(decEclipseR);
-      // interv = setInterval(incR1, 1000 / frameRate);
-      // eclipseFadeInterv = setInterval(eclipseFadeout, 1000 / frameRate);
-      // eclipseInterv = setInterval(decEclipseR, 1000 / frameRate);
-    } 
-    else if (mouseState == 2) {
-      IDSLR = requestAnimationFrame(SLR3);
-      IDECR = requestAnimationFrame(incEclipseR);
-      // interv = setInterval(decR, 1000 / frameRate);
-      // eclipseInterv = setInterval(incEclipseR, 1000 / frameRate);
-    } 
-    else if (mouseState == 0) {
-      IDSLR = requestAnimationFrame(SLR2);
-      IDECR = requestAnimationFrame(incEclipseR2);
-      // interv = setInterval(incR2, 1000 / frameRate);
-      // eclipseInterv = setInterval(incEclipseR2, 1000 / frameRate);
-    }
-  //}
+    IDSLR = requestAnimationFrame(SLR1);
+    IDECA = requestAnimationFrame(eclipseFadeout);
+    IDECR = requestAnimationFrame(decEclipseR);
+  } 
+  else if (mouseState == 2) {
+    IDSLR = requestAnimationFrame(SLR3);
+    IDECR = requestAnimationFrame(incEclipseR);
+  } 
+  else if (mouseState == 0) {
+    IDSLR = requestAnimationFrame(SLR2);
+    IDECR = requestAnimationFrame(incEclipseR2);
+  }
 }
 
 /*******************************setting scroll***********************************/
@@ -946,7 +930,7 @@ function adjustSettingFont(event){
 }
 
 //events
-$document.ready(adjustSettingFont);
+$window.on("load", adjustSettingFont);
 $window.resize(adjustSettingFont);
 
 //hover button
@@ -1054,35 +1038,37 @@ $filterOn.on("click", function(){
   if(setting == false && settingButtonCanClick){
     setting = true;
     cloudOn = true;
-    $filtered.css("display", "initial");
-    $filtered.addClass("svgFilter");
-
     settingButtonFold();
     $settingText.css("opacity", "0");
     $settingButton.css("filter", "blur(6px)");
     $settingButton.css("opacity", "0");
-    
-    var IDfilterOnClick1 = requestTimeout(function(){
-      document.documentElement.pseudoStyle('before', 'z-index','60');
-      $scrollContainer.css("background", "var(--reflectionBG)");
-      $settingClass.css("opacity", "0");
-      $bodyRotate.css("display", "initial");
-      clearRequestTimeout(IDfilterOnClick1)
-    }, 1100);
-    var IDfilterOnClick2 = requestTimeout(function(){
-      $settingClass.css("display", "none");
-      $settingClass.children().prop("disabled", true);
-      clearRequestTimeout(IDfilterOnClick2);
-    }, 2500);
-    
-    /*setting for heavy filter*/
-    filterState = 2;
-    $filterSwitchButton.removeClass("light");
-    $filterSwitchButton.addClass("heavy");
-    $filterSwitchText.text("heavy filter");
 
-    $filterOn.off();
-    $filterOff.off();
+    requestTimeout(function(){
+      $filtered.css("display", "initial");
+      $filtered.addClass("svgFilter");
+
+      requestTimeout(function(){
+        document.documentElement.pseudoStyle('before', 'z-index','60');
+        $settingClass.css("opacity", "0");
+      }, 1100);
+      requestTimeout(function(){
+        $scrollContainer.css("background", "var(--reflectionBG)");
+        $bodyRotate.css("display", "initial");
+      }, 1800);
+      requestTimeout(function(){
+        $settingClass.css("display", "none");
+        $settingClass.children().prop("disabled", true);
+      }, 2500);
+      
+      /*setting for heavy filter*/
+      filterState = 2;
+      $filterSwitchButton.removeClass("light");
+      $filterSwitchButton.addClass("heavy");
+      $filterSwitchText.text("heavy filter");
+  
+      $filterOn.off();
+      $filterOff.off();
+    }, 500);
   }
 });
 $filterOn.mousedown(function(){
@@ -1097,40 +1083,42 @@ $filterOff.on("click", function(){
   if(setting == false && settingButtonCanClick){
     setting = true;
     cloudOn = true;
-    $filtered.css("display", "initial");
-    $filtered.addClass("offFilter");
-
     settingButtonFold();
     $settingText.css("opacity", "0");
     $settingButton.css("filter", "blur(6px)");
     $settingButton.css("opacity", "0");
-    
-    var IDfilterOffClick1 = requestTimeout(function(){
-      document.documentElement.pseudoStyle('before', 'z-index','20');
-      $scrollContainer.css("background", "var(--reflectionBG)");
-      $settingClass.css("opacity", "0");
-      $bodyRotate.css("display", "initial");
-      clearRequestTimeout(IDfilterOffClick1);
-    }, 1100);
-    var IDfilterOffClick2 = requestTimeout(function(){
-      $settingClass.css("display", "none");
-      $settingClass.children().prop("disabled", true);
-      clearRequestTimeout(IDfilterOffClick2);
-    }, 2500);
 
-    /*setting for light filter*/
-    $filterSwitchButton.removeClass("heavy");
-    $filterSwitchButton.addClass("light");
-    $filterSwitchText.text("light filter");
-    filterState = 1;
-    twinkleBrighterOpa = 1;
-    defaultTwinklwOpa1 = 0.35;
-    defaultTwinklwOpa2 = 0.4;
-    defaultTwinklwOpa3 = 0.45;
-    twinkleOpa = defaultTwinklwOpa1;
-
-    $filterOn.off();
-    $filterOff.off();
+    requestTimeout(function(){
+      $filtered.css("display", "initial");
+      $filtered.addClass("offFilter");
+  
+      requestTimeout(function(){
+        document.documentElement.pseudoStyle('before', 'z-index','20');
+        $settingClass.css("opacity", "0");
+      }, 1100);
+      requestTimeout(function(){
+        $scrollContainer.css("background", "var(--reflectionBG)");
+        $bodyRotate.css("display", "initial");
+      }, 1800);
+      requestTimeout(function(){
+        $settingClass.css("display", "none");
+        $settingClass.children().prop("disabled", true);
+      }, 2500);
+  
+      /*setting for light filter*/
+      $filterSwitchButton.removeClass("heavy");
+      $filterSwitchButton.addClass("light");
+      $filterSwitchText.text("light filter");
+      filterState = 1;
+      twinkleBrighterOpa = 1;
+      defaultTwinklwOpa1 = 0.35;
+      defaultTwinklwOpa2 = 0.4;
+      defaultTwinklwOpa3 = 0.45;
+      twinkleOpa = defaultTwinklwOpa1;
+  
+      $filterOn.off();
+      $filterOff.off();
+    }, 500);
   }
 });
 $filterOff.mousedown(function(){
@@ -1218,11 +1206,13 @@ $filterSwitchButton.mouseup(function(){
 /******************************* scrollBar *****************************/
 $settingButton.on("click", function(){
   if(setting){
-    scrollinstance.scroll({x:0, y:0}, 1000, "easeInOutSine");
-    scrollinstance.options("className", "os-theme-round-dark body-scroll-bar");
-    scrollinstance.options("overflowBehavior.x", "h");
-    scrollinstance.options("overflowBehavior.y", "h");
-    scrollinstance.options("scrollbars.visibility", "a");
+    requestTimeout(function(){
+      scrollinstance.scroll({x:0, y:0}, 1000, "easeInOutSine");
+      scrollinstance.options("className", "os-theme-round-dark body-scroll-bar");
+      scrollinstance.options("overflowBehavior.x", "h");
+      scrollinstance.options("overflowBehavior.y", "h");
+      scrollinstance.options("scrollbars.visibility", "a");
+    }, 250);
   }
 });
 
@@ -1313,11 +1303,11 @@ $settingButton.on("click", function(){
       LdestX = mouseX;
       LdestY = mouseY;
       IDfollowCursor = requestAnimationFrame(followCursor);
-      IDstart = requestAnimationFrame(startAnim);
-      IDdarkness = requestAnimationFrame(darknessStartAnim);
-      updateR();
+      IDstart = requestTimeout(startAnim, 50);
+      IDdarkness = requestTimeout(darknessStartAnim, 100);
+      requestTimeout(updateR, 150);
       IDreflection = requestAnimationFrame(BGreflection);
-    }, 500);
+    }, 400);
   }
 });
 
@@ -1614,7 +1604,7 @@ function BGreflection(timestamp){
 
 
 addEvent(document, "mousemove", function(){
-  if(setting){
+  if(start == false){
     cancelAnimationFrame(IDreflection);
     IDreflection = requestAnimationFrame(BGreflection);
   }
@@ -1657,7 +1647,7 @@ $settingButton.on("click", function(){
         IDoc = requestAnimationFrame(cloudOcStart);
       }
     }
-  }, 500);
+  }, 600);
 });
 
 var curBf,
@@ -2130,7 +2120,7 @@ function adjustElementSize(){
   document.documentElement.style.setProperty("--hFontSize", hFontSize + "px");
   document.documentElement.style.setProperty("--bodyBlur", bodyBlur + "px");
 }
-$document.ready(adjustElementSize);
+$window.on("load", adjustElementSize);
 $window.resize(adjustElementSize);
 
 
@@ -2395,7 +2385,7 @@ $document.mousemove(function(e){
     let d = Math.pow(e.pageX - $rotate.offset().left, 2) + Math.pow(e.pageY - $rotate.offset().top, 2)
 
     if(d < 0.006 * dmax){
-      rotateGlowColor = "#d5d9d9c0";
+      rotateGlowColor = "#d5d9d9c2";
     }
     else{
       if(mouseState == 0){rotateGlowColor = "#c49f999d";}
@@ -2723,7 +2713,7 @@ function rotateCircle(deg){
 }
 
 var destMonth = curMonth;
-$document.ready(function(){$yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);})
+$window.on("load", function(){$yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);})
 function calculateTime(deg){
   let degMonth = Math.ceil(deg / 30) % 12;
   let monthDiff = destMonth - degMonth;
