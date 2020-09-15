@@ -3160,24 +3160,19 @@ function scanAnim(){
     twinkleOpaState = 3;
     twinkleOpa = defaultTwinklwOpa3;
   
-    requestAnimationFrame(function(){
-      mouseFollowing = false;
-      mouseY = 0.5 * window.innerHeight - 70;
-      mouseX = 0.5 * window.innerWidth;
+    mouseFollowing = false;
+    mouseY = 0.5 * window.innerHeight - 70;
+    mouseX = 0.5 * window.innerWidth;
+  
+    setCloudFlounder();
+    $filterSwitchText.css("color", "white");
     
-      setCloudFlounder();
-    });
+    $block.css("display", "initial");
     
-    requestAnimationFrame(function(){
-      $block.css("display", "initial");
-      $filterSwitchText.css("color", "white");
-      paperAppear();
-    });
+    paperAppear();
 
-    requestAnimationFrame(function(){
-      $allNotScan.addClass("scan");
-      $scan.css("display", "initial");
-    });
+    $allNotScan.addClass("scan");
+    $scan.css("display", "initial");
   
     requestTimeout(function(){
       barcodeGetTransparent();
@@ -3196,7 +3191,6 @@ function endScan(){
   requestAnimationFrame(function(){
     barCodeDisappear();
     redLineDisappear();
-    barcodeGetBack();
   
     requestTimeout(function(){
       paperDisappear();
@@ -3205,6 +3199,7 @@ function endScan(){
         $allNotScan.removeClass("scan");
         $block.css("display", "none");
         $filterSwitchText.css("color", "black");
+        barcodeGetBack();
 
         requestAnimationFrame(function(){
           scrollinstance.options("overflowBehavior.y", "scroll");
@@ -3214,6 +3209,6 @@ function endScan(){
           twinkleOpa = defaultTwinklwOpa1;
         });
       }, 4000);
-    }, 3000);
+    }, 4500);
   });
 }
