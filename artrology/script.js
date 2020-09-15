@@ -671,19 +671,19 @@ function incEclipseR(timestamp) {
   lastNOWdecE = timestamp;
   lastNOWecA = timestamp;
 
-  if (eclipseR < 26) {
+  if (eclipseR < 25) {
     //canChangeEclipse = 0;
     eclipseR += 2.4 * dt; //0.08
 
-    if (eclipseR > 26) {
-      eclipseR = 26;
+    if (eclipseR > 25) {
+      eclipseR = 25;
     }
   }
-  else if(eclipseR > 26){
+  else if(eclipseR > 25){
     eclipseR -= 2.4 * dt;
 
-    if (eclipseR < 26) {
-      eclipseR = 26;
+    if (eclipseR < 25) {
+      eclipseR = 25;
     }
   }
   // else {
@@ -868,9 +868,10 @@ function adjustSettingFont(event){
     let modifiedBlur;
     let modifiedButtonFontSize;
 
-    if(window.innerHeight < 1000){settingFontSize = Math.round(window.innerWidth * 0.02);}
-    else{settingFontSize = Math.round(window.innerWidth * 0.0215);}
-    if(settingFontSize < 20){settingFontSize = 20;}
+    if(window.innerHeight < 1000){settingFontSize = Math.round(window.innerWidth * 0.025);}
+    else{settingFontSize = Math.round(window.innerWidth * 0.0252);}
+    if(settingFontSize < 25){settingFontSize = 25;}
+    else if(settingFontSize > 55){settingFontSize = 55;}
     settingDOM.style.setProperty("--settingFontSize", settingFontSize + "px");
     let smaller = Math.round(settingFontSize*0.75)
     settingDOM.style.setProperty("--smallerSettingFontSize", smaller + "px");
@@ -1062,7 +1063,7 @@ $filterOn.on("click", function(){
     $settingButton.css("opacity", "0");
     
     var IDfilterOnClick1 = requestTimeout(function(){
-      document.documentElement.pseudoStyle('before', 'z-index','20');
+      document.documentElement.pseudoStyle('before', 'z-index','60');
       $scrollContainer.css("background", "var(--reflectionBG)");
       $settingClass.css("opacity", "0");
       $bodyRotate.css("display", "initial");
@@ -1514,7 +1515,7 @@ $bodyRotate = $("#bodyRotate");
 var screenMax = -1*window.innerWidth/2 + 0.85 * window.innerWidth;
 var screenMin = -1*window.innerWidth/2 + 0.04 * window.innerWidth;
 var leftDeg = -6;
-var rightDeg = 9;
+var rightDeg = 12;
 function bodyRotate(e){
   let sx = e.screenX - window.innerWidth/2;
   if(sx > screenMax){sx = screenMax;}
@@ -2342,7 +2343,7 @@ $rotate.click(function () {
       $namesDiv.removeClass("hideRotateLeft");
       $timesDiv.removeClass("showRotateLeft");
       $timesDiv.toggleClass("hideRotateLeft");
-      let scrollDest = $rotateBackCircle.offset().top + $rotateBackCircle.outerHeight(true) - 0.75 * window.innerHeight;
+      let scrollDest = $selectionDiv.offset().top - 0.65 * window.innerHeight;
       if (scrollDest < 0){scrollDest = 0;}
       scrollinstance.scroll({x: 0, y: scrollDest}, 900, "easeInOutQuad");
 
@@ -2961,6 +2962,7 @@ var signs = {
 }
 var curBarCodeNum = 0;
 var $block = $(".block");
+var $signText = $(".signText");
 
 function redLineAppear(){
   requestTimeout(function(){
@@ -2978,6 +2980,23 @@ function redLineAppear(){
   }, 4000);
 }
 
+function redLineDisappear(){
+  requestTimeout(function(){
+    $redLine.css("opacity", "0");
+    $redLine.css("--redLineBlur", "6px");
+    $redLightArea.css("opacity", "0");
+    $redLightArea.css("--redAreaBlur", "8px");
+    $redLine.css("--redLineScaleY", "0.4");
+    $redLightArea.css("--redAreaScaleY", "0.4");
+    $redLine.css("--redLineScaleX", "0.96");
+    $redLightArea.css("--redAreaScaleX", "0.96");
+    requestTimeout(function(){
+      $redLine.css("--redLineScaleY", "0.25");
+      $redLightArea.css("--redAreaScaleY", "0.25");
+    }, 3200);
+  }, 2000);
+}
+
 function barCodeAppear($code,time){
   $code.text(signs[curBarCodeNum]);
   requestTimeout(function(){
@@ -2989,12 +3008,26 @@ function barCodeAppear($code,time){
 
 function barCodeGoToScan($code, time){
   // console.log(curSign + ", " + curBarCodeNum + " -- " + barcodeFinish);
-  nextToScan = false;
   requestTimeout(function(){
     $code.removeClass("goDown");
     $code.addClass("toScan");
     $code.css("--barCodeOpacity", "0.85");
   }, time);
+}
+
+function barCodeDisappear(){
+  $barCode.removeClass("toScan");
+  $barCode2.removeClass("toScan");
+  $barCode.addClass("goDown");
+  $barCode2.addClass("goDown");
+  $barCode.css("--barCodeOpacity", "0");
+  $barCode2.css("--barCodeOpacity", "0");
+  $barCode.css("--barCodeBlur", "12px");
+  $barCode2.css("--barCodeBlur", "12px");
+  requestTimeout(function(){
+    $barCode.removeClass("goDown");
+    $barCode2.removeClass("goDown");
+  }, 1800);
 }
 
 function incorrectCode($code, order){
@@ -3027,6 +3060,10 @@ function correctCode($code){
       $code.css("--barCodeOpacity", "0.85");
       $code.css("--barCodeBlur", "1.25px");
     }, 250);
+
+    requestTimeout(function(){
+      endScan();
+    }, 1000);
   }, 300);
 }
 
@@ -3080,11 +3117,40 @@ var $icon = $(".icon");
 var $paperContainer = $(".paperContainer");
 
 function paperAppear(){
+  $paper.removeClass("disappear");
+  $segment.removeClass("disappear");
+  $segment2.removeClass("disappear");
+  $icon.removeClass("disappear");
+
   $paperContainer.css("display", "initial");
   $paper.addClass("appear");
   $segment.addClass("appear");
   $segment2.addClass("appear");
   $icon.addClass("appear");
+}
+
+function paperDisappear(){
+  $paper.addClass("disappear");
+  $segment.addClass("disappear");
+  $segment2.addClass("disappear");
+  $icon.addClass("disappear");
+
+  // requestTimeout(function(){
+  //   mouseFollowing = false;
+  //   let scrollDest = $signText.offset().top + $signText.outerHeight() - 
+  // }, 7500);
+  requestTimeout(function(){
+    $paper.removeClass("appear");
+    $segment.removeClass("appear");
+    $segment2.removeClass("appear");
+    $icon.removeClass("appear");
+    $scan.removeClass("svgFilter2");
+    $scan.css("display", "none");
+    $paperContainer.css("display", "none");
+    
+    mouseFollowing = true;
+    limitedCursor = false;
+  }, 10000);
 }
 
 //barcode get transparent
@@ -3099,7 +3165,17 @@ function barcodeGetTransparent(){
   $timeContainer.addClass("barcodeTransparent");
 }
 
-//barcode scam whole process
+function barcodeGetBack(){
+  if(moonCount == 1){
+    $rotateTextOne.removeClass("barcodeTransparent");
+  }
+  else if(moonCount == 2){
+    $rotateTextTwo.removeClass("barcodeTransparent");
+  }
+  $timeContainer.removeClass("barcodeTransparent");
+}
+
+//barcode scan whole process
 function scanAnim(){
   requestAnimationFrame(function(){
     scrollinstance.options("overflowBehavior.y", "hidden");
@@ -3108,24 +3184,28 @@ function scanAnim(){
     twinkleOpaState = 3;
     twinkleOpa = defaultTwinklwOpa3;
   
-    mouseFollowing = false;
-    mouseY = 0.5 * window.innerHeight - 70;
-    mouseX = 0.5 * window.innerWidth;
-  
-    $block.css("display", "initial");
-    $filterSwitchText.css("color", "white");
-  
-    setCloudFlounder();
-  
-    paperAppear();
+    requestAnimationFrame(function(){
+      mouseFollowing = false;
+      mouseY = 0.5 * window.innerHeight - 70;
+      mouseX = 0.5 * window.innerWidth;
     
-    $allNotScan.addClass("scan");
-  
-    $scan.css("display", "initial");
+      setCloudFlounder();
+    });
+    
+    requestAnimationFrame(function(){
+      $block.css("display", "initial");
+      $filterSwitchText.css("color", "white");
+      paperAppear();
+    });
+
+    requestAnimationFrame(function(){
+      $allNotScan.addClass("scan");
+      $scan.css("display", "initial");
+    });
   
     requestTimeout(function(){
-      requestAnimationFrame(function(){barcodeGetTransparent();});
-      requestAnimationFrame(function(){$scan.addClass("svgFilter2");}); 
+      barcodeGetTransparent();
+      $scan.addClass("svgFilter2");
       redLineAppear();
       barCodeAppear($barCode, 7500);
   
@@ -3136,8 +3216,28 @@ function scanAnim(){
   });
 }
 
-// function endScan(){
-//   requestAnimationFrame(function(){
+function endScan(){
+  requestAnimationFrame(function(){
+    barCodeDisappear();
+    redLineDisappear();
+    barcodeGetBack();
+  
+    requestTimeout(function(){
+      paperDisappear();
 
-//   });
-// }
+      requestTimeout(function(){
+        $allNotScan.removeClass("scan");
+        $block.css("display", "none");
+        $filterSwitchText.css("color", "black");
+
+        requestAnimationFrame(function(){
+          scrollinstance.options("overflowBehavior.y", "s");
+          scrollinstance.options("overflowBehavior.x", "s");
+    
+          twinkleOpaState = 1;
+          twinkleOpa = defaultTwinklwOpa1;
+        });
+      }, 4000);
+    }, 3000);
+  });
+}
