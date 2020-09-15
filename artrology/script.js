@@ -372,17 +372,6 @@ $window.resize(function(){
   screenMax = -1*window.innerWidth/2 + 0.75 * window.innerWidth;
   screenMin = -1*window.innerWidth/2 + 0.04 * window.innerWidth;
 
-  // let t = 0.5*window.innerHeight - 210;
-  // t = t + scrollinstance.scroll().position.y;
-  // $scan.css("top", t+"px");
-
-  // let h = getHeight();
-  // let w = getWidth();
-  // let bt = scrollinstance.scroll().position.y;
-  // $block.css("height", h+"px");
-  // $block.css("width", w+"px");
-  // $block.css("top", bt+"px");
-
   let left = 0.15 * window.innerWidth;
   if (left > 150){left = 150;}
   timeContainer.style.setProperty("--timeContainerLeft", left + "px");
@@ -812,15 +801,15 @@ var scrollinstance;
 
 $(function() {
   scrollinstance = $("#scrollContainer").overlayScrollbars({
-    className : "os-theme-round-light body-scroll-bar",
+    className : "os-theme-round-dark body-scroll-bar",
     paddingAbsolute : true,
     overflowBehavior : {
-      x : "s",
-      y : "s"
+      x : "scroll",
+      y : "scroll"
     },
     scrollbars : {
-      visibility: "h",
-      autoHide: "s",
+      visibility: "hidden",
+      autoHide: "scroll",
       autoHideDelay: 800
     },
     callbacks : {
@@ -930,7 +919,7 @@ function adjustSettingFont(event){
 }
 
 //events
-$window.on("load", adjustSettingFont);
+$document.ready(adjustSettingFont);
 $window.resize(adjustSettingFont);
 
 //hover button
@@ -1208,10 +1197,9 @@ $settingButton.on("click", function(){
   if(setting){
     requestTimeout(function(){
       scrollinstance.scroll({x:0, y:0}, 1000, "easeInOutSine");
-      scrollinstance.options("className", "os-theme-round-dark body-scroll-bar");
-      scrollinstance.options("overflowBehavior.x", "h");
-      scrollinstance.options("overflowBehavior.y", "h");
-      scrollinstance.options("scrollbars.visibility", "a");
+      scrollinstance.options("overflowBehavior.x", "hidden");
+      scrollinstance.options("overflowBehavior.y", "hidden");
+      scrollinstance.options("scrollbars.visibility", "auto");
     }, 250);
   }
 });
@@ -2120,7 +2108,7 @@ function adjustElementSize(){
   document.documentElement.style.setProperty("--hFontSize", hFontSize + "px");
   document.documentElement.style.setProperty("--bodyBlur", bodyBlur + "px");
 }
-$window.on("load", adjustElementSize);
+$document.ready(adjustElementSize);
 $window.resize(adjustElementSize);
 
 
@@ -2207,7 +2195,7 @@ function cancelTwinkle(start, end){
     cancelAnimationFrame(twinkleIDs[index]);
   }//of for loop
 }
-$window.on("load", function(){selfTwinkle(openingTextStart, openingTextEnd);});
+$document.ready(function(){selfTwinkle(openingTextStart, openingTextEnd);});
 //$window.focus(selfTwinkle);
 
 
@@ -2333,7 +2321,7 @@ $rotate.click(function () {
       $namesDiv.removeClass("hideRotateLeft");
       $timesDiv.removeClass("showRotateLeft");
       $timesDiv.toggleClass("hideRotateLeft");
-      let scrollDest = $selectionDiv.offset().top - 0.65 * window.innerHeight;
+      let scrollDest = scrollinstance.scroll().position.y - 0.7 * window.innerHeight;
       if (scrollDest < 0){scrollDest = 0;}
       scrollinstance.scroll({x: 0, y: scrollDest}, 900, "easeInOutQuad");
 
@@ -2381,10 +2369,8 @@ var rotateBG = "rgba(190, 190, 190, 0.5)";
 var rotateMouseOver = false;
 $document.mousemove(function(e){
   if(setting){
-    let dmax = Math.pow(window.innerWidth,2) + Math.pow(window.innerHeight,2)
     let d = Math.pow(e.pageX - $rotate.offset().left, 2) + Math.pow(e.pageY - $rotate.offset().top, 2)
-
-    if(d < 0.006 * dmax){
+    if(d < 35000){
       rotateGlowColor = "#d5d9d9c2";
     }
     else{
@@ -2713,7 +2699,7 @@ function rotateCircle(deg){
 }
 
 var destMonth = curMonth;
-$window.on("load", function(){$yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);})
+$document.ready(function(){$yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);})
 function calculateTime(deg){
   let degMonth = Math.ceil(deg / 30) % 12;
   let monthDiff = destMonth - degMonth;
@@ -3127,7 +3113,7 @@ function paperDisappear(){
 
   // requestTimeout(function(){
   //   mouseFollowing = false;
-  //   let scrollDest = $signText.offset().top + $signText.outerHeight() - 
+  //   let scrollBackTo = $signText.offset().top + $signText.outerHeight() - 
   // }, 7500);
   requestTimeout(function(){
     $paper.removeClass("appear");
@@ -3221,8 +3207,8 @@ function endScan(){
         $filterSwitchText.css("color", "black");
 
         requestAnimationFrame(function(){
-          scrollinstance.options("overflowBehavior.y", "s");
-          scrollinstance.options("overflowBehavior.x", "s");
+          scrollinstance.options("overflowBehavior.y", "scroll");
+          scrollinstance.options("overflowBehavior.x", "scroll");
     
           twinkleOpaState = 1;
           twinkleOpa = defaultTwinklwOpa1;
