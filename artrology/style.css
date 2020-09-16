@@ -157,7 +157,7 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  border: 0.01px solid transparent;
+  /* border: 0.01px solid transparent; */
 
   --brightReflectionPos: 45%;
   --brightReflectionPos2: 55%;
@@ -188,7 +188,7 @@ body {
   height: 100%;
   -webkit-filter: blur(var(--bodyBlur));
   filter: blur(var(--bodyBlur));
-  border: 0.01px solid transparent;
+  /* border: 0.01px solid transparent; */
   display: none;
 }
 
@@ -1767,9 +1767,4 @@ input::-ms-reveal, input::-ms-clear {
   user-select: none;
   /* Non-prefixed version, currently
                supported by Chrome, Edge, Opera and Firefox */
-}
-
-
-.displayAll{
-  display: initial !important;
 }

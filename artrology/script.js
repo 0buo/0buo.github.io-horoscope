@@ -552,18 +552,18 @@ function SLR1(timestamp) {
   lastNOWslr2 = timestamp;
   lastNOWslr3 = timestamp;
 
-  if (spotLightRadius < 34) {
+  if (spotLightRadius < 42) {
     //canChange = 0;
     spotLightRadius += 3.788 * dt; //0.125
-    if (spotLightRadius > 34) {
-      spotLightRadius = 34;
+    if (spotLightRadius > 42) {
+      spotLightRadius = 42;
     }
   } 
-  else if(spotLightRadius > 34){
+  else if(spotLightRadius > 42){
     //canChange = 0;
     spotLightRadius -= 3.788 * dt;
-    if (spotLightRadius < 34) {
-      spotLightRadius = 34;
+    if (spotLightRadius < 42) {
+      spotLightRadius = 42;
     }
   }
   // else {
@@ -588,18 +588,18 @@ function SLR2(timestamp) {
   lastNOWslr1 = timestamp;
   lastNOWslr3 = timestamp;
 
-  if (spotLightRadius < 47) {
+  if (spotLightRadius < 50) {
     //canChange = 0;
     spotLightRadius += 3.788 * dt;
-    if (spotLightRadius > 47) {
-      spotLightRadius = 47;
+    if (spotLightRadius > 50) {
+      spotLightRadius = 50;
     }
   }
-  else if(spotLightRadius > 47){
+  else if(spotLightRadius > 50){
     //canChange = 0;
     spotLightRadius -= 3.788 * dt;
-    if (spotLightRadius < 47) {
-      spotLightRadius = 47;
+    if (spotLightRadius < 50) {
+      spotLightRadius = 50;
     }
   } 
   // else {
@@ -623,18 +623,18 @@ function SLR3(timestamp) {
   lastNOWslr2 = timestamp;
   lastNOWslr1 = timestamp;
 
-  if (spotLightRadius > 25) {
+  if (spotLightRadius > 34) {
     //canChange = 0;
     spotLightRadius -= 3.788 * dt;
-    if (spotLightRadius < 25) {
-      spotLightRadius = 25;
+    if (spotLightRadius < 34) {
+      spotLightRadius = 34;
     }
   } 
-  else if(spotLightRadius < 25){
+  else if(spotLightRadius < 34){
     //canChange = 0;
     spotLightRadius += 3.788 * dt;
-    if (spotLightRadius > 25) {
-      spotLightRadius = 25;
+    if (spotLightRadius > 34) {
+      spotLightRadius = 34;
     }
   }
   // else {
@@ -660,19 +660,19 @@ function incEclipseR(timestamp) {
   lastNOWdecE = timestamp;
   lastNOWecA = timestamp;
 
-  if (eclipseR < 25) {
+  if (eclipseR < 35.5) {
     //canChangeEclipse = 0;
     eclipseR += 2.4 * dt; //0.08
 
-    if (eclipseR > 25) {
-      eclipseR = 25;
+    if (eclipseR > 35.5) {
+      eclipseR = 35.5;
     }
   }
-  else if(eclipseR > 25){
+  else if(eclipseR > 35.5){
     eclipseR -= 2.4 * dt;
 
-    if (eclipseR < 25) {
-      eclipseR = 25;
+    if (eclipseR < 35.5) {
+      eclipseR = 35.5;
     }
   }
   // else {
@@ -696,15 +696,15 @@ function incEclipseR2(timestamp) {
   lastNOWdecE = timestamp;
   lastNOWecA = timestamp;
 
-  if (eclipseR < 49) {
+  if (eclipseR < 52) {
     //canChangeEclipse = 0;
     eclipseR += 1.82 * dt; //0.06
   } 
   // else {
   //   canChangeEclipse = 1;
   // }
-  if (eclipseR > 49) {
-    eclipseR = 49;
+  if (eclipseR > 52) {
+    eclipseR = 52;
   }
   document.documentElement.style.setProperty("--eclipseR", eclipseR + "vmax");
 }
