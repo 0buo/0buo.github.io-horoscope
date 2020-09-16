@@ -20,7 +20,7 @@ function finishLoading(){
                         setTimeout(function(){
                             $loadingBG.css("display", "none");
                             $(".setting").css("opacity", "1");
-                        }, 1000);
+                        }, 1500);
                     })
                     .fail(function(){
                         alert("loading failed..");

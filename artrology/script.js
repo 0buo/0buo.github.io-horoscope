@@ -395,9 +395,9 @@ var shadeV = new Vector(shadeX, shadeY);
 
 //variables for function update
 var mouseX = 0.5 * window.innerWidth,
-    mouseY = 1.15 * window.innerHeight;
+    mouseY = 1.4 * window.innerHeight;
 var LdestX = 0.5*window.innerWidth,
-    LdestY = 1.15*window.innerHeight;
+    LdestY = 1.4*window.innerHeight;
 
 var maxToLightDistIndex = 0.9;
 var maxDistToLightCenter =
@@ -409,7 +409,7 @@ var randNum = 0;
 
 
 var cursorLerpX = 0.9;
-var cursorLerpY = 0.2;
+var cursorLerpY = 0.35;
 
 var finishLerpCursorLerpX = false;
 var finishLerpCursorLerpY = false;
@@ -552,18 +552,18 @@ function SLR1(timestamp) {
   lastNOWslr2 = timestamp;
   lastNOWslr3 = timestamp;
 
-  if (spotLightRadius < 42) {
+  if (spotLightRadius < 39) {
     //canChange = 0;
     spotLightRadius += 3.788 * dt; //0.125
-    if (spotLightRadius > 42) {
-      spotLightRadius = 42;
+    if (spotLightRadius > 39) {
+      spotLightRadius = 39;
     }
   } 
-  else if(spotLightRadius > 42){
+  else if(spotLightRadius > 39){
     //canChange = 0;
     spotLightRadius -= 3.788 * dt;
-    if (spotLightRadius < 42) {
-      spotLightRadius = 42;
+    if (spotLightRadius < 39) {
+      spotLightRadius = 39;
     }
   }
   // else {
@@ -588,18 +588,18 @@ function SLR2(timestamp) {
   lastNOWslr1 = timestamp;
   lastNOWslr3 = timestamp;
 
-  if (spotLightRadius < 50) {
+  if (spotLightRadius < 47) {
     //canChange = 0;
     spotLightRadius += 3.788 * dt;
-    if (spotLightRadius > 50) {
-      spotLightRadius = 50;
+    if (spotLightRadius > 47) {
+      spotLightRadius = 47;
     }
   }
-  else if(spotLightRadius > 50){
+  else if(spotLightRadius > 47){
     //canChange = 0;
     spotLightRadius -= 3.788 * dt;
-    if (spotLightRadius < 50) {
-      spotLightRadius = 50;
+    if (spotLightRadius < 47) {
+      spotLightRadius = 47;
     }
   } 
   // else {
@@ -623,18 +623,18 @@ function SLR3(timestamp) {
   lastNOWslr2 = timestamp;
   lastNOWslr1 = timestamp;
 
-  if (spotLightRadius > 34) {
+  if (spotLightRadius > 31) {
     //canChange = 0;
     spotLightRadius -= 3.788 * dt;
-    if (spotLightRadius < 34) {
-      spotLightRadius = 34;
+    if (spotLightRadius < 31) {
+      spotLightRadius = 31;
     }
   } 
-  else if(spotLightRadius < 34){
+  else if(spotLightRadius < 31){
     //canChange = 0;
     spotLightRadius += 3.788 * dt;
-    if (spotLightRadius > 34) {
-      spotLightRadius = 34;
+    if (spotLightRadius > 31) {
+      spotLightRadius = 31;
     }
   }
   // else {
@@ -660,19 +660,19 @@ function incEclipseR(timestamp) {
   lastNOWdecE = timestamp;
   lastNOWecA = timestamp;
 
-  if (eclipseR < 35.5) {
+  if (eclipseR < 32.5) {
     //canChangeEclipse = 0;
     eclipseR += 2.4 * dt; //0.08
 
-    if (eclipseR > 35.5) {
-      eclipseR = 35.5;
+    if (eclipseR > 32.5) {
+      eclipseR = 32.5;
     }
   }
-  else if(eclipseR > 35.5){
+  else if(eclipseR > 32.5){
     eclipseR -= 2.4 * dt;
 
-    if (eclipseR < 35.5) {
-      eclipseR = 35.5;
+    if (eclipseR < 32.5) {
+      eclipseR = 32.5;
     }
   }
   // else {
@@ -696,15 +696,15 @@ function incEclipseR2(timestamp) {
   lastNOWdecE = timestamp;
   lastNOWecA = timestamp;
 
-  if (eclipseR < 52) {
+  if (eclipseR < 48.5) {
     //canChangeEclipse = 0;
     eclipseR += 1.82 * dt; //0.06
   } 
   // else {
   //   canChangeEclipse = 1;
   // }
-  if (eclipseR > 52) {
-    eclipseR = 52;
+  if (eclipseR > 48.5) {
+    eclipseR = 48.5;
   }
   document.documentElement.style.setProperty("--eclipseR", eclipseR + "vmax");
 }
@@ -798,7 +798,8 @@ function updateR() {
 
 /*******************************setting scroll***********************************/
 var scrollinstance;
-
+var $scrollContainer = $("#scrollContainer");
+var scrollContainer = document.getElementById("scrollContainer");
 $(function() {
   scrollinstance = $("#scrollContainer").overlayScrollbars({
     className : "os-theme-round-dark body-scroll-bar",
@@ -1286,7 +1287,7 @@ $settingButton.on("click", function(){
       darknessStartAnim();
       updateR();
       IDreflection = requestAnimationFrame(BGreflection);
-    }, 400);
+    }, 250);
   }
 });
 
@@ -1497,7 +1498,7 @@ function bodyRotate(e){
 
 addEvent(document, "mousemove", bodyRotate);
 
-var $scrollContainer = $("#scrollContainer");
+
 var brightRef = 48;
 var brightRef2 = 52;
 var darkRef = 33;
@@ -2236,9 +2237,9 @@ var moonCanSwitch0 = false;
 var moonCanSwitch1 = true;
 var moonCanSwitch2 = false;
 var nameTextStart = 3;
-var nameTextEnd = 4;
-var timeTextStart = 5;
-var timeTextEnd = 7;
+var nameTextEnd = 5;
+var timeTextStart = 6;
+var timeTextEnd = 8;
 
 //var moonClickTimeOut;
 $rotate.click(function () {
@@ -2256,21 +2257,28 @@ $rotate.click(function () {
       $namesDiv.css("display", "initial");
       selfTwinkle(nameTextStart, nameTextEnd);
 
-        requestTimeout(function(){
-          $rotate.toggleClass("one");
-          $rotateTextTwo.removeClass("hide");
-          $rotateTextOne.toggleClass("up");
-          $timesDiv.removeClass("hideRotateLeft");
-          $namesDiv.toggleClass("showRotateLeft");
+      requestTimeout(function(){
+        $rotate.toggleClass("one");
+        $rotateTextTwo.removeClass("hide");
+        $rotateTextOne.toggleClass("up");
+        $timesDiv.removeClass("hideRotateLeft");
+        $namesDiv.toggleClass("showRotateLeft");
 
-          // let height = window.innerHeight + $namesDiv.outerHeight(true);
-          // $bodyRotate.css("height", height + "px");
-          requestTimeout(function(){
-            //if(parseFloat($namesDiv.css("opacity")) > 0.95){
-              moonCanSwitch2 = true;
-            //}
-          }, 1100);
-        }, 250);
+        // let height = window.innerHeight + $namesDiv.outerHeight(true);
+        // $bodyRotate.css("height", height + "px");
+        requestTimeout(function(){
+          //if(parseFloat($namesDiv.css("opacity")) > 0.95){
+            moonCanSwitch2 = true;
+          //}
+        }, 1100);
+      }, 250);
+
+      if(0.65 * window.innerHeight - $nameInput.offset().top > 0){
+        let sd = {x: scrollinstance.scroll().position.x,
+                  y: scrollinstance.scroll().position.y - (0.65 * window.innerHeight - $nameInput.offset().top)};
+        if(sd.y < 0){sd.y = 0};
+        scrollinstance.scroll(sd, 1100, "easeInOutQuad");
+      }
     } 
     else if (moonCount == 2) {
       $namesDiv.removeClass("bottom");
@@ -2278,26 +2286,33 @@ $rotate.click(function () {
       $timesDiv.css("display", "initial");
       selfTwinkle(timeTextStart, timeTextEnd);
 
-        requestTimeout(function(){
-          cancelTwinkle(nameTextStart, nameTextEnd);
-          $rotate.removeClass("one");
-          $rotate.toggleClass("two");
-          $rotateTextOne.removeClass("up");
-          $rotateTextOne.toggleClass("hide");
-          $rotateTextTwo.toggleClass("down");
-          $namesDiv.removeClass("showRotateLeft");
-          $namesDiv.toggleClass("hideRotateLeft");
-          $timesDiv.toggleClass("showRotateLeft");
+      requestTimeout(function(){
+        cancelTwinkle(nameTextStart, nameTextEnd);
+        $rotate.removeClass("one");
+        $rotate.toggleClass("two");
+        $rotateTextOne.removeClass("up");
+        $rotateTextOne.toggleClass("hide");
+        $rotateTextTwo.toggleClass("down");
+        $namesDiv.removeClass("showRotateLeft");
+        $namesDiv.toggleClass("hideRotateLeft");
+        $timesDiv.toggleClass("showRotateLeft");
 
-          // let height = window.innerHeight + $timesDiv.outerHeight(true);
-          // $bodyRotate.css("height", height + "px");
-          requestTimeout(function(){
-            //if(parseFloat($namesDiv.css("opacity")) < 0.05){
-              $namesDiv.css("display", "none"); 
-              moonCanSwitch0 = true;
-            //}
-          }, 1100);
-        }, 250);
+        // let height = window.innerHeight + $timesDiv.outerHeight(true);
+        // $bodyRotate.css("height", height + "px");
+        requestTimeout(function(){
+          //if(parseFloat($namesDiv.css("opacity")) < 0.05){
+            $namesDiv.css("display", "none"); 
+            moonCanSwitch0 = true;
+          //}
+        }, 1100);
+      }, 250);
+
+      if(0.65 * window.innerHeight - $timeInput.offset().top > 0){
+        let sd = {x: scrollinstance.scroll().position.x,
+                  y: scrollinstance.scroll().position.y - (0.65 * window.innerHeight - $timeInput.offset().top)};
+        if(sd.y < 0){sd.y = 0};
+        scrollinstance.scroll(sd, 1100, "easeInOutQuad");
+      }
     } 
     else if(moonCount == 0) {
       $timesDiv.removeClass("bottom");
@@ -2311,9 +2326,11 @@ $rotate.click(function () {
       $namesDiv.removeClass("hideRotateLeft");
       $timesDiv.removeClass("showRotateLeft");
       $timesDiv.toggleClass("hideRotateLeft");
-      let scrollDest = scrollinstance.scroll().position.y + $selectionDiv.outerHeight() - 0.68 * window.innerHeight;
+      
+      let scrollDest = scrollinstance.scroll().position.y + 300 - (window.innerHeight - $selectionDiv.offset().top);
       if (scrollDest < 0){scrollDest = 0;}
-      scrollinstance.scroll({x: 0, y: scrollDest}, 900, "easeInOutQuad");
+      else if(scrollDest > scrollContainer.scrollHeight){scrollDest = scrollContainer.scrollHeight;}
+      scrollinstance.scroll({x: 0, y: scrollDest}, 1100, "easeInOutQuad");
 
       moonCountTimeOut = requestTimeout(function(){
         //if(parseFloat($timesDiv.css("opacity")) < 0.05){
@@ -2322,10 +2339,25 @@ $rotate.click(function () {
         //}
       }, 1100);
     }
-    
+
     nameInputSubmitted = 0;
     timeInputSubmitted = false;
 
+    //sign text
+    if(moonCount == 1){$nameSignText.removeClass("appear");}
+    else if(moonCount == 2){$timeSignText.removeClass("appear");}
+    requestTimeout(function(){
+      if(moonCount == 1){
+        $nameSignPlainText.text("");
+        $nameSignHeader.text("");
+      }
+      else if(moonCount == 2){
+        $timeSignPlainText.text("");
+        $timeSignHeader.text("");
+      }
+    }, 1800);
+
+    //spotlight color
     sunsetStart = false;
     nightStart = false;
     backtoSpotLight = true;
@@ -2392,6 +2424,7 @@ $selectionDiv.mouseleave(function(){
 });
 
 /*****************************input box line*************************************/
+var $nameInput = $("#nameInput");
 
 //detect which animation event and change check's transition delay accordingly
 function whichAnimationEndEvent() {
@@ -2586,8 +2619,29 @@ JQcheck.mousedown(function () {
     }, 500);
 
     setCloudFlounder();
+
+    //scan
+    getSignName();
   }
 });
+
+function getSignName(){
+  let thetaL = Math.atan(nameData);
+  let epsilon = Math.atan((nameData % 11) * 11);
+
+  let midhv = Math.atan(Math.tan(thetaL) / Math.cos(epsilon));
+  midhv *= (nameData*nameData*57*4)%(57*11);
+  curSign = Math.round(midhv) % 11;
+
+  //reset barcode start, finish, condition
+  curBarCodeNum = (curSign + Math.floor(Math.random() * Math.floor(4)) + 1) % 11;
+  barcodeFinish = (curBarCodeNum + 10) % 11;
+  codeAlreadyScanned = 0;
+  if(curBarCodeNum > barcodeFinish){largerCodeNum = true;}
+  else{largerCodeNum = false;}
+
+  scanAnim();
+}
 
 
 /************ ***********time input******************************/
@@ -2898,7 +2952,6 @@ function getSignTime(){
   else{largerCodeNum = false;}
 
   scanAnim();
-
 }
 
 /*******************scanArea*************************************/
@@ -2926,7 +2979,13 @@ var signs = {
 }
 var curBarCodeNum = 0;
 var $block = $(".block");
-var $signText = $(".signText");
+
+var $nameSignText = $("#nameSignText");
+var $nameSignPlainText = $nameSignText.children().last();
+var $nameSignHeader = $nameSignText.children().first();
+var $timeSignText = $("#timeSignText");
+var $timeSignPlainText = $timeSignText.children().last();
+var $timeSignHeader = $timeSignText.children().first();
 
 function redLineAppear(){
   requestTimeout(function(){
@@ -3093,16 +3152,45 @@ function paperAppear(){
   $icon.addClass("appear");
 }
 
+
 function paperDisappear(){
   $paper.addClass("disappear");
   $segment.addClass("disappear");
   $segment2.addClass("disappear");
   $icon.addClass("disappear");
 
-  // requestTimeout(function(){
-  //   mouseFollowing = false;
-  //   let scrollBackTo = $signText.offset().top + $signText.outerHeight() - 
-  // }, 7500);
+  requestTimeout(function(){
+    mouseFollowing = false;
+    limitedCursor = false;
+    let scrlDest = {x: scrollinstance.scroll().position.x, 
+                    y: scrollContainer.scrollHeight};
+    if(scrlDest.y < 0){scrlDest.y = 0;}
+    scrollinstance.scroll(scrlDest, 1100, "easeInOutQuad");
+
+    if(moonCount == 1){
+      mouseY = $nameSignText.offset().top - 0.15 * window.innerWidth;
+      mouseX = 0.2 * window.innerWidth;
+    }
+    else if(moonCount == 2){
+      mouseY = $timeSignText.offset().top - 0.15 * window.innerWidth;
+      mouseX = 0.2 * window.innerWidth;
+    }
+
+    requestTimeout(function(){
+      if(moonCount == 1){
+        $nameSignText.addClass("appear");
+      }
+      else if(moonCount == 2){
+        $timeSignText.addClass("appear");
+      }
+    }, 500)
+    requestTimeout(function(){
+      scrollinstance.options("overflowBehavior.y", "scroll");
+      scrollinstance.options("overflowBehavior.x", "scroll");
+      mouseFollowing = true;
+    }, 2000);
+  }, 5000);
+
 
   requestTimeout(function(){
     $paper.removeClass("appear");
@@ -3112,9 +3200,6 @@ function paperDisappear(){
     $scan.removeClass("svgFilter2");
     $scan.css("display", "none");
     $paperContainer.css("display", "none");
-    
-    mouseFollowing = true;
-    limitedCursor = false;
   }, 10000);
 }
 
@@ -3143,6 +3228,26 @@ function barcodeGetBack(){
 //barcode scan whole process
 function scanAnim(){
   requestAnimationFrame(function(){
+    if(moonCount == 1){
+      $nameSignText.removeClass("appear");
+      if(0.65 * window.innerHeight - $nameInput.offset().top > 0){
+        let sd = {x: scrollinstance.scroll().position.x,
+                  y: scrollinstance.scroll().position.y - (0.65 * window.innerHeight - $nameInput.offset().top)};
+        if(sd.y < 0){sd.y = 0};
+        scrollinstance.scroll(sd, 1100, "easeInOutQuad");
+      }
+    }
+    else if(moonCount == 2){
+      $timeSignText.removeClass("appear");
+      if(0.65 * window.innerHeight - $timeInput.offset().top > 0){
+        let sd = {x: scrollinstance.scroll().position.x,
+                  y: scrollinstance.scroll().position.y - (0.65 * window.innerHeight - $timeInput.offset().top)};
+        if(sd.y < 0){sd.y = 0};
+        scrollinstance.scroll(sd, 1100, "easeInOutQuad");
+      }
+    }
+
+    
     scrollinstance.options("overflowBehavior.y", "hidden");
     scrollinstance.options("overflowBehavior.x", "hidden");
   
@@ -3164,6 +3269,14 @@ function scanAnim(){
     $scan.css("display", "initial");
   
     requestTimeout(function(){
+      if(moonCount == 1){
+        $nameSignPlainText.text("");
+        $nameSignHeader.text("");
+      }
+      else if(moonCount == 2){
+        $timeSignPlainText.text("");
+        $timeSignHeader.text("");
+      }
       barcodeGetTransparent();
       $scan.addClass("svgFilter2");
       redLineAppear();
@@ -3178,6 +3291,15 @@ function scanAnim(){
 
 function endScan(){
   requestAnimationFrame(function(){
+    if(moonCount == 1){
+      $nameSignPlainText.text("THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER");
+      $nameSignHeader.text(signs[curSign]);
+    }
+    else if(moonCount == 2){
+      $timeSignPlainText.text("THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER");
+      $timeSignHeader.text(signs[curSign]);
+    }
+    
     barCodeDisappear();
     redLineDisappear();
   
@@ -3189,15 +3311,9 @@ function endScan(){
         $block.css("display", "none");
         $filterSwitchText.css("color", "black");
         barcodeGetBack();
-
-        requestAnimationFrame(function(){
-          scrollinstance.options("overflowBehavior.y", "scroll");
-          scrollinstance.options("overflowBehavior.x", "scroll");
-    
-          twinkleOpaState = 1;
-          twinkleOpa = defaultTwinklwOpa1;
-        });
-      }, 4000);
+        twinkleOpaState = 1;
+        twinkleOpa = defaultTwinklwOpa1;
+      }, 5000);
     }, 4500);
   });
 }

@@ -71,7 +71,7 @@
 
 :root {
   --cursorX: 50vw;
-  --cursorY: 115vh;
+  --cursorY: 140vh;
   --radius: 0vmax;
   --eclipseX: 0;
   --eclipseY: 0;
@@ -351,7 +351,7 @@ h1 {
   font-size: var(--plaintextFontSize);
   line-height: 1.8;
   margin-left: 5vw;
-  margin-right: 12%;
+  margin-right: 12vw;
   padding-left: 10px;
   opacity: 0.15;
   color: black;
@@ -551,6 +551,7 @@ h1 {
 /* names input */
 #nameInput{
   border: 0.01px solid transparent;
+  margin-bottom: 70px;
   -webkit-filter:blur(0.8px); 
   filter:blur(0.8px);
 }
@@ -737,7 +738,7 @@ input::-ms-reveal, input::-ms-clear {
   --grey: #25242e;
   margin-top: 80px;
   margin-left: 8vw;
-  margin-bottom: 80px;
+  margin-bottom: 70px;
   -webkit-filter: blur(0.1px);
           filter: blur(0.1px);
   /* border: 0.01px solid transparent; */
@@ -1602,23 +1603,31 @@ input::-ms-reveal, input::-ms-clear {
 
 
 /* **********************sign text*********************** */
-.signText{
-  opacity: 0;
+#nameSignText, #timeSignText{
+  border: 0.01px solid transparent;
+  margin-left: 4vw;
 
   transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
   transform-origin: left center;
-  transform: scaleX(0);
+  opacity: 0;
+  transform: translate(-5%, 5%) rotate(4deg);
+  /* display: none; */
 }
-.signText.appear{
+#nameSignText.appear, #timeSignText.appear{
   opacity: 1;
-  transform: scaleX(1);
+  transform: translate(0) rotate(0deg);
+}
+.signHeader{
+  font-family: 'Libre Barcode 39 Extended', cursive;
+  font-size: 140px;
+  transform: scaleY(0.6);
+  color: #272730;
+  margin-left: 5.5vw;
+  margin-bottom: 20px;
+  filter: blur(1.5px);
 }
 
-/* barcode become transparent */
-.barcodeTransparent{
-  opacity: 0.25 !important;
-}
-
+/* *********************filter switch*********************** */
 .filterSwitch{
   position: fixed;
   top: 20px;
@@ -1733,6 +1742,11 @@ input::-ms-reveal, input::-ms-clear {
 /* add margin bottom to last div of bodyRotate */
 .bottom{
   margin-bottom: 35vh;
+}
+
+/* barcode become transparent */
+.barcodeTransparent{
+  opacity: 0.25 !important;
 }
 
 * :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check)
