@@ -1195,12 +1195,10 @@ $filterSwitchButton.mouseup(function(){
 /******************************* scrollBar *****************************/
 $settingButton.on("click", function(){
   if(setting){
-    requestTimeout(function(){
-      scrollinstance.scroll({x:0, y:0}, 1000, "easeInOutSine");
-      scrollinstance.options("overflowBehavior.x", "hidden");
-      scrollinstance.options("overflowBehavior.y", "hidden");
-      scrollinstance.options("scrollbars.visibility", "auto");
-    }, 250);
+    scrollinstance.scroll({x:0, y:0}, 1000, "easeInOutSine");
+    scrollinstance.options("overflowBehavior.x", "hidden");
+    scrollinstance.options("overflowBehavior.y", "hidden");
+    scrollinstance.options("scrollbars.visibility", "auto");
   }
 });
 
@@ -1259,8 +1257,6 @@ function startAnim(){
       scrollinstance.options("overflowBehavior.y", "s");
       $filterSwitchButton.css("cursor", "grab");
       $filterSwitchText.css("color", "black");
-
-      cancelAnimationFrame(IDstart);
     }, 9000);
   }
 }
@@ -1272,17 +1268,12 @@ function darknessStartAnim(){
     step: function(now){
       darkness = now;
       document.documentElement.style.setProperty("--darkness", darkness);
-    },
-    complete: function(){
-      cancelAnimationFrame(IDdarkness);
     }
   });
 }
 
 var start = true;
-var IDstart;
 var darkness = 1;
-var IDdarkness;
 $settingButton.on("click", function(){
   if(setting){
     requestTimeout(function(){
@@ -1291,9 +1282,9 @@ $settingButton.on("click", function(){
       LdestX = mouseX;
       LdestY = mouseY;
       IDfollowCursor = requestAnimationFrame(followCursor);
-      IDstart = requestTimeout(startAnim, 50);
-      IDdarkness = requestTimeout(darknessStartAnim, 100);
-      requestTimeout(updateR, 150);
+      startAnim();
+      darknessStartAnim();
+      updateR();
       IDreflection = requestAnimationFrame(BGreflection);
     }, 400);
   }
@@ -1603,28 +1594,28 @@ var cloudDisp = document.getElementById("cloud-disp");
 //var $cloudFilter = $("#cloud-filter");
 //var $cloudDisp = $("#cloud-disp");
 var IDbf;
-var IDoc;
+//var IDoc;
 var IDsc;
 
 var baseFrequency = 0.045;
-var octave = 1;
+//var octave = 1;
 var cloudScale = 80;
 
 var bfMax = 0.015;
 var bfMin = 0.006;
 var scaleMiddle = 90;
 var scaleMin = 37;
-var ocMax = 15;
-var ocMiddle = 10;
-var ocMin = 1;
+// var ocMax = 15;
+// var ocMiddle = 10;
+// var ocMin = 1;
 
 var bfDir = -1;
 var scDir = -1;
-var ocDir = 1;
+//var ocDir = 1;
 
 var cloudFlounderBf = false;
 var cloudFlounderSc = false;
-var cloudFlounderOc = false;
+//var cloudFlounderOc = false;
 
 $settingButton.on("click", function(){
   requestTimeout(function(){
@@ -1632,20 +1623,20 @@ $settingButton.on("click", function(){
       if(start){
         IDbf = requestAnimationFrame(cloudBfStart);
         IDsc = requestAnimationFrame(cloudScStart);
-        IDoc = requestAnimationFrame(cloudOcStart);
+        //IDoc = requestAnimationFrame(cloudOcStart);
       }
     }
   }, 600);
 });
 
 var curBf,
-    curSc,
-    curOc;
+    curSc;
+    //curOc;
 
 //start
 var bfStartEnd = false,
-    scStartEnd = false,
-    ocStartEnd = false;
+    scStartEnd = false;
+    //ocStartEnd = false;
 function cloudBfStart(){
   curBf = baseFrequency;
   $({ bf: curBf }).animate({ bf: bfMin }, {
@@ -1686,25 +1677,25 @@ function cloudScStart(){
     }
   });
 }
-function cloudOcStart(){
-  curOc = octave;
-  $({ oc: curOc }).animate({ oc: ocMax }, {
-    duration: 14500,
-    easing: "easeOutQuad",
-    step: function(now) {
-      octave = Math.round(now);
-      cloudFilter.setAttribute("numOctaves", octave);
-    },
-    complete: function(){
-      if(!ocStartEnd){
-        curOc = octave;
-        OcDir = -1;
-        cancelAnimationFrame(IDoc);
-        IDoc = requestAnimationFrame(cloudOcDrift);  
-      }
-    }
-  });
-}
+// function cloudOcStart(){
+//   curOc = octave;
+//   $({ oc: curOc }).animate({ oc: ocMax }, {
+//     duration: 14500,
+//     easing: "easeOutQuad",
+//     step: function(now) {
+//       octave = Math.round(now);
+//       cloudFilter.setAttribute("numOctaves", octave);
+//     },
+//     complete: function(){
+//       if(!ocStartEnd){
+//         curOc = octave;
+//         OcDir = -1;
+//         cancelAnimationFrame(IDoc);
+//         IDoc = requestAnimationFrame(cloudOcDrift);  
+//       }
+//     }
+//   });
+// }
 
 //drift
 var curBfSet1 = false,
@@ -1805,77 +1796,78 @@ function cloudScDrift(){
   }
 }
 
-var curOcSet1 = false,
-    curOcSet2 = false;
-function cloudOcDrift(){
-  if(!cloudFlounderOc){
-    if(ocDir == -1){
-      if(!curOcSet1){curOc = octave; curOcSet1 = true;}
-      $({ oc: curOc }).stop().animate({ oc: ocMiddle }, {
-        duration: 20000,
-        easing: "easeOutSine",
-        step: function(now, fx) {
-          if(cloudFlounderOc){$(fx.elem).stop(true); return;}
-          if(ocDir == 1){$(fx.elem).stop(true); return;}
-          octave = Math.round(now);
-          cloudFilter.setAttribute("numOctaves", octave);
-        },
-        complete: function(){
-          curOcSet1 = false;
-          OcDir = 1;
-          curOc = octave;
-          cancelAnimationFrame(IDoc);
-          if(!cloudFlounderOc){IDoc = requestAnimationFrame(cloudOcDrift);}
-        }
-      });
-    }
-    else{
-      if(!curOcSet2){curOc = octave; curOcSet2 = true;}
-      $({ oc: curOc }).stop().animate({ oc: ocMax }, {
-        duration: 20000,
-        easing: "easeOutSine",
-        step: function(now, fx) {
-          if(cloudFlounderOc){$(fx.elem).stop(true); return;}
-          if(ocDir == -1){$(fx.elem).stop(true); return;}
-          octave = Math.round(now);
-          cloudFilter.setAttribute("numOctaves", octave);
-        },
-        complete: function(){
-          curOcSet2 = false;
-          OcDir = -1;
-          curOc = octave;
-          cancelAnimationFrame(IDoc);
-          if(!cloudFlounderOc){IDoc = requestAnimationFrame(cloudOcDrift);}
-        }
-      });
-    }
-  }
-}
+// var curOcSet1 = false,
+//     curOcSet2 = false;
+// function cloudOcDrift(){
+//   if(!cloudFlounderOc){
+//     if(ocDir == -1){
+//       if(!curOcSet1){curOc = octave; curOcSet1 = true;}
+//       $({ oc: curOc }).stop().animate({ oc: ocMiddle }, {
+//         duration: 20000,
+//         easing: "easeOutSine",
+//         step: function(now, fx) {
+//           if(cloudFlounderOc){$(fx.elem).stop(true); return;}
+//           if(ocDir == 1){$(fx.elem).stop(true); return;}
+//           octave = Math.round(now);
+//           cloudFilter.setAttribute("numOctaves", octave);
+//         },
+//         complete: function(){
+//           curOcSet1 = false;
+//           OcDir = 1;
+//           curOc = octave;
+//           cancelAnimationFrame(IDoc);
+//           if(!cloudFlounderOc){IDoc = requestAnimationFrame(cloudOcDrift);}
+//         }
+//       });
+//     }
+//     else{
+//       if(!curOcSet2){curOc = octave; curOcSet2 = true;}
+//       $({ oc: curOc }).stop().animate({ oc: ocMax }, {
+//         duration: 20000,
+//         easing: "easeOutSine",
+//         step: function(now, fx) {
+//           if(cloudFlounderOc){$(fx.elem).stop(true); return;}
+//           if(ocDir == -1){$(fx.elem).stop(true); return;}
+//           octave = Math.round(now);
+//           cloudFilter.setAttribute("numOctaves", octave);
+//         },
+//         complete: function(){
+//           curOcSet2 = false;
+//           OcDir = -1;
+//           curOc = octave;
+//           cancelAnimationFrame(IDoc);
+//           if(!cloudFlounderOc){IDoc = requestAnimationFrame(cloudOcDrift);}
+//         }
+//       });
+//     }
+//   }
+// }
 
 //flounder
 var bfFlounderEnd = false,
-    scFlounderEnd = false,
-    ocFlounderEnd = false;
+    scFlounderEnd = false;
+    //ocFlounderEnd = false;
 
 function setCloudFlounder(){
   cloudFlounderBf = true;
   cloudFlounderSc = true;
-  cloudFlounderOc = true;
+  //cloudFlounderOc = true;
   bfFlounderEnd = false,
   scFlounderEnd = false,
-  ocFlounderEnd = false;
+  //ocFlounderEnd = false;
   cancelAnimationFrame(IDbf);
   cancelAnimationFrame(IDsc);
-  cancelAnimationFrame(IDoc);
+  //cancelAnimationFrame(IDoc);
   IDbf = requestAnimationFrame(cloudBfFlounder);
   IDsc = requestAnimationFrame(cloudScFlounder);
-  IDoc = requestAnimationFrame(cloudOcFlounder);
+  //IDoc = requestAnimationFrame(cloudOcFlounder);
 }
 
 var bfFlounderSet = false,
-    scFlounderSet = false,
-    ocFlounderSet = false;
-var destBfFlounder, destScFlounder, destOcFlounder;
+    scFlounderSet = false;
+    //ocFlounderSet = false;
+var destBfFlounder, destScFlounder; 
+    //destOcFlounder;
 function cloudBfFlounder(){
   if(cloudFlounderBf){
     if(!bfFlounderSet){
@@ -1936,36 +1928,36 @@ function cloudScFlounder(){
     });
   }
 }
-function cloudOcFlounder(){
-  if(cloudFlounderOc){
-    if(!ocFlounderSet){
-      curOc = octave;
-      destOcFlounder = Math.abs(octave - ocMax) >= Math.abs(octave - ocMiddle) ? ocMax + 4 - Math.abs(octave - ocMax) : scaleMin - (4 - Math.abs(octave - ocMiddle));
-      if(destOcFlounder < 3){destBfFlounder == 3;}
-      ocFlounderSet = true;
-    }
-    $({ oc: curOc }).stop().animate({ oc: destOcFlounder }, {
-      duration: 3500,
-      easing: "easeOutQuad",
-      step: function(now, fx) {
-        if(!cloudFlounderOc){$(fx.elem).stop(true); return;}
-        octave = Math.round(now);
-        cloudFilter.setAttribute("numOctaves", octave);
-      },
-      complete: function(){
-        if(!ocFlounderEnd){
-          ocFlounderEnd = true;
-          ocFlounderSet = false;
-          OcDir = Math.abs(destOcFlounder - ocMax) <= Math.abs(destOcFlounder - ocMiddle) ? -1 : 1;
-          cloudFlounderOc = false;
-          curOc = octave;
-          cancelAnimationFrame(IDoc);
-          IDoc = requestAnimationFrame(cloudOcDrift);  
-        }
-      }
-    });
-  }
-}
+// function cloudOcFlounder(){
+//   if(cloudFlounderOc){
+//     if(!ocFlounderSet){
+//       curOc = octave;
+//       destOcFlounder = Math.abs(octave - ocMax) >= Math.abs(octave - ocMiddle) ? ocMax + 4 - Math.abs(octave - ocMax) : scaleMin - (4 - Math.abs(octave - ocMiddle));
+//       if(destOcFlounder < 3){destBfFlounder == 3;}
+//       ocFlounderSet = true;
+//     }
+//     $({ oc: curOc }).stop().animate({ oc: destOcFlounder }, {
+//       duration: 3500,
+//       easing: "easeOutQuad",
+//       step: function(now, fx) {
+//         if(!cloudFlounderOc){$(fx.elem).stop(true); return;}
+//         octave = Math.round(now);
+//         cloudFilter.setAttribute("numOctaves", octave);
+//       },
+//       complete: function(){
+//         if(!ocFlounderEnd){
+//           ocFlounderEnd = true;
+//           ocFlounderSet = false;
+//           OcDir = Math.abs(destOcFlounder - ocMax) <= Math.abs(destOcFlounder - ocMiddle) ? -1 : 1;
+//           cloudFlounderOc = false;
+//           curOc = octave;
+//           cancelAnimationFrame(IDoc);
+//           IDoc = requestAnimationFrame(cloudOcDrift);  
+//         }
+//       }
+//     });
+//   }
+// }
 
 
 /*******************plaintext font size******************************** */
@@ -2169,8 +2161,6 @@ function textTwinkleBright($this, index){
 
 let j;
 for (j = 0; j < plaintexts.length; j++){
-  //twinkleIntervs[j] = 0;
-  //clearInterval(twinkleIntervs[j]);
   twinkleIDs[j] = undefined;
   cancelAnimationFrame(twinkleIDs[j]);
   twinkleDirects[j] = 1;
@@ -2321,7 +2311,7 @@ $rotate.click(function () {
       $namesDiv.removeClass("hideRotateLeft");
       $timesDiv.removeClass("showRotateLeft");
       $timesDiv.toggleClass("hideRotateLeft");
-      let scrollDest = scrollinstance.scroll().position.y - 0.7 * window.innerHeight;
+      let scrollDest = scrollinstance.scroll().position.y + $selectionDiv.outerHeight() - 0.68 * window.innerHeight;
       if (scrollDest < 0){scrollDest = 0;}
       scrollinstance.scroll({x: 0, y: scrollDest}, 900, "easeInOutQuad");
 
@@ -2354,7 +2344,6 @@ $rotate.click(function () {
       LA037.ID = requestAnimationFrame(function(){spotlightAlpha(LA037, 0.37, "--LA0-37");});
     }, 500);
   }
-   //}, 100);
 });
 
 $rotate.mousedown(function(){
@@ -2825,26 +2814,26 @@ $TIslider.mouseleave(function(){
   if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
 })
 
-var timeContainerTimeOut;
+//var timeContainerTimeOut;
 var timeButtonMouseOverFunc = 0;
 addEvent(timeContainer, "mouseover", function(){
   if(!TIMdown){
-    clearRequestTimeout(timeContainerTimeOut);
-    timeContainerTimeOut = requestTimeout(function(){
+    //clearRequestTimeout(timeContainerTimeOut);
+    //timeContainerTimeOut = requestTimeout(function(){
       if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "1px");}
         let yearStr = yearVal.toString();
         $yearMonthButton.text(yearStr.charAt(2) + yearStr.charAt(3) + "." + monthVal);
-    }, 100);
+    //}, 100);
   }
 });
 addEvent(timeContainer, "mouseleave", function(){
   if(!TIMdown){
-    clearRequestTimeout(timeContainerTimeOut);
-    timeContainerTimeOut = requestTimeout(function(){
+    //clearRequestTimeout(timeContainerTimeOut);
+    //timeContainerTimeOut = requestTimeout(function(){
       if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
       $yearMonthButton.css("color", "#2a2835");
       $yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);
-    }, 100);
+    //}, 100);
   }
 });
 
@@ -2908,9 +2897,8 @@ function getSignTime(){
   if(curBarCodeNum > barcodeFinish){largerCodeNum = true;}
   else{largerCodeNum = false;}
 
-  requestAnimationFrame(function(){
-    scanAnim();
-  });
+  scanAnim();
+
 }
 
 /*******************scanArea*************************************/
@@ -3115,6 +3103,7 @@ function paperDisappear(){
   //   mouseFollowing = false;
   //   let scrollBackTo = $signText.offset().top + $signText.outerHeight() - 
   // }, 7500);
+
   requestTimeout(function(){
     $paper.removeClass("appear");
     $segment.removeClass("appear");

@@ -193,7 +193,7 @@ body {
 }
 
 .setting{
-  --settingFontSize: 57px;
+  --settingFontSize: 55px;
   --smallerSettingFontSize: 50px;
   position: absolute;
   top: 0;

@@ -2,9 +2,6 @@ var $loadingBG = $(".loadingBG");
 var $loadingMoon = $(".loadingMoon");
 var $loadingShade = $(".loadingShade");
 var $allNotLoading = $("* :not(.loadingBG):not(.loadingMoon):not(.loadingShade)");
-// var allNotLoadingArr = $("* :not(.loadingBG):not(.loadingMoon):not(.loadingShade)").toArray();
-// var loadedNum = 0;
-// var length = allNotLoadingArr.length;
 
 
 function finishLoading(){
