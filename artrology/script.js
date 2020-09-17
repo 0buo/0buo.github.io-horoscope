@@ -2694,8 +2694,7 @@ function rotateSlider(deg){
     $({d: curDeg}).animate({d: curDeg + degIncrement},{
       duration: 600,
       easing: "easeInOutBack",
-      step: function(now, fx){
-        if(sliderMdown == false){$(fx.elem).stop(true); return;}
+      step: function(now){
         sliderDeg = now % 360;
         TIsliderX = sliderRadius * Math.sin((sliderDeg * Math.PI) / 180);
         TIsliderY = sliderRadius * -Math.cos((sliderDeg * Math.PI) / 180);
@@ -2705,10 +2704,13 @@ function rotateSlider(deg){
         $TIslider.css("transform", "rotate(" + sliderDeg + "deg");
       },
       complete: function(){
-        destMonth = monthVal + Math.round(degIncrement/30);
+        destMonth = monthVal + Math.ceil(degIncrement/30);
         destMonth = destMonth > 12 ? destMonth - 12 : destMonth;
         calculateTime(sliderDeg);
+
         cancelAnimationFrame(IDsliderRotate);
+        if(sliderMdown == false){$(this).stop(true); return;}
+
         IDsliderRotate = requestAnimationFrame(function(){rotateSlider(sliderDeg);});
       }
     });
@@ -2720,8 +2722,7 @@ function rotateCircle(deg){
     $({d: curDeg}).animate({d: curDeg - degIncrement},{
       duration: 600,
       easing: "easeInOutBack",
-      step: function(now, fx){
-        if(circleMdown == false){$(fx.elem).stop(true); return;}
+      step: function(now){
         circleDeg = (360 + now) % 360;
         TIcircleX = circleRdius * Math.sin((circleDeg * Math.PI) / 180);
         TIcircleY = circleRdius * -Math.cos((circleDeg * Math.PI) / 180);
@@ -2734,7 +2735,10 @@ function rotateCircle(deg){
         destMonth = monthVal - Math.round(degIncrement/30);
         destMonth = destMonth <= 0 ? destMonth + 12 : destMonth;
         calculateTime(circleDeg);
+        
         cancelAnimationFrame(IDcircleRotate);
+        if(circleMdown == false){$(this).stop(true); return;}
+
         IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
       }
     });
@@ -2805,7 +2809,7 @@ $window.mouseup(function () {
     TIMdown = false;
     TIcircle.style.setProperty("--circleBlur", "4.5px");
     TIslider.style.setProperty("--sliderBlur", "4.5px");
-    timeContainer.style.setProperty("--timeContainerBlur", "3px");
+    //timeContainer.style.setProperty("--timeContainerBlur", "3px");
 
     $(document.body).css("cursor", "pointer");
     $TIslider.css("cursor", "grab");
@@ -2820,6 +2824,7 @@ var sliderDeg = -sliderAtan / (Math.PI / 180) + 180;
 var sliderTimeOut;
 
 $TIslider.mousedown(function () {
+  clearRequestTimeout(RTOsliderTimeBlur);
   clearRequestTimeout(sliderTimeOut);
   sliderTimeOut = requestTimeout(function(){
     TIMdown = true;
@@ -2840,6 +2845,7 @@ var circleDeg = -circleAtan / (Math.PI / 180) + 180;
 var circleTimeOut;
 
 $TIcircle.mousedown(function () {
+  clearRequestTimeout(RTOcircleTimeBlur);
   clearRequestTimeout(circleTimeOut);   
   circleTimeOut = requestTimeout(function(){
     circleMdown = true;
@@ -2854,18 +2860,27 @@ $TIcircle.mousedown(function () {
   }, 400);
 });
 
-
+var RTOcircleTimeBlur;
+var RTOsliderTimeBlur;
 $TIcircle.mouseover(function(){
+  clearRequestTimeout(RTOcircleTimeBlur);
   if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "1px");}
 })
 $TIcircle.mouseleave(function(){
-  if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
+  clearRequestTimeout(RTOcircleTimeBlur);
+  RTOcircleTimeBlur = requestTimeout(function(){
+    if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
+  }, 1200);
 })
 $TIslider.mouseover(function(){
+  clearRequestTimeout(RTOsliderTimeBlur);
   if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "1px");}
 })
 $TIslider.mouseleave(function(){
-  if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
+  clearRequestTimeout(RTOsliderTimeBlur);
+  RTOsliderTimeBlur = requestTimeout(function(){
+    if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "3px");}
+  }, 1200);
 })
 
 //var timeContainerTimeOut;
