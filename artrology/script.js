@@ -799,7 +799,7 @@ function updateR() {
 /*******************************setting scroll***********************************/
 var scrollinstance;
 var $scrollContainer = $("#scrollContainer");
-var scrollContainer = document.getElementById("scrollContainer");
+//var scrollContainer = document.getElementById("scrollContainer");
 $(function() {
   scrollinstance = $("#scrollContainer").overlayScrollbars({
     className : "os-theme-round-dark body-scroll-bar",
@@ -2329,7 +2329,7 @@ $rotate.click(function () {
       
       let scrollDest = scrollinstance.scroll().position.y + 300 - (window.innerHeight - $selectionDiv.offset().top);
       if (scrollDest < 0){scrollDest = 0;}
-      else if(scrollDest > scrollContainer.scrollHeight){scrollDest = scrollContainer.scrollHeight;}
+      else if(scrollDest > document.documentElement.scrollHeight){scrollDest = document.documentElement.scrollHeight;}
       scrollinstance.scroll({x: 0, y: scrollDest}, 1100, "easeInOutQuad");
 
       moonCountTimeOut = requestTimeout(function(){
