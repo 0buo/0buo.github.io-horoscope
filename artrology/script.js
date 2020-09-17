@@ -3163,8 +3163,8 @@ function paperDisappear(){
     mouseFollowing = false;
     limitedCursor = false;
     let scrlDest = {x: scrollinstance.scroll().position.x, 
-                    y: scrollContainer.scrollHeight};
-    if(scrlDest.y < 0){scrlDest.y = 0;}
+                    y: document.documentElement.scrollHeight};
+    //if(scrlDest.y < 0){scrlDest.y = 0;}
     scrollinstance.scroll(scrlDest, 1100, "easeInOutQuad");
 
     if(moonCount == 1){
