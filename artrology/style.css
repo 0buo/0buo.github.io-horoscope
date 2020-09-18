@@ -983,7 +983,7 @@ input::-ms-reveal, input::-ms-clear {
   opacity: var(--barCodeOpacity);
   -webkit-filter: blur(var(--barCodeBlur));
           filter: blur(var(--barCodeBlur));
-  transform: scale(1.55, 0.6);
+  transform: translateY(0) scale(1.55, 0.6);
   top: calc(50% - 75px);
   color: #272730;
 }
@@ -1005,14 +1005,14 @@ input::-ms-reveal, input::-ms-clear {
   opacity: var(--barCodeOpacity);
   -webkit-filter: blur(var(--barCodeBlur));
           filter: blur(var(--barCodeBlur));
-  transform: scale(1.55, 0.6);
+  transform: translateY(0) scale(1.55, 0.6);
   top: calc(50% - 75px);
   color: #272730;
 }
 
 #barCodeToScan.goDown, #barCodeToScan2.goDown{
-  transform: scale(2, 0.6);
-  top: calc(50% - 120px);
+  transform: translateY(-50px) scale(2, 0.6);
+  /* top: calc(50% - 120px); */
   color: #272730;
 }
 
@@ -1020,8 +1020,8 @@ input::-ms-reveal, input::-ms-clear {
   transition:all 1s ease-in-out, top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, -webkit-filter 1.5s ease-in-out;
   transition:all 1s ease-in-out, top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter 1.5s ease-in-out;
   transition:all 1s ease-in-out, top .75s ease-in-out, transform .75s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
-  transform: scale(2, 0.6);
-  top: calc(50% - 5px);
+  transform: translateY(70px) scale(2, 0.6);
+  /* top: calc(50% - 5px); */
   color: #272730;
 }
 
@@ -1029,8 +1029,8 @@ input::-ms-reveal, input::-ms-clear {
   transition:all 1s ease-in-out, top .75s ease-in-out, transform .25s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, -webkit-filter .65s ease-in-out;
   transition:all 1s ease-in-out, top .75s ease-in-out, transform .25s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .65s ease-in-out;
   transition:all 1s ease-in-out, top .75s ease-in-out, transform .25s ease-in-out, color 0.25s linear, opacity .75s ease-in-out, filter .65s ease-in-out, -webkit-filter .65s ease-in-out;
-  transform: scale(2.1, 0.6);
-  top: calc(50% - 5px);
+  transform: translateY(70px) scale(2.1, 0.6);
+  /* top: calc(50% - 5px); */
   color: rgba(210, 0, 0, 0.5);
 }
 #barCodeToScan.correct, #barCodeToScan2.correct{
@@ -1039,8 +1039,8 @@ input::-ms-reveal, input::-ms-clear {
   transition:all 1s ease-in-out, top .75s ease-in-out, transform .3s ease-in-out, color 0.25s linear, opacity .2s ease-in-out, filter .5s ease-in-out;
   transition:all 1s ease-in-out, top .75s ease-in-out, transform .3s ease-in-out, color 0.25s linear, opacity .2s ease-in-out, filter .5s ease-in-out, -webkit-filter .5s ease-in-out;
   transition:all 1s ease-in-out, top .75s ease-in-out, transform .3s ease-in-out, color 0.25s linear, opacity .2s ease-in-out, filter .2s ease-in-out, -webkit-filter .2s ease-in-out;
-  transform: scale(2, 0.55);
-  top: calc(50% - 5px);
+  transform: translateY(70px) scale(2, 0.55);
+  /* top: calc(50% - 5px); */
   color: #272730;
 }
 

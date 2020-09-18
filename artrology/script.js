@@ -1,3 +1,4 @@
+var $root = $(document.documentElement);
 var $document = $(document);
 var $htmlAndBody = $("html, body");
 var $window = $(window);
@@ -1263,12 +1264,14 @@ function startAnim(){
 }
 function darknessStartAnim(){
   let curDarkness = darkness;
-  $({d: curDarkness}).stop().animate({d: 0.94},{
-    duration: 30000,
-    easing: "easeInOutQuad",
-    step: function(now){
-      darkness = now;
-      document.documentElement.style.setProperty("--darkness", darkness);
+  $("#darkness").velocity("stop").velocity({
+    tween: [0.94, curDarkness]
+  },{ 
+      duration: 12000,
+      easing: "easeInOutQuad",
+      progress: function(_, _, _, tweenValue){
+        darkness = tweenValue;
+        document.documentElement.style.setProperty("--darkness", darkness);
     }
   });
 }
@@ -1296,13 +1299,13 @@ var SLCtimer;
 var sunsetStart = false;
 var backtoSpotLight = false;
 var nightStart = false;
-var LR1 = {val: 0, ID: undefined},
-    LG1 = {val: 0, ID: undefined},
-    LB1 = {val: 0, ID: undefined},
-    LR2 = {val: 0, ID: undefined},
-    LG2 = {val: 0, ID: undefined},
-    LB2 = {val: 0, ID: undefined},
-    LA037 = {val: 0.37, ID: undefined};
+var LR1 = {elem: $("#R1"), val: 0, ID: undefined},
+    LG1 = {elem: $("#G1"), val: 0, ID: undefined},
+    LB1 = {elem: $("#B1"), val: 0, ID: undefined},
+    LR2 = {elem: $("#R2"), val: 0, ID: undefined},
+    LG2 = {elem: $("#G2"), val: 0, ID: undefined},
+    LB2 = {elem: $("#B2"), val: 0, ID: undefined},
+    LA037 = {elem: $("#A037"), val: 0.37, ID: undefined};
 var sunsetR1 = 112, //61
     sunsetG1 = 47, //34
     sunsetB1 = 35, //35
@@ -1332,13 +1335,14 @@ function cancelSLCid(){
 function sunsetColor(src, dst, varString, time=8000){
   if(src.val == dst){ return; }
   let curColor = src.val;
-  $({ c: curColor }).stop().animate({ c: dst }, {
+
+  src.elem.velocity("stop").velocity({ tween: [dst, curColor] }, {
     duration: time,
-    easing: "easeInOutElastic", 
-    step: function(now, fx) {
-      if(backtoSpotLight){$(fx.elem).stop(true); return;}
-      if(nightStart){$(fx.elem).stop(true); return;}
-      src.val = Math.round(now);
+    easing: [0.34, 1.56, 0.64, 1], 
+    progress: function(_, _, _, tweenValue) {
+      if(backtoSpotLight){src.elem.velocity("stop", true); return;}
+      if(nightStart){src.elem.velocity("stop", true); return;}
+      src.val = Math.round(tweenValue);
       if(src.val > 255){src.val = 255;}
       else if(src.val < 0){src.val = 0;}
       document.documentElement.style.setProperty(varString, src.val);
@@ -1351,18 +1355,20 @@ function sunsetColor(src, dst, varString, time=8000){
 function sunsetAlpha(src, dst, varString, time=5000){
   if(src.val == dst){ return; }
   let curAlpha = src.val;
-  $({ a: curAlpha }).stop().animate({ a: dst }, {
+
+  src.elem.velocity("stop").velocity({ tween: [dst, curAlpha] }, {
     duration: time,
-    easing: "easeInOutBack", 
-    step: function(now, fx) {
-      if(backtoSpotLight){$(fx.elem).stop(true); return;}
-      if(nightStart){$(fx.elem).stop(true); return;}
-      src.val = now;
+    easing: [0.68, -0.6, 0.32, 1.6], 
+    progress: function(_, _, _, tweenValue) {
+      if(backtoSpotLight){src.elem.velocity("stop", true); return;}
+      if(nightStart){src.elem.velocity("stop", true); return;}
+      src.val = tweenValue;
       if(src.val > 1){src.val = 1;}
       else if(src.val < 0){src.val = 0;}
       document.documentElement.style.setProperty(varString, src.val);
     },
-    complete: function(){ 
+    complete: function(){
+
       cancelAnimationFrame(src.ID);
     }
   });
@@ -1371,13 +1377,14 @@ function sunsetAlpha(src, dst, varString, time=5000){
 function nightColor(src, dst, varString, time=8000){
   if(src.val == dst){ return; }
   let curColor = src.val;
-  $({ c: curColor }).stop().animate({ c: dst }, {
+
+  src.elem.velocity("stop").velocity({ tween: [dst, curColor] }, {
     duration: time,
-    easing: "easeInOutElastic", 
-    step: function(now, fx) {
-      if(backtoSpotLight){$(fx.elem).stop(true); return;}
-      if(sunsetStart){$(fx.elem).stop(true); return;}
-      src.val = Math.round(now);
+    easing: [0.34, 1.56, 0.64, 1], 
+    progress: function(_, _, _, tweenValue) {
+      if(backtoSpotLight){src.elem.velocity("stop", true); return;}
+      if(sunsetStart){src.elem.velocity("stop", true); return;}
+      src.val = Math.round(tweenValue);
       if(src.val > 255){src.val = 255;}
       else if(src.val < 0){src.val = 0;}
       document.documentElement.style.setProperty(varString, src.val);
@@ -1390,13 +1397,14 @@ function nightColor(src, dst, varString, time=8000){
 function nightAlpha(src, dst, varString, time=5000){
   if(src.val == dst){ return; }
   let curAlpha = src.val;
-  $({ a: curAlpha }).stop().animate({ a: dst }, {
+
+  src.elem.velocity("stop").velocity({ tween: [dst, curAlpha] }, {
     duration: time,
-    easing: "easeInOutBack", 
-    step: function(now, fx) {
-      if(backtoSpotLight){$(fx.elem).stop(true); return;}
-      if(sunsetStart){$(fx.elem).stop(true); return;}
-      src.val = now;
+    easing: [0.68, -0.6, 0.32, 1.6], 
+    progress: function(_, _, _, tweenValue) {
+      if(backtoSpotLight){src.elem.velocity("stop", true); return;}
+      if(sunsetStart){src.elem.velocity("stop", true); return;}
+      src.val = tweenValue;
       if(src.val > 1){src.val = 1;}
       else if(src.val < 0){src.val = 0;}
       document.documentElement.style.setProperty(varString, src.val);
@@ -1410,16 +1418,18 @@ function nightAlpha(src, dst, varString, time=5000){
 function spotlightColor(src, dst, varString, time=8000){
   if(src.val == dst){ return; }
   let curColor = src.val;
-  $({ c: curColor }).stop().animate({ c: dst }, {
+
+  src.elem.velocity("stop").velocity({ tween: [dst, curColor] }, {
     duration: time,
-    easing: "easeInOutQuad", 
-    step: function(now, fx) {
-      if(sunsetStart){$(fx.elem).stop(true); return;}
-      if(nightStart){$(fx.elem).stop(true); return;}
-      src.val = Math.round(now);
+    easing: [0.36, 0, 0.66, -0.56],
+    progress: function(_, _, _, tweenValue) {
+      if(sunsetStart){src.elem.velocity("stop", true); return;}
+      if(nightStart){src.elem.velocity("stop", true); return;}
+      src.val = Math.round(tweenValue);
       if(src.val > 255){src.val = 255;}
       else if(src.val < 0){src.val = 0;}
       document.documentElement.style.setProperty(varString, src.val);
+      console.log("SL: " + src.val);
     },
     complete: function(){ 
       cancelAnimationFrame(src.ID);
@@ -1429,13 +1439,14 @@ function spotlightColor(src, dst, varString, time=8000){
 function spotlightAlpha(src, dst, varString, time=5000){
   if(src.val == dst){ return; }
   let curAlpha = src.val;
-  $({ a: curAlpha }).stop().animate({ a: dst }, {
+
+  src.elem.velocity("stop").velocity({ tween: [dst, curAlpha] }, {
     duration: time,
-    easing: "easeInOutQuad", 
-    step: function(now, fx) {
-      if(sunsetStart){$(fx.elem).stop(true); return;}
-      if(nightStart){$(fx.elem).stop(true); return;}
-      src.val = now;
+    easing: [0.68, -0.6, 0.32, 1.6], 
+    progress: function(_, _, _, tweenValue) {
+      if(sunsetStart){src.elem.velocity("stop", true); return;}
+      if(nightStart){src.elem.velocity("stop", true); return;}
+      src.val = tweenValue;
       if(src.val > 1){src.val = 1;}
       else if(src.val < 0){src.val = 0;}
       document.documentElement.style.setProperty(varString, src.val);
@@ -2621,7 +2632,7 @@ JQcheck.mousedown(function () {
     setCloudFlounder();
 
     //scan
-    getSignName();
+    //getSignName();
   }
 });
 
