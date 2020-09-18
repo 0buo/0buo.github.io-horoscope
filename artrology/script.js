@@ -3178,7 +3178,10 @@ function paperDisappear(){
     mouseFollowing = false;
     limitedCursor = false;
     let scrlDest = {x: scrollinstance.scroll().position.x, 
-                    y: document.documentElement.scrollHeight};
+                    y: $namesDiv.outerHeight(true) + $(".switchDiv").position().top};
+    if(moonCount == 2){
+      scrlDest.y = $timesDiv.outerHeight(true) + $(".switchDiv").position().top;
+    }
     //if(scrlDest.y < 0){scrlDest.y = 0;}
     scrollinstance.scroll(scrlDest, 1100, "easeInOutQuad");
 
