@@ -2626,6 +2626,8 @@ JQcheck.mousedown(function () {
 });
 
 function getSignName(){
+  nameData = parseInt(nameData, 10);
+
   let thetaL = Math.atan(nameData);
   let epsilon = Math.atan((nameData % 11) * 11);
 
@@ -2912,8 +2914,7 @@ $yearMonthButton.click(function(){
   yearSubmitted = yearVal;
   monthSubmitted = monthVal;
   timeInputSubmitted = true;
-  //console.log(yearSubmitted + " . " + monthSubmitted);
-
+  
   //change spotlight state
   sunsetStart = false;
   backtoSpotLight = false;

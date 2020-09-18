@@ -1610,12 +1610,12 @@ input::-ms-reveal, input::-ms-clear {
   transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
   transform-origin: left center;
   opacity: 0;
-  transform: translate(-8%, 6%) rotate(6deg);
+  transform: translate(-5%, 5%) rotate(6deg);
   /* display: none; */
 }
 #nameSignText.appear, #timeSignText.appear{
   opacity: 1;
-  transform: translate(0) rotate(0deg);
+  transform: translate(0, 0) rotate(0deg);
 }
 .signHeader{
   font-family: 'Libre Barcode 39 Extended', cursive;
