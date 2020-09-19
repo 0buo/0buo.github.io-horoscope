@@ -312,6 +312,7 @@ body {
   display: none;
 
   background: none;
+  will-change: transform;
 }
 
 h1 {
