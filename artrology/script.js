@@ -2633,7 +2633,7 @@ JQcheck.mousedown(function () {
     setCloudFlounder();
 
     //scan
-    //getSignName();
+    getSignName();
   }
 });
 
