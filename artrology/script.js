@@ -338,25 +338,25 @@ else {
     });
 }
 
-function getWidth() {
-  return Math.max(
-    document.body.scrollWidth,
-    document.documentElement.scrollWidth,
-    document.body.offsetWidth,
-    document.documentElement.offsetWidth,
-    document.documentElement.clientWidth
-  );
-}
+// function getWidth() {
+//   return Math.max(
+//     document.body.scrollWidth,
+//     document.documentElement.scrollWidth,
+//     document.body.offsetWidth,
+//     document.documentElement.offsetWidth,
+//     document.documentElement.clientWidth
+//   );
+// }
 
-function getHeight() {
-  return Math.max(
-    document.body.scrollHeight,
-    document.documentElement.scrollHeight,
-    document.body.offsetHeight,
-    document.documentElement.offsetHeight,
-    document.documentElement.clientHeight
-  );
-}
+// function getHeight() {
+//   return Math.max(
+//     document.body.scrollHeight,
+//     document.documentElement.scrollHeight,
+//     document.body.offsetHeight,
+//     document.documentElement.offsetHeight,
+//     document.documentElement.clientHeight
+//   );
+// }
 
 /*********************** on resize ************************ */
 $(function(){
@@ -410,7 +410,7 @@ var randNum = 0;
 
 
 var cursorLerpX = 0.9;
-var cursorLerpY = 0.35;
+var cursorLerpY = 0.4;
 
 var finishLerpCursorLerpX = false;
 var finishLerpCursorLerpY = false;
@@ -1039,7 +1039,7 @@ $filterOn.on("click", function(){
       $filtered.addClass("svgFilter");
 
       requestTimeout(function(){
-        document.documentElement.pseudoStyle('before', 'z-index','60');
+        document.documentElement.pseudoStyle('before', 'z-index','3');
         $settingClass.css("opacity", "0");
       }, 1100);
       requestTimeout(function(){
@@ -1084,7 +1084,7 @@ $filterOff.on("click", function(){
       $filtered.addClass("offFilter");
   
       requestTimeout(function(){
-        document.documentElement.pseudoStyle('before', 'z-index','20');
+        document.documentElement.pseudoStyle('before', 'z-index','3');
         $settingClass.css("opacity", "0");
       }, 1100);
       requestTimeout(function(){
@@ -1429,7 +1429,6 @@ function spotlightColor(src, dst, varString, time=8000){
       if(src.val > 255){src.val = 255;}
       else if(src.val < 0){src.val = 0;}
       document.documentElement.style.setProperty(varString, src.val);
-      console.log("SL: " + src.val);
     },
     complete: function(){ 
       cancelAnimationFrame(src.ID);
@@ -1509,7 +1508,7 @@ function bodyRotate(e){
 
 addEvent(document, "mousemove", bodyRotate);
 
-
+/**************************reflection*********************************** */
 var brightRef = 48;
 var brightRef2 = 52;
 var darkRef = 33;
@@ -1885,7 +1884,7 @@ function cloudBfFlounder(){
   if(cloudFlounderBf){
     if(!bfFlounderSet){
       curBf = baseFrequency; 
-      destBfFlounder = Math.abs(baseFrequency - bfMax) >= Math.abs(baseFrequency - bfMin) ? bfMax + 0.007 - Math.abs(baseFrequency - bfMax) : bfMin - (0.007 - Math.abs(baseFrequency - bfMin));
+      destBfFlounder = Math.abs(baseFrequency - bfMax) >= Math.abs(baseFrequency - bfMin) ? bfMax + 0.009 - Math.abs(baseFrequency - bfMax) : bfMin - (0.007 - Math.abs(baseFrequency - bfMin));
       if(destBfFlounder < 0.001){destBfFlounder == 0.001;} 
       bfFlounderSet = true;
     }
@@ -1915,7 +1914,7 @@ function cloudScFlounder(){
   if(cloudFlounderSc){
     if(!scFlounderSet){
       curSc = cloudScale; 
-      destScFlounder = Math.abs(cloudScale - scaleMiddle) >= Math.abs(cloudScale - scaleMin) ? scaleMiddle + 40 - Math.abs(cloudScale - scaleMiddle) : scaleMin - (40 - Math.abs(cloudScale - scaleMin));
+      destScFlounder = Math.abs(cloudScale - scaleMiddle) >= Math.abs(cloudScale - scaleMin) ? scaleMiddle + 50 - Math.abs(cloudScale - scaleMiddle) : scaleMin - (40 - Math.abs(cloudScale - scaleMin));
       if(destScFlounder < 10){destBfFlounder == 10;}
       scFlounderSet = true;
     }
@@ -2253,6 +2252,8 @@ var nameTextEnd = 5;
 var timeTextStart = 6;
 var timeTextEnd = 8;
 
+var moonRotateWillChangeTO;
+var signTextWillChangeTO;
 //var moonClickTimeOut;
 $rotate.click(function () {
                       //&& canChange == 1 ){
@@ -2263,111 +2264,134 @@ $rotate.click(function () {
     else if(moonCanSwitch2){moonCount = 2; moonCanSwitch2 = false;}
     else{moonCount = -1;}
 
-    if (moonCount == 1) {
-      //$selectionDiv.removeClass("bottom");
-      //$namesDiv.addClass("bottom");
-      $namesDiv.css("display", "initial");
-      selfTwinkle(nameTextStart, nameTextEnd);
-
-      requestTimeout(function(){
-        $rotate.toggleClass("one");
-        $rotateTextTwo.removeClass("hide");
-        $rotateTextOne.toggleClass("up");
-        $timesDiv.removeClass("hideRotateLeft");
-        $namesDiv.toggleClass("showRotateLeft");
-
-        // let height = window.innerHeight + $namesDiv.outerHeight(true);
-        // $bodyRotate.css("height", height + "px");
+    clearRequestTimeout(moonRotateWillChangeTO);
+    clearRequestTimeout(signTextWillChangeTO);
+    $rotate.css("will-change", "transform");
+    $rotateTextOne.css("will-change", "transform, opacity");
+    $rotateTextTwo.css("will-change", "transform, opacity");
+    $timesDiv.css("will-change", "transform, opacity");
+    $namesDiv.css("will-change", "transform, opacity");
+    $nameSignText.css("will-change", "transform, opacity");
+    $timeSignText.css("will-change", "transform, opacity");
+    requestTimeout(function(){
+      if (moonCount == 1) {
+        //$selectionDiv.removeClass("bottom");
+        //$namesDiv.addClass("bottom");
+        $namesDiv.css("display", "initial");
+        selfTwinkle(nameTextStart, nameTextEnd);
+  
         requestTimeout(function(){
-          //if(parseFloat($namesDiv.css("opacity")) > 0.95){
-            moonCanSwitch2 = true;
+          $rotate.toggleClass("one");
+          $rotateTextTwo.removeClass("hide");
+          $rotateTextOne.toggleClass("up");
+          $timesDiv.removeClass("hideRotateLeft");
+          $namesDiv.toggleClass("showRotateLeft");
+  
+          // let height = window.innerHeight + $namesDiv.outerHeight(true);
+          // $bodyRotate.css("height", height + "px");
+          requestTimeout(function(){
+            //if(parseFloat($namesDiv.css("opacity")) > 0.95){
+              moonCanSwitch2 = true;
+            //}
+          }, 1100);
+        }, 250);
+  
+        if(0.65 * window.innerHeight - $nameInput.offset().top > 0){
+          let sd = {x: scrollinstance.scroll().position.x,
+                    y: scrollinstance.scroll().position.y - (0.65 * window.innerHeight - $nameInput.offset().top)};
+          if(sd.y < 0){sd.y = 0};
+          scrollinstance.scroll(sd, 1100, "easeInOutQuad");
+        }
+      } 
+      else if (moonCount == 2) {
+        //$namesDiv.removeClass("bottom");
+        //$timesDiv.addClass("bottom");
+        $timesDiv.css("display", "initial");
+        selfTwinkle(timeTextStart, timeTextEnd);
+  
+        requestTimeout(function(){
+          cancelTwinkle(nameTextStart, nameTextEnd);
+          $rotate.removeClass("one");
+          $rotate.toggleClass("two");
+          $rotateTextOne.removeClass("up");
+          $rotateTextOne.toggleClass("hide");
+          $rotateTextTwo.toggleClass("down");
+          $namesDiv.removeClass("showRotateLeft");
+          $namesDiv.toggleClass("hideRotateLeft");
+          $timesDiv.toggleClass("showRotateLeft");
+  
+          // let height = window.innerHeight + $timesDiv.outerHeight(true);
+          // $bodyRotate.css("height", height + "px");
+          requestTimeout(function(){
+            //if(parseFloat($namesDiv.css("opacity")) < 0.05){
+              $namesDiv.css("display", "none"); 
+              moonCanSwitch0 = true;
+            //}
+          }, 1100);
+        }, 250);
+  
+        if(0.65 * window.innerHeight - $timeInput.offset().top > 0){
+          let sd = {x: scrollinstance.scroll().position.x,
+                    y: scrollinstance.scroll().position.y - (0.65 * window.innerHeight - $timeInput.offset().top)};
+          if(sd.y < 0){sd.y = 0};
+          scrollinstance.scroll(sd, 1100, "easeInOutQuad");
+        }
+      } 
+      else if(moonCount == 0) {
+        //$timesDiv.removeClass("bottom");
+        //$selectionDiv.addClass("bottom");
+        cancelTwinkle(timeTextStart, timeTextEnd);
+        $rotate.removeClass("two");
+        $rotateTextTwo.removeClass("down");
+        $rotateTextOne.removeClass("hide");
+        $rotateTextTwo.toggleClass("hide");
+  
+        $namesDiv.removeClass("hideRotateLeft");
+        $timesDiv.removeClass("showRotateLeft");
+        $timesDiv.toggleClass("hideRotateLeft");
+        
+        let scrollDest = scrollinstance.scroll().position.y + 300 - (window.innerHeight - $selectionDiv.offset().top);
+        if (scrollDest < 0){scrollDest = 0;}
+        else if(scrollDest > document.documentElement.scrollHeight){scrollDest = document.documentElement.scrollHeight;}
+        scrollinstance.scroll({x: 0, y: scrollDest}, 1100, "easeInOutQuad");
+  
+        moonCountTimeOut = requestTimeout(function(){
+          //if(parseFloat($timesDiv.css("opacity")) < 0.05){
+            $timesDiv.css("display", "none"); 
+            moonCanSwitch1 = true;
           //}
         }, 1100);
-      }, 250);
-
-      if(0.65 * window.innerHeight - $nameInput.offset().top > 0){
-        let sd = {x: scrollinstance.scroll().position.x,
-                  y: scrollinstance.scroll().position.y - (0.65 * window.innerHeight - $nameInput.offset().top)};
-        if(sd.y < 0){sd.y = 0};
-        scrollinstance.scroll(sd, 1100, "easeInOutQuad");
       }
-    } 
-    else if (moonCount == 2) {
-      //$namesDiv.removeClass("bottom");
-      //$timesDiv.addClass("bottom");
-      $timesDiv.css("display", "initial");
-      selfTwinkle(timeTextStart, timeTextEnd);
 
+      //sign text
+      if(moonCount == 1){$nameSignText.removeClass("appear");}
+      else if(moonCount == 2){$timeSignText.removeClass("appear");}
       requestTimeout(function(){
-        cancelTwinkle(nameTextStart, nameTextEnd);
-        $rotate.removeClass("one");
-        $rotate.toggleClass("two");
-        $rotateTextOne.removeClass("up");
-        $rotateTextOne.toggleClass("hide");
-        $rotateTextTwo.toggleClass("down");
-        $namesDiv.removeClass("showRotateLeft");
-        $namesDiv.toggleClass("hideRotateLeft");
-        $timesDiv.toggleClass("showRotateLeft");
+        if(moonCount == 1){
+          $nameSignPlainText.text("");
+          $nameSignHeader.text("");
+        }
+        else if(moonCount == 2){
+          $timeSignPlainText.text("");
+          $timeSignHeader.text("");
+        }
+      }, 1800);
 
-        // let height = window.innerHeight + $timesDiv.outerHeight(true);
-        // $bodyRotate.css("height", height + "px");
-        requestTimeout(function(){
-          //if(parseFloat($namesDiv.css("opacity")) < 0.05){
-            $namesDiv.css("display", "none"); 
-            moonCanSwitch0 = true;
-          //}
-        }, 1100);
-      }, 250);
-
-      if(0.65 * window.innerHeight - $timeInput.offset().top > 0){
-        let sd = {x: scrollinstance.scroll().position.x,
-                  y: scrollinstance.scroll().position.y - (0.65 * window.innerHeight - $timeInput.offset().top)};
-        if(sd.y < 0){sd.y = 0};
-        scrollinstance.scroll(sd, 1100, "easeInOutQuad");
-      }
-    } 
-    else if(moonCount == 0) {
-      //$timesDiv.removeClass("bottom");
-      //$selectionDiv.addClass("bottom");
-      cancelTwinkle(timeTextStart, timeTextEnd);
-      $rotate.removeClass("two");
-      $rotateTextTwo.removeClass("down");
-      $rotateTextOne.removeClass("hide");
-      $rotateTextTwo.toggleClass("hide");
-
-      $namesDiv.removeClass("hideRotateLeft");
-      $timesDiv.removeClass("showRotateLeft");
-      $timesDiv.toggleClass("hideRotateLeft");
-      
-      let scrollDest = scrollinstance.scroll().position.y + 300 - (window.innerHeight - $selectionDiv.offset().top);
-      if (scrollDest < 0){scrollDest = 0;}
-      else if(scrollDest > document.documentElement.scrollHeight){scrollDest = document.documentElement.scrollHeight;}
-      scrollinstance.scroll({x: 0, y: scrollDest}, 1100, "easeInOutQuad");
-
-      moonCountTimeOut = requestTimeout(function(){
-        //if(parseFloat($timesDiv.css("opacity")) < 0.05){
-          $timesDiv.css("display", "none"); 
-          moonCanSwitch1 = true;
-        //}
-      }, 1100);
-    }
+      moonRotateWillChangeTO = requestTimeout(function(){
+        $rotate.css("will-change", "auto");
+        $rotateTextOne.css("will-change", "auto");
+        $rotateTextTwo.css("will-change", "auto");
+        $timesDiv.css("will-change", "auto");
+        $namesDiv.css("will-change", "auto");
+      }, 1450);
+      signTextWillChangeTO = requestTimeout(function(){
+        $nameSignText.css("will-change", "auto");
+        $timeSignText.css("will-change", "auto");
+      }, 1600)
+    }, 210);
 
     nameInputSubmitted = 0;
     timeInputSubmitted = false;
-
-    //sign text
-    if(moonCount == 1){$nameSignText.removeClass("appear");}
-    else if(moonCount == 2){$timeSignText.removeClass("appear");}
-    requestTimeout(function(){
-      if(moonCount == 1){
-        $nameSignPlainText.text("");
-        $nameSignHeader.text("");
-      }
-      else if(moonCount == 2){
-        $timeSignPlainText.text("");
-        $timeSignHeader.text("");
-      }
-    }, 1800);
 
     //spotlight color
     sunsetStart = false;
@@ -2533,12 +2557,16 @@ JQinput.on("input", function () {
 var inputFocused = 0;
 var nameInputSubmitted = 0;
 
-var $allNotNameInput = $("* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check):not(.filtered):not(#scrollContainer):not(body):not(#bodyRotate)");
+var $allNotNameInput = $("* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check)\
+:not(#scanArea):not(#redLine):not(#redLightArea):not(#barCodeToScan):not(#barCodeToScan2)\
+:not(.paperContainer):not(.paper):not(.segment):not(.segment2):not(.icon)\
+:not(.dummy)\
+:not(#bodyRotate):not(.filtered):not(#scrollContainer):not(body):not(html)");
 // var JQbodyNswitch = $("body > *:not(.switchDiv)");
 // var JQswitchNinp = $(".switchDiv > *:not(#nameInput)");
 var $inp = $(".inp");
 function inputFocusIn() {
-  if(nameInputCanFocus){
+  if(nameInputCanFocus && canStartScan){
     inputFocused = 1;
     nameInputSubmitted = 0;
     $allNotNameInput.addClass("inputFocused");
@@ -2923,31 +2951,34 @@ addEvent(timeContainer, "mouseleave", function(){
 var timeInputSubmitted = false;
 
 $yearMonthButton.click(function(){
-  yearSubmitted = yearVal;
-  monthSubmitted = monthVal;
-  timeInputSubmitted = true;
+  if(canStartScan){
+    yearSubmitted = yearVal;
+    monthSubmitted = monthVal;
+    timeInputSubmitted = true;
+    
+    //change spotlight state
+    sunsetStart = false;
+    backtoSpotLight = false;
+    nightStart = true;
   
-  //change spotlight state
-  sunsetStart = false;
-  backtoSpotLight = false;
-  nightStart = true;
-
-  clearRequestTimeout(SLCtimer);
-  SLCtimer = requestTimeout(function() {
-    mouseState = 2;
-    updateR();
-    cancelSLCid();
-    LR1.ID = requestAnimationFrame(function(){nightColor(LR1, nightR1, "--LR1");});
-    LG1.ID = requestAnimationFrame(function(){nightColor(LG1, nightG1, "--LG1");});
-    LB1.ID = requestAnimationFrame(function(){nightColor(LB1, nightB1, "--LB1", 8500);});
-    LR2.ID = requestAnimationFrame(function(){nightColor(LR2, nightR2, "--LR2");});
-    LG2.ID = requestAnimationFrame(function(){nightColor(LG2, nightG2, "--LG2", 7900);});
-    LB2.ID = requestAnimationFrame(function(){nightColor(LB2, nightB2, "--LB2", 9000);});
-    LA037.ID = requestAnimationFrame(function(){nightAlpha(LA037, nightA037, "--LA0-37");});
-  }, 500);
-  
-  //scan
-  getSignTime();
+    clearRequestTimeout(SLCtimer);
+    SLCtimer = requestTimeout(function() {
+      mouseState = 2;
+      updateR();
+      cancelSLCid();
+      LR1.ID = requestAnimationFrame(function(){nightColor(LR1, nightR1, "--LR1");});
+      LG1.ID = requestAnimationFrame(function(){nightColor(LG1, nightG1, "--LG1");});
+      LB1.ID = requestAnimationFrame(function(){nightColor(LB1, nightB1, "--LB1", 8500);});
+      LR2.ID = requestAnimationFrame(function(){nightColor(LR2, nightR2, "--LR2");});
+      LG2.ID = requestAnimationFrame(function(){nightColor(LG2, nightG2, "--LG2", 7900);});
+      LB2.ID = requestAnimationFrame(function(){nightColor(LB2, nightB2, "--LB2", 9000);});
+      LA037.ID = requestAnimationFrame(function(){nightAlpha(LA037, nightA037, "--LA0-37");});
+    }, 500);
+    
+    //scan
+    setCloudFlounder();
+    getSignTime();
+  }
 });
 
 $yearMonthButton.mousedown(function(){
@@ -2984,9 +3015,10 @@ function getSignTime(){
 
 /*******************scanArea*************************************/
 var $scan = $("#scanArea");
-var $allNotScan = $("* :not(#scanArea):not(#redLine):not(#redLightArea):not(#barCodeToScan):not(#barCodeToScan2)\
-:not(.paperContainer):not(.paper):not(.segment):not(.segment2):not(.icon)\
-:not(#scrollContainer):not(#bodyRotate):not(.filtered):not(body)");
+// var $allNotScan = $("* :not(#scanArea):not(#redLine):not(#redLightArea):not(#barCodeToScan):not(#barCodeToScan2)\
+// :not(.paperContainer):not(.paper):not(.segment):not(.segment2):not(.icon)\
+// :not(#scrollContainer):not(#bodyRotate):not(.filtered):not(body)");
+var $allNotScan = $bodyRotate;
 var $redLine = $("#redLine");
 var $redLightArea = $("#redLightArea");
 // var $redLightBG = $("#redLightBG");
@@ -3014,6 +3046,8 @@ var $nameSignHeader = $nameSignText.children().first();
 var $timeSignText = $("#timeSignText");
 var $timeSignPlainText = $timeSignText.children().last();
 var $timeSignHeader = $timeSignText.children().first();
+
+var canStartScan = true;
 
 function redLineAppear(){
   requestTimeout(function(){
@@ -3044,6 +3078,9 @@ function redLineDisappear(){
     requestTimeout(function(){
       $redLine.css("--redLineScaleY", "0.25");
       $redLightArea.css("--redAreaScaleY", "0.25");
+
+      $redLine.css("will-change", "auto");
+      $redLightArea.css("will-change", "auto");
     }, 3200);
   }, 2000);
 }
@@ -3078,6 +3115,9 @@ function barCodeDisappear(){
   requestTimeout(function(){
     $barCode.removeClass("goDown");
     $barCode2.removeClass("goDown");
+
+    $barCode.css("will-change", "auto");
+    $barCode2.css("will-change", "auto");
   }, 1800);
 }
 
@@ -3219,7 +3259,13 @@ function paperDisappear(){
       scrollinstance.options("overflowBehavior.y", "scroll");
       scrollinstance.options("overflowBehavior.x", "scroll");
       mouseFollowing = true;
-    }, 2000);
+
+      $scan.removeClass("svgFilter2");
+      $scan.css("display", "none");
+
+      $nameSignText.css("will-change", "auto");
+      $timeSignText.css("will-change", "auto");
+    }, 2100);
   }, 5000);
 
 
@@ -3228,10 +3274,20 @@ function paperDisappear(){
     $segment.removeClass("appear");
     $segment2.removeClass("appear");
     $icon.removeClass("appear");
-    $scan.removeClass("svgFilter2");
-    $scan.css("display", "none");
     $paperContainer.css("display", "none");
-  }, 10000);
+
+    $paper.css("will-change", "auto");
+    $segment.css("will-change", "auto");
+    $segment2.css("will-change", "auto");
+    $bodyRotate.css("will-change", "transform");
+    $scan.css("will-change", "auto");
+
+    requestTimeout(function(){
+      canStartScan = true;
+      $inp.css("cursor", "text");
+      $yearMonthButton.css("cursor", "grab");
+    }, 900); 
+  }, 12100);
 }
 
 //barcode get transparent
@@ -3258,7 +3314,12 @@ function barcodeGetBack(){
 
 //barcode scan whole process
 function scanAnim(){
-  requestAnimationFrame(function(){
+  if(canStartScan){
+    canStartScan = false;
+
+    $filterSwitchText.css("color", "white");
+    $block.css("display", "initial");
+
     if(moonCount == 1){
       $nameSignText.removeClass("appear");
       if(0.65 * window.innerHeight - $nameInput.offset().top > 0){
@@ -3277,47 +3338,69 @@ function scanAnim(){
         scrollinstance.scroll(sd, 1100, "easeInOutQuad");
       }
     }
-
     
     scrollinstance.options("overflowBehavior.y", "hidden");
     scrollinstance.options("overflowBehavior.x", "hidden");
-  
+
     twinkleOpaState = 3;
     twinkleOpa = defaultTwinklwOpa3;
-  
+
     mouseFollowing = false;
     mouseY = 0.5 * window.innerHeight - 70;
     mouseX = 0.5 * window.innerWidth;
-  
-    setCloudFlounder();
-    $filterSwitchText.css("color", "white");
-    
-    $block.css("display", "initial");
-    
-    paperAppear();
 
-    $allNotScan.addClass("scan");
-    $scan.css("display", "initial");
-  
+    //will-change
+    $paper.css("will-change", "transform, opacity");
+    $segment.css("will-change", "transform");
+    $segment2.css("will-change", "transform");
+    $bodyRotate.css("will-change", "transform, filter");
+    $nameSignText.css("will-change", "transform, opacity");
+    $timeSignText.css("will-change", "transform, opacity");
     requestTimeout(function(){
+      $inp.css("cursor", "no-drop");
+      $yearMonthButton.css("cursor", "no-drop");
+
       if(moonCount == 1){
-        $nameSignPlainText.text("");
-        $nameSignHeader.text("");
+        $nameSignText.removeClass("appear");
       }
       else if(moonCount == 2){
-        $timeSignPlainText.text("");
-        $timeSignHeader.text("");
+        $timeSignText.removeClass("appear");
       }
-      barcodeGetTransparent();
-      $scan.addClass("svgFilter2");
-      redLineAppear();
-      barCodeAppear($barCode, 7500);
-  
+
+      //setCloudFlounder();
+      
+      paperAppear();
+
+      $allNotScan.addClass("scan");
+
+      //will-change
+      $scan.css("will-change", "filter");
+      $redLine.css("will-change", "transform, opacity, filter");
+      $redLightArea.css("will-change", "transform, opacity, filter");
+      $barCode.css("will-change", "transform, opacity, filter");
+      $barCode2.css("will-change", "transform, opacity, filter");
+
+      $scan.css("display", "initial");
       requestTimeout(function(){
-        scanBarCode();
-      },9500);
-    }, 1000);
-  });
+        if(moonCount == 1){
+          $nameSignPlainText.text("");
+          $nameSignHeader.text("");
+        }
+        else if(moonCount == 2){
+          $timeSignPlainText.text("");
+          $timeSignHeader.text("");
+        }
+        barcodeGetTransparent();
+        $scan.addClass("svgFilter2");
+        redLineAppear();
+        barCodeAppear($barCode, 7500);
+
+        requestTimeout(function(){
+          scanBarCode();
+        },9500);
+      }, 1000);
+    }, 210);
+  }
 }
 
 function endScan(){

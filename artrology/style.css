@@ -105,12 +105,14 @@
 
 :root:before {
   content: "";
-  display: block;
+  /* display: block; */
   width: 100vw;
   height: 100vh;
   position: fixed;
   z-index: 0;
   pointer-events: none;
+  
+  will-change: background-image;
   background: radial-gradient(
     circle var(--radius) at var(--cursorX) var(--cursorY), 
     rgba(var(--LR1), var(--LG1), var(--LB1), var(--LA0)) 0%, 
@@ -147,8 +149,6 @@ body {
   /* border: 0.01px solid transparent; */
   --bodyRotateY: 0deg;
   overflow: hidden;
-
-  will-change: transform, opacity, filter;
 }
 
 #scrollContainer{
@@ -180,6 +180,7 @@ body {
 
   transition: all 0.5s ease;
   /* transform-style: preserve-3d; */
+  will-change: background-image;
 }
 
 .filtered{
@@ -204,7 +205,7 @@ body {
   height: 100%;
   min-height: 100vh;
   background-color: rgb(0,0,0);
-  z-index: 7;
+  z-index: 2;
   border: 0.01px solid transparent;
 
   opacity: 0;
@@ -311,6 +312,8 @@ body {
   display: none;
 
   background: none;
+
+  will-change: transform;
 }
 
 h1 {
@@ -370,7 +373,7 @@ h1 {
   margin-bottom: 50px;
   margin-top: 120px;
   height: 110px;
-  z-index: 3;
+  z-index: 1;
   border: 0.01px solid transparent;
   transition: all 1s ease-in-out;
 }
@@ -517,7 +520,7 @@ h1 {
 #namesDiv.showRotateLeft{
   transform: translate(0%, 0%) rotate(0deg);
   opacity: 1;
-  z-index: 2;
+  z-index: 1;
 }
 
 #namesDiv.hideRotateLeft {
@@ -540,7 +543,7 @@ h1 {
 #timesDiv.showRotateLeft {
   transform: translate(0%, 0%) rotate(0deg);
   opacity: 1;
-  z-index: 2;
+  z-index: 1;
 }
 
 #timesDiv.hideRotateLeft {
@@ -777,7 +780,7 @@ input::-ms-reveal, input::-ms-clear {
   transition: -webkit-filter 0.5s ease-in-out;
   transition: filter 0.5s ease-in-out;
   transition: filter 0.5s ease-in-out, -webkit-filter 0.5s ease-in-out;
-  z-index: 4;
+  z-index: 1;
 }
 
 #slider{ 
@@ -795,7 +798,7 @@ input::-ms-reveal, input::-ms-clear {
   transition: -webkit-filter 0.5s ease-in-out;
   transition: filter 0.5s ease-in-out;
   transition: filter 0.5s ease-in-out, -webkit-filter 0.5s ease-in-out;
-  z-index: 4;
+  z-index: 1;
 }
 #circle, #slider{
   cursor: -webkit-grab;
@@ -1611,7 +1614,7 @@ input::-ms-reveal, input::-ms-clear {
   transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
   transform-origin: left center;
   opacity: 0;
-  transform: translate(-5%, 5%) rotate(6deg);
+  transform: translate(-7%, 7%) rotate(4deg);
   /* display: none; */
 }
 #nameSignText.appear, #timeSignText.appear{
@@ -1635,7 +1638,7 @@ input::-ms-reveal, input::-ms-clear {
   right: 30px;
   width: 50px;
   height: 50px;
-  z-index: 70;
+  z-index: 4;
   border-radius: 100%;
   cursor: -webkit-grabbing;
   cursor: grabbing;
@@ -1676,18 +1679,18 @@ input::-ms-reveal, input::-ms-clear {
           filter: blur(0.5px);
 
   transition: all 1s ease-in-out;
-  margin-left: 15px;
   background-image: linear-gradient(315deg, #2d3436 0%, #d3d3d3 74%);
   opacity: 0.65;
+  transform: translateX(15px);
 }
 
 .filterButton.light{
-  margin-left: -25px;
+  transform: translateX(-30px);
   background-image: linear-gradient(315deg, #3c4b4b 0%, #c4b4bb 74%);
 }
 
 .filterButton.heavy{
-  margin-left: -55px;
+  transform: translateX(-55px);
   background-image: linear-gradient(315deg, #fefdfc 0%, #473146 74%);
 }
 
@@ -1701,7 +1704,7 @@ input::-ms-reveal, input::-ms-clear {
   width: 100vw;
   height: 100vh;
   background: black;
-  z-index: 80;
+  z-index: 5;
 }
 .loadingMoon{
   position: absolute;
@@ -1753,7 +1756,10 @@ input::-ms-reveal, input::-ms-clear {
 }
 
 * :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check)
-  :not(.filtered):not(#scrollContainer):not(body):not(#bodyRotate).inputFocused{
+  :not(#scanArea):not(#redLine):not(#redLightArea):not(#barCodeToScan):not(#barCodeToScan2)
+  :not(.paperContainer):not(.paper):not(.segment):not(.segment2):not(.icon)
+  :not(.dummy)
+  :not(#bodyRotate):not(.filtered):not(#scrollContainer):not(body):not(html).inputFocused{
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1.5s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1.5s ease-in-out, -webkit-filter 1.5s ease-in-out;
@@ -1761,14 +1767,12 @@ input::-ms-reveal, input::-ms-clear {
           filter: blur(3.5px);
 }
 
-* :not(#scanArea):not(#redLine):not(#redLightArea):not(#barCodeToScan):not(#barCodeToScan2)
-  :not(.paperContainer):not(.paper):not(.segment):not(.segment2):not(.icon)
-  :not(#scrollContainer):not(.filtered):not(#bodyRotate):not(body) .scan{
+#bodyRotate.scan{
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, -webkit-filter 1s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1s ease-in-out;
   transition: all 3s ease-in-out, transform 2.5s ease-in-out, filter 1s ease-in-out, -webkit-filter 1s ease-in-out;
-  -webkit-filter: blur(5.5px);
-          filter: blur(5.5px);
+  -webkit-filter: blur(10px);
+          filter: blur(10px);
 }
 
 .noselect {
