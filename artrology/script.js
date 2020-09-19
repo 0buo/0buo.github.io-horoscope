@@ -3279,7 +3279,7 @@ function paperDisappear(){
     $paper.css("will-change", "auto");
     $segment.css("will-change", "auto");
     $segment2.css("will-change", "auto");
-    $bodyRotate.css("will-change", "transform");
+    $bodyRotate.css("will-change", "auto");
     $scan.css("will-change", "auto");
 
     requestTimeout(function(){
@@ -3353,7 +3353,7 @@ function scanAnim(){
     $paper.css("will-change", "transform, opacity");
     $segment.css("will-change", "transform");
     $segment2.css("will-change", "transform");
-    $bodyRotate.css("will-change", "transform, filter");
+    $bodyRotate.css("will-change", "filter");
     $nameSignText.css("will-change", "transform, opacity");
     $timeSignText.css("will-change", "transform, opacity");
     requestTimeout(function(){
