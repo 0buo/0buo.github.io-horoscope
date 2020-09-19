@@ -1601,6 +1601,8 @@ addEvent(document, "mousemove", function(){
   }
 });
 /*********************cloud displacement map*****************************/
+var $bf = $("#bf");
+var $sc = $("#sc");
 var cloudFilter = document.getElementById("cloud-filter");
 var cloudDisp = document.getElementById("cloud-disp");
 //var $cloudFilter = $("#cloud-filter");
@@ -1609,7 +1611,7 @@ var IDbf;
 //var IDoc;
 var IDsc;
 
-var baseFrequency = 0.045;
+var baseFrequency = 0.055;
 //var octave = 1;
 var cloudScale = 80;
 
@@ -1651,11 +1653,11 @@ var bfStartEnd = false,
     //ocStartEnd = false;
 function cloudBfStart(){
   curBf = baseFrequency;
-  $({ bf: curBf }).animate({ bf: bfMin }, {
+  $bf.velocity({ tween: [bfMin, curBf] }, {
     duration: 11000,
     easing: "easeOutQuad", 
-    step: function(now) {
-      baseFrequency = now;
+    progress: function(_, _, _, tweenValue) {
+      baseFrequency = tweenValue;
       cloudFilter.setAttribute("baseFrequency", baseFrequency);
     },
     complete: function(){
@@ -1671,11 +1673,11 @@ function cloudBfStart(){
 }
 function cloudScStart(){
   curSc = cloudScale;
-  $({ sc: curSc }).animate({ sc: scaleMin }, {
+  $sc.velocity({ tween: [scaleMin, curSc] }, {
     duration: 19500,
     easing: "easeOutQuad",
-    step: function(now) {
-      cloudScale = now;
+    progress: function(_, _, _, tweenValue) {
+      cloudScale = tweenValue;
       cloudDisp.setAttribute("scale", cloudScale);
     },
     complete: function(){
@@ -1713,25 +1715,24 @@ function cloudScStart(){
 var curBfSet1 = false,
     curBfSet2 = false;
 
-var backToDriftBf;
+//var backToDriftBf;
 function cloudBfDrift(){
   if(!cloudFlounderBf){
     if(bfDir == -1){
       if(!curBfSet1){curBf = baseFrequency; curBfSet1 = true;}
-      $({ bf: curBf }).stop(true).animate({ bf: bfMin }, {
+      $bf.velocity("stop").velocity({ tween: [bfMin, curBf] }, {
         duration: 35000,
         easing: "easeInOutSine",
-        step: function(now, fx) {
-          if(cloudFlounderBf){$(fx.elem).stop(true); return;}
-          if(bfDir == 1){$(fx.elem).stop(true); return;}
-
-          baseFrequency = now;
+        progress: function(_, _, _, tweenValue) {
+          if(cloudFlounderBf){$bf.velocity("stop", true); return;}
+          if(bfDir == 1){$bf.velocity("stop", true); return;}
+          baseFrequency = tweenValue;
           cloudFilter.setAttribute("baseFrequency", baseFrequency);
         },
         complete: function(){
           curBfSet1 = false;
           curBf = baseFrequency;
-          backToDriftBf = baseFrequency;
+          //backToDriftBf = baseFrequency;
           bfDir = 1;
           cancelAnimationFrame(IDbf);
           if(!cloudFlounderBf){IDbf = requestAnimationFrame(cloudBfDrift);}
@@ -1740,13 +1741,13 @@ function cloudBfDrift(){
     }
     else{
       if(!curBfSet2){curBf = baseFrequency; curBfSet2 = true;}
-      $({ bf: curBf }).stop(true).animate({ bf: bfMax }, {
+      $bf.velocity("stop").velocity({ tween: [bfMax, curBf] }, {
         duration: 35000,
         easing: "easeOutSine",
-        step: function(now, fx) {
-          if(cloudFlounderBf){$(fx.elem).stop(true); return;}
-          if(bfDir == -1){$(fx.elem).stop(true); return;}
-          baseFrequency = now;
+        progress: function(_, _, _, tweenValue) {
+          if(cloudFlounderBf){$bf.velocity("stop", true); return;}
+          if(bfDir == -1){$bf.velocity("stop", true); return;}
+          baseFrequency = tweenValue;
           cloudFilter.setAttribute("baseFrequency", baseFrequency);
         },
         complete: function(){
@@ -1767,13 +1768,13 @@ function cloudScDrift(){
   if(!cloudFlounderSc){
     if(scDir == -1){
       if(!curScSet1){curSc = cloudScale; curScSet1 = true;}
-      $({ sc: curSc }).stop().animate({ sc: scaleMin }, {
+      $sc.velocity("stop").velocity({ tween: [scaleMin, curSc] }, {
         duration: 25000,
         easing: "easeOutSine",
-        step: function(now, fx) {
-          if(cloudFlounderSc){$(fx.elem).stop(true); return;}
-          if(scDir == 1){$(fx.elem).stop(true); return;}
-          cloudScale = now;
+        progress: function(_, _, _, tweenValue) {
+          if(cloudFlounderSc){$sc.velocity("stop", true); return;}
+          if(scDir == 1){$sc.velocity("stop", true); return;}
+          cloudScale = tweenValue;
           cloudDisp.setAttribute("scale", cloudScale);
         },
         complete: function(){
@@ -1787,13 +1788,13 @@ function cloudScDrift(){
     }
     else{
       if(!curScSet2){curSc = cloudScale; curScSet2 = true;}
-      $({ sc: curSc }).stop().animate({ sc: scaleMiddle }, {
+      $sc.velocity("stop").velocity({ tween: [scaleMiddle, curSc] }, {
         duration: 25000,
         easing: "easeOutSine",
-        step: function(now, fx) {
-          if(cloudFlounderSc){$(fx.elem).stop(true); return;}
-          if(scDir == -1){$(fx.elem).stop(true); return;}
-          cloudScale = now;
+        progress: function(_, _, _, tweenValue) {
+          if(cloudFlounderSc){$sc.velocity("stop", true); return;}
+          if(scDir == -1){$sc.velocity("stop", true); return;}
+          cloudScale = tweenValue;
           cloudDisp.setAttribute("scale", cloudScale);
         },
         complete: function(){
@@ -1888,12 +1889,12 @@ function cloudBfFlounder(){
       if(destBfFlounder < 0.001){destBfFlounder == 0.001;} 
       bfFlounderSet = true;
     }
-    $({ bf: curBf }).stop().animate({ bf: destBfFlounder }, {
+    $bf.velocity("stop").velocity({ tween: [destBfFlounder, curBf] }, {
       duration: 3500,
       easing: "easeOutQuad", 
-      step: function(now, fx) {
-        if(!cloudFlounderBf){$(fx.elem).stop(true); return;}
-        baseFrequency = now;
+      progress: function(_, _, _, tweenValue) {
+        if(!cloudFlounderBf){$bf.velocity("stop", true); return;}
+        baseFrequency = tweenValue;
         cloudFilter.setAttribute("baseFrequency", baseFrequency);
       },
       complete: function(){
@@ -1918,12 +1919,12 @@ function cloudScFlounder(){
       if(destScFlounder < 10){destBfFlounder == 10;}
       scFlounderSet = true;
     }
-    $({ sc: curSc }).stop().animate({ sc: destScFlounder }, {
+    $sc.velocity("stop").velocity({ tween: [destScFlounder, curSc] }, {
       duration: 3500,
       easing: "easeOutQuad",
-      step: function(now, fx) {
-        if(!cloudFlounderSc){$(fx.elem).stop(true); return;}
-        cloudScale = now;
+      progress: function(_, _, _, tweenValue) {
+        if(!cloudFlounderSc){$sc.velocity("stop", true); return;}
+        cloudScale = tweenValue;
         cloudDisp.setAttribute("scale", cloudScale);
       },
       complete: function(){
@@ -2704,11 +2705,11 @@ var degIncrement = 30;
 function rotateSlider(deg){
   if(sliderMdown){
     let curDeg = deg;
-    $({d: curDeg}).animate({d: curDeg + degIncrement},{
+    $TIslider.velocity({tween: [curDeg + degIncrement, curDeg]},{
       duration: 600,
-      easing: "easeInOutBack",
-      step: function(now){
-        sliderDeg = now % 360;
+      easing: [0.68, -0.6, 0.32, 1.6],
+      progress: function(_, _, _, tweenValue){
+        sliderDeg = tweenValue % 360;
         TIsliderX = sliderRadius * Math.sin((sliderDeg * Math.PI) / 180);
         TIsliderY = sliderRadius * -Math.cos((sliderDeg * Math.PI) / 180);
         //console.log((TIsliderX + sliderRadius - sliderW2) + " ; " + (TIsliderY + sliderRadius - sliderH2));
@@ -2722,7 +2723,7 @@ function rotateSlider(deg){
         calculateTime(sliderDeg);
 
         cancelAnimationFrame(IDsliderRotate);
-        if(sliderMdown == false){$(this).stop(true); return;}
+        if(sliderMdown == false){$TIslider.velocity("stop", true); return;}
 
         IDsliderRotate = requestAnimationFrame(function(){rotateSlider(sliderDeg);});
       }
@@ -2732,11 +2733,11 @@ function rotateSlider(deg){
 function rotateCircle(deg){
   if(circleMdown){
     let curDeg = deg;
-    $({d: curDeg}).animate({d: curDeg - degIncrement},{
+    $TIcircle.velocity({tween: [curDeg - degIncrement, curDeg]},{
       duration: 600,
-      easing: "easeInOutBack",
-      step: function(now){
-        circleDeg = (360 + now) % 360;
+      easing: [0.68, -0.6, 0.32, 1.6],
+      progress: function(_, _, _, tweenValue){
+        circleDeg = (360 + tweenValue) % 360;
         TIcircleX = circleRdius * Math.sin((circleDeg * Math.PI) / 180);
         TIcircleY = circleRdius * -Math.cos((circleDeg * Math.PI) / 180);
         //console.log((TIcircleX + circleRdius - circleW2) + " ; " + (TIcircleY + circleRdius - circleH2));
@@ -2750,7 +2751,7 @@ function rotateCircle(deg){
         calculateTime(circleDeg);
         
         cancelAnimationFrame(IDcircleRotate);
-        if(circleMdown == false){$(this).stop(true); return;}
+        if(circleMdown == false){$TIcircle.velocity("stop", true); return;}
 
         IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
       }

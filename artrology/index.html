@@ -31,6 +31,8 @@
   <div style="display:none" id="G2"></div>
   <div style="display:none" id="B2"></div>
   <div style="display:none" id="A037"></div>
+  <div style="display:none" id="bf"></div>
+  <div style="display:none" id="sc"></div>
 
   <div id="scrollContainer">
     <div class="setting noselect">
@@ -195,7 +197,7 @@
   <svg xmlns="http://www.w3.org/2000/svg" x="0" y="0" width="0" height="0" id="svgFilter1">
     <defs>
       <filter id="cloud">
-        <feTurbulence id="cloud-filter" type="fractalNoise" baseFrequency="0.045" numOctaves="11" seed="0" result="noise"></feTurbulence>
+        <feTurbulence id="cloud-filter" type="fractalNoise" baseFrequency="0.055" numOctaves="11" seed="0" result="noise"></feTurbulence>
         <feDisplacementMap id="cloud-disp" in="SourceGraphic" in2="noise" scale="80" result="noiseMap"></feDisplacementMap>
         
         <feGaussianBlur stdDeviation="8" result="blur" />
