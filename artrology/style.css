@@ -71,7 +71,7 @@
 
 :root {
   --cursorX: 50vw;
-  --cursorY: 140vh;
+  --cursorY: 150vh;
   --radius: 0vmax;
   --eclipseX: 0;
   --eclipseY: 0;
@@ -113,7 +113,8 @@
   pointer-events: none;
   
   will-change: background-image;
-  background: radial-gradient(
+  background-attachment: fixed;
+  background-image: radial-gradient(
     circle var(--radius) at var(--cursorX) var(--cursorY), 
     rgba(var(--LR1), var(--LG1), var(--LB1), var(--LA0)) 0%, 
     rgba(var(--LR1), var(--LG1), var(--LB1), var(--LA0)) 3%, 
@@ -174,7 +175,7 @@ body {
   rgba(128,133,141,1) var(--darkReflectionPos2), 
   rgba(133,134,136,1) 100%);
 
-  background: var(--darkBG);
+  background-image: var(--darkBG);
 
   background-attachment: fixed;
 

@@ -396,9 +396,9 @@ var shadeV = new Vector(shadeX, shadeY);
 
 //variables for function update
 var mouseX = 0.5 * window.innerWidth,
-    mouseY = 1.4 * window.innerHeight;
+    mouseY = 1.5 * window.innerHeight;
 var LdestX = 0.5*window.innerWidth,
-    LdestY = 1.4*window.innerHeight;
+    LdestY = 2*window.innerHeight;
 
 var maxToLightDistIndex = 0.9;
 var maxDistToLightCenter =
@@ -410,7 +410,7 @@ var randNum = 0;
 
 
 var cursorLerpX = 0.9;
-var cursorLerpY = 0.4;
+var cursorLerpY = 0.35;
 
 var finishLerpCursorLerpX = false;
 var finishLerpCursorLerpY = false;
@@ -1282,7 +1282,7 @@ $settingButton.on("click", function(){
   if(setting){
     requestTimeout(function(){
       mouseX = 0.5 * window.innerWidth;
-      mouseY = 1.15 * window.innerHeight;
+      mouseY = 1.5 * window.innerHeight;
       LdestX = mouseX;
       LdestY = mouseY;
       IDfollowCursor = requestAnimationFrame(followCursor);
@@ -2266,11 +2266,13 @@ $rotate.click(function () {
 
     clearRequestTimeout(moonRotateWillChangeTO);
     clearRequestTimeout(signTextWillChangeTO);
-    $rotate.css("will-change", "transform");
-    $rotateTextOne.css("will-change", "transform, opacity");
-    $rotateTextTwo.css("will-change", "transform, opacity");
+    // $rotate.css("will-change", "transform");
+    // $rotateTextOne.css("will-change", "transform, opacity");
+    // $rotateTextTwo.css("will-change", "transform, opacity");
     $timesDiv.css("will-change", "transform, opacity");
     $namesDiv.css("will-change", "transform, opacity");
+    $nameSignText.css("will-change", "transform, opacity");
+    $timeSignText.css("will-change", "transform, opacity");
     requestTimeout(function(){
       if (moonCount == 1) {
         //$selectionDiv.removeClass("bottom");
@@ -2376,12 +2378,16 @@ $rotate.click(function () {
       }, 1800);
 
       moonRotateWillChangeTO = requestTimeout(function(){
-        $rotate.css("will-change", "auto");
-        $rotateTextOne.css("will-change", "auto");
-        $rotateTextTwo.css("will-change", "auto");
+        // $rotate.css("will-change", "auto");
+        // $rotateTextOne.css("will-change", "auto");
+        // $rotateTextTwo.css("will-change", "auto");
         $timesDiv.css("will-change", "auto");
         $namesDiv.css("will-change", "auto");
       }, 1450);
+      signTextWillChangeTO = requestTimeout(function(){
+        $nameSignText.css("will-change", "auto");
+      $timeSignText.css("will-change", "auto");
+      }, 1600)
     }, 210);
 
     nameInputSubmitted = 0;
@@ -3256,6 +3262,9 @@ function paperDisappear(){
 
       $scan.removeClass("svgFilter2");
       $scan.css("display", "none");
+
+      $nameSignText.css("will-change", "auto");
+      $timeSignText.css("will-change", "auto");
     }, 2100);
   }, 5000);
 
@@ -3345,6 +3354,8 @@ function scanAnim(){
     $segment.css("will-change", "transform");
     $segment2.css("will-change", "transform");
     $bodyRotate.css("will-change", "transform, filter");
+    $nameSignText.css("will-change", "transform, opacity");
+    $timeSignText.css("will-change", "transform, opacity");
     requestTimeout(function(){
       $inp.css("cursor", "no-drop");
       $yearMonthButton.css("cursor", "no-drop");
