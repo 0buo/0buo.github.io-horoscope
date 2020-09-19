@@ -2264,8 +2264,8 @@ $rotate.click(function () {
     else{moonCount = -1;}
 
     if (moonCount == 1) {
-      $selectionDiv.removeClass("bottom");
-      $namesDiv.addClass("bottom");
+      //$selectionDiv.removeClass("bottom");
+      //$namesDiv.addClass("bottom");
       $namesDiv.css("display", "initial");
       selfTwinkle(nameTextStart, nameTextEnd);
 
@@ -2293,8 +2293,8 @@ $rotate.click(function () {
       }
     } 
     else if (moonCount == 2) {
-      $namesDiv.removeClass("bottom");
-      $timesDiv.addClass("bottom");
+      //$namesDiv.removeClass("bottom");
+      //$timesDiv.addClass("bottom");
       $timesDiv.css("display", "initial");
       selfTwinkle(timeTextStart, timeTextEnd);
 
@@ -2327,8 +2327,8 @@ $rotate.click(function () {
       }
     } 
     else if(moonCount == 0) {
-      $timesDiv.removeClass("bottom");
-      $selectionDiv.addClass("bottom");
+      //$timesDiv.removeClass("bottom");
+      //$selectionDiv.addClass("bottom");
       cancelTwinkle(timeTextStart, timeTextEnd);
       $rotate.removeClass("two");
       $rotateTextTwo.removeClass("down");
