@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" type="text/css" href="./style.css" />
+    </head>
+    <body>
+        <canvas id="glCanvas"></canvas>
+
+        <button id="switchImg"></button>
+
+        <script type="text/javascript" src="./lib/gl-matrix-min.js"></script>
+        <script id="vertex" type="x-shader/x-vertex" src="./shaders/vertex.glsl"></script>
+        <script id="fragment" type="x-shader/x-fragment" src="./shaders/fragment.glsl"></script>
+        <script type="text/javascript" src="./fake-3d.js"></script>
+    </body>
+</html>
