@@ -131,9 +131,9 @@ class GLcanvas {
 
         //load and bind textures
         loadImages([`./textures/images/moon.jpg`, 
-                    `./textures/images/test.jpg`,
+                    `./textures/images/paper-ball.jpg`,
                     `./textures/filters/moon-depth.jpg`,
-                    `./textures/filters/test-depth.jpg`], this.loadImgTextures.bind(this));
+                    `./textures/filters/paper-ball-depth.jpg`], this.loadImgTextures.bind(this));
     }
 
     //---------CLASS FUNC FOR DATA AND BUFFER
