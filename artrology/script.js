@@ -931,71 +931,72 @@ $settingButton.one("mouseover", settingButtonUnfold);
 function settingButtonUnfold(){
   requestTimeout(function(){
     if(setting == false){
-      $filterOnText.html('lev<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+      $filterOnText.html('lev<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
       requestTimeout(function(){
-        $filterOnText.html('leve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+        $filterOnText.html('leve<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
       }, 100);
       requestTimeout(function(){
-        $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+        $filterOnText.html('leave<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
       }, 200);
       requestTimeout(function(){
-        $filterOnText.html('l eave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+        $filterOnText.html('l eave<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
       }, 300);
       requestTimeout(function(){
-        $filterOnText.html('l eav e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+        $filterOnText.html('l eav e<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
       }, 400);
       requestTimeout(function(){
-        $filterOnText.html('l e av e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+        $filterOnText.html('l ea v e<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
       }, 500);
       requestTimeout(function(){
-        $filterOnText.html('l e a v e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+        $filterOnText.html('l e a v e<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
       }, 600);    
       requestTimeout(function(){
-        $filterOnText.html('l e a ve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+        $filterOnText.html('l e a ve<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
       }, 700);      
       requestTimeout(function(){
-        $filterOnText.html('le a ve<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+        $filterOnText.html('le a ve<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
       }, 800);    
       requestTimeout(function(){
-        $filterOnText.html('le ave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+        $filterOnText.html('le ave<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
       }, 900);
       requestTimeout(function(){
-        $filterOnText.html('leave<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+        $filterOnText.html('leave<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
       }, 1000);      
 
-      $filterOffText.html('tk<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+      
+      $filterOffText.html('tk<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
       requestTimeout(function(){
-        $filterOffText.html('tak<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+        $filterOffText.html('tak<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
       }, 100);    
       requestTimeout(function(){
-        $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+        $filterOffText.html('take<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
       }, 200);    
       requestTimeout(function(){
-        $filterOffText.html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+        $filterOffText.html('t ake<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
       }, 300);    
       requestTimeout(function(){
-        $filterOffText.html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+        $filterOffText.html('ta ke<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
       }, 400);    
       requestTimeout(function(){
-        $filterOffText.html('ta k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+        $filterOffText.html('ta k e<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
       }, 500);    
       requestTimeout(function(){
-        $filterOffText.html('t a k e<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+        $filterOffText.html('t a k e<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
       }, 600);    
       requestTimeout(function(){
-        $filterOffText.html('t a ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+        $filterOffText.html('t a ke<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
       }, 700);    
       requestTimeout(function(){
-        $filterOffText.html('ta ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+        $filterOffText.html('ta ke<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
       }, 800);    
       requestTimeout(function(){
-        $filterOffText.html('t a ke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+        $filterOffText.html('t a ke<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
       }, 900);    
       requestTimeout(function(){
-        $filterOffText.html('t ake<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+        $filterOffText.html('t ake<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
       }, 1000);    
       requestTimeout(function(){
-        $filterOffText.html('take<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+        $filterOffText.html('take<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
         settingButtonCanClick = true;
         $filterOn.css("cursor", "grab");
         $filterOff.css("cursor", "grab");
@@ -1005,20 +1006,20 @@ function settingButtonUnfold(){
 }
 
 function settingButtonFold(){
-  $filterOnText.html('leav<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+  $filterOnText.html('leav<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
   requestTimeout(function(){
-    $filterOnText.html('lev<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+    $filterOnText.html('lev<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
   }, 150);
   requestTimeout(function(){
-    $filterOnText.html('lv<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">n</span>');
+    $filterOnText.html('lv<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
   }, 300);
 
-  $filterOffText.html('tak<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+  $filterOffText.html('tak<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
   requestTimeout(function(){
-    $filterOffText.html('tke<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+    $filterOffText.html('tke<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
   }, 150);    
   requestTimeout(function(){
-    $filterOffText.html('tk<br><span class="letterToL">i</span><span class="letterToR">t</span><br><span class="letterToL">o</span><span class="letterToR">f</span>');
+    $filterOffText.html('tk<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">f</span>');
   }, 300);    
 }
 
