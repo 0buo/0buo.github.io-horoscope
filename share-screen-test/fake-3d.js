@@ -301,8 +301,9 @@ class GLcanvas {
 
         if(!ui_is_dispersed){
             if(now - this.lastNOWslide > 8500){
-                global_img_index = (global_img_index + 1) % 7;
                 this.lastNOWslide = now;
+                global_img_index = (global_img_index + 1) % 7;
+                cur_artist_name.innerHTML = artist_names[global_img_index];
             }
         }
         else{

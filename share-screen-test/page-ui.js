@@ -1,8 +1,6 @@
-var switchButton = document.getElementById(`switchImg`);
 const ui_buttons = document.getElementById(`switchButtons`);
 const ui_persp_div = document.getElementById(`ui-persp`)
 const crumpled_uis = document.getElementsByClassName(`crumpled-ui`);
-const cur_artist_name = document.getElementById(`artist-name`);
 
 
 class MenuUI{
@@ -26,9 +24,6 @@ class MenuUI{
         this.lastNOWpersp = undefined;
 
         this.ui_ids = [`ui1`, `ui2`, `ui3`, `ui4`, `ui5`, `ui6`, `ui7`];
-        
-        //===
-        cur_artist_name.innerHTML = artist_names[global_img_index];
     }
 
     ui_resize(){
