@@ -1,11 +1,4 @@
-//UTILITY FUNCS
-//=============
-const lerp = function (value1, value2, amount) {
-    amount = amount < 0 ? 0 : amount;
-    amount = amount > 1 ? 1 : amount;
-    return value1 + (value2 - value1) * amount;
-};
-//=============
+//var switchButton = document.getElementById(`switchImg`);
 
 const canvas = document.getElementById(`glCanvas`);
 const gl = canvas.getContext(`webgl`);
@@ -98,8 +91,8 @@ class GLcanvas {
         this.imgTextures = [];
         this.filterTextures = [];
 
-        this.curImgID = 0;
-        this.curFilterID = 2;
+        this.curImgID = global_img_index;
+        this.curFilterID = global_img_index + 7;
 
         this.modelMatrix = glMatrix.mat4.create();
         this.viewMatrix = glMatrix.mat4.create();
@@ -117,23 +110,22 @@ class GLcanvas {
         this.dy = 0;
         this.bias = 0.05;
         this.threshHolds = {
-            x: 35,
-            y: 20
-        }
-        this.IDmouse = undefined;
-        this.lastNOW = undefined;
+            x: 20,
+            y: 15
+        };
 
-        this.switchButton = document.getElementById(`switchImg`);
+        this.IDmouseMove = undefined;
+        this.lastNOWmouse = undefined;
+        this.lastNOWslide = undefined;
 
+        this.switchButton = switchButton;
         //======================
         this.constructData();
         this.bindDataToBuffer();
 
         //load and bind textures
-        loadImages([`./textures/images/moon.jpg`, 
-                    `./textures/images/paper-ball.jpg`,
-                    `./textures/filters/moon-depth.jpg`,
-                    `./textures/filters/paper-ball-depth.jpg`], this.loadImgTextures.bind(this));
+        const urls = [...img_urls, ...filter_urls];
+        loadImages(urls, this.loadImgTextures.bind(this));
     }
 
     //---------CLASS FUNC FOR DATA AND BUFFER
@@ -277,19 +269,19 @@ class GLcanvas {
         this.mx += (targetMX - this.mx) * this.bias;
         this.my += (targetMY - this.my) * this.bias;
 
-        this.IDmouse = requestAnimationFrame(this.mouseLerp.bind(this));
+        this.IDmouseMove = requestAnimationFrame(this.mouseLerp.bind(this));
     }
 
     mouseLerp(timestamp){
-        cancelAnimationFrame(this.IDmouse);
-        this.IDmouse = requestAnimationFrame(this.mouseLerp.bind(this));
+        cancelAnimationFrame(this.IDmouseMove);
+        this.IDmouseMove = requestAnimationFrame(this.mouseLerp.bind(this));
 
-        if(this.lastNOW === undefined){
-            this.lastNOW = timestamp;
+        if(this.lastNOWmouse === undefined){
+            this.lastNOWmouse = timestamp;
         }
         var NOW = timestamp;
-        var dt = (NOW - this.lastNOW)/1000;
-        this.lastNOW = NOW;
+        var dt = (NOW - this.lastNOWmouse)/1000;
+        this.lastNOWmouse = NOW;
         
         this.dx = lerp(this.dx, this.mx, 1-Math.pow(0.2, dt));
         this.dy = lerp(this.dy, this.my, 1-Math.pow(0.1, dt));
@@ -297,10 +289,25 @@ class GLcanvas {
         gl.uniform2f(this.uniformLocations.mouse, this.dx / this.threshHolds.x, this.dy / this.threshHolds.y);
     }
 
-    switchImages(){
-        this.curImgID = (this.curImgID + 1) % 2;
-        this.curFilterID = (this.curFilterID - 2 + 1) % 2 + 2;
+    setImagesTexture(){
+        this.curImgID = global_img_index;
+        this.curFilterID = global_img_index + 7;
         this.setUniformTexture();
+    }
+
+    imgSlide(){
+        var now = new Date().getTime();
+        if(this.lastNOWslide === undefined){this.lastNOWslide = now;}
+
+        if(!ui_is_dispersed){
+            if(now - this.lastNOWslide > 8500){
+                global_img_index = (global_img_index + 1) % 7;
+                this.lastNOWslide = now;
+            }
+        }
+        else{
+            this.lastNOWslide = now;
+        }
     }
 
 
@@ -331,7 +338,6 @@ class GLcanvas {
         this.resize();
         window.addEventListener(`resize`, this.resize.bind(this));
         canvas.addEventListener(`mousemove`, this.mouseMoveCalc.bind(this));
-        this.switchButton.onclick = this.switchImages.bind(this);
 
         this.render()
     }
@@ -341,6 +347,9 @@ class GLcanvas {
         glMatrix.mat4.multiply(this.mvpMatrix, this.projectionMatrix, this.mvMatrix);
 
         gl.uniformMatrix4fv(this.uniformLocations.matrix, false, this.mvpMatrix);
+
+        this.imgSlide();
+        this.setImagesTexture();
     }
 
     resize(){
