@@ -27,17 +27,27 @@ class MenuUI{
     }
 
     ui_resize(){
-        var vmin = window.innerWidth > window.innerHeight ? window.innerHeight : window.innerWidth;
-        var ui_dist = Math.min(Math.max(0.135 * vmin, 96), 160);
+        //var vmin = window.innerWidth > window.innerHeight ? window.innerHeight : window.innerWidth;
+        //var vmax = window.innerWidth < window.innerHeight ? window.innerHeight : window.innerWidth;
+
+        var ui_dist = Math.min(Math.max(0.12 * window.innerWidth, 96), 155);
         ui_buttons.style.setProperty(`--ui-dist`, ui_dist + 'px');
 
-        if(window.innerWidth < 770){
+        if(window.innerWidth <= 770){
             cur_artist_name.classList.remove(`side`);
             cur_artist_name.classList.add(`under`);
+            if(ui_is_dispersed){
+                cur_artist_name.classList.remove(`away`);
+                cur_artist_name.classList.add(`underaway`);
+            }
         }
         else{
             cur_artist_name.classList.remove(`under`);
             cur_artist_name.classList.add(`side`);
+            if(ui_is_dispersed){
+                cur_artist_name.classList.remove(`underaway`);
+                cur_artist_name.classList.add(`away`);
+            }
         }
     }
 
@@ -68,9 +78,11 @@ class MenuUI{
             }
 
             if(window.innerWidth < 770){
+                cur_artist_name.classList.remove(`away`);
                 cur_artist_name.classList.add(`underaway`);
             }
             else{
+                cur_artist_name.classList.remove(`underaway`);
                 cur_artist_name.classList.add(`away`);
             }
             switchButton.style.setProperty(`display`, `none`);

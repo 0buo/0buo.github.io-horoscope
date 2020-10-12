@@ -58,7 +58,7 @@ body{
 }
 
 #switchButtons{
-    --ui-size: 10vw;
+    --ui-size: 10vmax;
     --ui-dist: 0px;
     --ui-persp-x: 50%;
     --ui-persp-y: 50%;
@@ -234,15 +234,15 @@ body{
     left: 100%;
 }
 #artist-name.away{
-    transform: perspective(800px) translate( calc(var(--ui-dist) - min(5vmax, 104px)), calc(var(--ui-dist) - min(8vmax, 128px)) );
+    transform: perspective(800px) translate( calc(var(--ui-dist) - min(5vmax, 110px)), calc(var(--ui-dist) - min(8vmax, 128px)) );
 }
 
 #artist-name.under{
-    top: calc(100% + 10px);
+    top: calc(100% + 13px);
     left: 0;
 }
 #artist-name.underaway{
-    transform: perspective(800px) translate( 0, calc(var(--ui-dist) + min(2vmax, 15px)) );
+    transform: perspective(800px) translate( 0, calc(var(--ui-dist) + min(2vmax, 17px)) );
 }
 
 

@@ -92,43 +92,43 @@ function getSource(){
 		img: `./textures/images/tristan.jpg`,
 		map: `./textures/filters/tristan-depth.jpg`,
 		ui: 1,
-		name: `Tristan Espinoza`
+		name: `Tristan<br>Espinoza`
 	},
 	alvaro = {
 		img: `./textures/images/alvaro.jpg`,
 		map: `./textures/filters/alvaro-depth.jpg`,
 		ui: 2,
-		name: `Alvaro Azcarraga`
+		name: `Alvaro<br>Azcarraga`
 	},
 	zheng = {
 		img: `./textures/images/zheng.jpg`,
 		map: `./textures/filters/zheng-depth.jpg`,
 		ui: 3,
-		name: `Zheng Fang`
+		name: `Zheng<br>Fang`
 	},
 	zhengyang = {
 		img: `./textures/images/zhengyang.jpg`,
 		map: `./textures/filters/zhengyang-depth.jpg`,
 		ui: 4,
-		name: `Zhengyang Huang`
+		name: `Zhengyang<br>Huang`
 	},
 	zhengzhou = {
 		img: `./textures/images/zhengzhou.jpg`,
 		map: `./textures/filters/zhengzhou-depth.jpg`,
 		ui: 5,
-		name: `Zhengzhou Huang`
+		name: `Zhengzhou<br>Huang`
 	},
 	dasul = {
 		img: `./textures/images/dasul.jpg`,
 		map: `./textures/filters/dasul-depth.jpg`,
 		ui: 6,
-		name: `Dasul Kim`
+		name: `Dasul<br>Kim`
 	},
 	sam = {
 		img: `./textures/images/sam.jpg`,
 		map: `./textures/filters/sam-depth.jpg`,
 		ui: 7,
-		name: `Sam Malabre`
+		name: `Sam<br>Malabre`
 	};
 
 	var arr = [tristan, alvaro, zheng, zhengyang, zhengzhou, dasul, sam];

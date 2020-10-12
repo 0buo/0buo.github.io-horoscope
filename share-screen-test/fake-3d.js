@@ -311,7 +311,7 @@ class GLcanvas {
     setImagesTexture(){
         if(last_img_index != global_img_index){
             last_img_index = global_img_index;
-            this.changeAlpha();
+            this.switchImgAnim();
         }
 
         this.curImgID = global_img_index;
@@ -324,14 +324,14 @@ class GLcanvas {
         if(this.lastNOWslide === undefined){this.lastNOWslide = now;}
 
         if(!ui_is_dispersed){
-            if(now - this.lastNOWslide > 8500){
+            if(now - this.lastNOWslide > 15000){
                 this.lastNOWslide = now;
                 global_img_index = (global_img_index + 1) % 7;
                 last_img_index = global_img_index;
                 cur_artist_name.innerHTML = artist_names[global_img_index];
 
                 //this.effects[5].on = true;
-                this.changeAlpha();
+                this.switchImgAnim();
             }
         }
         else{
@@ -342,7 +342,7 @@ class GLcanvas {
     }
 
     //-------------USE EFFECTS
-    changeAlpha(){
+    switchImgAnim(){
         this.lastNOWalpha = undefined;
         this.alphaDir = -1;
         this.IDalpha = requestAnimationFrame(this.alphaAnim.bind(this));
@@ -355,15 +355,17 @@ class GLcanvas {
         var NOW = timestamp;
         var dt = (NOW - this.lastNOWalpha)/1000;
         this.lastNOWalpha = NOW;
+
+        this.switchEffect();
         
         if(this.alphaDir == -1){
             this.IDalpha = requestAnimationFrame(this.alphaAnim.bind(this));
 
-            this.alpha = lerp(this.alpha, 0, 1-Math.pow(0.005, dt));
+            this.alpha = lerp(this.alpha, 0, 1-Math.pow(0.0001, dt));
             if(Math.abs(this.alpha - 0) < 0.005){this.alphaDir = 1;}
         }
         else if(this.alphaDir == 1){
-            this.alpha = lerp(this.alpha, 1, 1-Math.pow(0.005, dt));
+            this.alpha = lerp(this.alpha, 1, 1-Math.pow(0.01, dt));
 
             if(Math.abs(this.alpha - 1) > 0.005){
                 this.IDalpha = requestAnimationFrame(this.alphaAnim.bind(this));
@@ -371,6 +373,65 @@ class GLcanvas {
             else{
                 cancelAnimationFrame(this.IDalpha);
             }
+        }
+    }
+
+    switchEffect(){
+        if(this.alpha < 0.3 && this.alpha >= 0.25){
+            this.effects[0].on = true;
+            this.effects[1].on = false;
+            this.effects[2].on = false;
+            this.effects[3].on = false;
+            this.effects[4].on = false;
+            this.effects[5].on = false;
+        }
+        else if(this.alpha < 0.25 && this.alpha >= 0.2){
+            this.effects[0].on = true;
+            this.effects[1].on = true;
+            this.effects[2].on = false;
+            this.effects[3].on = false;
+            this.effects[4].on = false;
+            this.effects[5].on = false;
+        }
+        else if(this.alpha < 0.2 && this.alpha >= 0.15){
+            this.effects[0].on = true;
+            this.effects[1].on = true;
+            this.effects[2].on = true;
+            this.effects[3].on = false;
+            this.effects[4].on = false;
+            this.effects[5].on = false;
+        }
+        else if(this.alpha < 0.15 && this.alpha >= 0.1){
+            this.effects[0].on = true;
+            this.effects[1].on = true;
+            this.effects[2].on = true;
+            this.effects[3].on = true;
+            this.effects[4].on = false;
+            this.effects[5].on = false;
+        }
+        else if(this.alpha < 0.1 && this.alpha >= 0.05){
+            this.effects[0].on = true;
+            this.effects[1].on = true;
+            this.effects[2].on = true;
+            this.effects[3].on = true;
+            this.effects[4].on = true;
+            this.effects[5].on = false;
+        }
+        else if(this.alpha < 0.05){
+            this.effects[0].on = true;
+            this.effects[1].on = true;
+            this.effects[2].on = true;
+            this.effects[3].on = true;
+            this.effects[4].on = true;
+            this.effects[5].on = true;
+        }
+        else{
+            this.effects[0].on = false;
+            this.effects[1].on = false;
+            this.effects[2].on = false;
+            this.effects[3].on = false;
+            this.effects[4].on = false;
+            this.effects[5].on = false;
         }
     }
 
@@ -457,12 +518,12 @@ class GLcanvas {
              ],
         };
         this.effects = [
-            { name: `gaussianBlur`, on:false},
-            { name: "sharpen", on: false},
-            { name: "sharpness", on: false},
+            { name: "unsharpen", on: false},
+            { name: "unsharpen", on: false},
+            { name: "unsharpen", on: false},
             { name: "unsharpen", on: false},
             { name: "emboss", on: false},
-            { name: "edgeDetect2", on:false}
+            { name: "emboss", on: false}
         ];
     }
     computeKernelWeight(kernel) {
@@ -487,6 +548,8 @@ class GLcanvas {
 
     draw(){
         //this.resize();
+        gl.useProgram(this.program);
+
         gl.clearColor(0,0,0,0);
         gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
 
@@ -500,7 +563,6 @@ class GLcanvas {
             if(this.effects[i].on){ 
                 this.threshHolds = {x: 40, y:45};
 
-                let reso = canvas.clientWidth / canvas.clientHeight;
                 this.setFrameBuffer(this.framebuffers[this.fboCount % 2], this.imageW, this.imageH);
 
                 this.drawWithKernel(this.effects[i].name);
