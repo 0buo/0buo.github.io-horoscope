@@ -42,6 +42,7 @@ class MenuUI{
     }
 
     ui_disperse(){
+        clearRequestTimeout(this.ID_ui_disperse);
         this.ID_ui_disperse = requestTimeout(function(){
             ui_is_dispersed = true;
 
@@ -121,7 +122,7 @@ class MenuUI{
                     //change name
                     cur_artist_name.innerHTML = artist_names[global_img_index];
                 }
-            }.bind(this), 400);
+            }.bind(this), 450);
         }
     }
 

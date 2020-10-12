@@ -64,6 +64,7 @@ window.clearRequestTimeout = function(handle) {
 
 
 //-------------------------
+//WEB FUNCS
 function shuffle(array) {
 	var currentIndex = array.length, 
 		temporaryValue, 
@@ -146,6 +147,26 @@ function getSource(){
 	};
 }
 
+function resizeCanvas(){
+	//if(window.innerWidth >= window.innerHeight){
+		if(0.5625 * window.innerWidth < window.innerHeight){
+			let w = 16 / 9 * window.innerHeight;
+			let left = window.innerWidth / 2 - w / 2;
+			bgCanvas.style.setProperty(`height`, `100vh`);
+			bgCanvas.style.setProperty(`width`, w + `px`);
+			bgCanvas.style.setProperty(`top`, `0`);
+			bgCanvas.style.setProperty(`left`, `${left}px`);
+		}
+		else{
+			bgCanvas.style.setProperty(`height`, `56.25vw`);
+			bgCanvas.style.setProperty(`width`, `100vw`);
+			bgCanvas.style.setProperty(`top`, `calc(50vh - 28.125vw)`);
+			bgCanvas.style.setProperty(`left`, `calc(50vw - 50vw)`);
+		}
+	//}
+
+}
+
 //DETECT MOBILE
 //=============
 var isMobile = false; //initiate as false
@@ -163,6 +184,12 @@ var img_urls = sourceArr.imgs,
 	filter_urls = sourceArr.maps,
 	ui_id_nums = sourceArr.uis,
 	artist_names = sourceArr.names;
+
+//canvas
+const bgCanvas = document.getElementById(`glCanvas`);
+resizeCanvas();
+window.addEventListener(`resize`, resizeCanvas);
+
 //switch imgs
 var global_img_index = 0;
 var last_img_index = 0;
