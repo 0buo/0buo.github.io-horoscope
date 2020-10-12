@@ -46,10 +46,11 @@ body{
 #glCanvas{
     position: fixed;
     width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
+    height: 56.25vw;
+    top: calc(50vh - 28.125vw);
+    left: calc(50vw - 50vw);
     border: none;
+    z-index: -1;
 }
 
 #switchButtons{
@@ -95,6 +96,8 @@ body{
     width: var(--ui-size);
     height: var(--ui-size);
     z-index: 2;
+
+    cursor: zoom-in;
 }
 
 .crumpled-ui{
@@ -115,6 +118,8 @@ body{
     
     filter: brightness(0.3);
     opacity: 0.87;
+
+    cursor: pointer;
 }
 
 #ui1{
@@ -216,6 +221,9 @@ body{
     color: #00B140;
 
     transition: all .5s ease-in-out;
+    /* -webkit-backface-visibility: hidden;
+    -moz-backface-visibility:    hidden;
+    -ms-backface-visibility:     hidden; */
 }
 #artist-name.side{
     top: calc(100% - 10px);

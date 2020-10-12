@@ -82,14 +82,23 @@ function loadImages(urls, callback) {
 //===============
 class GLcanvas {
     constructor(){
+        this.imageW = 3840;
+        this.imageH = 2160;
+
         this.data = {};
         this.buffers = {};
         this.attributeLocations = {};
         this.uniformLocations = {};
 
-        this.loadedTextureTypes = 0; //track if imgs and filters are loaded as textures
         this.imgTextures = [];
-        this.filterTextures = [];
+        this.fboCount = 0;
+
+        //efects texture
+        this.kernels = {};
+        this.effects = [];
+        this.effectTextures = [];
+        this.framebuffers = [];
+        this.renderbuffers = [];
 
         this.curImgID = global_img_index;
         this.curFilterID = global_img_index + 7;
@@ -104,6 +113,7 @@ class GLcanvas {
         // this.camera.translation = [0, 0, 0];
         // this.camera.rotation = quat.create();
 
+        //mouse
         this.mx = 0;
         this.my = 0;
         this.dx = 0;
@@ -119,9 +129,20 @@ class GLcanvas {
         this.lastNOWslide = undefined;
 
         this.switchButton = switchButton;
+        
+        //use effects
+        this.IDalpha = undefined;
+        this.alpha = 1;
+        this.alphaDir = -1;
+        this.lastNOWalpha = undefined;
+
         //======================
         this.constructData();
         this.bindDataToBuffer();
+
+        //effects
+        this.setupEffectTexAndFBO();
+        this.constructKernel();
 
         //load and bind textures
         const urls = [...img_urls, ...filter_urls];
@@ -182,7 +203,8 @@ class GLcanvas {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
         //}
-    
+        
+        //gl.bindTexture(gl.TEXTURE_2D, null);
         return texture;
     }
 
@@ -196,11 +218,7 @@ class GLcanvas {
 
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     onLoadTextures(){
-        
-
-        this.bindTextures(this.imgTextures.concat(this.filterTextures));
-
-        this.main();
+        this.bindTextures([...this.imgTextures, ...this.effectTextures]);
     }
 
     bindTextures(textures){
@@ -208,6 +226,7 @@ class GLcanvas {
             gl.activeTexture(gl.TEXTURE0 + i);
             gl.bindTexture(gl.TEXTURE_2D, textures[i]);
         }
+        this.main();
     }
 
     //---------CLASS FUNC TO ENABLE AND FEED ATTRIB
@@ -227,11 +246,11 @@ class GLcanvas {
     }
 
     //---------CLASS FUNC TO SET UNIFORM
-    setUniformMouse(w, h, a1, a2){
-        gl.uniform2f(this.uniformLocations.mouse, this.mx / this.threshHolds.x, this.my / this.threshHolds.y);
-        // gl.uniform1f(this.uniformLocations.pixelRatio, 1 / window.devicePixelRatio);
-        // gl.uniform4f(this.uniformLocations.resolution, w, h, a1, a2);
-    }
+    // setUniformMouse(){
+    //     gl.uniform2f(this.uniformLocations.mouse, this.mx / this.threshHolds.x, this.my / this.threshHolds.y);
+    //     // gl.uniform1f(this.uniformLocations.pixelRatio, 1 / window.devicePixelRatio);
+    //     // gl.uniform4f(this.uniformLocations.resolution, w, h, a1, a2);
+    // }
 
     setUniformTexture(){
         gl.uniform1i(this.uniformLocations.imgID, this.curImgID);
@@ -304,13 +323,233 @@ class GLcanvas {
                 this.lastNOWslide = now;
                 global_img_index = (global_img_index + 1) % 7;
                 cur_artist_name.innerHTML = artist_names[global_img_index];
+
+                //this.effects[5].on = true;
+                this.lastNOWalpha = undefined;
+                this.alphaDir = -1;
+                this.IDalpha = requestAnimationFrame(this.alphaAnim.bind(this));
             }
         }
         else{
             this.lastNOWslide = now;
         }
+
+        gl.uniform1f(this.uniformLocations.alpha, this.alpha);
     }
 
+    //-------------USE EFFECTS
+    alphaAnim(timestamp){
+        if(this.lastNOWalpha === undefined){
+            this.lastNOWalpha = timestamp;
+        }
+        var NOW = timestamp;
+        var dt = (NOW - this.lastNOWalpha)/1000;
+        this.lastNOWalpha = NOW;
+        
+        if(this.alphaDir == -1){
+            this.IDalpha = requestAnimationFrame(this.alphaAnim.bind(this));
+
+            this.alpha = lerp(this.alpha, 0, 1-Math.pow(0.005, dt));
+            if(Math.abs(this.alpha - 0) < 0.005){this.alphaDir = 1;}
+        }
+        else if(this.alphaDir == 1){
+            this.alpha = lerp(this.alpha, 1, 1-Math.pow(0.005, dt));
+
+            if(Math.abs(this.alpha - 1) > 0.005){
+                this.IDalpha = requestAnimationFrame(this.alphaAnim.bind(this));
+            }
+            else{
+                cancelAnimationFrame(this.IDalpha);
+            }
+        }
+        console.log(`${this.alphaDir} => ${this.alpha}`);
+    }
+
+    //---------------CREATE AND SETUP EFFECT TEXTURE
+    createEffectTexture(){
+        var effectTexture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, effectTexture);
+
+        // make the texture the same size as the image
+        gl.texImage2D(
+            gl.TEXTURE_2D, 0, gl.RGBA, this.imageW, this.imageH, 0,
+            gl.RGBA, gl.UNSIGNED_BYTE, null);
+        // Set up texture so we can render any size image and so we are
+        // working with pixels.
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+
+        return effectTexture;
+    }
+    setupEffectTexAndFBO(){
+        // create 2 textures and attach them to framebuffers.
+        for (var ii = 0; ii < 2; ii++) {
+            var effectTexture = this.createEffectTexture();
+            this.effectTextures.push(effectTexture);
+
+            // var renderBuffer = gl.createRenderbuffer();
+            // gl.bindRenderbuffer(gl.RENDERBUFFER, renderBuffer);
+            // gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, this.imageW, this.imageH);
+            // this.renderbuffers.push(renderBuffer);
+
+            // Create a framebuffer
+            var fbo = gl.createFramebuffer();
+            this.framebuffers.push(fbo);
+            gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+            //gl.viewport(0, 0, this.imageW, this.imageH);
+
+            // Attach a texture to it.
+            gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, effectTexture, 0);
+            //gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, renderBuffer);
+
+            gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+            gl.bindTexture(gl.TEXTURE_2D, null);
+            gl.bindRenderbuffer(gl.RENDERBUFFER, null);
+        }
+    }
+    constructKernel(){
+        this.kernels = {
+            normal: [
+            0, 0, 0,
+            0, 1, 0,
+            0, 0, 0
+            ],
+            gaussianBlur: [
+            0.045, 0.122, 0.045,
+            0.122, 0.332, 0.122,
+            0.045, 0.122, 0.045
+            ],
+            unsharpen: [
+            -1, -1, -1,
+            -1, 9, -1,
+            -1, -1, -1
+            ],
+            sharpness: [
+            0,-1, 0,
+            -1, 5,-1,
+            0,-1, 0
+            ],
+            sharpen: [
+            -1, -1, -1,
+            -1, 16, -1,
+            -1, -1, -1
+            ],
+            emboss: [
+            -2, -1,  0,
+            -1, 1,  1,
+            0,  1,  2
+            ],
+            edgeDetect2: [
+            -1, -1, -1,
+            -1, 8, -1,
+            -1, -1, -1
+             ],
+        };
+        this.effects = [
+            { name: `gaussianBlur`, on:false},
+            { name: "sharpen", on: false},
+            { name: "sharpness", on: false},
+            { name: "unsharpen", on: false},
+            { name: "emboss", on: false},
+            { name: "edgeDetect2", on:false}
+        ];
+    }
+    computeKernelWeight(kernel) {
+        var weight = kernel.reduce(function(prev, curr) {
+            return prev + curr;
+        });
+        return weight <= 0 ? 1 : weight;
+    }
+    setFrameBuffer(fbo, w, h){
+        // make this the framebuffer we are rendering to.
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+
+        // Tell webgl the viewport setting needed for framebuffer.
+        gl.viewport(0, 0, w, h);
+    }
+    drawWithKernel(name){
+        // set the kernel and it's weight
+        gl.uniform1fv(this.uniformLocations.kernel, this.kernels[name]);
+        gl.uniform1f(this.uniformLocations.kernelWeight, this.computeKernelWeight(this.kernels[name]));
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.data.vertex.length / 3);
+    }
+
+    draw(){
+        //this.resize();
+        gl.clearColor(0,0,0,0);
+        gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
+
+        gl.activeTexture(gl.TEXTURE0 + global_img_index);
+        gl.bindTexture(gl.TEXTURE_2D, this.imgTextures[global_img_index]);
+        gl.uniform1f(this.uniformLocations.flipY, 1);
+
+        this.fboCount = 0;
+        var effect_on = 0
+        for(var i = 0; i < this.effects.length; i++){
+            if(this.effects[i].on){ 
+                this.threshHolds = {x: 40, y:45};
+
+                let reso = canvas.clientWidth / canvas.clientHeight;
+                this.setFrameBuffer(this.framebuffers[this.fboCount % 2], this.imageW, this.imageH);
+
+                this.drawWithKernel(this.effects[i].name);
+                gl.activeTexture(gl.TEXTURE0 + global_img_index);
+                gl.bindTexture(gl.TEXTURE_2D, this.effectTextures[this.fboCount % 2]);
+                
+
+                ++this.fboCount;
+                ++effect_on;
+            }
+        }
+        if(effect_on == 0){this.threshHolds = {x: 20, y:15};}
+        // finally draw the result to the canvas.
+        gl.uniform1f(this.uniformLocations.flipY, -1);  // need to y flip for canvas
+        this.setFrameBuffer(null, canvas.width, canvas.height);
+
+        this.drawWithKernel("normal");
+    }
+
+    imageSizeMatrix(imageAspect, canvasAspect, scaleMode){
+        let scaleX;
+        let scaleY;
+
+        switch (scaleMode) {
+            case 'fitV':
+            scaleY = 1;
+            scaleX = imageAspect / canvasAspect;
+            break;
+            case 'fitH':
+            scaleX = 1;
+            scaleY = canvasAspect / imageAspect;
+            break;
+            case 'contain':
+            scaleY = 1;
+            scaleX = imageAspect / canvasAspect;
+            if (scaleX > 1) {
+                scaleY = 1 / scaleX;
+                scaleX = 1;
+            }
+            break;
+            case 'cover':
+            scaleY = 1;
+            scaleX = imageAspect / canvasAspect;
+            if (scaleX < 1) {
+                scaleY = 1 / scaleX;
+                scaleX = 1;
+            }
+            break;
+        }
+        
+        var mat = [
+            scaleX, 0, 0, 0,
+            0, -scaleY, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1,
+        ]
+        gl.uniformMatrix4fv(this.uniformLocations.size_mat, false, mat);
+    }
 
     async main(){
         //load shader and link program
@@ -323,24 +562,33 @@ class GLcanvas {
         gl.useProgram(this.program);
         //enable depth check
         gl.enable(gl.DEPTH_TEST);
+        // gl.enable(gl.BLEND);
+        // gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+        // gl.blendEquation(gl.FUNC_ADD);
 
         this.uniformLocations = {
             matrix: gl.getUniformLocation(this.program, `matrix`),
             imgID: gl.getUniformLocation(this.program, `imgID`),
             filterID: gl.getUniformLocation(this.program, `filterID`),
             mouse: gl.getUniformLocation(this.program, `mouse`),
-            // pixelRatio: gl.getUniformLocation(this.program, `pixelRatio`),
-            // resolution: gl.getUniformLocation(this.program, `resolution`)
+            textureSize: gl.getUniformLocation(this.program, `textureSize`),
+            kernel: gl.getUniformLocation(this.program, `kernel[0]`),
+            kernelWeight: gl.getUniformLocation(this.program, `kernelWeight`),
+            flipY: gl.getUniformLocation(this.program, `flipY`),
+            size_mat: gl.getUniformLocation(this.program, `size_mat`),
+            alpha: gl.getUniformLocation(this.program, `alpha`)
         };
+        gl.uniform1f(this.uniformLocations.flipY, -1);
+        //gl.uniform1f(this.uniformLocations.motionBlurConst, 0.0);
         this.setUniformTexture();
 
         this.setUpMatrix();
 
         this.resize();
         window.addEventListener(`resize`, this.resize.bind(this));
-        canvas.addEventListener(`mousemove`, this.mouseMoveCalc.bind(this));
+        document.addEventListener(`mousemove`, this.mouseMoveCalc.bind(this));
 
-        this.render()
+        this.render();
     }
 
     update(){
@@ -361,8 +609,6 @@ class GLcanvas {
             canvas.width = displayWidth;
             canvas.height = displayHeight;
     
-            gl.viewport(0, 0, canvas.width, canvas.height);
-
             this.persp.aspect = canvas.width / canvas.height;
             //need to reset projection matrix bc aspect ratio changes
             glMatrix.mat4.perspective(this.projectionMatrix, 
@@ -371,19 +617,26 @@ class GLcanvas {
                 this.persp.near, // near cull distance
                 this.persp.far // far cull distance
             );
+
+            gl.uniform2f(this.uniformLocations.textureSize, canvas.width, canvas.height);
+
+            this.imageSizeMatrix(this.imageW / this.imageH, canvas.clientWidth / canvas.clientHeight, `contain`);
+
+            gl.viewport(0, 0, canvas.width, canvas.height);
         }
-        var w = canvas.offsetWidth;
-        var h = canvas.offsetHeight;
-        var asp = 9 / 16;
-        var a1 = (w/h) * asp;
-        var a2 = 1;
-        this.setUniformMouse(w, h, a1, a2);
+        // var w = canvas.offsetWidth;
+        // var h = canvas.offsetHeight;
+        // var asp = 9 / 16;
+        // var a1 = (w/h) * asp;
+        // var a2 = 1;
+        //this.setUniformMouse();
     }
 
     render(){
         this.update();
+        this.draw();
 
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.data.vertex.length / 3);
+        //gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.data.vertex.length / 3);
         requestAnimationFrame(this.render.bind(this));
     }
 }

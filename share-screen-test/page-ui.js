@@ -49,13 +49,13 @@ class MenuUI{
             this.ID_ui_flat = requestTimeout(function(){
                 ui_persp_div.style.setProperty(`transform-style`, `preserve-3d`);
             }, 550);
-            
-            
+                        
             for (let i = 0; i < crumpled_uis.length; i++){
                 let ui = crumpled_uis[i];
                 ui.classList.remove(`gather`);
     
                 var id = {value: parseInt(ui.getAttribute(`IDui-z`),10)};
+
                 clearRequestTimeout(id);
                 id = requestTimeout(function(){
                     if(!ui_is_dispersed){return;}
@@ -74,34 +74,35 @@ class MenuUI{
             }
             switchButton.style.setProperty(`display`, `none`);
             
-        }.bind(this), 100);
+        }.bind(this), 50);
     }
 
     ui_gather(){
-        ui_is_dispersed = false;
-        this.ui_can_select = false;
-        clearRequestTimeout(this.ID_ui_disperse);
-        
-
-        clearRequestTimeout(this.ID_ui_flat);
-        this.ID_ui_flat = requestTimeout(function(){
-            ui_persp_div.style.setProperty(`transform-style`, `flat`);
-        }, 550);
-        
-
-        for (let ui of crumpled_uis){
-            ui.classList.remove(`quick-transition`);
-            ui.classList.remove(`selected`);
-            ui.classList.add(`gather`);
+        if(this.ui_can_select){
+            ui_is_dispersed = false;
+            this.ui_can_select = false;
+            clearRequestTimeout(this.ID_ui_disperse);
             
-            var id = {value: parseInt(ui.getAttribute(`IDui-z`),10)};
-            clearRequestTimeout(id);
-            ui.style.setProperty(`--ui-z`, '30px');
-            ui.style.setProperty(`z-index`, `0`);
+    
+            clearRequestTimeout(this.ID_ui_flat);
+            this.ID_ui_flat = requestTimeout(function(){
+                ui_persp_div.style.setProperty(`transform-style`, `flat`);
+            }, 550);
+                
+            for (let ui of crumpled_uis){
+                ui.classList.remove(`quick-transition`);
+                ui.classList.remove(`selected`);
+                ui.classList.add(`gather`);
+                
+                var id = {value: parseInt(ui.getAttribute(`IDui-z`),10)};
+                clearRequestTimeout(id);
+                ui.style.setProperty(`--ui-z`, '30px');
+                ui.style.setProperty(`z-index`, `0`);
+            }
+            cur_artist_name.classList.remove(`away`);
+            cur_artist_name.classList.remove(`underaway`);
+            switchButton.style.setProperty(`display`, `initial`);
         }
-        cur_artist_name.classList.remove(`away`);
-        cur_artist_name.classList.remove(`underaway`);
-        switchButton.style.setProperty(`display`, `initial`);
     }
 
     ui_select(e){
@@ -189,7 +190,7 @@ class MenuUI{
         if(!isMobile){
             switchButton.addEventListener(`mousedown`, this.ui_disperse.bind(this));
             window.addEventListener(`mouseup`, this.ui_gather.bind(this));
-            window.addEventListener(`mousemove`, this.ui_perpective.bind(this));
+            document.addEventListener(`mousemove`, this.ui_perpective.bind(this));
             for (let ui of crumpled_uis){
                 ui.addEventListener(`mouseover`, this.ui_select.bind(this));
                 ui.addEventListener(`mouseleave`, this.ui_deselect.bind(this));
