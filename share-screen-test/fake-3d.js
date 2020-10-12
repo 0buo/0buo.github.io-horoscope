@@ -361,7 +361,7 @@ class GLcanvas {
         if(this.alphaDir == -1){
             this.IDalpha = requestAnimationFrame(this.alphaAnim.bind(this));
 
-            this.alpha = lerp(this.alpha, 0, 1-Math.pow(0.0001, dt));
+            this.alpha = lerp(this.alpha, 0, 1-Math.pow(1e-6, dt));
             if(Math.abs(this.alpha - 0) < 0.005){this.alphaDir = 1;}
         }
         else if(this.alphaDir == 1){
@@ -377,7 +377,7 @@ class GLcanvas {
     }
 
     switchEffect(){
-        if(this.alpha < 0.3 && this.alpha >= 0.25){
+        if(this.alpha < 0.4 && this.alpha >= 0.3){
             this.effects[0].on = true;
             this.effects[1].on = false;
             this.effects[2].on = false;
@@ -385,7 +385,7 @@ class GLcanvas {
             this.effects[4].on = false;
             this.effects[5].on = false;
         }
-        else if(this.alpha < 0.25 && this.alpha >= 0.2){
+        else if(this.alpha < 0.3 && this.alpha >= 0.2){
             this.effects[0].on = true;
             this.effects[1].on = true;
             this.effects[2].on = false;
