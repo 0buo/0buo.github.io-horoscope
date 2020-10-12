@@ -165,6 +165,7 @@ var img_urls = sourceArr.imgs,
 	artist_names = sourceArr.names;
 //switch imgs
 var global_img_index = 0;
+var last_img_index = 0;
 
 var switchButton = document.getElementById(`switchImg`);
 var cur_artist_name = document.getElementById(`artist-name`);

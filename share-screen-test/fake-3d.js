@@ -309,6 +309,11 @@ class GLcanvas {
     }
 
     setImagesTexture(){
+        if(last_img_index != global_img_index){
+            last_img_index = global_img_index;
+            this.changeAlpha();
+        }
+
         this.curImgID = global_img_index;
         this.curFilterID = global_img_index + 7;
         this.setUniformTexture();
@@ -322,12 +327,11 @@ class GLcanvas {
             if(now - this.lastNOWslide > 8500){
                 this.lastNOWslide = now;
                 global_img_index = (global_img_index + 1) % 7;
+                last_img_index = global_img_index;
                 cur_artist_name.innerHTML = artist_names[global_img_index];
 
                 //this.effects[5].on = true;
-                this.lastNOWalpha = undefined;
-                this.alphaDir = -1;
-                this.IDalpha = requestAnimationFrame(this.alphaAnim.bind(this));
+                this.changeAlpha();
             }
         }
         else{
@@ -338,6 +342,12 @@ class GLcanvas {
     }
 
     //-------------USE EFFECTS
+    changeAlpha(){
+        this.lastNOWalpha = undefined;
+        this.alphaDir = -1;
+        this.IDalpha = requestAnimationFrame(this.alphaAnim.bind(this));
+    }
+
     alphaAnim(timestamp){
         if(this.lastNOWalpha === undefined){
             this.lastNOWalpha = timestamp;
@@ -362,7 +372,6 @@ class GLcanvas {
                 cancelAnimationFrame(this.IDalpha);
             }
         }
-        console.log(`${this.alphaDir} => ${this.alpha}`);
     }
 
     //---------------CREATE AND SETUP EFFECT TEXTURE
