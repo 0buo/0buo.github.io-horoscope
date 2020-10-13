@@ -1,3 +1,6 @@
+requestTimeout(function(){
+	loading_text.innerHTML = `SHARE`;
+}, 500);
 //var switchButton = document.getElementById(`switchImg`);
 
 const canvas = document.getElementById(`glCanvas`);
@@ -64,10 +67,37 @@ function loadImages(urls, callback) {
     // Called each time an image finished loading.
     var onImageLoad = function() {
       --imagesToLoad;
-    // If all the images are loaded call the callback.
-    if (imagesToLoad == 0) {
-        callback(images);
-    }
+        // If all the images are loaded call the callback.
+        if (imagesToLoad == 0) {
+            requestTimeout(function(){
+                loading_text.classList.add(`up`);
+                requestTimeout(function(){
+                    loading_text2.innerHTML = `S`;
+                }, 500);
+                requestTimeout(function(){
+                    loading_text2.innerHTML = `SC`;
+                }, 620);
+                requestTimeout(function(){
+                    loading_text2.innerHTML = `SCR`;
+                }, 740);
+                requestTimeout(function(){
+                    loading_text2.innerHTML = `SCRE`;
+                }, 860);
+                requestTimeout(function(){
+                    loading_text2.innerHTML = `SCREE`;
+                }, 980);
+                requestTimeout(function(){
+                    loading_text2.innerHTML = `SCREEN`;
+                    requestTimeout(function(){
+                        loading.classList.add(`disappear`);
+                        endBlur();
+                        requestTimeout(function(){loading.style.setProperty(`display`, `none`)}, 2500);
+                    }, 300);
+                }, 1100);
+            }, 750);
+
+            callback(images);
+        }
     };
    
     for (var ii = 0; ii < imagesToLoad; ++ii) {
@@ -92,6 +122,7 @@ class GLcanvas {
 
         this.imgTextures = [];
         this.fboCount = 0;
+        this.fboCount_verticalAddition = 0;
 
         //efects texture
         this.kernels = {};
@@ -102,6 +133,7 @@ class GLcanvas {
 
         this.curImgID = global_img_index;
         this.curFilterID = global_img_index + 7;
+        this.verticalAddition = 0;
 
         this.modelMatrix = glMatrix.mat4.create();
         this.viewMatrix = glMatrix.mat4.create();
@@ -119,9 +151,11 @@ class GLcanvas {
         this.dx = 0;
         this.dy = 0;
         this.bias = 0.05;
+        this.defaultThresholdX = 20;
+        this.defaultThresholdY = 15;
         this.threshHolds = {
-            x: 20,
-            y: 15
+            x: this.defaultThresholdX,
+            y: this.defaultThresholdY
         };
 
         this.IDmouseMove = undefined;
@@ -147,7 +181,7 @@ class GLcanvas {
         this.constructKernel();
 
         //load and bind textures
-        const urls = [...img_urls, ...filter_urls];
+        const urls = [...img_urls, ...img_urls_v, ...filter_urls, ...filter_urls_v];
         loadImages(urls, this.loadImgTextures.bind(this));
     }
 
@@ -159,6 +193,12 @@ class GLcanvas {
                 1, -9/16, 0,
                 -1, 9/16, 0,
                 1, 9/16, 0
+            ],
+            v_vertex: [
+                -9/27, -1/1.6875, 0,
+                9/27, -1/1.6875, 0,
+                -9/27, 1/1.6875, 0,
+                9/27, 1/1.6875, 0
             ],
             uv: [
                 0.0,  0.0,
@@ -172,10 +212,14 @@ class GLcanvas {
     bindDataToBuffer(){
         this.buffers = {
             vertex: gl.createBuffer(),
+            v_vertex: gl.createBuffer(),
             uv: gl.createBuffer()
         };
         gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.vertex);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.data.vertex), gl.STATIC_DRAW);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.v_vertex);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.data.v_vertex), gl.STATIC_DRAW);
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.uv);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.data.uv), gl.STATIC_DRAW);
@@ -218,7 +262,7 @@ class GLcanvas {
     }
 
 
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // !!!!!!!!!!!!!!
     onLoadTextures(){
         this.bindTextures([...this.imgTextures, ...this.effectTextures]);
     }
@@ -245,6 +289,27 @@ class GLcanvas {
         gl.enableVertexAttribArray(this.attributeLocations.uv);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.uv);
         gl.vertexAttribPointer(this.attributeLocations.uv, 2, gl.FLOAT, false, 0, 0);
+    }
+
+    becomeVertical(){
+        gl.enableVertexAttribArray(this.attributeLocations.position);
+        if(window.innerWidth >= window.innerHeight){
+            this.verticalAddition = 0;
+            this.fboCount_verticalAddition = 0;
+            this.defaultThresholdX = 20;
+            this.defaultThresholdY = 15;
+
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.vertex);
+        }
+        else{
+            this.verticalAddition = 7;
+            this.fboCount_verticalAddition = 2;
+            this.defaultThresholdX = 35;
+            this.defaultThresholdY = 30;
+
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.v_vertex);
+        }
+        gl.vertexAttribPointer(this.attributeLocations.position, 3, gl.FLOAT, false, 0, 0);
     }
 
     //---------CLASS FUNC TO SET UNIFORM
@@ -310,13 +375,14 @@ class GLcanvas {
         gl.uniform2f(this.uniformLocations.mouse, this.dx / this.threshHolds.x, this.dy / this.threshHolds.y);
     }
 
+    //!!!!!!!!!!!!!!!!!!!
     setImagesTexture(){
         if(!switch_same_ui){
             this.switchImgAnim();
             switch_same_ui = true;
         }
-        this.curImgID = global_img_index;
-        this.curFilterID = global_img_index + 7;
+        this.curImgID = global_img_index + this.verticalAddition;
+        this.curFilterID = global_img_index + 14 + this.verticalAddition;
         this.setUniformTexture();
     }
 
@@ -328,9 +394,7 @@ class GLcanvas {
             if(now - this.lastNOWslide > 15000){
                 this.lastNOWslide = now;
                 this.slideSwitched = false;
-                // global_img_index = (global_img_index + 1) % 7;
-                // last_img_index = global_img_index;
-                // cur_artist_name.innerHTML = artist_names[global_img_index];
+
                 this.switchImgAnim();
             }
         }
@@ -344,7 +408,7 @@ class GLcanvas {
         if(!ui_is_dispersed){
             if(!this.slideSwitched){
                 global_img_index = (global_img_index + 1) % 7;
-                // last_img_index = global_img_index;
+                
                 cur_artist_name.innerHTML = artist_names[global_img_index];
                 this.slideSwitched = true;
             }
@@ -449,13 +513,13 @@ class GLcanvas {
     }
 
     //---------------CREATE AND SETUP EFFECT TEXTURE
-    createEffectTexture(){
+    createEffectTexture(w, h){
         var effectTexture = gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, effectTexture);
 
         // make the texture the same size as the image
         gl.texImage2D(
-            gl.TEXTURE_2D, 0, gl.RGBA, this.imageW, this.imageH, 0,
+            gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0,
             gl.RGBA, gl.UNSIGNED_BYTE, null);
         // Set up texture so we can render any size image and so we are
         // working with pixels.
@@ -468,8 +532,14 @@ class GLcanvas {
     }
     setupEffectTexAndFBO(){
         // create 2 textures and attach them to framebuffers.
-        for (var ii = 0; ii < 2; ii++) {
-            var effectTexture = this.createEffectTexture();
+        for (var ii = 0; ii < 4; ii++) {
+            let w = this.imageW;
+            let h = this.imageH;
+            if(ii >= 2){
+                w = this.imageH;
+                h = this.imageW;
+            }
+            var effectTexture = this.createEffectTexture(w, h);
             this.effectTextures.push(effectTexture);
 
             // var renderBuffer = gl.createRenderbuffer();
@@ -489,7 +559,7 @@ class GLcanvas {
 
             gl.bindFramebuffer(gl.FRAMEBUFFER, null);
             gl.bindTexture(gl.TEXTURE_2D, null);
-            gl.bindRenderbuffer(gl.RENDERBUFFER, null);
+            //gl.bindRenderbuffer(gl.RENDERBUFFER, null);
         }
     }
     constructKernel(){
@@ -548,7 +618,6 @@ class GLcanvas {
     setFrameBuffer(fbo, w, h){
         // make this the framebuffer we are rendering to.
         gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
-
         // Tell webgl the viewport setting needed for framebuffer.
         gl.viewport(0, 0, w, h);
     }
@@ -562,32 +631,38 @@ class GLcanvas {
     draw(){
         //this.resize();
         gl.useProgram(this.program);
+        gl.enable(gl.DEPTH_TEST);
 
         gl.clearColor(0,0,0,0);
         gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
 
-        gl.activeTexture(gl.TEXTURE0 + global_img_index);
-        gl.bindTexture(gl.TEXTURE_2D, this.imgTextures[global_img_index]);
+        gl.activeTexture(gl.TEXTURE0 + (global_img_index + this.verticalAddition));
+        gl.bindTexture(gl.TEXTURE_2D, this.imgTextures[global_img_index + this.verticalAddition]);
         gl.uniform1f(this.uniformLocations.flipY, 1);
 
         this.fboCount = 0;
         var effect_on = 0
         for(var i = 0; i < this.effects.length; i++){
             if(this.effects[i].on){ 
+                let w = this.imageW, h = this.imageH;
+                if(this.verticalAddition == 7){
+                    w = this.imageH;
+                    h = this.imageW;
+                }
+
                 this.threshHolds = {x: 40, y:45};
 
-                this.setFrameBuffer(this.framebuffers[this.fboCount % 2], this.imageW, this.imageH);
+                this.setFrameBuffer(this.framebuffers[this.fboCount % 2 + this.fboCount_verticalAddition], w, h);
 
                 this.drawWithKernel(this.effects[i].name);
-                gl.activeTexture(gl.TEXTURE0 + global_img_index);
-                gl.bindTexture(gl.TEXTURE_2D, this.effectTextures[this.fboCount % 2]);
-                
+                gl.activeTexture(gl.TEXTURE0 + (global_img_index + this.verticalAddition));
+                gl.bindTexture(gl.TEXTURE_2D, this.effectTextures[this.fboCount % 2 + this.fboCount_verticalAddition]);
 
                 ++this.fboCount;
                 ++effect_on;
             }
         }
-        if(effect_on == 0){this.threshHolds = {x: 20, y:15};}
+        if(effect_on == 0){this.threshHolds = {x: this.defaultThresholdX, y:this.defaultThresholdY};}
         // finally draw the result to the canvas.
         gl.uniform1f(this.uniformLocations.flipY, -1);  // need to y flip for canvas
         this.setFrameBuffer(null, canvas.width, canvas.height);
@@ -595,45 +670,6 @@ class GLcanvas {
         this.drawWithKernel("normal");
     }
 
-    imageSizeMatrix(imageAspect, canvasAspect, scaleMode){
-        let scaleX;
-        let scaleY;
-
-        switch (scaleMode) {
-            case 'fitV':
-            scaleY = 1;
-            scaleX = imageAspect / canvasAspect;
-            break;
-            case 'fitH':
-            scaleX = 1;
-            scaleY = canvasAspect / imageAspect;
-            break;
-            case 'contain':
-            scaleY = 1;
-            scaleX = imageAspect / canvasAspect;
-            if (scaleX > 1) {
-                scaleY = 1 / scaleX;
-                scaleX = 1;
-            }
-            break;
-            case 'cover':
-            scaleY = 1;
-            scaleX = imageAspect / canvasAspect;
-            if (scaleX < 1) {
-                scaleY = 1 / scaleX;
-                scaleX = 1;
-            }
-            break;
-        }
-        
-        var mat = [
-            scaleX, 0, 0, 0,
-            0, -scaleY, 0, 0,
-            0, 0, 1, 0,
-            0, 0, 0, 1,
-        ]
-        gl.uniformMatrix4fv(this.uniformLocations.size_mat, false, mat);
-    }
 
     async main(){
         //load shader and link program
@@ -663,7 +699,6 @@ class GLcanvas {
             alpha: gl.getUniformLocation(this.program, `alpha`)
         };
         gl.uniform1f(this.uniformLocations.flipY, -1);
-        //gl.uniform1f(this.uniformLocations.motionBlurConst, 0.0);
         this.setUniformTexture();
 
         this.setUpMatrix();
@@ -702,9 +737,9 @@ class GLcanvas {
                 this.persp.far // far cull distance
             );
 
-            gl.uniform2f(this.uniformLocations.textureSize, canvas.width, canvas.height);
+            this.becomeVertical();
 
-            this.imageSizeMatrix(this.imageW / this.imageH, canvas.clientWidth / canvas.clientHeight, `contain`);
+            gl.uniform2f(this.uniformLocations.textureSize, canvas.width, canvas.height);
 
             gl.viewport(0, 0, canvas.width, canvas.height);
         }
@@ -720,7 +755,6 @@ class GLcanvas {
         this.update();
         this.draw();
 
-        //gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.data.vertex.length / 3);
         requestAnimationFrame(this.render.bind(this));
     }
 }

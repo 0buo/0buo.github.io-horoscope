@@ -7,10 +7,15 @@
         <link rel="stylesheet" type="text/css" href="./style.css" />
     </head>
     <body>
-        <canvas id="glCanvas"></canvas>
+        <div id="loading">
+            <div id="loading-text">SHAR</div>
+            <div id="loading-text2"></div>
+        </div>
+
+        <canvas class="startBlurry" id="glCanvas"></canvas>
 
         <!-- menu buttons: need to be the last DOM in body -->
-        <div id="switchButtons">
+        <div class="startBlurry" id="switchButtons">
             <div id="ui-persp">
                 <div class="crumpled-ui gather" id = "ui7"></div>
                 <div class="crumpled-ui gather" id = "ui6"></div>
@@ -22,7 +27,6 @@
                 <div class="noselect" id="artist-name">Firstname<br>Lastname</div>
             </div>
             <div id = "switchImg"></div>
-            
         </div>
 
         <script type="text/javascript" src="./lib/gl-matrix-min.js"></script>

@@ -91,42 +91,56 @@ function getSource(){
 	const tristan = {
 		img: `./textures/images/tristan.jpg`,
 		map: `./textures/filters/tristan-depth.jpg`,
+		imgV: `./textures/images/tristan-v.jpg`,
+		mapV: `./textures/filters/tristan-depth-v.jpg`,
 		ui: 1,
 		name: `Tristan<br>Espinoza`
 	},
 	alvaro = {
 		img: `./textures/images/alvaro.jpg`,
 		map: `./textures/filters/alvaro-depth.jpg`,
+		imgV: `./textures/images/alvaro-v.jpg`,
+		mapV: `./textures/filters/alvaro-depth-v.jpg`,
 		ui: 2,
 		name: `Alvaro<br>Azcarraga`
 	},
 	zheng = {
 		img: `./textures/images/zheng.jpg`,
 		map: `./textures/filters/zheng-depth.jpg`,
+		imgV: `./textures/images/zheng-v.jpg`,
+		mapV: `./textures/filters/zheng-depth-v.jpg`,
 		ui: 3,
 		name: `Zheng<br>Fang`
 	},
 	zhengyang = {
 		img: `./textures/images/zhengyang.jpg`,
 		map: `./textures/filters/zhengyang-depth.jpg`,
+		imgV: `./textures/images/zhengyang-v.jpg`,
+		mapV: `./textures/filters/zhengyang-depth-v.jpg`,
 		ui: 4,
 		name: `Zhengyang<br>Huang`
 	},
 	zhengzhou = {
 		img: `./textures/images/zhengzhou.jpg`,
 		map: `./textures/filters/zhengzhou-depth.jpg`,
+		imgV: `./textures/images/zhengzhou-v.jpg`,
+		mapV: `./textures/filters/zhengzhou-depth-v.jpg`,
 		ui: 5,
 		name: `Zhengzhou<br>Huang`
 	},
 	dasul = {
 		img: `./textures/images/dasul.jpg`,
 		map: `./textures/filters/dasul-depth.jpg`,
+		imgV: `./textures/images/dasul-v.jpg`,
+		mapV: `./textures/filters/dasul-depth-v.jpg`,
 		ui: 6,
 		name: `Dasul<br>Kim`
 	},
 	sam = {
 		img: `./textures/images/sam.jpg`,
 		map: `./textures/filters/sam-depth.jpg`,
+		imgV: `./textures/images/sam-v.jpg`,
+		mapV: `./textures/filters/sam-depth-v.jpg`,
 		ui: 7,
 		name: `Sam<br>Malabre`
 	};
@@ -136,19 +150,23 @@ function getSource(){
 
 	var img_urls = arr.reduce((accumulator, cur) => {accumulator.push(cur.img); return accumulator;}, []);
 	var filter_urls = arr.reduce((accumulator, cur) => {accumulator.push(cur.map); return accumulator;}, []);
+	var img_urls_v = arr.reduce((accumulator, cur) => {accumulator.push(cur.imgV); return accumulator;}, []);
+	var filter_urls_v = arr.reduce((accumulator, cur) => {accumulator.push(cur.mapV); return accumulator;}, []);
 	var ui_id_nums = arr.reduce((accumulator, cur) => {accumulator.push(cur.ui); return accumulator;}, []);
 	var artist_names = arr.reduce((accumulator, cur) => {accumulator.push(cur.name); return accumulator;}, []);
 
 	return {
 		imgs: img_urls,
 		maps: filter_urls,
+		imgsV: img_urls_v,
+		mapsV: filter_urls_v,
 		uis: ui_id_nums,
 		names: artist_names
 	};
 }
 
 function resizeCanvas(){
-	//if(window.innerWidth >= window.innerHeight){
+	if(window.innerWidth >= window.innerHeight){
 		if(0.5625 * window.innerWidth < window.innerHeight){
 			let w = 16 / 9 * window.innerHeight;
 			let left = window.innerWidth / 2 - w / 2;
@@ -161,10 +179,41 @@ function resizeCanvas(){
 			bgCanvas.style.setProperty(`height`, `56.25vw`);
 			bgCanvas.style.setProperty(`width`, `100vw`);
 			bgCanvas.style.setProperty(`top`, `calc(50vh - 28.125vw)`);
-			bgCanvas.style.setProperty(`left`, `calc(50vw - 50vw)`);
+			bgCanvas.style.setProperty(`left`, `0`);
 		}
-	//}
+	}
+	else if(window.innerWidth < window.innerHeight){
+		if(0.5625 * window.innerHeight < window.innerWidth){
+			let h = 16 / 9 * window.innerWidth;
+			let top = window.innerHeight / 2 - h / 2;
+			bgCanvas.style.setProperty(`width`, `100vw`);
+			bgCanvas.style.setProperty(`height`, h + `px`);
+			bgCanvas.style.setProperty(`left`, `0`);
+			bgCanvas.style.setProperty(`top`, `${top}px`);
+		}
+		else{
+			bgCanvas.style.setProperty(`height`, `100vh`);
+			bgCanvas.style.setProperty(`width`, `56.25vh`);
+			bgCanvas.style.setProperty(`top`, `0`);
+			bgCanvas.style.setProperty(`left`, `calc(50vw - 28.125vh)`);
+		}
+	}
 
+}
+
+//============
+//START BLURRY
+
+var toBlurs = document.getElementsByClassName(`startBlurry`);
+function startBlur(){
+    for(var i = 0; i < toBlurs.length; i++){
+        toBlurs[i].classList.add(`blurred`);
+    }
+}
+function endBlur(){
+    for(var i = 0; i < toBlurs.length; i++){
+        toBlurs[i].classList.remove(`blurred`);
+    }
 }
 
 //DETECT MOBILE
@@ -176,12 +225,24 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
     isMobile = true;
 }
 
+
+//=============
+startBlur();
+
 //GLOBAL VARS
 //===========
+//loading
+var loading = document.getElementById(`loading`);
+var loading_text = document.getElementById(`loading-text`);
+var loading_text2 = document.getElementById(`loading-text2`);
+
+
 //sources
 const sourceArr = getSource();
 var img_urls = sourceArr.imgs,
 	filter_urls = sourceArr.maps,
+	img_urls_v = sourceArr.imgsV,
+	filter_urls_v = sourceArr.mapsV,
 	ui_id_nums = sourceArr.uis,
 	artist_names = sourceArr.names;
 

@@ -170,6 +170,12 @@ class MenuUI{
         }
     }
 
+    ui_redirect(e){
+        if(this.ui_can_select){
+            //window.location.href = `https://0buo.github.io/artrology/`;
+        }
+    }
+
     ui_perpective(e){
         var ui_buttons_offset = {
             y: ui_buttons.offsetTop + ui_buttons.offsetHeight / 2,
@@ -231,6 +237,7 @@ class MenuUI{
             for (let ui of crumpled_uis){
                 ui.addEventListener(`mouseover`, this.ui_select.bind(this));
                 ui.addEventListener(`mouseleave`, this.ui_deselect.bind(this));
+                ui.addEventListener(`mouseup`, this.ui_redirect.bind(this));
             }
         }
         else{
