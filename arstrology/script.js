@@ -1103,6 +1103,7 @@ $filterOff.on("click", function(){
       $filterSwitchText.text("light filter");
       filterState = 1;
       twinkleBrighterOpa = 1;
+      twinkleBrightDimOpa = 0.6;
       defaultTwinklwOpa1 = 0.35;
       defaultTwinklwOpa2 = 0.4;
       defaultTwinklwOpa3 = 0.45;
@@ -1145,9 +1146,10 @@ $filterSwitchButton.click(function(){
       $filtered.removeClass("offFilter");
 
       twinkleBrighterOpa = 1;
-      defaultTwinklwOpa1 = 0.6;
-      defaultTwinklwOpa2 = 0.72;
-      defaultTwinklwOpa3 = 0.82;
+      twinkleBrightDimOpa = 0.85;
+      defaultTwinklwOpa1 = 0.45;
+      defaultTwinklwOpa2 = 0.65;
+      defaultTwinklwOpa3 = 0.75;
       if(twinkleOpaState == 1){twinkleOpa = defaultTwinklwOpa1;}
       else if(twinkleOpaState == 2){twinkleOpa = defaultTwinklwOpa2;}
       else if(twinkleOpaState == 3){twinkleOpa = defaultTwinklwOpa3;}
@@ -1161,6 +1163,7 @@ $filterSwitchButton.click(function(){
       $filtered.removeClass("svgFilter");
       $filtered.addClass("offFilter");
       twinkleBrighterOpa = 1;
+      twinkleBrightDimOpa = 0.5;
       defaultTwinklwOpa1 = 0.35;
       defaultTwinklwOpa2 = 0.4;
       defaultTwinklwOpa3 = 0.45;
@@ -1176,7 +1179,8 @@ $filterSwitchButton.click(function(){
 
       $filtered.removeClass("offFilter");
       $filtered.addClass("svgFilter");
-      twinkleBrighterOpa = 0.8;
+      twinkleBrighterOpa = 0.7;
+      twinkleBrightDimOpa = 0.4;
       defaultTwinklwOpa1 = 0.27;
       defaultTwinklwOpa2 = 0.32;
       defaultTwinklwOpa3 = 0.4;
@@ -2150,7 +2154,8 @@ function textTwinkle($this, index){
   else if($this.css("opacity") <= 0.05 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
 }
 
-var twinkleBrighterOpa = 0.8;
+var twinkleBrighterOpa = 0.7;
+var twinkleBrightDimOpa = 0.4;
 function textTwinkleBright($this, index){ 
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkleBright($this, index);});
   $this.css("transition", "all 12s ease-in-out");
@@ -2161,15 +2166,15 @@ function textTwinkleBright($this, index){
     $this.css("--glowColor2", "#77798f");
     if(Math.abs(parseFloat($this.css("opacity"))-twinkleBrighterOpa) <= 0.005){twinkleDirects[index] = -1;}
   }
-  else if ($this.css("opacity") > 0.1 && twinkleDirects[index] == -1){
-    $this.css("opacity", 0.1);
+  else if ($this.css("opacity") > twinkleBrightDimOpa && twinkleDirects[index] == -1){
+    $this.css("opacity", twinkleBrightDimOpa);
     $this.css("--glowPix1", "4px");
     $this.css("--glowPix2", "-4px");
     $this.css("--glowColor2", "#363246");
-    if(Math.abs(parseFloat($this.css("opacity"))-0.1) <= 0.005){twinkleDirects[index] = 1;}
+    if(Math.abs(parseFloat($this.css("opacity"))-twinkleBrightDimOpa) <= 0.005){twinkleDirects[index] = 1;}
   }
   else if($this.css("opacity") >= twinkleBrighterOpa && twinkleDirects[index] == 1){twinkleDirects[index] = -1;}
-  else if($this.css("opacity") <= 0.1 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
+  else if($this.css("opacity") <= twinkleBrightDimOpa && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
 }
 
 let j;
