@@ -192,11 +192,15 @@ window.addEventListener(`resize`, resizeCanvas);
 
 //switch imgs
 var global_img_index = 0;
-var last_img_index = 0;
 
 var switchButton = document.getElementById(`switchImg`);
 var cur_artist_name = document.getElementById(`artist-name`);
 var ui_is_dispersed = false;
 var ui_ids = [`ui1`, `ui2`, `ui3`, `ui4`, `ui5`, `ui6`, `ui7`];
+var selected_ui = document.getElementById(`ui${ui_id_nums[global_img_index]}`);
+selected_ui.style.setProperty(`z-index`, `1`);
+
+var cur_ui; //for effects 
+var switch_same_ui = true;
 
 cur_artist_name.innerHTML = artist_names[global_img_index];

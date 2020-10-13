@@ -113,7 +113,10 @@ class MenuUI{
                 var id = {value: parseInt(ui.getAttribute(`IDui-z`),10)};
                 clearRequestTimeout(id);
                 ui.style.setProperty(`--ui-z`, '30px');
-                ui.style.setProperty(`z-index`, `0`);
+                if(selected_ui == ui){
+                    selected_ui.style.setProperty(`z-index`, `1`);
+                }
+                else{ui.style.setProperty(`z-index`, `0`);}
             }
             cur_artist_name.classList.remove(`away`);
             cur_artist_name.classList.remove(`underaway`);
@@ -144,8 +147,16 @@ class MenuUI{
             //switch img
             this.ID_ui_switch_img = requestTimeout(function(){
                 if(getComputedStyle(e.target).getPropertyValue(`opacity`) > 0.91){
+                    selected_ui = e.target;
+                    if(document.getElementById(`ui${ui_id_nums[global_img_index]}`) != e.target){
+                        switch_same_ui = false;
+                    }
+                    else{
+                        switch_same_ui = true;
+                    }
                     this.uiSwitched = false;
-                    depthIMG.switchImgAnim(e.target);
+                    cur_ui = e.target;
+                    depthIMG.setImagesTexture();
                 }
             }.bind(this), 450);
         }

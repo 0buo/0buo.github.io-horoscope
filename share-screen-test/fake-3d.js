@@ -137,7 +137,6 @@ class GLcanvas {
         this.lastNOWalpha = undefined;
 
         this.slideSwitched = false;
-        this.cur_ui = undefined;
 
         //======================
         this.constructData();
@@ -312,9 +311,9 @@ class GLcanvas {
     }
 
     setImagesTexture(){
-        if(last_img_index != global_img_index){
-            last_img_index = global_img_index;
+        if(!switch_same_ui){
             this.switchImgAnim();
+            switch_same_ui = true;
         }
         this.curImgID = global_img_index;
         this.curFilterID = global_img_index + 7;
@@ -345,7 +344,7 @@ class GLcanvas {
         if(!ui_is_dispersed){
             if(!this.slideSwitched){
                 global_img_index = (global_img_index + 1) % 7;
-                last_img_index = global_img_index;
+                // last_img_index = global_img_index;
                 cur_artist_name.innerHTML = artist_names[global_img_index];
                 this.slideSwitched = true;
             }
@@ -353,9 +352,7 @@ class GLcanvas {
     }
 
     //-------------USE EFFECTS
-    switchImgAnim(elem){
-        this.cur_ui = elem;
-
+    switchImgAnim(){
         this.lastNOWalpha = undefined;
         this.alphaDir = -1;
         this.IDalpha = requestAnimationFrame(this.alphaAnim.bind(this));
@@ -439,7 +436,7 @@ class GLcanvas {
             this.effects[5].on = true;
 
             this.slideIndexUpdate();
-            menu_ui.ui_update_index(this.cur_ui);
+            menu_ui.ui_update_index(cur_ui);
         }
         else{
             this.effects[0].on = false;
