@@ -342,11 +342,13 @@ class GLcanvas {
         gl.uniform1f(this.uniformLocations.alpha, this.alpha);
     }
     slideIndexUpdate(){
-        if(!this.slideSwitched){
-            global_img_index = (global_img_index + 1) % 7;
-            last_img_index = global_img_index;
-            cur_artist_name.innerHTML = artist_names[global_img_index];
-            this.slideSwitched = true;
+        if(!ui_is_dispersed){
+            if(!this.slideSwitched){
+                global_img_index = (global_img_index + 1) % 7;
+                last_img_index = global_img_index;
+                cur_artist_name.innerHTML = artist_names[global_img_index];
+                this.slideSwitched = true;
+            }
         }
     }
 

@@ -122,13 +122,15 @@ class MenuUI{
     }
 
     ui_update_index(elem){
-        if(!this.uiSwitched){
-            this.uiSwitched = true;
-            //switch imgs
-            var ui_index = ui_ids.indexOf(elem.id) + 1;
-            global_img_index = ui_id_nums.indexOf(ui_index);
-            //change name
-            cur_artist_name.innerHTML = artist_names[global_img_index];
+        if(ui_is_dispersed){
+            if(!this.uiSwitched){
+                this.uiSwitched = true;
+                //switch imgs
+                var ui_index = ui_ids.indexOf(elem.id) + 1;
+                global_img_index = ui_id_nums.indexOf(ui_index);
+                //change name
+                cur_artist_name.innerHTML = artist_names[global_img_index];
+            }
         }
     }
 
