@@ -2,7 +2,10 @@ const ui_buttons = document.getElementById(`switchButtons`);
 const ui_persp_div = document.getElementById(`ui-persp`)
 const crumpled_uis = document.getElementsByClassName(`crumpled-ui`);
 
+//UI UPDATE IMG INDEX FUNC
 
+
+//============
 class MenuUI{
     constructor(){
         //this.ui_click_timer = undefined;
@@ -23,7 +26,7 @@ class MenuUI{
         this.destPespY = 50;
         this.lastNOWpersp = undefined;
 
-        this.ui_ids = [`ui1`, `ui2`, `ui3`, `ui4`, `ui5`, `ui6`, `ui7`];
+        this.uiSwitched = false; //for ui hover switch
     }
 
     ui_resize(){
@@ -118,6 +121,17 @@ class MenuUI{
         }
     }
 
+    ui_update_index(elem){
+        if(!this.uiSwitched){
+            this.uiSwitched = true;
+            //switch imgs
+            var ui_index = ui_ids.indexOf(elem.id) + 1;
+            global_img_index = ui_id_nums.indexOf(ui_index);
+            //change name
+            cur_artist_name.innerHTML = artist_names[global_img_index];
+        }
+    }
+
     ui_select(e){
         if(this.ui_can_select){
             e.target.classList.add(`quick-transition`);
@@ -127,12 +141,9 @@ class MenuUI{
 
             //switch img
             this.ID_ui_switch_img = requestTimeout(function(){
-                if(getComputedStyle(e.target).getPropertyValue(`opacity`) > 0.92){
-                    //switch imgs
-                    var ui_index = this.ui_ids.indexOf(e.target.id) + 1;
-                    global_img_index = ui_id_nums.indexOf(ui_index);
-                    //change name
-                    cur_artist_name.innerHTML = artist_names[global_img_index];
+                if(getComputedStyle(e.target).getPropertyValue(`opacity`) > 0.91){
+                    this.uiSwitched = false;
+                    depthIMG.switchImgAnim(e.target);
                 }
             }.bind(this), 450);
         }
@@ -216,5 +227,5 @@ class MenuUI{
     }
 }
 
-const menu_ui = new MenuUI();
+var menu_ui = new MenuUI();
 menu_ui.main();

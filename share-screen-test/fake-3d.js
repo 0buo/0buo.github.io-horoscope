@@ -136,6 +136,9 @@ class GLcanvas {
         this.alphaDir = -1;
         this.lastNOWalpha = undefined;
 
+        this.slideSwitched = false;
+        this.cur_ui = undefined;
+
         //======================
         this.constructData();
         this.bindDataToBuffer();
@@ -313,7 +316,6 @@ class GLcanvas {
             last_img_index = global_img_index;
             this.switchImgAnim();
         }
-
         this.curImgID = global_img_index;
         this.curFilterID = global_img_index + 7;
         this.setUniformTexture();
@@ -326,11 +328,10 @@ class GLcanvas {
         if(!ui_is_dispersed){
             if(now - this.lastNOWslide > 15000){
                 this.lastNOWslide = now;
-                global_img_index = (global_img_index + 1) % 7;
-                last_img_index = global_img_index;
-                cur_artist_name.innerHTML = artist_names[global_img_index];
-
-                //this.effects[5].on = true;
+                this.slideSwitched = false;
+                // global_img_index = (global_img_index + 1) % 7;
+                // last_img_index = global_img_index;
+                // cur_artist_name.innerHTML = artist_names[global_img_index];
                 this.switchImgAnim();
             }
         }
@@ -340,9 +341,19 @@ class GLcanvas {
 
         gl.uniform1f(this.uniformLocations.alpha, this.alpha);
     }
+    slideIndexUpdate(){
+        if(!this.slideSwitched){
+            global_img_index = (global_img_index + 1) % 7;
+            last_img_index = global_img_index;
+            cur_artist_name.innerHTML = artist_names[global_img_index];
+            this.slideSwitched = true;
+        }
+    }
 
     //-------------USE EFFECTS
-    switchImgAnim(){
+    switchImgAnim(elem){
+        this.cur_ui = elem;
+
         this.lastNOWalpha = undefined;
         this.alphaDir = -1;
         this.IDalpha = requestAnimationFrame(this.alphaAnim.bind(this));
@@ -424,6 +435,9 @@ class GLcanvas {
             this.effects[3].on = true;
             this.effects[4].on = true;
             this.effects[5].on = true;
+
+            this.slideIndexUpdate();
+            menu_ui.ui_update_index(this.cur_ui);
         }
         else{
             this.effects[0].on = false;
@@ -712,4 +726,4 @@ class GLcanvas {
     }
 }
 
-const depthIMG = new GLcanvas();
+var depthIMG = new GLcanvas();

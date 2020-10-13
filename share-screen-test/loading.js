@@ -1,7 +1,7 @@
 function loadScript(){
-    $.getScript(`./page-ui.js`)
+    $.getScript(`./fake-3d.js`)
     .done(function() {
-        $.getScript(`./fake-3d.js`).fail(function(jqxhr){
+        $.getScript(`./page-ui.js`).fail(function(jqxhr){
             throw new Error(`load script failed: ${jqxhr}`);
         })
     })
