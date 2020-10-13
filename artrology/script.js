@@ -2734,7 +2734,9 @@ var degIncrement = 30;
 function rotateSlider(deg){
   if(sliderMdown){
     let curDeg = deg;
-    $TIslider.velocity({tween: [curDeg + degIncrement, curDeg]},{
+    let destDeg = curDeg + degIncrement;
+    //destDeg = destDeg > 360 ? destDeg - 360 : destDeg;
+    $TIslider.velocity({tween: [destDeg, curDeg]},{
       duration: 600,
       easing: [0.68, -0.6, 0.32, 1.6],
       progress: function(_, _, _, tweenValue){
@@ -2744,7 +2746,7 @@ function rotateSlider(deg){
         //console.log((TIsliderX + sliderRadius - sliderW2) + " ; " + (TIsliderY + sliderRadius - sliderH2));
         $TIslider.css("left", TIsliderX + sliderRadius - sliderW2); 
         $TIslider.css("top", TIsliderY + sliderRadius - sliderH2);
-        $TIslider.css("transform", "rotate(" + sliderDeg + "deg");
+        //$TIslider.css("transform", "rotateZ(" + sliderDeg + "deg");
       },
       complete: function(){
         destMonth = monthVal + Math.ceil(degIncrement/30);
@@ -2762,17 +2764,19 @@ function rotateSlider(deg){
 function rotateCircle(deg){
   if(circleMdown){
     let curDeg = deg;
-    $TIcircle.velocity({tween: [curDeg - degIncrement, curDeg]},{
+    let destDeg = curDeg - degIncrement;
+    //destDeg = destDeg < 0 ? destDeg + 360 : destDeg;
+    $({Deg: curDeg}).animate({Deg: destDeg},{
       duration: 600,
-      easing: [0.68, -0.6, 0.32, 1.6],
-      progress: function(_, _, _, tweenValue){
-        circleDeg = (360 + tweenValue) % 360;
+      easing: `easeInOutBack`,
+      step: function(now){
+        circleDeg = (360 + now) % 360;
         TIcircleX = circleRdius * Math.sin((circleDeg * Math.PI) / 180);
         TIcircleY = circleRdius * -Math.cos((circleDeg * Math.PI) / 180);
         //console.log((TIcircleX + circleRdius - circleW2) + " ; " + (TIcircleY + circleRdius - circleH2));
         $TIcircle.css("left", TIcircleX + circleRdius - circleW2); 
         $TIcircle.css("top", TIcircleY + circleRdius - circleH2);
-        $TIcircle.css("transform", "rotate(" + circleDeg + "deg");
+        //$TIcircle.css("transform", "rotateZ(" + circleDeg + "deg");
       },
       complete: function(){
         destMonth = monthVal - Math.round(degIncrement/30);
@@ -2780,7 +2784,7 @@ function rotateCircle(deg){
         calculateTime(circleDeg);
         
         cancelAnimationFrame(IDcircleRotate);
-        if(circleMdown == false){$TIcircle.velocity("stop", true); return;}
+        if(circleMdown == false){$(this).stop(true); return;}
 
         IDcircleRotate = requestAnimationFrame(function(){rotateCircle(circleDeg);});
       }
@@ -2800,7 +2804,7 @@ function calculateTime(deg){
       yearVal += changeVal;
       lap += 1
       //if(direction == -1){ lap = 0; changeVal = 1; degIncrement = 30;}
-      if(degIncrement <= 210){
+      if(degIncrement <= 180){
         if(lap == 3) { degIncrement += 30;}
         if(lap == 6) { degIncrement += 30;}
         if(lap == 9) { degIncrement += 30;}
@@ -2814,7 +2818,7 @@ function calculateTime(deg){
       yearVal -= changeVal; 
       lap += 1;
       //if(direction == 1){ lap = 0; changeVal = 1; degIncrement = 30;}
-      if(degIncrement <= 210){
+      if(degIncrement <= 180){
         if(lap == 3) { degIncrement += 30;}
         if(lap == 6) { degIncrement += 30;}
         if(lap == 9) { degIncrement += 30;}
