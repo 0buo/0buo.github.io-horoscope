@@ -120,7 +120,9 @@ body{
     left: 0;
     transition: all .5s ease-in-out;
     
-    filter: brightness(0.3);
+    -webkit-filter: brightness(0.3);
+    
+            filter: brightness(0.3);
     opacity: 0.87;
 
     cursor: pointer;
@@ -198,7 +200,8 @@ body{
 }
 
 .gather{
-    filter: brightness(1);
+    -webkit-filter: brightness(1);
+            filter: brightness(1);
     transform: perspective(1200px) 
             translate3d(0, 0, 0) 
             rotateZ(calc(var(--ui-r) + 40deg)) 
@@ -206,7 +209,8 @@ body{
 }
 
 .selected{
-    filter: brightness(1) !important;
+    -webkit-filter: brightness(1) !important;
+            filter: brightness(1) !important;
     opacity: 1;
 }
 .quick-transition{
@@ -258,13 +262,19 @@ body{
     /* background-color: rgba(255, 255, 255, 0.8); */
     z-index: 4;
 
+    transition: opacity 2.5s ease-in-out, -webkit-filter 2.5s ease-in-out;
+
     transition: opacity 2.5s ease-in-out, filter 2.5s ease-in-out;
+
+    transition: opacity 2.5s ease-in-out, filter 2.5s ease-in-out, -webkit-filter 2.5s ease-in-out;
     opacity: 1;
-    filter: blur(0.75px);
+    -webkit-filter: blur(0.75px);
+            filter: blur(0.75px);
 }
 #loading.disappear{
     opacity: 0;
-    filter: blur(8px);
+    -webkit-filter: blur(8px);
+            filter: blur(8px);
 }
 #loading-text, #loading-text2{
     position: fixed;
@@ -282,13 +292,13 @@ body{
 }
 
 .blurred{
-    filter: blur(6px);
+    -webkit-filter: blur(6px);
+            filter: blur(6px);
 }
 
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none; /* Safari */
-       -khtml-user-select: none; /* Konqueror HTML */
+      -webkit-user-select: none; /* Safari */ /* Konqueror HTML */
          -moz-user-select: none; /* Old versions of Firefox */
           -ms-user-select: none; /* Internet Explorer/Edge */
               user-select: none; /* Non-prefixed version, currently
