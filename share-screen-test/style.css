@@ -58,7 +58,7 @@ body{
 }
 
 #switchButtons{
-    --ui-size: 10vmax;
+    --ui-size: 9vmax;
     --ui-dist: 0px;
     --ui-persp-x: 50%;
     --ui-persp-y: 50%;
