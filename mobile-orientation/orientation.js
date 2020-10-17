@@ -21,7 +21,7 @@ function askOrientationPermission(){
                     }
                 })
                 .catch((error) => {
-                    c_log(error);
+                    c_log(`${error}<br>`);
                 } );
         }
         else {
@@ -37,6 +37,7 @@ const pAlpha = document.getElementById('alpha');
 const pBeta = document.getElementById('beta');
 const pGamma = document.getElementById('gamma');
 const cons = document.getElementById('console');
+const button = document.getElementById('request');
 
 function c_log(str){
     cons.innerHTML += `${str}`;
@@ -56,5 +57,5 @@ function orientationHandle(e){
 var permissionAsked = false;
 if(isMobile){
     c_log('is mobile <br>');
-    window.addEventListener(`click`, askOrientationPermission, true);
+    button.addEventListener(`click`, askOrientationPermission, true);
 }
