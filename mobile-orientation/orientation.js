@@ -115,7 +115,7 @@ function orientationHandle(e){
     }
 
     pBeta.innerHTML = `beta: ${beta}`;
-    pGamma.innerHTML = `gamma: ${gmma}`;
+    pGamma.innerHTML = `gamma: ${gamma}`;
 
     // var maxBeta = initialBeta + 90;
     // var minBeta = initialBeta - 90;
