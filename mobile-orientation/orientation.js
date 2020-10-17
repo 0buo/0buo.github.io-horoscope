@@ -117,20 +117,22 @@ function orientationHandle(e){
     pBeta.innerHTML = `intial beta: ${initialBeta}`;
     pGamma.innerHTML = `initial gamma: ${initialGmma}`;
 
-    var maxBeta = initialBeta + 90;
-    var minBeta = initialBeta - 90;
-    var maxGamma = initialGmma + 45;
-    var minGamma = initialGmma - 45;
+    // var maxBeta = initialBeta + 90;
+    // var minBeta = initialBeta - 90;
+    // var maxGamma = initialGmma + 45;
+    // var minGamma = initialGmma - 45;
 
-    var constrainBeta = constrainOrientation(beta, maxBeta, minBeta, 360);
-    var constrainGamma = constrainOrientation(gamma, maxGamma, minGamma, 180);    
-    beta = constrainBeta[0];
-    gamma = constrainGamma[0];
+    // var constrainBeta = constrainOrientation(beta, maxBeta, minBeta, 360);
+    // var constrainGamma = constrainOrientation(gamma, maxGamma, minGamma, 180);    
+    // beta = constrainBeta[0];
+    // gamma = constrainGamma[0];
 
-    var targetBeta = beta >= 0 ? (initialBeta - beta) / initialBeta : (initialBeta - beta) / (initialBeta + constrainBeta[1]);
-    var targetGamma = gamma >= 0 ? (initialGmma - gamma) / initialGmma : (initialGmma - gamma) / (initialGmma + constrainGamma[1]);
-    targetBeta = 2 * targetBeta;
-    targetGamma = 2 * targetGamma;
+    // var targetBeta = beta >= 0 ? (initialBeta - beta) / initialBeta : (initialBeta - beta) / (initialBeta + constrainBeta[1]);
+    // var targetGamma = gamma >= 0 ? (initialGmma - gamma) / initialGmma : (initialGmma - gamma) / (initialGmma + constrainGamma[1]);
+    var targetBeta = (180 - beta) / 180;
+    var targetGamma = (90 - gamma) / 90;
+    targetBeta = Math.min(2 * targetBeta, 1);
+    targetGamma = Math.min(2 * targetGamma, 1);
 
     pTB.innerHTML = `target beta: ${targetBeta}`;
     pTG.innerHTML = `target gamme: ${targetGamma}`;
@@ -150,6 +152,6 @@ function printMouse(e){
 let permissionAsked = false;
 if(isMobile){
     c_log('is mobile <br>');
-    window.addEventListener(`click`, askOrientationPermission);
+    button.addEventListener(`click`, askOrientationPermission);
 }
 window.addEventListener(`mousemove`, printMouse);
