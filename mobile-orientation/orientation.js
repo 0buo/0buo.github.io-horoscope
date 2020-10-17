@@ -119,8 +119,8 @@ function orientationHandle(e){
 
     var maxBeta = initialBeta + 90;
     var minBeta = initialBeta - 90;
-    var maxGamma = initialGmma + 55;
-    var minGamma = initialGmma - 55;
+    var maxGamma = initialGmma + 45;
+    var minGamma = initialGmma - 45;
 
     var constrainBeta = constrainOrientation(beta, maxBeta, minBeta, 360);
     var constrainGamma = constrainOrientation(gamma, maxGamma, minGamma, 180);    
