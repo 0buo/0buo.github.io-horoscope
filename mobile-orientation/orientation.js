@@ -114,6 +114,9 @@ function orientationHandle(e){
         initialGmma = gamma;
     }
 
+    pBeta.innerHTML = `intial beta: ${initialBeta}`;
+    pGamma.innerHTML = `initial gamma: ${initialGmma}`;
+
     var maxBeta = initialBeta + 90;
     var minBeta = initialBeta - 90;
     var maxGamma = initialGmma + 45;
@@ -126,9 +129,6 @@ function orientationHandle(e){
 
     var targetBeta = beta >= 0 ? (initialBeta - beta) / initialBeta : (initialBeta - beta) / (initialBeta + constrainBeta[1]);
     var targetGamma = gamma >= 0 ? (initialGmma - gamma) / initialGmma : (initialGmma - gamma) / (initialGmma + constrainGamma[1]);
-
-    pBeta.innerHTML = `intial beta: ${initialBeta}`;
-    pGamma.innerHTML = `initial gamma: ${initialGmma}`;
 
     pTB.innerHTML = `target beta: ${targetBeta}`;
     pTG.innerHTML = `target gamme: ${targetGamma}`;
