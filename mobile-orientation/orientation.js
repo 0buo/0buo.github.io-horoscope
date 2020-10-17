@@ -44,7 +44,6 @@ function c_log(str){
 }
 
 function orientationHandle(e){
-    c_log(`getting data: <br>`)
     var alpha    = e.alpha;
     var beta     = e.beta;
     var gamma    = e.gamma;
@@ -57,5 +56,5 @@ function orientationHandle(e){
 var permissionAsked = false;
 if(isMobile){
     c_log('is mobile <br>');
-    button.addEventListener(`click`, askOrientationPermission);
+    window.addEventListener(`click`, askOrientationPermission);
 }
