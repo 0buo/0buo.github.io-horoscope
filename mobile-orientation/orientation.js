@@ -16,7 +16,9 @@ function askOrientationPermission(){
                     c_log(`get permission.`)
                 }
             })
-            .catch(console.error);
+            .catch((error) => {
+                c_log(error);
+            } );
     }
     else {
         c_log(`no ask permission function!<br>`)
