@@ -36,7 +36,6 @@ function askOrientationPermission(){
 }
 
 
-const pAlpha = document.getElementById('alpha');
 const pBeta = document.getElementById('beta');
 const pGamma = document.getElementById('gamma');
 const cons = document.getElementById('console');
@@ -48,6 +47,55 @@ const pTG = document.getElementById('tagetGamma');
 const pX = document.getElementById('tagetX');
 const pY = document.getElementById('tagetY');
 
+function constrainOrientation(val, max, min, UP){
+    var range = {
+        upper: max,
+        lower: min,
+        subupper: undefined,
+        sublower: undefined
+    };
+
+
+    if(max > UP){
+        range.upper = UP;
+        range.subupper = max - UP;
+    }
+    else if(min < 0){
+        range.lower = 0;
+        range.sublower = min + UP;
+    }
+
+    
+    if(max < UP && min > 0){
+        val = Math.max(Math.min(val, range.upper), range.lower);
+    }
+    else if(max > UP){
+        if(val > range.subupper && val < range.lower){
+            val = Math.abs(val - range.subupper) < Math.abs(range.lower - val) ? UP + range.subupper : range.lower;
+        }
+        else if(val >= 0 && val <= range.subupper){
+            val = UP + Math.min(val, range.subupper);
+        }
+        else{
+            val = Math.max( Math.min(val, range.upper), range.lower );
+        }
+    }
+    else if(min < 0){
+        if(val > range.upper && val < range.sublower){
+            val = Math.abs(val - range.upper) < Math.abs(range.sublower - val) ? range.upper : range.sublower - UP;
+        }
+        else if(val >= range.sublower && val <= UP){
+            val = Math.max(val, range.sublower) - UP;
+        }
+        else{
+            val = Math.max( Math.min(val, range.upper), range.lower );
+        }
+        var bias = UP - (range.upper + (range.sublower - range.upper) / 2) + 0.01;
+    }
+
+    return [val, bias];
+}
+
 function c_log(str){
     cons.innerHTML += `${str}`;
 }
@@ -56,7 +104,7 @@ let initialBeta = 0;
 let initialGmma = 0;
 let initialized = false;
 function orientationHandle(e){
-    var alpha    = e.alpha;
+    //beta: 0-360; gamma: 0-180
     var beta     = e.beta + 180;
     var gamma    = e.gamma + 90;
 
@@ -66,12 +114,21 @@ function orientationHandle(e){
         initialGmma = gamma;
     }
 
-    pAlpha.innerHTML = `alpha: ${alpha}`;
-    pBeta.innerHTML = `beta: ${beta}`;
-    pGamma.innerHTML = `gamma: ${gamma}`;
+    var maxBeta = initialBeta + 90;
+    var minBeta = initialBeta - 90;
+    var maxGamma = initialGmma + 45;
+    var minGamma = initialGmma - 45;
 
-    var targetBeta = (180 - beta) / 180;
-    var targetGamma = (90 - gamma) / 90;
+    var constrainBeta = constrainOrientation(beta, maxBeta, minBeta, 360);
+    var constrainGamma = constrainOrientation(gamma, maxGamma, minGamma, 180);    
+    beta = constrainBeta[0];
+    gamma = constrainGamma[0];
+
+    var targetBeta = beta >= 0 ? (initialBeta - beta) / initialBeta : (initialBeta - beta) / (initialBeta + constrainBeta[1]);
+    var targetGamma = gamma >= 0 ? (initialGmma - gamma) / initialGmma : (initialGmma - gamma) / (initialGmma + constrainGamma[1]);
+
+    pBeta.innerHTML = `intial beta: ${initialBeta}`;
+    pGamma.innerHTML = `initial gamma: ${initialGmma}`;
 
     pTB.innerHTML = `target beta: ${targetBeta}`;
     pTG.innerHTML = `target gamme: ${targetGamma}`;
