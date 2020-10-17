@@ -7,22 +7,28 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 
 
 function askOrientationPermission(){
-    c_log('asking permission......<br>');
-    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-        DeviceOrientationEvent.requestPermission()
-            .then(permissionState => {
-                if (permissionState === 'granted') {
-                    canDetectOrientation = true;
-                    c_log(`get permission.`)
-                }
-            })
-            .catch((error) => {
-                c_log(error);
-            } );
-    }
-    else {
-        c_log(`no ask permission function!<br>`)
-        canDetectOrientation = true;
+    if(!permissionAsked){
+        permissionAsked = true;
+
+        c_log('asking permission......<br>');
+        if (typeof(DeviceOrientationEvent) !== "undefined" && 
+            typeof(DeviceOrientationEvent.requestPermission) === 'function') {
+            DeviceOrientationEvent.requestPermission()
+                .then(permissionState => {
+                    if (permissionState === 'granted') {
+                        c_log(`access granted`);
+                        window.addEventListener(`deviceorientation`, orientationHandle, true);                     
+                    }
+                })
+                .catch((error) => {
+                    c_log(error);
+                } );
+        }
+        else {
+            c_log(`no ask permission function!<br>`)
+        }
+
+        window.removeEventListener(`touchstart`, askOrientationPermission, true);
     }
 }
 
@@ -47,10 +53,8 @@ function orientationHandle(e){
     pGamma.innerHTML = `gamma: ${gamma}`;
 }
 
-var canDetectOrientation = false;
-
+var permissionAsked = false;
 if(isMobile){
     c_log('is mobile <br>');
-    window.addEventListener(`touchstart`, askOrientationPermission, true);
-    window.addEventListener(`deviceorientation`, orientationHandle, true);
+    window.addEventListener(`click`, askOrientationPermission, true);
 }
