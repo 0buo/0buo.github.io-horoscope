@@ -90,7 +90,7 @@ function constrainOrientation(val, max, min, UP){
         else{
             val = Math.max( Math.min(val, range.upper), range.lower );
         }
-        var bias = UP - (range.upper + (range.sublower - range.upper) / 2) + 0.01;
+        var bias = UP - (range.upper + (range.sublower - range.upper) / 2) + 0.001;
     }
 
     return [val, bias];
@@ -117,18 +117,20 @@ function orientationHandle(e){
     pBeta.innerHTML = `intial beta: ${initialBeta}`;
     pGamma.innerHTML = `initial gamma: ${initialGmma}`;
 
-    var maxBeta = initialBeta + 90;
-    var minBeta = initialBeta - 90;
-    var maxGamma = initialGmma + 45;
-    var minGamma = initialGmma - 45;
+    var maxBeta = initialBeta + 120;
+    var minBeta = initialBeta - 120;
+    var maxGamma = initialGmma + 75;
+    var minGamma = initialGmma - 75;
 
     var constrainBeta = constrainOrientation(beta, maxBeta, minBeta, 360);
     var constrainGamma = constrainOrientation(gamma, maxGamma, minGamma, 180);    
-    beta = constrainBeta[0] /2;
-    gamma = constrainGamma[0] /2;
+    beta = constrainBeta[0];
+    gamma = constrainGamma[0];
 
     var targetBeta = beta >= 0 ? (initialBeta - beta) / initialBeta : (initialBeta - beta) / (initialBeta + constrainBeta[1]);
     var targetGamma = gamma >= 0 ? (initialGmma - gamma) / initialGmma : (initialGmma - gamma) / (initialGmma + constrainGamma[1]);
+    targetBeta *= 2;
+    targetGamma *= 2;
 
     pTB.innerHTML = `target beta: ${targetBeta}`;
     pTG.innerHTML = `target gamme: ${targetGamma}`;
