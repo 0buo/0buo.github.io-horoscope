@@ -57,8 +57,8 @@ let initialGmma = 0;
 let initialized = false;
 function orientationHandle(e){
     var alpha    = e.alpha;
-    var beta     = e.beta;
-    var gamma    = e.gamma;
+    var beta     = e.beta + 180;
+    var gamma    = e.gamma + 90;
 
     if(!initialized){
         initialized = true;
@@ -71,7 +71,7 @@ function orientationHandle(e){
     pGamma.innerHTML = `gamma: ${gamma}`;
 
     var targetBeta = (180 - beta) / 180;
-    var targetGamma = (180 - gamma) / 180;
+    var targetGamma = (90 - gamma) / 90;
 
     pTB.innerHTML = `target beta: ${targetBeta}`;
     pTG.innerHTML = `target gamme: ${targetGamma}`;
