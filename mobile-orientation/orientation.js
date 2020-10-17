@@ -17,7 +17,7 @@ function askOrientationPermission(){
                 .then(permissionState => {
                     if (permissionState === 'granted') {
                         c_log(`access granted`);
-                        window.addEventListener(`deviceorientation`, orientationHandle, true);                     
+                        window.addEventListener(`deviceorientation`, orientationHandle);                     
                     }
                 })
                 .catch((error) => {
@@ -28,7 +28,7 @@ function askOrientationPermission(){
             c_log(`no ask permission function!<br>`)
         }
 
-        window.removeEventListener(`touchstart`, askOrientationPermission, true);
+        window.removeEventListener(`touchstart`, askOrientationPermission);
     }
 }
 
@@ -57,5 +57,5 @@ function orientationHandle(e){
 var permissionAsked = false;
 if(isMobile){
     c_log('is mobile <br>');
-    button.addEventListener(`click`, askOrientationPermission, true);
+    button.addEventListener(`click`, askOrientationPermission);
 }
