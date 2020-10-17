@@ -124,8 +124,8 @@ function orientationHandle(e){
 
     var constrainBeta = constrainOrientation(beta, maxBeta, minBeta, 360);
     var constrainGamma = constrainOrientation(gamma, maxGamma, minGamma, 180);    
-    beta = constrainBeta[0];
-    gamma = constrainGamma[0];
+    beta = constrainBeta[0] /2;
+    gamma = constrainGamma[0] /2;
 
     var targetBeta = beta >= 0 ? (initialBeta - beta) / initialBeta : (initialBeta - beta) / (initialBeta + constrainBeta[1]);
     var targetGamma = gamma >= 0 ? (initialGmma - gamma) / initialGmma : (initialGmma - gamma) / (initialGmma + constrainGamma[1]);
