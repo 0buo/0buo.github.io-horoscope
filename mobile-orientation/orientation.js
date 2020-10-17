@@ -129,8 +129,8 @@ function orientationHandle(e){
 
     var targetBeta = beta >= 0 ? (initialBeta - beta) / initialBeta : (initialBeta - beta) / (initialBeta + constrainBeta[1]);
     var targetGamma = gamma >= 0 ? (initialGmma - gamma) / initialGmma : (initialGmma - gamma) / (initialGmma + constrainGamma[1]);
-    // targetBeta *= 2;
-    // targetGamma *= 2;
+    targetBeta = 2 * targetBeta;
+    targetGamma = 2 * targetGamma;
 
     pTB.innerHTML = `target beta: ${targetBeta}`;
     pTG.innerHTML = `target gamme: ${targetGamma}`;
