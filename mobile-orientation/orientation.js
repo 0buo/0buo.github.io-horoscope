@@ -70,8 +70,8 @@ function orientationHandle(e){
     pBeta.innerHTML = `beta: ${beta}`;
     pGamma.innerHTML = `gamma: ${gamma}`;
 
-    var targetBeta = (initialBeta - beta) / initialBeta;
-    var targetGamma = (initialGmma - gamma) / initialGmma;
+    var targetBeta = (180 - beta) / 180;
+    var targetGamma = (180 - gamma) / 180;
 
     pTB.innerHTML = `target beta: ${targetBeta}`;
     pTG.innerHTML = `target gamme: ${targetGamma}`;
