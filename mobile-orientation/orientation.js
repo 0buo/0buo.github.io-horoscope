@@ -37,5 +37,5 @@ function orientationHandle(e){
 var canDetectOrientation = false;
 if(isMobile){ 
     askOrientationPermission();
-     
+    window.addEventListener(`deviceorientation`, orientationHandle, true);
 }
