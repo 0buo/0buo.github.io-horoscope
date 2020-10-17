@@ -16,7 +16,7 @@ function askOrientationPermission(){
             DeviceOrientationEvent.requestPermission()
                 .then(permissionState => {
                     if (permissionState === 'granted') {
-                        c_log(`access granted`);
+                        c_log(`access granted<br>`);
                         window.addEventListener(`deviceorientation`, orientationHandle);                     
                     }
                 })
@@ -28,6 +28,9 @@ function askOrientationPermission(){
             c_log(`no ask permission function!<br>`)
         }
 
+        
+    }
+    else{
         window.removeEventListener(`touchstart`, askOrientationPermission);
     }
 }
