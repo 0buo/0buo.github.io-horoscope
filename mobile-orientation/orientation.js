@@ -42,22 +42,55 @@ const pGamma = document.getElementById('gamma');
 const cons = document.getElementById('console');
 const button = document.getElementById('request');
 
+const pTB = document.getElementById('tagetBeta');
+const pTG = document.getElementById('tagetGamma');
+
+const pX = document.getElementById('tagetX');
+const pY = document.getElementById('tagetY');
+
 function c_log(str){
     cons.innerHTML += `${str}`;
 }
 
+let initialBeta = 0;
+let initialGmma = 0;
+let initialized = false;
 function orientationHandle(e){
     var alpha    = e.alpha;
     var beta     = e.beta;
     var gamma    = e.gamma;
 
+    if(!initialized){
+        initialized = true;
+        initialBeta = beta;
+        initialGmma = gamma;
+    }
+
     pAlpha.innerHTML = `alpha: ${alpha}`;
     pBeta.innerHTML = `beta: ${beta}`;
     pGamma.innerHTML = `gamma: ${gamma}`;
+
+    var targetBeta = (initialBeta - beta) / initialBeta;
+    var targetGamma = (initialGmma - gamma) / initialGmma;
+
+    pTB.innerHTML = `target beta: ${targetBeta}`;
+    pTG.innerHTML = `target gamme: ${targetGamma}`;
 }
 
-var permissionAsked = false;
+function printMouse(e){
+    var halfWidth = window.innerWidth / 2;
+    var halfHeight = window.innerHeight / 2;
+
+    var targetMX = (halfWidth - e.clientX) / halfWidth;
+    var targetMY = (halfHeight - e.clientY) / halfHeight;
+
+    pX.innerHTML = `target x: ${targetMX}`;
+    pY.innerHTML = `target y: ${targetMY}`;
+}
+
+let permissionAsked = false;
 if(isMobile){
     c_log('is mobile <br>');
     window.addEventListener(`click`, askOrientationPermission);
 }
+window.addEventListener(`mousemove`, printMouse);
