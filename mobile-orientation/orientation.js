@@ -7,18 +7,21 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 
 
 function askOrientationPermission(){
-    c_log('2');
+    c_log('asking permission......<br>');
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
         DeviceOrientationEvent.requestPermission()
             .then(permissionState => {
-            if (permissionState === 'granted') {
-                canDetectOrientation = true;
-            }
+                if (permissionState === 'granted') {
+                    canDetectOrientation = true;
+                    c_log(`get permission.`)
+                }
             })
             .catch(console.error);
-        } else {
+    }
+    else {
+        c_log(`no ask permission function!<br>`)
         canDetectOrientation = true;
-        }
+    }
 }
 
 
@@ -28,10 +31,11 @@ const pGamma = document.getElementById('gamma');
 const cons = document.getElementById('console');
 
 function c_log(str){
-    cons.innerHTML = `${str}`;
+    cons.innerHTML += `${str}`;
 }
 
 function orientationHandle(e){
+    c_log(`getting data: <br>`)
     var alpha    = e.alpha;
     var beta     = e.beta;
     var gamma    = e.gamma;
@@ -39,14 +43,12 @@ function orientationHandle(e){
     pAlpha.innerHTML = `alpha: ${alpha}`;
     pBeta.innerHTML = `beta: ${beta}`;
     pGamma.innerHTML = `gamma: ${gamma}`;
-
-    c_log('3');
 }
 
 var canDetectOrientation = false;
 
 if(isMobile){
-    c_log('1');
+    c_log('is mobile <br>');
     window.addEventListener(`touchstart`, askOrientationPermission, true);
     window.addEventListener(`deviceorientation`, orientationHandle, true);
 }
