@@ -47,55 +47,6 @@ const pTG = document.getElementById('tagetGamma');
 const pX = document.getElementById('tagetX');
 const pY = document.getElementById('tagetY');
 
-function constrainOrientation(val, max, min, UP){
-    var range = {
-        upper: max,
-        lower: min,
-        subupper: undefined,
-        sublower: undefined
-    };
-
-
-    if(max > UP){
-        range.upper = UP;
-        range.subupper = max - UP;
-    }
-    else if(min < 0){
-        range.lower = 0;
-        range.sublower = min + UP;
-    }
-
-    
-    if(max < UP && min > 0){
-        val = Math.max(Math.min(val, range.upper), range.lower);
-    }
-    else if(max > UP){
-        if(val > range.subupper && val < range.lower){
-            val = Math.abs(val - range.subupper) < Math.abs(range.lower - val) ? UP + range.subupper : range.lower;
-        }
-        else if(val >= 0 && val <= range.subupper){
-            val = UP + Math.min(val, range.subupper);
-        }
-        else{
-            val = Math.max( Math.min(val, range.upper), range.lower );
-        }
-    }
-    else if(min < 0){
-        if(val > range.upper && val < range.sublower){
-            val = Math.abs(val - range.upper) < Math.abs(range.sublower - val) ? range.upper : range.sublower - UP;
-        }
-        else if(val >= range.sublower && val <= UP){
-            val = Math.max(val, range.sublower) - UP;
-        }
-        else{
-            val = Math.max( Math.min(val, range.upper), range.lower );
-        }
-        var bias = UP - (range.upper + (range.sublower - range.upper) / 2) + 0.001;
-    }
-
-    return [val, bias];
-}
-
 function c_log(str){
     cons.innerHTML += `${str}`;
 }
@@ -112,6 +63,7 @@ function orientationHandle(e){
         initialized = true;
         initialBeta = beta;
         initialGmma = gamma;
+        c_log(e.absolute);
     }
 
     pBeta.innerHTML = `beta: ${beta}`;
@@ -131,7 +83,7 @@ function orientationHandle(e){
     // var targetGamma = gamma >= 0 ? (initialGmma - gamma) / initialGmma : (initialGmma - gamma) / (initialGmma + constrainGamma[1]);
     var targetBeta = (220 - beta) / 180;
     var targetGamma = (90 - gamma) / 90;
-    targetBeta = targetBeta >= 0 ? Math.min(2 * targetBeta, 1) : Math.max(2 * targetBeta, -1);
+    targetBeta = targetBeta >= 0 ? Math.min(2.25 * targetBeta, 1) : Math.max(2.25 * targetBeta, -1);
     targetGamma = targetGamma >= 0 ? Math.min(1.75 * targetGamma, 1) : Math.max(1.75 * targetGamma, -1);
 
     pTB.innerHTML = `target beta: ${targetBeta}`;
