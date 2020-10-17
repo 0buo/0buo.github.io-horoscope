@@ -117,10 +117,10 @@ function orientationHandle(e){
     pBeta.innerHTML = `intial beta: ${initialBeta}`;
     pGamma.innerHTML = `initial gamma: ${initialGmma}`;
 
-    var maxBeta = initialBeta + 120;
-    var minBeta = initialBeta - 120;
-    var maxGamma = initialGmma + 75;
-    var minGamma = initialGmma - 75;
+    var maxBeta = initialBeta + 90;
+    var minBeta = initialBeta - 90;
+    var maxGamma = initialGmma + 55;
+    var minGamma = initialGmma - 55;
 
     var constrainBeta = constrainOrientation(beta, maxBeta, minBeta, 360);
     var constrainGamma = constrainOrientation(gamma, maxGamma, minGamma, 180);    
