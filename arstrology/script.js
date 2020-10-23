@@ -1635,10 +1635,12 @@ var cloudFlounderBf = false;
 var cloudFlounderSc = false;
 //var cloudFlounderOc = false;
 
+let cloudStarted = false;
 $settingButton.on("click", function(){
   requestTimeout(function(){
     if(setting && cloudOn){
-      if(start){
+      if(start && cloudStarted == false){
+        cloudStarted = true;
         IDbf = requestAnimationFrame(cloudBfStart);
         IDsc = requestAnimationFrame(cloudScStart);
         //IDoc = requestAnimationFrame(cloudOcStart);
@@ -2261,14 +2263,15 @@ var timeTextEnd = 8;
 var moonRotateWillChangeTO;
 var signTextWillChangeTO;
 //var moonClickTimeOut;
-$rotate.click(function () {
+function moonClickCallBack() {
                       //&& canChange == 1 ){
   if(start == false){ 
     //moonCount = (moonCount + 1) % 3;
     if(moonCanSwitch0){moonCount = 0; moonCanSwitch0 = false;}
     else if(moonCanSwitch1){moonCount = 1; moonCanSwitch1 = false;}
     else if(moonCanSwitch2){moonCount = 2; moonCanSwitch2 = false;}
-    else{moonCount = -1;}
+    // else{moonCount = -1;}
+    console.log(moonCount)
 
     clearRequestTimeout(moonRotateWillChangeTO);
     clearRequestTimeout(signTextWillChangeTO);
@@ -2297,7 +2300,10 @@ $rotate.click(function () {
           // $bodyRotate.css("height", height + "px");
           requestTimeout(function(){
             //if(parseFloat($namesDiv.css("opacity")) > 0.95){
+              moonCanSwitch0 = false;
+              moonCanSwitch1 = false;
               moonCanSwitch2 = true;
+              moonCanClick = true;
             //}
           }, 1100);
         }, 250);
@@ -2332,6 +2338,9 @@ $rotate.click(function () {
             //if(parseFloat($namesDiv.css("opacity")) < 0.05){
               $namesDiv.css("display", "none"); 
               moonCanSwitch0 = true;
+              moonCanSwitch1 = false;
+              moonCanSwitch2 = false;
+              moonCanClick = true;
             //}
           }, 1100);
         }, 250);
@@ -2365,6 +2374,9 @@ $rotate.click(function () {
           //if(parseFloat($timesDiv.css("opacity")) < 0.05){
             $timesDiv.css("display", "none"); 
             moonCanSwitch1 = true;
+            moonCanSwitch0 = false;
+            moonCanSwitch2 = false;
+            moonCanClick = true;
           //}
         }, 1100);
       }
@@ -2417,6 +2429,14 @@ $rotate.click(function () {
       LB2.ID = requestAnimationFrame(function(){spotlightColor(LB2, 0, "--LB2");});
       LA037.ID = requestAnimationFrame(function(){spotlightAlpha(LA037, 0.37, "--LA0-37");});
     }, 500);
+  }
+}
+
+let moonCanClick = true;
+$rotate.click(function(){
+  if(moonCanClick){
+    moonCanClick = false;
+    moonClickCallBack();
   }
 });
 
