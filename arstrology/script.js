@@ -2160,7 +2160,7 @@ var twinkleBrighterOpa = 0.7;
 var twinkleBrightDimOpa = 0.4;
 function textTwinkleBright($this, index){ 
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkleBright($this, index);});
-  $this.css("transition", "all 12s ease-in-out");
+  $this.css("transition", "all 10s ease-in-out");
   if($this.css("opacity") < twinkleBrighterOpa && twinkleDirects[index] == 1){ 
     $this.css("opacity", twinkleBrighterOpa);
     $this.css("--glowPix1", "-3px");
@@ -2209,7 +2209,7 @@ $document.ready(function(){selfTwinkle(openingTextStart, openingTextEnd);});
 //$window.focus(selfTwinkle);
 
 
-var i;
+let i;
 for(i = 0; i < plaintexts.length; i++){
   addEvent(plaintexts[i], "mouseover", function(){
     if(parseFloat($(this).parent().css("opacity")) > 0 && parseFloat($(this).parent().parent().css("opacity")) > 0 && start == false){
@@ -2261,7 +2261,7 @@ var timeTextStart = 6;
 var timeTextEnd = 8;
 
 var moonRotateWillChangeTO;
-var signTextWillChangeTO;
+//var signTextWillChangeTO;
 //var moonClickTimeOut;
 function moonClickCallBack() {
                       //&& canChange == 1 ){
@@ -2271,23 +2271,22 @@ function moonClickCallBack() {
     else if(moonCanSwitch1){moonCount = 1; moonCanSwitch1 = false;}
     else if(moonCanSwitch2){moonCount = 2; moonCanSwitch2 = false;}
     // else{moonCount = -1;}
-    console.log(moonCount)
 
     clearRequestTimeout(moonRotateWillChangeTO);
-    clearRequestTimeout(signTextWillChangeTO);
-    // $rotate.css("will-change", "transform");
-    // $rotateTextOne.css("will-change", "transform, opacity");
-    // $rotateTextTwo.css("will-change", "transform, opacity");
+    //clearRequestTimeout(signTextWillChangeTO);
+
     $timesDiv.css("will-change", "transform, opacity");
     $namesDiv.css("will-change", "transform, opacity");
-    $nameSignText.css("will-change", "transform, opacity");
-    $timeSignText.css("will-change", "transform, opacity");
+    // $nameSignText.css("will-change", "transform, opacity");
+    // $timeSignText.css("will-change", "transform, opacity");
+    cancelTwinkle(timeTextStart, timeTextEnd);
+    cancelTwinkle(nameTextStart, nameTextEnd);
     requestTimeout(function(){
       if (moonCount == 1) {
         //$selectionDiv.removeClass("bottom");
         //$namesDiv.addClass("bottom");
         $namesDiv.css("display", "initial");
-        selfTwinkle(nameTextStart, nameTextEnd);
+        
   
         requestTimeout(function(){
           $rotate.toggleClass("one");
@@ -2300,10 +2299,11 @@ function moonClickCallBack() {
           // $bodyRotate.css("height", height + "px");
           requestTimeout(function(){
             //if(parseFloat($namesDiv.css("opacity")) > 0.95){
-              moonCanSwitch0 = false;
-              moonCanSwitch1 = false;
-              moonCanSwitch2 = true;
-              moonCanClick = true;
+            selfTwinkle(nameTextStart, nameTextEnd);
+            moonCanSwitch0 = false;
+            moonCanSwitch1 = false;
+            moonCanSwitch2 = true;
+            moonCanClick = true;
             //}
           }, 1100);
         }, 250);
@@ -2319,10 +2319,8 @@ function moonClickCallBack() {
         //$namesDiv.removeClass("bottom");
         //$timesDiv.addClass("bottom");
         $timesDiv.css("display", "initial");
-        selfTwinkle(timeTextStart, timeTextEnd);
   
         requestTimeout(function(){
-          cancelTwinkle(nameTextStart, nameTextEnd);
           $rotate.removeClass("one");
           $rotate.toggleClass("two");
           $rotateTextOne.removeClass("up");
@@ -2336,11 +2334,12 @@ function moonClickCallBack() {
           // $bodyRotate.css("height", height + "px");
           requestTimeout(function(){
             //if(parseFloat($namesDiv.css("opacity")) < 0.05){
-              $namesDiv.css("display", "none"); 
-              moonCanSwitch0 = true;
-              moonCanSwitch1 = false;
-              moonCanSwitch2 = false;
-              moonCanClick = true;
+            selfTwinkle(timeTextStart, timeTextEnd);
+            $namesDiv.css("display", "none"); 
+            moonCanSwitch0 = true;
+            moonCanSwitch1 = false;
+            moonCanSwitch2 = false;
+            moonCanClick = true;
             //}
           }, 1100);
         }, 250);
@@ -2355,7 +2354,7 @@ function moonClickCallBack() {
       else if(moonCount == 0) {
         //$timesDiv.removeClass("bottom");
         //$selectionDiv.addClass("bottom");
-        cancelTwinkle(timeTextStart, timeTextEnd);
+
         $rotate.removeClass("two");
         $rotateTextTwo.removeClass("down");
         $rotateTextOne.removeClass("hide");
@@ -2386,26 +2385,23 @@ function moonClickCallBack() {
       else if(moonCount == 2){$timeSignText.removeClass("appear");}
       requestTimeout(function(){
         if(moonCount == 1){
-          $nameSignPlainText.text("");
-          $nameSignHeader.text("");
+          $nameSignPlainText.html("");
+          $nameSignHeader.html("");
         }
         else if(moonCount == 2){
-          $timeSignPlainText.text("");
-          $timeSignHeader.text("");
+          $timeSignPlainText.html("");
+          $timeSignHeader.html("");
         }
       }, 1800);
 
       moonRotateWillChangeTO = requestTimeout(function(){
-        // $rotate.css("will-change", "auto");
-        // $rotateTextOne.css("will-change", "auto");
-        // $rotateTextTwo.css("will-change", "auto");
         $timesDiv.css("will-change", "auto");
         $namesDiv.css("will-change", "auto");
       }, 1450);
-      signTextWillChangeTO = requestTimeout(function(){
-        $nameSignText.css("will-change", "auto");
-      $timeSignText.css("will-change", "auto");
-      }, 1600)
+      // signTextWillChangeTO = requestTimeout(function(){
+      //   $nameSignText.css("will-change", "auto");
+      //   $timeSignText.css("will-change", "auto");
+      // }, 1600);
     }, 210);
 
     nameInputSubmitted = 0;
@@ -2433,18 +2429,15 @@ function moonClickCallBack() {
 }
 
 let moonCanClick = true;
-$rotate.click(function(){
-  if(moonCanClick){
-    moonCanClick = false;
-    moonClickCallBack();
-  }
-});
-
 $rotate.mousedown(function(){
   $rotate.css("cursor", "grabbing");
 });
 $rotate.mouseup(function(){
   $rotate.css("cursor", "grab");
+  if(moonCanClick){
+    moonCanClick = false;
+    moonClickCallBack();
+  }
 })
 
 var rotateGlowColor = "#c5c6cfab";
@@ -3295,7 +3288,7 @@ function paperDisappear(){
 
       $nameSignText.css("will-change", "auto");
       $timeSignText.css("will-change", "auto");
-    }, 2100);
+    }, 1500);
   }, 5000);
 
 
@@ -3413,12 +3406,12 @@ function scanAnim(){
       $scan.css("display", "initial");
       requestTimeout(function(){
         if(moonCount == 1){
-          $nameSignPlainText.text("");
-          $nameSignHeader.text("");
+          $nameSignPlainText.html("");
+          $nameSignHeader.html("");
         }
         else if(moonCount == 2){
-          $timeSignPlainText.text("");
-          $timeSignHeader.text("");
+          $timeSignPlainText.html("");
+          $timeSignHeader.html("");
         }
         barcodeGetTransparent();
         $scan.addClass("svgFilter2");
@@ -3436,11 +3429,11 @@ function scanAnim(){
 function endScan(){
   requestAnimationFrame(function(){
     if(moonCount == 1){
-      $nameSignPlainText.text("THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER");
+      $nameSignPlainText.html("THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER");
       $nameSignHeader.text(signs[curSign]);
     }
     else if(moonCount == 2){
-      $timeSignPlainText.text("THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER");
+      $timeSignPlainText.html("THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER");
       $timeSignHeader.text(signs[curSign]);
     }
     

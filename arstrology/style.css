@@ -290,10 +290,10 @@ body {
 
   cursor: pointer;
 }
-#filterOnText, #filterOffText{
-  /* line-height: 0.25; */
-  /* font-family: 'Faster One', cursive; */
-}
+/* #filterOnText, #filterOffText{
+  line-height: 0.25;
+  font-family: 'Faster One', cursive;
+} */
 
 .default-font{
   font-family: initial;
@@ -351,6 +351,7 @@ h1 {
 
 .plaintext {
   transition: all 2.5s ease-in-out;
+
   --glowPix1: 0px;
   --glowPix2: 0px;
   --glowBlur: 7px;
@@ -1634,7 +1635,8 @@ input::-ms-reveal, input::-ms-clear {
   color: #272730;
   margin-left: 5.5vw;
   margin-bottom: 20px;
-  filter: blur(1.5px);
+  -webkit-filter: blur(1.5px);
+          filter: blur(1.5px);
 }
 
 /* *********************filter switch*********************** */
