@@ -19,7 +19,7 @@
   <link href="./style.css" rel="stylesheet"/>
 </head>
 
-<body onload="finishLoading()">
+<body>
   <div class="loadingBG">
     <div class="loadingMoon"></div>
     <div class="loadingShade"></div>
@@ -29,13 +29,12 @@
   <div id="scrollContainer">
     <div class="setting noselect">
       <div class="settingText">
-        <p>Hello, <i class="fas fa-eye"></i><br><br>
-          <span id="smallerST">this site uses</span> a moving SVG fitler <span id="smallerST">on the entire page, 
+        <p>Hello,<br><br>
+          <span id="smallerST">this site uses an</span> animated SVG fitler <span id="smallerST">, 
           which may</span> slow down or even crash <span id="smallerST">your browser due to inadequate machine performance.</span><br><br>
           <span id="smallerST">you can choose to</span> leave it on <span id="smallerST">(heavily filtered)</span> or off <span id="smallerST">(lightly filtered).</span><br>
-          <span id="smallerST">you can also</span> <i class="fas fa-adjust"></i> switch filter at the upper right corner <i class="fas fa-adjust"></i> <span id="smallerST">after entering the site.</span><br><br>
+          <span id="smallerST">After you enter the site, you can also switch the filter with <i class="fas fa-adjust"></i></span> the button at the upper right corner <span id="smallerST"><i class="fas fa-adjust"></i></span><br><br>
           <span id="smallerST">
-            <i class="fas fa-star"></i> Hover over unclear text in the site <i class="fas fa-star"></i><br>
             <i class="fab fa-chrome"></i> Chrome or Microsoft Edge recommended <i class="fab fa-edge"></i>
           </span>
         </p>
@@ -56,23 +55,23 @@
 
     <div class="filtered">
       <div id="bodyRotate">
-        <h1 class="noselect">Self-Help Guide : Artrology</h1>
+        <h1 class="noselect">Self-Help Guide : Arstrology</h1>
       
-        <div class="noselect">
+        <div class="noselect plaintextWrapper">
           <p class="plaintext" id ="0">
             There’s always been a sense of apprehension lurking around ever since I stepped in the world of artistic careers. It is somewhere near as well as farther afield. The process of artmaking pushes and pulls it but doesn't dump it. 
           </p>
           <br>
           <p class="plaintext" id ="1">
-            It starts from finance, forms in the unreal quality of art, spans across styles and eras, blames individual knowledge / skills and personal effort, heightens through the context of the Art World, and finally comes back to an artwork.
+            It starts from finance, forms in the unreal quality of art, spans across styles and eras, blames individual knowledge / skills and personal effort, heightens through the context of the <em>Art World</em>, and finally comes back to an artwork.
           </p>
           <br>
           <p class="plaintext" id="2">
-            Have you had a similar anxiety? This site is a pseudo self-help document positioned to be the outlet of such perennial feelings. With the occult sciences of Arstrology---“A'' as AI, “ars” as art, and “arstro-” as astro-, 11 signs were discovered as 11 snippets of barcodes. Here, you can get your Arstrology reading right away. Get to you your sign’s meaning, take its advice, review your value, reset your goals, or use its languages for the next artist statement you are thinking about.
+            Have you had a similar anxiety? This site is a pseudo self-help document positioned to be the outlet of such perennial feelings. With the occult sciences of Arstrology---“A” as <em>AI</em>, “ars” as <em>art</em>, and “arstro-” as <em>astro-</em>, 11 signs were discovered as 11 snippets of barcodes. Here, you can get your Arstrology reading right away. Get to you your sign’s meaning, take its advice, review your value, reset your goals, look up its terms, and use its languages for the next artist statement you are thinking about.
           </p>
           <br>
           <p class="plaintext" id="3">
-            The Arstrological equations are ready in the back. Calculate your sign based on either name or time. Touch the glowing star to start.
+            The AI model is being operated and the Arstrological equations are ready on the backstage. Calculate your sign based on either name or time. Touch the glowing star to start.
           </p>
         </div>
       
@@ -87,26 +86,29 @@
       <!--   <div id="scanBar"></div> -->
         <div class="switchDiv">
           <div id="namesDiv">
-            <div class="noselect selectionDivText">
-              <p class="plaintext" id="4">
-                Name has the power of being convincing as well as being restrictive. Astrology predicts with names. With names, an important part of your role as an artist is known. Instead of using your first and last names, answer the following questions to get the input data:
-              </p>
-              <br>
-              <p class="plaintext" id="5">  
-                What is the full name of another art world practitioner (artist, designer, curator, dealer, critic, etc.) you talk to most recently?
-                <br>What is the keyword you repetitively use in your artist statement or applications?
-                <br>What is the name of the institution you are closely associated with (as a student, instructor, resident, staff, collaborator, contract holder, or founder)?
-              </p>
-              <br>
-              <p class="plaintext" id="6">  
-                Combine the names. Write it down and count how many times the direction of your pen changes. That is the total number of pen strokes needed for the Arstrology reading. Input the number on the line below.<br>
-              </p>
+            <div class="noselect selectionDivText plaintextWrapper">
+              <div class="selectionDivText">
+                <p class="plaintext" id="4">
+                  Name has the power of being convincing as well as being restrictive. Astrology predicts with names. With names, an important part of your role as an artist is known. Instead of using your first and last names, answer the following questions to get the input data:
+                </p>
+                <br>
+                <p class="plaintext" id="5">  
+                  · What is the full name of another art world practitioner (artist, designer, curator, dealer, critic, etc.) you talk to most recently?
+                  <br>· What is the keyword you repetitively use in your artist statement or applications?
+                  <br>· What is the name of the institution you are closely associated with (as a student, instructor, resident, staff, collaborator, contract holder, or founder)?
+                </p>
+                <br>
+                <p class="plaintext" id="6">  
+                  Combine the names. Write it down and count how many times the direction of your pen changes. That is the total number of pen strokes needed for the Arstrology reading. 
+                  <br>Input the number on the line below.<br>
+                </p>
+              </div>
             </div>
         
             <!-- input box name -->
             <div id="nameInput">
               <label for="inp" class="inp">
-                <input type="password" id="inp" pattern="[0-9]{1,4}" required>
+                <input type="password" id="inp" pattern="[0-9]{1,20}" required>
                 <svg xmlns="http://www.w3.org/2000/svg" width="280px" height="100px" class="border" id="borderName">
                   <path d="M 0 50 L 170 50 C 200 50 200 50 200 50 C 230 50 230 50 230 50 C 270 50 270 50 270 50 C 280 50 280 50 280 50"></path>
                 </svg>
@@ -115,33 +117,33 @@
             </div>
             <!-- </form> -->
 
-            <div class="noselect selectionDivText">
+            <div class="noselect selectionDivText plaintextWrapper">
               <div id="nameSignText">
                 <p class="signHeader"><p>
                 
                 <!-- gloss -->
-                <p class="plaintext" id="7" style="margin-right: 30vw;">
+                <p class="plaintext" id="7">
                   
                 </p>
                 <br>
-                <p class="plaintext" id="8" style="margin-right: 30vw;">
+                <p class="plaintext" id="8">
                 
                 </p>
                 <br>
                 <!-- sign text -->
-                <p class="plaintext" id="9" style="margin-right: 30vw;">
+                <p class="plaintext" id="9">
                 
                 </p>
                 <br>
-                <p class="plaintext" id="10" style="margin-right: 30vw;">
+                <p class="plaintext" id="10">
                 
                 </p>
                 <br>
-                <p class="plaintext" id="11" style="margin-right: 30vw;">
+                <p class="plaintext" id="11">
                 
                 </p>
                 <br>
-                <p class="plaintext" id="12" style="margin-right: 30vw;">
+                <p class="plaintext" id="12">
                 
                 </p>
               </div>
@@ -151,23 +153,26 @@
           </div>
         
           <div id="timesDiv">
-            <div class="noselect selectionDivText">
-              <p class="plaintext" id="13">
-                Time is a record. Astrology predicts with time. With time, the marks of your artistic careers are known. Instead of using your birth time:
-              </p>
-              <br>
-              <p class="plaintext" id="14"> 
-                Recall the time of your first retrospective.
-                <br>If you have not had a retrospective yet, recall the time of the first time you are included in a biennial of major museums.
-                <br>If you have not been included in a biennial, recall the time of your first show in US / European area.
-                <br>If you have not done that, recall the time of your first show in other areas.
-                <br>If not in those areas, recall the time of your first show ever.
-                <br>If not, recall the time when you decided to practice art.
-              </p>
-              <br>
-              <p class="plaintext" id="15">
-                Touch and hold the shadowy star to move forward in time. Touch and hold the glowing star to move backward in time.
-              </p>
+            <div class="noselect  plaintextWrapper">
+              <div class="selectionDivText">
+                <p class="plaintext" id="13">
+                  Time is a record. Astrology predicts with time. With time, the marks of your artistic careers are known. Instead of using your birth time:
+                </p>
+                <br>
+                <p class="plaintext" id="14"> 
+                  · Recall the time of your first retrospective.
+                  <br>· If you have not had a retrospective yet, recall the time of the first time you are included in a biennial of major museums.
+                  <br>· If you have not been included in a biennial, recall the time of your first show in US / European area.
+                  <br>· If you have not done that, recall the time of your first show in other areas.
+                  <br>· If not in those areas, recall the time of your first show ever.
+                  <br>· If not, recall the time when you decided to practice art.
+                </p>
+                <br>
+                <p class="plaintext" id="15">
+                  Touch and hold the shadowy star to move forward in time. 
+                  <br>Touch and hold the glowing star to move backward in time.
+                </p>
+              </div>
             </div>
         
             <div class="noselect" id="timeInput">
@@ -178,32 +183,32 @@
               <div id="timeContainer" class="noselect"><button id="yearMonthButton"></button></div>
             </div>
     
-            <div class="noselect selectionDivText">
+            <div class="noselect selectionDivText plaintextWrapper">
               <div id="timeSignText">
                 <p class="signHeader"><p>
                 <!-- gloss -->
-                <p class="plaintext" id="16" style="margin-right: 30vw;">
+                <p class="plaintext" id="16">
                 
                 </p>
                 <br>
-                <p class="plaintext" id="17" style="margin-right: 30vw;">
+                <p class="plaintext" id="17">
                 
                 </p>
                 <br>
                 <!-- sign text -->
-                <p class="plaintext" id="18" style="margin-right: 30vw;">
+                <p class="plaintext" id="18">
                 
                 </p>
                 <br>
-                <p class="plaintext" id="19" style="margin-right: 30vw;">
+                <p class="plaintext" id="19">
                 
                 </p>
                 <br>
-                <p class="plaintext" id="20" style="margin-right: 30vw;">
+                <p class="plaintext" id="20">
                 
                 </p>
                 <br>
-                <p class="plaintext" id="21" style="margin-right: 30vw;">
+                <p class="plaintext" id="21">
                 
                 </p>
               </div>
@@ -322,6 +327,7 @@
   <script type="text/javascript" src='./jquery/jquery-3.5.1.min.js'></script>
   <script type="text/javascript" src='./jquery.ui/jquery-ui.min.js'></script>
   <script src="//cdn.jsdelivr.net/npm/velocity-animate@2.0/velocity.min.js"></script>
+  <script type="text/javascript" src="./seedrandom/seedrandom.min.js"></script>
   <script type="text/javascript" src="./loading.js"></script>
 </body>
 

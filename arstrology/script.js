@@ -1105,10 +1105,10 @@ $filterOff.on("click", function(){
       $filterSwitchText.text("light filter");
       filterState = 1;
       twinkleBrighterOpa = 1;
-      twinkleBrightDimOpa = 0.6;
-      defaultTwinklwOpa1 = 0.35;
-      defaultTwinklwOpa2 = 0.4;
-      defaultTwinklwOpa3 = 0.45;
+      twinkleBrightDimOpa = 0.65;
+      defaultTwinklwOpa1 = 0.29;
+      defaultTwinklwOpa2 = 0.35;
+      defaultTwinklwOpa3 = 0.4;
       twinkleOpa = defaultTwinklwOpa1;
   
       $filterOn.off();
@@ -1171,10 +1171,10 @@ $filterSwitchButton.click(function(){
       $filtered.removeClass("svgFilter");
       $filtered.addClass("offFilter");
       twinkleBrighterOpa = 1;
-      twinkleBrightDimOpa = 0.5;
-      defaultTwinklwOpa1 = 0.35;
-      defaultTwinklwOpa2 = 0.4;
-      defaultTwinklwOpa3 = 0.45;
+      twinkleBrightDimOpa = 0.65;
+      defaultTwinklwOpa1 = 0.29;
+      defaultTwinklwOpa2 = 0.35;
+      defaultTwinklwOpa3 = 0.4;
       if(twinkleOpaState == 1){twinkleOpa = defaultTwinklwOpa1;}
       else if(twinkleOpaState == 2){twinkleOpa = defaultTwinklwOpa2;}
       else if(twinkleOpaState == 3){twinkleOpa = defaultTwinklwOpa3;}
@@ -1190,8 +1190,8 @@ $filterSwitchButton.click(function(){
 
       $filtered.removeClass("offFilter");
       $filtered.addClass("svgFilter");
-      twinkleBrighterOpa = 0.7;
-      twinkleBrightDimOpa = 0.4;
+      twinkleBrighterOpa = 0.75;
+      twinkleBrightDimOpa = 0.55;
       defaultTwinklwOpa1 = 0.27;
       defaultTwinklwOpa2 = 0.32;
       defaultTwinklwOpa3 = 0.4;
@@ -1225,6 +1225,7 @@ function adjustBodyRotateOrigin(){
   let originY = 100 * (0.5 * window.innerHeight + scrollinstance.scroll().position.y) / $bodyRotate.outerHeight();
   $bodyRotate.css("transform-origin", "50% " + originY + "% " + "0");
 }
+window.addEventListener(`mousemove`, adjustBodyRotateOrigin, true);
 // let IDscrollRAF;
 // $document.scroll(function(){
 //   adjustBodyRotateOrigin();
@@ -1270,7 +1271,7 @@ function startAnim(){
       start = false;
       cursorLerpY = 0.9;
 
-      addEvent(document, "mousemove", update);
+      window.addEventListener("mousemove", update, true);
       scrollinstance.options("overflowBehavior.x", "s");
       scrollinstance.options("overflowBehavior.y", "s");
       $filterSwitchButton.css("cursor", "grab");
@@ -1522,7 +1523,8 @@ function bodyRotate(e){
   document.body.style.setProperty("--bodyRotateY", bodyRY+"deg");
 }
 
-addEvent(document, "mousemove", bodyRotate);
+window.addEventListener("mousemove", bodyRotate);
+// addEvent(document, "mousemove", bodyRotate);
 
 /**************************reflection*********************************** */
 let brightRef = 48;
@@ -1608,13 +1610,19 @@ function BGreflection(timestamp){
   $scrollContainer.css("--darkReflectionPos2", darkRef2+"%");
 }
 
-
-addEvent(document, "mousemove", function(){
+window.addEventListener("mousemove", function(){
   if(start == false){
     cancelAnimationFrame(IDreflection);
     IDreflection = requestAnimationFrame(BGreflection);
   }
-});
+}, true);
+
+// addEvent(document, "mousemove", function(){
+//   if(start == false){
+//     cancelAnimationFrame(IDreflection);
+//     IDreflection = requestAnimationFrame(BGreflection);
+//   }
+// });
 /*********************cloud displacement map*****************************/
 let $bf = $("#bf");
 let $sc = $("#sc");
@@ -1772,7 +1780,6 @@ function cloudBfDrift(){
           if(cloudFlounderBf){$bf.velocity("stop", true); return;}
           if(bfDir == 1){$bf.velocity("stop", true); return;}
           if(!cloudRequestAnimBool){$bf.velocity("stop", true); return;}
-          console.log(`!!`)
 
           baseFrequency = tweenValue;
           cloudFilter.setAttribute("baseFrequency", baseFrequency);
@@ -1796,7 +1803,6 @@ function cloudBfDrift(){
           if(cloudFlounderBf){$bf.velocity("stop", true); return;}
           if(bfDir == -1){$bf.velocity("stop", true); return;}
           if(!cloudRequestAnimBool){$bf.velocity("stop", true); return;}
-          console.log(`!!`)
 
           baseFrequency = tweenValue;
           cloudFilter.setAttribute("baseFrequency", baseFrequency);
@@ -2065,10 +2071,10 @@ function adjustElementSize(){
     moonScale = 1; 
     moonMarginL = 6; 
     hMarginL = 5; 
-    hFontSize = 70;
+    hFontSize = 80;
     $rotateTextOne.css("display", "inline-block");
     $rotateTextTwo.css("display", "inline-block");
-    $h1.text("Self-Help Guide : Artrology");
+    $h1.text("Self-Help Guide : Arstrology");
     $yearMonthButton.css("display", "inline-block");
     timeButtonMouseOverFunc = 0;
     $plaintext.css("margin-right", "9%");
@@ -2079,11 +2085,11 @@ function adjustElementSize(){
   else if(window.innerWidth < 1000 && window.innerWidth >= 800){
     plaintextFontSize = 26; 
     moonMarginL = 5; 
-    hFontSize = 66;
+    hFontSize = 72;
     hMarginL = 5; 
     $rotateTextOne.css("display", "inline-block");
     $rotateTextTwo.css("display", "inline-block");
-    $h1.text("Self-Help Guide : Artrology");
+    $h1.text("Self-Help Guide : Arstrology");
     $yearMonthButton.css("display", "inline-block");
     timeButtonMouseOverFunc = 0;
     $plaintext.css("margin-right", "6%");
@@ -2094,11 +2100,11 @@ function adjustElementSize(){
   else if(window.innerWidth < 800 && window.innerWidth >= 700){
     plaintextFontSize = 24; 
     moonMarginL = 5; 
-    hFontSize = 60;
+    hFontSize = 66;
     hMarginL = 5; 
     $rotateTextOne.css("display", "inline-block");
     $rotateTextTwo.css("display", "inline-block");
-    $h1.text("Self-Help Guide : Artrology");
+    $h1.text("Self-Help Guide : Arstrology");
     $yearMonthButton.css("display", "inline-block");
     timeButtonMouseOverFunc = 0;
     $plaintext.css("margin-right", "3%");
@@ -2110,10 +2116,10 @@ function adjustElementSize(){
     plaintextFontSize = 22;
     moonMarginL = 20;
     hMarginL = 4;
-    hFontSize = 55; 
+    hFontSize = 60; 
     $rotateTextOne.css("display", "none");
     $rotateTextTwo.css("display", "none");
-    $h1.text("Self-Help Guide : Artrology");
+    $h1.text("Self-Help Guide : Arstrology");
     $yearMonthButton.css("display", "initial");
     timeButtonMouseOverFunc = 0;
     $plaintext.css("margin-right", "25px");
@@ -2125,10 +2131,10 @@ function adjustElementSize(){
     plaintextFontSize = 22;
     moonMarginL = 16;
     hMarginL = 3;
-    hFontSize = 52; 
+    hFontSize = 57; 
     $rotateTextOne.css("display", "none");
     $rotateTextTwo.css("display", "none");
-    $h1.text("Self-Help Guide : Artrology");
+    $h1.text("Self-Help Guide : Ars-trology");
     $yearMonthButton.css("display", "initial");
     timeButtonMouseOverFunc = 0;
     $plaintext.css("margin-right", "25px");
@@ -2140,10 +2146,10 @@ function adjustElementSize(){
     plaintextFontSize = 20;
     moonMarginL = 16;
     hMarginL = 3;
-    hFontSize = 48; 
+    hFontSize = 53; 
     $rotateTextOne.css("display", "none");
     $rotateTextTwo.css("display", "none");
-    $h1.text("Self-Help Guide : Art-trology");
+    $h1.text("Self-Help Guide : Ars-trology");
     $yearMonthButton.css("display", "initial");
     timeButtonMouseOverFunc = 0;
     $plaintext.css("margin-right", "25px");
@@ -2155,10 +2161,10 @@ function adjustElementSize(){
     plaintextFontSize = 20; 
     moonMarginL = 16; 
     hMarginL = 3; 
-    hFontSize = 46;
+    hFontSize = 50;
     $rotateTextOne.css("display", "none");
     $rotateTextTwo.css("display", "none");
-    $h1.text("Self-Help Guide : Art-trology");
+    $h1.text("Self-Help Guide : Ars-trology");
     $yearMonthButton.css("display", "initial");
     timeButtonMouseOverFunc = 1;
     $plaintext.css("margin-right", "25px");
@@ -2171,10 +2177,10 @@ function adjustElementSize(){
     moonScale = 1; 
     moonMarginL = 6; 
     hMarginL = 5; 
-    hFontSize = 75;
+    hFontSize = 85;
     $rotateTextOne.css("display", "inline-block");
     $rotateTextTwo.css("display", "inline-block");
-    $h1.text("Self-Help Guide : Artrology");
+    $h1.text("Self-Help Guide : Arstrology");
     $yearMonthButton.css("display", "inline-block");
     timeButtonMouseOverFunc = 0;
     $plaintext.css("margin-right", "12%");
@@ -2225,11 +2231,11 @@ function textTwinkle($this, index){
   else if($this.css("opacity") <= 0.05 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
 }
 
-let twinkleBrighterOpa = 0.7;
-let twinkleBrightDimOpa = 0.4;
+let twinkleBrighterOpa = 0.75;
+let twinkleBrightDimOpa = 0.55;
 function textTwinkleBright($this, index){ 
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkleBright($this, index);});
-  $this.css("transition", "all 10s ease-in-out");
+  $this.css("transition", "all 7s ease-in-out");
   if($this.css("opacity") < twinkleBrighterOpa && twinkleDirects[index] == 1){ 
     $this.css("opacity", twinkleBrighterOpa);
     $this.css("--glowPix1", "-3px");
@@ -2374,6 +2380,7 @@ function moonClickCallBack() {
             moonCanSwitch2 = true;
             moonCanClick = true;
             //}
+            adjustBodyRotateOrigin();
           }, 1100);
         }, 250);
   
@@ -2381,7 +2388,7 @@ function moonClickCallBack() {
           let sd = {x: scrollinstance.scroll().position.x,
                     y: scrollinstance.scroll().position.y - (0.65 * window.innerHeight - $nameInput.offset().top)};
           if(sd.y < 0){sd.y = 0};
-          scrollinstance.scroll(sd, 1100, "easeInOutQuad");
+          scrollinstance.scroll(sd, 1000, "easeInOutQuad");
         }
       } 
       else if (moonCount == 2) {
@@ -2410,6 +2417,7 @@ function moonClickCallBack() {
             moonCanSwitch2 = false;
             moonCanClick = true;
             //}
+            adjustBodyRotateOrigin();
           }, 1100);
         }, 250);
   
@@ -2417,7 +2425,7 @@ function moonClickCallBack() {
           let sd = {x: scrollinstance.scroll().position.x,
                     y: scrollinstance.scroll().position.y - (0.65 * window.innerHeight - $timeInput.offset().top)};
           if(sd.y < 0){sd.y = 0};
-          scrollinstance.scroll(sd, 1100, "easeInOutQuad");
+          scrollinstance.scroll(sd, 1000, "easeInOutQuad");
         }
       } 
       else if(moonCount == 0) {
@@ -2436,7 +2444,7 @@ function moonClickCallBack() {
         let scrollDest = scrollinstance.scroll().position.y + 300 - (window.innerHeight - $selectionDiv.offset().top);
         if (scrollDest < 0){scrollDest = 0;}
         else if(scrollDest > document.documentElement.scrollHeight){scrollDest = document.documentElement.scrollHeight;}
-        scrollinstance.scroll({x: 0, y: scrollDest}, 1100, "easeInOutQuad");
+        scrollinstance.scroll({x: 0, y: scrollDest}, 1000, "easeInOutQuad");
   
         moonCountTimeOut = requestTimeout(function(){
           //if(parseFloat($timesDiv.css("opacity")) < 0.05){
@@ -2445,6 +2453,8 @@ function moonClickCallBack() {
             moonCanSwitch0 = false;
             moonCanSwitch2 = false;
             moonCanClick = true;
+
+            adjustBodyRotateOrigin();
           //}
         }, 1100);
       }
@@ -2512,7 +2522,8 @@ $rotate.mouseup(function(){
 let rotateGlowColor = "#c5c6cfab";
 let rotateBG = "rgba(190, 190, 190, 0.5)";
 let rotateMouseOver = false;
-$document.mousemove(function(e){
+//$document..
+$window.mousemove(function(e){
   if(setting){
     let d = Math.pow(e.pageX - $rotate.offset().left, 2) + Math.pow(e.pageY - $rotate.offset().top, 2)
     if(d < 35000){
@@ -3117,17 +3128,17 @@ let $redLightArea = $("#redLightArea");
 let $barCode = $("#barCodeToScan");
 let $barCode2 = $("#barCodeToScan2");
 let signs = {
-  0: "c",
-  1: "k",
-  2: "^",
-  3: "q",
-  4: "m",
+  0: "{",
+  1: "j",
+  2: "s",
+  3: "n",
+  4: "x",
   5: "r",
-  6: "x",
-  7: "n",
-  8: "s",
-  9: "j",
-  10: "{"
+  6: "m",
+  7: "q",
+  8: "^",
+  9: "k",
+  10: "c"
 }
 let curBarCodeNum = 0;
 let $block = $(".block");
@@ -3323,12 +3334,12 @@ function paperDisappear(){
     mouseFollowing = false;
     limitedCursor = false;
     let scrlDest = {x: scrollinstance.scroll().position.x, 
-                    y: $namesDiv.outerHeight(true) + $(".switchDiv").position().top};
+                    y: $namesDiv.outerHeight(true) + $(".switchDiv").position().top - 0.45 * window.innerHeight};
     if(moonCount == 2){
-      scrlDest.y = $timesDiv.outerHeight(true) + $(".switchDiv").position().top;
+      scrlDest.y = $timesDiv.outerHeight(true) + $(".switchDiv").position().top - 0.45 * window.innerHeight;
     }
     //if(scrlDest.y < 0){scrlDest.y = 0;}
-    scrollinstance.scroll(scrlDest, 1100, "easeInOutQuad");
+    // scrollinstance.scroll(scrlDest, 1100, "easeInOutQuad");
 
     if(moonCount == 1){
       mouseY = $nameSignText.offset().top - 0.15 * window.innerWidth;
@@ -3346,6 +3357,8 @@ function paperDisappear(){
       else if(moonCount == 2){
         $timeSignText.addClass("appear");
       }
+      scrollinstance.scroll(scrlDest, 1900, "easeInOutQuad");
+      requestTimeout(()=>{adjustBodyRotateOrigin();}, 1950);
     }, 500)
     requestTimeout(function(){
       scrollinstance.options("overflowBehavior.y", "scroll");
@@ -3357,7 +3370,7 @@ function paperDisappear(){
 
       $nameSignText.css("will-change", "auto");
       $timeSignText.css("will-change", "auto");
-    }, 1500);
+    }, 2400);
   }, 5000);
 
 
@@ -3498,12 +3511,26 @@ function scanAnim(){
 function endScan(){
   requestAnimationFrame(function(){
     if(moonCount == 1){
-      $nameSignPlainTexts.html("THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER");
       $nameSignHeader.text(signs[curSign]);
+
+      $nameSignPlainTexts[0].innerHTML = 
+      `<span class="anotherFont"><i class="fas fa-eye"></i> Decode your sign:</span><br> ${signs_decode_array[curSign]}`;
+      $nameSignPlainTexts[1].innerHTML = 
+      `<span class="anotherFont"><i class="fas fa-star"></i> Colorcode your element:</span><br> ${signs_element_array[curSign]}`;
+      for (var i = 0; i < 4; i++){
+        $nameSignPlainTexts[2 + i].innerHTML = signs_reading_2d_arr[curSign][i];
+      }
     }
     else if(moonCount == 2){
-      $timeSignPlainTexts.html("THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER");
       $timeSignHeader.text(signs[curSign]);
+
+      $timeSignPlainTexts[0].innerHTML = 
+      `<span class="anotherFont"><i class="fas fa-eye"></i> Decode your sign:</span><br> ${signs_decode_array[curSign]}`;
+      $timeSignPlainTexts[1].innerHTML = 
+      `<span class="anotherFont"><i class="fas fa-star"></i> Colorcode your element:</span><br> ${signs_element_array[curSign]}`;;
+      for (var i = 0; i < 4; i++){
+        $timeSignPlainTexts[2 + i].innerHTML = signs_reading_2d_arr[curSign][i + 4];
+      }
     }
     
     barCodeDisappear();

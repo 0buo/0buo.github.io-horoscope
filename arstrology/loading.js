@@ -1,3 +1,27 @@
+function shuffle(array) {
+	var currentIndex = array.length, 
+		temporaryValue, 
+		randomIndex;
+  
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex) {
+  
+	  // Pick a remaining element...
+	  var rand = new Math.seedrandom(new Date().getTime().toString(), { entropy: true });
+	  randomIndex = Math.floor(rand() * currentIndex);
+	  currentIndex -= 1;
+  
+	  // And swap it with the current element.
+	  temporaryValue = array[currentIndex];
+	  array[currentIndex] = array[randomIndex];
+	  array[randomIndex] = temporaryValue;
+	}
+  
+	return array;
+}
+//========
+
+
 const $loadingBG = $(".loadingBG");
 const $loadingMoon = $(".loadingMoon");
 const $loadingShade = $(".loadingShade");
@@ -33,3 +57,79 @@ function finishLoading(){
             });
     }, 1500);
 }
+
+
+function onFileParsed(){
+    if(files_loaded == 3){
+        finishLoading();
+    }
+}
+
+
+function loadTextFromFiles(){
+    $.get(`./sign-text/sign-decode-inner-html.txt`, function(data){
+        signs_decode_array = data.split(`<|TheNextSign|>`);
+    }).done(()=>{
+        ++files_loaded;
+        onFileParsed();
+    }).fail(()=>{
+        alert(`loading sign text failed..`);
+    });
+
+    $.get(`./sign-text/sign-element-inner-html.txt`, function(data){
+        signs_element_array = data.split(`<|TheNextSign|>`);
+    }).done(()=>{
+        ++files_loaded;
+        onFileParsed();
+    }).fail(()=>{
+        alert(`loading sign text failed..`);
+    });
+
+    $.get(`./sign-text/sign-reading-inner-html.txt`, function(data){
+        let signs_writing_arr = data.split(`<|TheNextSign|>`);
+
+        //is today a new day? if so randomize the text
+        let today = new Date().getDate()
+        if(localStorage.getItem(`date`) === null){
+            can_randomize_sign_text = true;
+            localStorage.setItem(`date`, today);
+        }
+        else if (localStorage.getItem(`date`) != today){
+            can_randomize_sign_text = true;
+            localStorage.setItem(`date`, today);
+        }
+        else{
+            can_randomize_sign_text = false;
+        }
+        console.log(can_randomize_sign_text);
+        //parse through sign writings
+        if(can_randomize_sign_text){
+            for (var i = 0; i < signs_writing_arr.length; i++){
+                signs_reading_2d_arr[i] = shuffle(signs_writing_arr[i].split(`<|Pparse|>`));
+            }
+            localStorage.removeItem(`today-text`);
+            localStorage.setItem(`today-text`, JSON.stringify(signs_reading_2d_arr));
+        }
+        else{
+            signs_reading_2d_arr = JSON.parse(localStorage.getItem(`today-text`));
+            alert(signs_reading_2d_arr[0][4]);
+        }
+    }).done(()=>{
+        ++files_loaded;
+        onFileParsed();
+    }).fail(()=>{
+        alert(`loading sign text failed..`);
+    });
+}
+
+
+localStorage.removeItem(`date`);
+
+//==
+let files_loaded = 0;
+let can_randomize_sign_text = false;
+//GLOBAL VARS
+var signs_decode_array;
+var signs_element_array;
+var signs_reading_2d_arr = new Array();
+$(window).on(`load`, loadTextFromFiles);

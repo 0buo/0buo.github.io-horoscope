@@ -68,6 +68,20 @@
        url('./fonts/faster-one-v12-latin/faster-one-v12-latin-regular.svg#FasterOne') format('svg'); /* Legacy iOS */
 }
 
+/* montserrat-subrayada-regular - latin */
+@font-face {
+  font-family: 'Montserrat Subrayada';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/montserrat-subrayada-v10-latin/montserrat-subrayada-v10-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('MontserratSubrayada-Regular'),
+       url('./fonts/montserrat-subrayada-v10-latin/montserrat-subrayada-v10-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/montserrat-subrayada-v10-latin/montserrat-subrayada-v10-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/montserrat-subrayada-v10-latin/montserrat-subrayada-v10-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('./fonts/montserrat-subrayada-v10-latin/montserrat-subrayada-v10-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/montserrat-subrayada-v10-latin/montserrat-subrayada-v10-latin-regular.svg#MontserratSubrayada') format('svg'); /* Legacy iOS */
+}
+
 
 :root {
   --cursorX: 50vw;
@@ -135,8 +149,8 @@
 html, body{
   margin: 0;
   padding: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -363,7 +377,8 @@ h1 {
   font-size: var(--plaintextFontSize);
   line-height: 1.8;
   margin-left: 5vw;
-  margin-right: 12vw;
+  /* width: 70vw; */
+  /* margin-right: 60vw; */
   padding-left: 10px;
   opacity: 0.15;
   color: black;
@@ -375,11 +390,31 @@ h1 {
           filter: blur(var(--filterBlur));
 }
 
+.plaintextWrapper{
+  width: 88vw;
+}
+@media only screen and (max-width: 1000px){
+  .plaintextWrapper{
+    width: 93vw;
+  }
+}
+@media only screen and (max-width: 600px){
+  .plaintextWrapper{
+    width: 100vw;
+  }
+}
+
+.anotherFont{
+  font-family: 'Montserrat Subrayada', sans-serif;
+  font-weight: 200;
+  font-size: calc(1.25 * var(--plaintextFontSize));
+}
+
 .SelectionDiv {
   --blurPx: 3px;
   margin-left: var(--moonMarginL);
   margin-bottom: 50px;
-  margin-top: 120px;
+  margin-top: 180px;
   height: 110px;
   z-index: 1;
   border: 0.01px solid transparent;
@@ -562,7 +597,8 @@ h1 {
 /* names input */
 #nameInput{
   border: 0.01px solid transparent;
-  margin-bottom: 70px;
+  margin-top: 100px;
+  margin-bottom: 350px;
   -webkit-filter:blur(0.8px); 
   filter:blur(0.8px);
 }
@@ -747,9 +783,9 @@ input::-ms-reveal, input::-ms-clear {
 #timeInput{
   position: static;
   --grey: #25242e;
-  margin-top: 80px;
+  margin-top: 120px;
   margin-left: 8vw;
-  margin-bottom: 70px;
+  margin-bottom: 350px;
   -webkit-filter: blur(0.1px);
           filter: blur(0.1px);
   /* border: 0.01px solid transparent; */
@@ -1616,7 +1652,7 @@ input::-ms-reveal, input::-ms-clear {
 /* **********************sign text*********************** */
 #nameSignText, #timeSignText{
   border: 0.01px solid transparent;
-  margin-left: 4vw;
+  margin-left: 10vw;
 
   transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
   transform-origin: left center;
