@@ -112,7 +112,7 @@ function loadTextFromFiles(){
         }
         else{
             signs_reading_2d_arr = JSON.parse(localStorage.getItem(`today-text`));
-            alert(signs_reading_2d_arr[0][4]);
+            //alert(signs_reading_2d_arr[0][4]);
         }
     }).done(()=>{
         ++files_loaded;
