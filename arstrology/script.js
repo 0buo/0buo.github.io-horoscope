@@ -3339,7 +3339,7 @@ function paperDisappear(){
     if(moonCount == 2){
       scrlDest.y = $timesDiv.outerHeight(true) + $(".switchDiv").position().top - 1.75 * window.innerHeight;
     }
-    console.log(scrlDest.y);
+    //console.log(scrlDest.y);
     //if(scrlDest.y < 0){scrlDest.y = 0;}
     // scrollinstance.scroll(scrlDest, 1100, "easeInOutQuad");
 
