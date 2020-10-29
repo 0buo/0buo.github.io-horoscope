@@ -3514,23 +3514,31 @@ function endScan(){
       $nameSignHeader.text(signs[curSign]);
 
       $nameSignPlainTexts[0].innerHTML = 
-      `<span class="anotherFont"><i class="fas fa-eye"></i> Decode your sign:</span><br> ${signs_decode_array[curSign]}`;
+        `<span class="anotherFont"><i class="fas fa-eye"></i> Decode your sign:</span><br> ${signs_decode_array[curSign]}`;
       $nameSignPlainTexts[1].innerHTML = 
-      `<span class="anotherFont"><i class="fas fa-star"></i> Colorcode your element:</span><br> ${signs_element_array[curSign]}`;
+        `<span class="anotherFont"><i class="fas fa-star"></i> Colorcode your element:</span><br> ${signs_element_array[curSign]}`;
       for (var i = 0; i < 4; i++){
         $nameSignPlainTexts[2 + i].innerHTML = signs_reading_2d_arr[curSign][i];
       }
+      $nameSignPlainTexts[2].innerHTML = 
+        `<span class="anotherFont">
+        <i class="fas fa-slash"></i>
+        </span><br> ${$nameSignPlainTexts[2].innerHTML}`;
     }
     else if(moonCount == 2){
       $timeSignHeader.text(signs[curSign]);
 
       $timeSignPlainTexts[0].innerHTML = 
-      `<span class="anotherFont"><i class="fas fa-eye"></i> Decode your sign:</span><br> ${signs_decode_array[curSign]}`;
+        `<span class="anotherFont"><i class="fas fa-eye"></i> Decode your sign:</span><br> ${signs_decode_array[curSign]}`;
       $timeSignPlainTexts[1].innerHTML = 
-      `<span class="anotherFont"><i class="fas fa-star"></i> Colorcode your element:</span><br> ${signs_element_array[curSign]}`;;
+        `<span class="anotherFont"><i class="fas fa-star"></i> Colorcode your element:</span><br> ${signs_element_array[curSign]}`;;
       for (var i = 0; i < 4; i++){
         $timeSignPlainTexts[2 + i].innerHTML = signs_reading_2d_arr[curSign][i + 4];
       }
+      $timeSignPlainTexts[2].innerHTML = 
+        `<span class="anotherFont">
+        <i class="fas fa-slash"></i>
+        </span><br> ${$timeSignPlainTexts[2].innerHTML}`;
     }
     
     barCodeDisappear();

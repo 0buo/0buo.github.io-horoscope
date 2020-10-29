@@ -123,7 +123,7 @@ function loadTextFromFiles(){
 }
 
 
-localStorage.removeItem(`date`);
+//localStorage.removeItem(`date`);
 
 //==
 let files_loaded = 0;
