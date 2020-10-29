@@ -37,24 +37,24 @@ function finishLoading(){
     setTimeout(function(){
         $allNotLoading.removeClass("displayAll");
         $.getScript("./overlayScroll/jquery.overlayScrollbars.min.js")
-            .done(function(){
-                $.getScript("./script.js")
-                    .done(function(){
-                        $loadingShade.addClass("loadFull");
-                        setTimeout(function(){
-                            $loadingBG.css("display", "none");
-                            $(".setting").css("opacity", "1");
-                        }, 1500);
-                    })
-                    .fail(function(){
-                        alert("loading failed..");
-                        return;
-                    });
-            })
-            .fail(function(){
-                alert("loading failed..");
-                return;
-            });
+        .done(function(){
+            $.getScript("./script.js")
+                .done(function(){
+                    $loadingShade.addClass("loadFull");
+                    setTimeout(function(){
+                        $loadingBG.css("display", "none");
+                        $(".setting").css("opacity", "1");
+                    }, 1500);
+                })
+                .fail(function(){
+                    alert("loading failed..");
+                    return;
+                });
+        })
+        .fail(function(){
+            alert("loading failed..");
+            return;
+        });
     }, 1500);
 }
 
@@ -101,7 +101,8 @@ function loadTextFromFiles(){
         else{
             can_randomize_sign_text = false;
         }
-        console.log(can_randomize_sign_text);
+        
+        console.log(`update arstro- text? ${can_randomize_sign_text}`);
         //parse through sign writings
         if(can_randomize_sign_text){
             for (var i = 0; i < signs_writing_arr.length; i++){
@@ -122,8 +123,9 @@ function loadTextFromFiles(){
     });
 }
 
-
-//localStorage.removeItem(`date`);
+//REFRESH LOCAL STORAGE
+localStorage.removeItem(`date`);
+localStorage.removeItem(`today-text`);
 
 //==
 let files_loaded = 0;
@@ -133,3 +135,28 @@ var signs_decode_array;
 var signs_element_array;
 var signs_reading_2d_arr = new Array();
 $(window).on(`load`, loadTextFromFiles);
+
+
+
+//OPEN WINDOW IN POP UP
+var windowObjectReference = null; // global variable
+
+function openRequestedPopup(url, windowName) {
+  if(windowObjectReference == null || windowObjectReference.closed) {
+    let size = 0.45*window.innerWidth;
+    let pos = (0.5 - 0.225) * window.innerWidth;
+    windowObjectReference = window.open(url, windowName,
+        `toolbar=no,
+        location=no,
+        status=no,
+        menubar=no,
+        scrollbars=yes,
+        resizable=yes,
+        top: ${pos},
+        left: ${pos},
+        width=${size},
+        height=${size}`);
+  } else {
+    windowObjectReference.focus();
+  };
+}

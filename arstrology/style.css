@@ -597,7 +597,7 @@ h1 {
 /* names input */
 #nameInput{
   border: 0.01px solid transparent;
-  margin-top: 100px;
+  margin-top: 80px;
   margin-bottom: 350px;
   -webkit-filter:blur(0.8px); 
   filter:blur(0.8px);

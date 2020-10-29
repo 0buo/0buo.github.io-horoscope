@@ -1225,7 +1225,8 @@ function adjustBodyRotateOrigin(){
   let originY = 100 * (0.5 * window.innerHeight + scrollinstance.scroll().position.y) / $bodyRotate.outerHeight();
   $bodyRotate.css("transform-origin", "50% " + originY + "% " + "0");
 }
-window.addEventListener(`mousemove`, adjustBodyRotateOrigin, true);
+
+$(() => {window.addEventListener(`mousemove`, adjustBodyRotateOrigin, true);});
 // let IDscrollRAF;
 // $document.scroll(function(){
 //   adjustBodyRotateOrigin();
@@ -2331,9 +2332,9 @@ let moonCanSwitch0 = false;
 let moonCanSwitch1 = true;
 let moonCanSwitch2 = false;
 let nameTextStart = 4;
-let nameTextEnd = 12;
-let timeTextStart = 13;
-let timeTextEnd = 21;
+let nameTextEnd = 13;
+let timeTextStart = 14;
+let timeTextEnd = 23;
 
 let moonRotateWillChangeTO;
 //let signTextWillChangeTO;
@@ -3334,10 +3335,11 @@ function paperDisappear(){
     mouseFollowing = false;
     limitedCursor = false;
     let scrlDest = {x: scrollinstance.scroll().position.x, 
-                    y: $namesDiv.outerHeight(true) + $(".switchDiv").position().top - 0.45 * window.innerHeight};
+                    y: $namesDiv.outerHeight(true) + $(".switchDiv").position().top - 1.75 * window.innerHeight};
     if(moonCount == 2){
-      scrlDest.y = $timesDiv.outerHeight(true) + $(".switchDiv").position().top - 0.45 * window.innerHeight;
+      scrlDest.y = $timesDiv.outerHeight(true) + $(".switchDiv").position().top - 1.75 * window.innerHeight;
     }
+    console.log(scrlDest.y);
     //if(scrlDest.y < 0){scrlDest.y = 0;}
     // scrollinstance.scroll(scrlDest, 1100, "easeInOutQuad");
 
@@ -3357,8 +3359,8 @@ function paperDisappear(){
       else if(moonCount == 2){
         $timeSignText.addClass("appear");
       }
-      scrollinstance.scroll(scrlDest, 1900, "easeInOutQuad");
-      requestTimeout(()=>{adjustBodyRotateOrigin();}, 1950);
+      scrollinstance.scroll(scrlDest, 2150, "easeInOutQuad");
+      requestTimeout(()=>{adjustBodyRotateOrigin();}, 2200);
     }, 500)
     requestTimeout(function(){
       scrollinstance.options("overflowBehavior.y", "scroll");
@@ -3524,6 +3526,14 @@ function endScan(){
         `<span class="anotherFont">
         <i class="fas fa-slash"></i>
         </span><br> ${$nameSignPlainTexts[2].innerHTML}`;
+      //compatibility graph
+      $nameSignPlainTexts[6].innerHTML=
+      `<p class="anotherFont" style="margin-top: 35vh;">* You can view Arstrology compatibility graph here: &nbsp
+      <a href="./compatible-graph/arstro-compatibility.png" style="color: inherit; text-decoration:none; cursor:zoom-in;"
+        onclick="openRequestedPopup(this.href, this.target); return false;"
+        title="Arstrology Compatibility">
+        <i class="fas fa-satellite-dish"></i>
+      </a></p>`;
     }
     else if(moonCount == 2){
       $timeSignHeader.text(signs[curSign]);
@@ -3539,6 +3549,14 @@ function endScan(){
         `<span class="anotherFont">
         <i class="fas fa-slash"></i>
         </span><br> ${$timeSignPlainTexts[2].innerHTML}`;
+      //compatibility graph
+      $timeSignPlainTexts[6].innerHTML = 
+      `<p class="anotherFont" style="margin-top: 35vh;">* You can view Arstrology compatibility graph here: &nbsp
+      <a href="./compatible-graph/arstro-compatibility.png" style="color: inherit; text-decoration:none; cursor:zoom-in;"
+        onclick="openRequestedPopup(this.href, this.target); return false;"
+        title="Arstrology Compatibility">
+        <i class="fas fa-satellite-dish"></i>
+      </a></p>`;
     }
     
     barCodeDisappear();
