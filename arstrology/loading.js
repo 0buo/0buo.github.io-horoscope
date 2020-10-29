@@ -101,7 +101,7 @@ function loadTextFromFiles(){
         else{
             can_randomize_sign_text = false;
         }
-        
+
         console.log(`update arstro- text? ${can_randomize_sign_text}`);
         //parse through sign writings
         if(can_randomize_sign_text){
@@ -124,8 +124,9 @@ function loadTextFromFiles(){
 }
 
 //REFRESH LOCAL STORAGE
-localStorage.removeItem(`date`);
-localStorage.removeItem(`today-text`);
+// localStorage.removeItem(`date`);
+// localStorage.removeItem(`today-text`);
+//console.log(`local storage refreshed`);
 
 //==
 let files_loaded = 0;
