@@ -1,7 +1,7 @@
-var $loadingBG = $(".loadingBG");
-var $loadingMoon = $(".loadingMoon");
-var $loadingShade = $(".loadingShade");
-var $allNotLoading = $("* :not(.loadingBG):not(.loadingMoon):not(.loadingShade)");
+const $loadingBG = $(".loadingBG");
+const $loadingMoon = $(".loadingMoon");
+const $loadingShade = $(".loadingShade");
+const $allNotLoading = $("* :not(.loadingBG):not(.loadingMoon):not(.loadingShade)");
 
 
 function finishLoading(){

@@ -1,7 +1,7 @@
-var $root = $(document.documentElement);
-var $document = $(document);
-var $htmlAndBody = $("html, body");
-var $window = $(window);
+const $root = $(document.documentElement);
+const $document = $(document);
+const $htmlAndBody = $("html, body");
+const $window = $(window);
 
 /***change pseudo prop */
 var UID = {
@@ -381,41 +381,41 @@ $window.resize(function(){
 
 /**************************************************************************** */
 //spotlight funcs
-var lightV;
+let lightV;
 const lightMass = 15;//15, 50
 const shadeMass = 1; //5, 1
 const G = 2; //0.2, 10
-var velocity = new Vector(0, 0);
-var acceleration = new Vector(0, 0);
-//var accModifier = 1;
-var shadeX = 0;
-var shadeY = 0;
-var shadeV = new Vector(shadeX, shadeY);
-//var canChangeAlpha = 0;
-//var eclipseSpeed = 0.125;
+let velocity = new Vector(0, 0);
+let acceleration = new Vector(0, 0);
+//let accModifier = 1;
+let shadeX = 0;
+let shadeY = 0;
+let shadeV = new Vector(shadeX, shadeY);
+//let canChangeAlpha = 0;
+//let eclipseSpeed = 0.125;
 
 //variables for function update
-var mouseX = 0.5 * window.innerWidth,
+let mouseX = 0.5 * window.innerWidth,
     mouseY = 1.5 * window.innerHeight;
-var LdestX = 0.5*window.innerWidth,
+let LdestX = 0.5*window.innerWidth,
     LdestY = 2*window.innerHeight;
 
-var maxToLightDistIndex = 0.9;
-var maxDistToLightCenter =
+let maxToLightDistIndex = 0.9;
+let maxDistToLightCenter =
   window.innerWidth >= window.innerHeight
     ? Math.pow(window.innerWidth * maxToLightDistIndex, 2)
     : Math.pow(window.innerHeight * maxToLightDistIndex, 2);
-//var alphaBias = 0.2;
-var randNum = 0;
+//let alphaBias = 0.2;
+let randNum = 0;
 
 
-var cursorLerpX = 0.9;
-var cursorLerpY = 0.35;
+let cursorLerpX = 0.9;
+let cursorLerpY = 0.35;
 
-var finishLerpCursorLerpX = false;
-var finishLerpCursorLerpY = false;
+let finishLerpCursorLerpX = false;
+let finishLerpCursorLerpY = false;
 
-var lastNOWfollow;
+let lastNOWfollow;
 function followCursor(timestamp) {
   cancelAnimationFrame(IDfollowCursor);
   IDfollowCursor = requestAnimationFrame(followCursor);
@@ -514,13 +514,13 @@ function followCursor(timestamp) {
 }
 
 
-//var followInterv = 0;
+//let followInterv = 0;
 
-var IDfollowCursor;
-var mouseFollowing = true;
-var limitedCursor = false;
+let IDfollowCursor;
+let mouseFollowing = true;
+let limitedCursor = false;
 
-var NOWfollow;
+let NOWfollow;
 function update(e) {
   if(mouseFollowing){
     mouseX = e.clientX;
@@ -538,8 +538,8 @@ function update(e) {
   IDfollowCursor = requestAnimationFrame(followCursor);
 }
 
-//var mouseStateUpdated = 0;
-var NOWslr1, lastNOWslr1;
+//let mouseStateUpdated = 0;
+let NOWslr1, lastNOWslr1;
 function SLR1(timestamp) {
   cancelAnimationFrame(IDSLR);
   IDSLR = requestAnimationFrame(SLR1);
@@ -575,7 +575,7 @@ function SLR1(timestamp) {
   document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
 }
 
-var NOWslr2, lastNOWslr2;
+let NOWslr2, lastNOWslr2;
 function SLR2(timestamp) {
   cancelAnimationFrame(IDSLR);
   IDSLR = requestAnimationFrame(SLR2);
@@ -610,7 +610,7 @@ function SLR2(timestamp) {
   document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
 }
 
-var NOWslr3, lastNOWslr3;
+let NOWslr3, lastNOWslr3;
 function SLR3(timestamp) {
   cancelAnimationFrame(IDSLR);
   IDSLR = requestAnimationFrame(SLR3);
@@ -646,7 +646,7 @@ function SLR3(timestamp) {
   document.documentElement.style.setProperty("--radius", spotLightRadius + "vmax");
 }
 
-var NOWincE, lastNOWincE;
+let NOWincE, lastNOWincE;
 function incEclipseR(timestamp) {
   cancelAnimationFrame(IDECR);
   IDECR = requestAnimationFrame(incEclipseR);
@@ -682,7 +682,7 @@ function incEclipseR(timestamp) {
   document.documentElement.style.setProperty("--eclipseR", eclipseR + "vmax");
 }
 
-var NOWincE2, lastNOWincE2;
+let NOWincE2, lastNOWincE2;
 function incEclipseR2(timestamp) {
   cancelAnimationFrame(IDECR);
   IDECR = requestAnimationFrame(incEclipseR2);
@@ -710,7 +710,7 @@ function incEclipseR2(timestamp) {
   document.documentElement.style.setProperty("--eclipseR", eclipseR + "vmax");
 }
 
-var NOWdecE, lastNOWdecE;
+let NOWdecE, lastNOWdecE;
 function decEclipseR(timestamp) {
   cancelAnimationFrame(IDECR);
   IDECR = requestAnimationFrame(decEclipseR);
@@ -737,7 +737,7 @@ function decEclipseR(timestamp) {
   document.documentElement.style.setProperty("--eclipseR", eclipseR + "vmax");
 }
 
-var NOWecA, lastNOWecA;
+let NOWecA, lastNOWecA;
 function eclipseFadeout(timestamp) {
   cancelAnimationFrame(IDECA);
   IDECA = requestAnimationFrame(eclipseFadeout);
@@ -773,7 +773,7 @@ function eclipseFadeout(timestamp) {
   document.documentElement.style.setProperty("--eclipseA2", eclipseA2);
 }
 
-var IDSLR,
+let IDSLR,
     IDECA,
     IDECR;
 function updateR() {
@@ -798,9 +798,9 @@ function updateR() {
 }
 
 /*******************************setting scroll***********************************/
-var scrollinstance;
-var $scrollContainer = $("#scrollContainer");
-//var scrollContainer = document.getElementById("scrollContainer");
+let scrollinstance;
+let $scrollContainer = $("#scrollContainer");
+//let scrollContainer = document.getElementById("scrollContainer");
 $(function() {
   scrollinstance = $("#scrollContainer").overlayScrollbars({
     className : "os-theme-round-dark body-scroll-bar",
@@ -821,22 +821,22 @@ $(function() {
 });
 
 /*****************************filter setting*************************** */
-var setting = false;
-var $settingClass = $(".setting");
-var $settingText = $(".settingText");
-var $smallerST = $("#smallerST");
+let setting = false;
+let $settingClass = $(".setting");
+let $settingText = $(".settingText");
+let $smallerST = $("#smallerST");
 
-var $settingButton = $(".settingButton");
-var $filterOn = $("#filterOn");
-var $filterOff = $("#filterOff");
-var $filterOnText = $("#filterOnText");
-var $filterOffText = $("#filterOffText");
+let $settingButton = $(".settingButton");
+let $filterOn = $("#filterOn");
+let $filterOff = $("#filterOff");
+let $filterOnText = $("#filterOnText");
+let $filterOffText = $("#filterOffText");
 
-var settingDOM = document.getElementsByClassName("setting")[0];
-var settingFontSize = 59;
-var settingFontOpacity = 0;
-var buttonFontSize = 55;
-var settingBlur = 0.9;
+let settingDOM = document.getElementsByClassName("setting")[0];
+let settingFontSize = 59;
+let settingFontOpacity = 0;
+let buttonFontSize = 55;
+let settingBlur = 0.9;
 //adjust font on window size
 function adjustSettingFont(event){
   if(setting == false){
@@ -925,7 +925,7 @@ $document.ready(adjustSettingFont);
 $window.resize(adjustSettingFont);
 
 //hover button
-var settingButtonCanClick = false;
+let settingButtonCanClick = false;
 $settingButton.one("mouseover", settingButtonUnfold);
 
 function settingButtonUnfold(){
@@ -1023,8 +1023,8 @@ function settingButtonFold(){
   }, 300);    
 }
 
-var $filtered = $(".filtered");
-var cloudOn = false;
+let $filtered = $(".filtered");
+let cloudOn = false;
 //click button
 $filterOn.on("click", function(){
   if(setting == false && settingButtonCanClick){
@@ -1080,6 +1080,8 @@ $filterOff.on("click", function(){
     $settingButton.css("filter", "blur(6px)");
     $settingButton.css("opacity", "0");
 
+    //~~~~~~~
+    cloudRequestAnimBool = false;
     requestTimeout(function(){
       $filtered.css("display", "initial");
       $filtered.addClass("offFilter");
@@ -1122,10 +1124,10 @@ $filterOff.mouseover(function(){
 });
 
 /**********************************filter switch*************************** */
-var $filterSwitch = $(".filterSwitch");
-var $filterSwitchText = $(".filterSwitchText");
-var $filterSwitchButton = $(".filterButton");
-var filterState = 0;
+let $filterSwitch = $(".filterSwitch");
+let $filterSwitchText = $(".filterSwitchText");
+let $filterSwitchButton = $(".filterButton");
+let filterState = 0;
 
 $filterSwitch.mouseover(function(){
   $filterSwitchText.css("opacity", "1");
@@ -1138,6 +1140,9 @@ $filterSwitchButton.click(function(){
   if(!start){
     filterState = (filterState + 1) % 3;
     if(filterState == 0){
+      cloudRequestAnimBool = false;
+      cancelCloudRequestAnim();
+
       $filterSwitchButton.removeClass("light");
       $filterSwitchButton.removeClass("heavy");
       $filterSwitchText.text("no filter");
@@ -1156,6 +1161,9 @@ $filterSwitchButton.click(function(){
       $(".plaintext").css("font-weight", "1000");
     }
     else if(filterState == 1){
+      cloudRequestAnimBool = false;
+      cancelCloudRequestAnim();
+
       $filterSwitchButton.removeClass("heavy");
       $filterSwitchButton.addClass("light");
       $filterSwitchText.text("light filter");
@@ -1173,6 +1181,9 @@ $filterSwitchButton.click(function(){
       $(".plaintext").css("font-weight", "600");
     }
     else{
+      cloudRequestAnimBool = true;
+      restartCloudRequestAnim();
+
       $filterSwitchButton.removeClass("light");
       $filterSwitchButton.addClass("heavy");
       $filterSwitchText.text("heavy filter");
@@ -1214,39 +1225,39 @@ function adjustBodyRotateOrigin(){
   let originY = 100 * (0.5 * window.innerHeight + scrollinstance.scroll().position.y) / $bodyRotate.outerHeight();
   $bodyRotate.css("transform-origin", "50% " + originY + "% " + "0");
 }
-// var IDscrollRAF;
+// let IDscrollRAF;
 // $document.scroll(function(){
 //   adjustBodyRotateOrigin();
 
 // })
 
 /******************************spotlight*********************************/
-var mouseState = 1;
-//var frameRate = 75;
-//var canChange = 1;
-//var canChangeEclipse = 1;
+let mouseState = 1;
+//let frameRate = 75;
+//let canChange = 1;
+//let canChangeEclipse = 1;
 
-var spotLightRadius = parseInt(
+let spotLightRadius = parseInt(
   getComputedStyle(document.documentElement).getPropertyValue("--radius"),
   10
 );
-var eclipseR = parseInt(
+let eclipseR = parseInt(
   getComputedStyle(document.documentElement).getPropertyValue("--eclipseR"),
   10
 );
-var eclipseA1 = parseInt(
+let eclipseA1 = parseInt(
   getComputedStyle(document.documentElement).getPropertyValue("--eclipseA1"),
   10
 );
-var eclipseA2 = parseInt(
+let eclipseA2 = parseInt(
   getComputedStyle(document.documentElement).getPropertyValue("--eclipseA2"),
   10
 );
-var fadeInEcA1 = eclipseA1;
-var fadeInEcA2 = eclipseA2;
-//var interv = 0;
-//var eclipseInterv = 0;
-//var eclipseFadeInterv = 0;
+let fadeInEcA1 = eclipseA1;
+let fadeInEcA2 = eclipseA2;
+//let interv = 0;
+//let eclipseInterv = 0;
+//let eclipseFadeInterv = 0;
 
 function startAnim(){
   if(start){
@@ -1281,8 +1292,8 @@ function darknessStartAnim(){
   });
 }
 
-var start = true;
-var darkness = 1;
+let start = true;
+let darkness = 1;
 $settingButton.on("click", function(){
   if(setting){
     requestTimeout(function(){
@@ -1300,18 +1311,18 @@ $settingButton.on("click", function(){
 });
 
 /********************spotlight change******************* */
-var SLCtimer;
-var sunsetStart = false;
-var backtoSpotLight = false;
-var nightStart = false;
-var LR1 = {elem: $("#R1"), val: 0, ID: undefined},
+let SLCtimer;
+let sunsetStart = false;
+let backtoSpotLight = false;
+let nightStart = false;
+let LR1 = {elem: $("#R1"), val: 0, ID: undefined},
     LG1 = {elem: $("#G1"), val: 0, ID: undefined},
     LB1 = {elem: $("#B1"), val: 0, ID: undefined},
     LR2 = {elem: $("#R2"), val: 0, ID: undefined},
     LG2 = {elem: $("#G2"), val: 0, ID: undefined},
     LB2 = {elem: $("#B2"), val: 0, ID: undefined},
     LA037 = {elem: $("#A037"), val: 0.37, ID: undefined};
-var sunsetR1 = 112, //61
+let sunsetR1 = 112, //61
     sunsetG1 = 47, //34
     sunsetB1 = 35, //35
     sunsetR2= 76,
@@ -1319,7 +1330,7 @@ var sunsetR1 = 112, //61
     sunsetB2 = 6,
     sunsetA037 = 0.65;
 
-var nightR1 = 34,
+let nightR1 = 34,
     nightG1 = 34,
     nightB1 = 52,
     nightR2= 23,
@@ -1462,12 +1473,12 @@ function spotlightAlpha(src, dst, varString, time=5000){
 }
 
 /******************************header blur ************************/
-var hopacity = 0.85;
-var hblur = 4.5;
-var $h1 = $("h1");
-var h1 = document.getElementsByTagName("h1")[0];
-var hblurDir = -1;
-var IDhblur;
+let hopacity = 0.85;
+let hblur = 4.5;
+let $h1 = $("h1");
+let h1 = document.getElementsByTagName("h1")[0];
+let hblurDir = -1;
+let IDhblur;
 
 $settingButton.on("click", function(){
   if(setting){
@@ -1495,12 +1506,12 @@ function hblurAnim(){
 }
 
 /*************************body roate********************************/
-var bodyRY = parseInt(getComputedStyle(document.body).getPropertyValue("--bodyRotateY"),10);
+let bodyRY = parseInt(getComputedStyle(document.body).getPropertyValue("--bodyRotateY"),10);
 $bodyRotate = $("#bodyRotate");
-var screenMax = -1*window.innerWidth/2 + 0.85 * window.innerWidth;
-var screenMin = -1*window.innerWidth/2 + 0.04 * window.innerWidth;
-var leftDeg = -6;
-var rightDeg = 12;
+let screenMax = -1*window.innerWidth/2 + 0.85 * window.innerWidth;
+let screenMin = -1*window.innerWidth/2 + 0.04 * window.innerWidth;
+let leftDeg = -6;
+let rightDeg = 12;
 function bodyRotate(e){
   let sx = e.screenX - window.innerWidth/2;
   if(sx > screenMax){sx = screenMax;}
@@ -1514,15 +1525,15 @@ function bodyRotate(e){
 addEvent(document, "mousemove", bodyRotate);
 
 /**************************reflection*********************************** */
-var brightRef = 48;
-var brightRef2 = 52;
-var darkRef = 33;
-var darkRef2 = 67;
-var lastNOWref;
-var NOWref;
-var IDreflection;
+let brightRef = 48;
+let brightRef2 = 52;
+let darkRef = 33;
+let darkRef2 = 67;
+let lastNOWref;
+let NOWref;
+let IDreflection;
 
-var destBrightRef,
+let destBrightRef,
     destBrightRef2, 
     destDarkRef,
     destDarkRef2;
@@ -1605,41 +1616,41 @@ addEvent(document, "mousemove", function(){
   }
 });
 /*********************cloud displacement map*****************************/
-var $bf = $("#bf");
-var $sc = $("#sc");
-var cloudFilter = document.getElementById("cloud-filter");
-var cloudDisp = document.getElementById("cloud-disp");
-//var $cloudFilter = $("#cloud-filter");
-//var $cloudDisp = $("#cloud-disp");
-var IDbf;
-//var IDoc;
-var IDsc;
+let $bf = $("#bf");
+let $sc = $("#sc");
+let cloudFilter = document.getElementById("cloud-filter");
+let cloudDisp = document.getElementById("cloud-disp");
+//let $cloudFilter = $("#cloud-filter");
+//let $cloudDisp = $("#cloud-disp");
+let IDbf;
+//let IDoc;
+let IDsc;
 
-var baseFrequency = 0.055;
-//var octave = 1;
-var cloudScale = 80;
+let baseFrequency = 0.055;
+//let octave = 1;
+let cloudScale = 80;
 
-var bfMax = 0.015;
-var bfMin = 0.006;
-var scaleMiddle = 90;
-var scaleMin = 37;
-// var ocMax = 15;
-// var ocMiddle = 10;
-// var ocMin = 1;
+let bfMax = 0.015;
+let bfMin = 0.006;
+let scaleMiddle = 90;
+let scaleMin = 37;
+// let ocMax = 15;
+// let ocMiddle = 10;
+// let ocMin = 1;
 
-var bfDir = -1;
-var scDir = -1;
-//var ocDir = 1;
+let bfDir = -1;
+let scDir = -1;
+//let ocDir = 1;
 
-var cloudFlounderBf = false;
-var cloudFlounderSc = false;
-//var cloudFlounderOc = false;
+let cloudFlounderBf = false;
+let cloudFlounderSc = false;
+//let cloudFlounderOc = false;
 
 let cloudStarted = false;
 $settingButton.on("click", function(){
   requestTimeout(function(){
     if(setting && cloudOn){
-      if(start && cloudStarted == false){
+      if(start && cloudStarted == false && cloudRequestAnimBool){
         cloudStarted = true;
         IDbf = requestAnimationFrame(cloudBfStart);
         IDsc = requestAnimationFrame(cloudScStart);
@@ -1649,12 +1660,12 @@ $settingButton.on("click", function(){
   }, 600);
 });
 
-var curBf,
+let curBf,
     curSc;
     //curOc;
 
 //start
-var bfStartEnd = false,
+let bfStartEnd = false,
     scStartEnd = false;
     //ocStartEnd = false;
 function cloudBfStart(){
@@ -1663,6 +1674,14 @@ function cloudBfStart(){
     duration: 11000,
     easing: "easeOutQuad", 
     progress: function(_, _, _, tweenValue) {
+      if(!cloudRequestAnimBool){
+        $bf.velocity("stop", true);
+        bfStartEnd = true;
+        curBf = baseFrequency;
+        bfDir = 1; 
+        return;
+      }
+
       baseFrequency = tweenValue;
       cloudFilter.setAttribute("baseFrequency", baseFrequency);
     },
@@ -1683,6 +1702,14 @@ function cloudScStart(){
     duration: 19500,
     easing: "easeOutQuad",
     progress: function(_, _, _, tweenValue) {
+      if(!cloudRequestAnimBool){
+        $sc.velocity("stop", true); 
+        scStartEnd = true;
+        curSc = cloudScale;
+        ScDir = 1;
+        return;
+      }
+      
       cloudScale = tweenValue;
       cloudDisp.setAttribute("scale", cloudScale);
     },
@@ -1716,12 +1743,24 @@ function cloudScStart(){
 //     }
 //   });
 // }
+let cloudRequestAnimBool = true;
+function cancelCloudRequestAnim(){
+  cloudRequestAnimBool = false;
+  cancelAnimationFrame(IDbf);
+  cancelAnimationFrame(IDsc);
+}
+function restartCloudRequestAnim(){
+  cloudRequestAnimBool = true;
+  IDbf = requestAnimationFrame(cloudBfDrift);
+  IDsc = requestAnimationFrame(cloudScDrift);
+}
+
 
 //drift
-var curBfSet1 = false,
+let curBfSet1 = false,
     curBfSet2 = false;
 
-//var backToDriftBf;
+//let backToDriftBf;
 function cloudBfDrift(){
   if(!cloudFlounderBf){
     if(bfDir == -1){
@@ -1732,6 +1771,9 @@ function cloudBfDrift(){
         progress: function(_, _, _, tweenValue) {
           if(cloudFlounderBf){$bf.velocity("stop", true); return;}
           if(bfDir == 1){$bf.velocity("stop", true); return;}
+          if(!cloudRequestAnimBool){$bf.velocity("stop", true); return;}
+          console.log(`!!`)
+
           baseFrequency = tweenValue;
           cloudFilter.setAttribute("baseFrequency", baseFrequency);
         },
@@ -1753,6 +1795,9 @@ function cloudBfDrift(){
         progress: function(_, _, _, tweenValue) {
           if(cloudFlounderBf){$bf.velocity("stop", true); return;}
           if(bfDir == -1){$bf.velocity("stop", true); return;}
+          if(!cloudRequestAnimBool){$bf.velocity("stop", true); return;}
+          console.log(`!!`)
+
           baseFrequency = tweenValue;
           cloudFilter.setAttribute("baseFrequency", baseFrequency);
         },
@@ -1768,7 +1813,7 @@ function cloudBfDrift(){
   }
 }
 
-var curScSet1 = false,
+let curScSet1 = false,
     curScSet2 = false;
 function cloudScDrift(){
   if(!cloudFlounderSc){
@@ -1780,6 +1825,8 @@ function cloudScDrift(){
         progress: function(_, _, _, tweenValue) {
           if(cloudFlounderSc){$sc.velocity("stop", true); return;}
           if(scDir == 1){$sc.velocity("stop", true); return;}
+          if(!cloudRequestAnimBool){$sc.velocity("stop", true); return;}
+
           cloudScale = tweenValue;
           cloudDisp.setAttribute("scale", cloudScale);
         },
@@ -1800,6 +1847,8 @@ function cloudScDrift(){
         progress: function(_, _, _, tweenValue) {
           if(cloudFlounderSc){$sc.velocity("stop", true); return;}
           if(scDir == -1){$sc.velocity("stop", true); return;}
+          if(!cloudRequestAnimBool){$sc.velocity("stop", true); return;}
+
           cloudScale = tweenValue;
           cloudDisp.setAttribute("scale", cloudScale);
         },
@@ -1815,7 +1864,7 @@ function cloudScDrift(){
   }
 }
 
-// var curOcSet1 = false,
+// let curOcSet1 = false,
 //     curOcSet2 = false;
 // function cloudOcDrift(){
 //   if(!cloudFlounderOc){
@@ -1863,7 +1912,7 @@ function cloudScDrift(){
 // }
 
 //flounder
-var bfFlounderEnd = false,
+let bfFlounderEnd = false,
     scFlounderEnd = false;
     //ocFlounderEnd = false;
 
@@ -1882,10 +1931,10 @@ function setCloudFlounder(){
   //IDoc = requestAnimationFrame(cloudOcFlounder);
 }
 
-var bfFlounderSet = false,
+let bfFlounderSet = false,
     scFlounderSet = false;
     //ocFlounderSet = false;
-var destBfFlounder, destScFlounder; 
+let destBfFlounder, destScFlounder; 
     //destOcFlounder;
 function cloudBfFlounder(){
   if(cloudFlounderBf){
@@ -1900,6 +1949,16 @@ function cloudBfFlounder(){
       easing: "easeOutQuad", 
       progress: function(_, _, _, tweenValue) {
         if(!cloudFlounderBf){$bf.velocity("stop", true); return;}
+        if(!cloudRequestAnimBool){
+          $bf.velocity("stop", true);
+          bfFlounderEnd = true;
+          bfFlounderSet = false;
+          bfDir = Math.abs(destBfFlounder - bfMax) <= Math.abs(destBfFlounder - bfMin) ? -1 : 1;
+          cloudFlounderBf = false;
+          curBf = baseFrequency; 
+          return;
+        }
+
         baseFrequency = tweenValue;
         cloudFilter.setAttribute("baseFrequency", baseFrequency);
       },
@@ -1930,6 +1989,16 @@ function cloudScFlounder(){
       easing: "easeOutQuad",
       progress: function(_, _, _, tweenValue) {
         if(!cloudFlounderSc){$sc.velocity("stop", true); return;}
+        if(!cloudRequestAnimBool){
+          $sc.velocity("stop", true);
+          scFlounderEnd = true;
+          scFlounderSet = false;
+          ScDir = Math.abs(destScFlounder - scaleMiddle) <= Math.abs(destScFlounder - scaleMin) ? -1 : 1;
+          cloudFlounderSc = false;
+          curSc = cloudScale; 
+          return;
+        }
+
         cloudScale = tweenValue;
         cloudDisp.setAttribute("scale", cloudScale);
       },
@@ -1980,16 +2049,16 @@ function cloudScFlounder(){
 
 
 /*******************plaintext font size******************************** */
-var $rotateTextOne = $(".rotateTextOne");
-var $rotateTextTwo = $(".rotateTextTwo");
-var $plaintext = $(".plaintext");
-var $timeInput = $("#timeInput");
+let $rotateTextOne = $(".rotateTextOne");
+let $rotateTextTwo = $(".rotateTextTwo");
+let $plaintext = $(".plaintext");
+let $timeInput = $("#timeInput");
 
-var plaintextFontSize = 30;
-var moonMarginL = 6;
-var hMarginL = 5;
-var hFontSize = 72;
-var bodyBlur = 0.85;
+let plaintextFontSize = 30;
+let moonMarginL = 6;
+let hMarginL = 5;
+let hFontSize = 72;
+let bodyBlur = 0.85;
 function adjustElementSize(){
   if(window.innerWidth < 2400 && window.innerWidth >= 1000){
     plaintextFontSize = 27; 
@@ -2124,16 +2193,16 @@ $window.resize(adjustElementSize);
 
 
 /********************twinkle plain text***********************************/
-var plaintexts = document.getElementsByClassName("plaintext");
-//var twinkleIntervs = new Array(plaintexts.length);
-var twinkleIDs = new Array(plaintexts.length);
-var twinkleDirects = new Array(plaintexts.length);
+let plaintexts = document.getElementsByClassName("plaintext");
+//let twinkleIntervs = new Array(plaintexts.length);
+let twinkleIDs = new Array(plaintexts.length);
+let twinkleDirects = new Array(plaintexts.length);
 
-var defaultTwinklwOpa1 = 0.27;
-var defaultTwinklwOpa2 = 0.32;
-var defaultTwinklwOpa3 = 0.4;
-var twinkleOpa = defaultTwinklwOpa1;
-var twinkleOpaState = 1;
+let defaultTwinklwOpa1 = 0.27;
+let defaultTwinklwOpa2 = 0.32;
+let defaultTwinklwOpa3 = 0.4;
+let twinkleOpa = defaultTwinklwOpa1;
+let twinkleOpaState = 1;
 
 function textTwinkle($this, index){
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkle($this, index);});
@@ -2156,8 +2225,8 @@ function textTwinkle($this, index){
   else if($this.css("opacity") <= 0.05 && twinkleDirects[index] == -1){twinkleDirects[index] = 1;}
 }
 
-var twinkleBrighterOpa = 0.7;
-var twinkleBrightDimOpa = 0.4;
+let twinkleBrighterOpa = 0.7;
+let twinkleBrightDimOpa = 0.4;
 function textTwinkleBright($this, index){ 
   twinkleIDs[index] = requestAnimationFrame(function(){textTwinkleBright($this, index);});
   $this.css("transition", "all 10s ease-in-out");
@@ -2187,7 +2256,7 @@ for (j = 0; j < plaintexts.length; j++){
 }
 
 const openingTextStart = 0;
-const openingTextEnd = 2;
+const openingTextEnd = 3;
 function selfTwinkle(start, end){
   let k;
   for (k = start; k < end+1; k++){
@@ -2243,26 +2312,26 @@ for(i = 0; i < plaintexts.length; i++){
 }//of for loop
 
 /**********************************rotation*************************************/
-var moonCount = 0;
-var $selectionDiv = $(".SelectionDiv")
-var $rotateBackCircle = $(".rotateBackCircle");
-var $rotate = $(".rotate");
+let moonCount = 0;
+let $selectionDiv = $(".SelectionDiv")
+let $rotateBackCircle = $(".rotateBackCircle");
+let $rotate = $(".rotate");
 
-var $timesDiv = $("#timesDiv");
-var $namesDiv = $("#namesDiv");
+let $timesDiv = $("#timesDiv");
+let $namesDiv = $("#namesDiv");
 
-var moonCountTimeOut;
-var moonCanSwitch0 = false;
-var moonCanSwitch1 = true;
-var moonCanSwitch2 = false;
-var nameTextStart = 3;
-var nameTextEnd = 5;
-var timeTextStart = 6;
-var timeTextEnd = 8;
+let moonCountTimeOut;
+let moonCanSwitch0 = false;
+let moonCanSwitch1 = true;
+let moonCanSwitch2 = false;
+let nameTextStart = 4;
+let nameTextEnd = 12;
+let timeTextStart = 13;
+let timeTextEnd = 21;
 
-var moonRotateWillChangeTO;
-//var signTextWillChangeTO;
-//var moonClickTimeOut;
+let moonRotateWillChangeTO;
+//let signTextWillChangeTO;
+//let moonClickTimeOut;
 function moonClickCallBack() {
                       //&& canChange == 1 ){
   if(start == false){ 
@@ -2385,11 +2454,11 @@ function moonClickCallBack() {
       else if(moonCount == 2){$timeSignText.removeClass("appear");}
       requestTimeout(function(){
         if(moonCount == 1){
-          $nameSignPlainText.html("");
+          $nameSignPlainTexts.html("");
           $nameSignHeader.html("");
         }
         else if(moonCount == 2){
-          $timeSignPlainText.html("");
+          $timeSignPlainTexts.html("");
           $timeSignHeader.html("");
         }
       }, 1800);
@@ -2440,9 +2509,9 @@ $rotate.mouseup(function(){
   }
 })
 
-var rotateGlowColor = "#c5c6cfab";
-var rotateBG = "rgba(190, 190, 190, 0.5)";
-var rotateMouseOver = false;
+let rotateGlowColor = "#c5c6cfab";
+let rotateBG = "rgba(190, 190, 190, 0.5)";
+let rotateMouseOver = false;
 $document.mousemove(function(e){
   if(setting){
     let d = Math.pow(e.pageX - $rotate.offset().left, 2) + Math.pow(e.pageY - $rotate.offset().top, 2)
@@ -2479,7 +2548,7 @@ $selectionDiv.mouseleave(function(){
 });
 
 /*****************************input box line*************************************/
-var $nameInput = $("#nameInput");
+let $nameInput = $("#nameInput");
 
 //detect which animation event and change check's transition delay accordingly
 function whichAnimationEndEvent() {
@@ -2518,13 +2587,13 @@ function whichAnimationStartEvent() {
   }
 }
 
-var animationEndEvent = whichAnimationEndEvent();
-var animationStartEvent = whichAnimationStartEvent();
+let animationEndEvent = whichAnimationEndEvent();
+let animationStartEvent = whichAnimationStartEvent();
 
-var validAnimationEnd = 0;
+let validAnimationEnd = 0;
 
-var borderName = document.getElementById("borderName");
-var canFlash = 0;
+let borderName = document.getElementById("borderName");
+let canFlash = 0;
 //animation event name
 addEvent(borderName, animationStartEvent, function (e) {
   canFlash = 1;
@@ -2560,9 +2629,9 @@ addEvent(borderName, animationEndEvent, function (e) {
   }
 });
 
-var validity = false;
-var JQinput = $("#inp");
-var JQborder = $(".border");
+let validity = false;
+let JQinput = $("#inp");
+let JQborder = $(".border");
 JQinput.on("input", function () {
   if (validity != this.checkValidity()) {
     validity = this.checkValidity();
@@ -2573,17 +2642,17 @@ JQinput.on("input", function () {
 });
 
 //check if focus and blur if focused
-var inputFocused = 0;
-var nameInputSubmitted = 0;
+let inputFocused = 0;
+let nameInputSubmitted = 0;
 
-var $allNotNameInput = $("* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check)\
+let $allNotNameInput = $("* :not(.switchDiv):not(#namesDiv):not(#nameInput):not(.inp):not(#inp):not(.border):not(.check)\
 :not(#scanArea):not(#redLine):not(#redLightArea):not(#barCodeToScan):not(#barCodeToScan2)\
 :not(.paperContainer):not(.paper):not(.segment):not(.segment2):not(.icon)\
 :not(.dummy)\
 :not(#bodyRotate):not(.filtered):not(#scrollContainer):not(body):not(html)");
-// var JQbodyNswitch = $("body > *:not(.switchDiv)");
-// var JQswitchNinp = $(".switchDiv > *:not(#nameInput)");
-var $inp = $(".inp");
+// let JQbodyNswitch = $("body > *:not(.switchDiv)");
+// let JQswitchNinp = $(".switchDiv > *:not(#nameInput)");
+let $inp = $(".inp");
 function inputFocusIn() {
   if(nameInputCanFocus && canStartScan){
     inputFocused = 1;
@@ -2603,13 +2672,13 @@ function inputFocusOut() {
   twinkleOpaState = 1;
 }
 
-var JSinput = document.getElementById("inp");
+let JSinput = document.getElementById("inp");
 JSinput.addEventListener("focusin", inputFocusIn);
 JSinput.addEventListener("focusout", inputFocusOut);
 
 //check hover and click
-var JQcheck = $(".check");
-var bufferRevealBarCode = 0;
+let JQcheck = $(".check");
+let bufferRevealBarCode = 0;
 JQcheck.mouseover(function () {
   if (validAnimationEnd == 1) {
     bufferRevealBarCode = 0;
@@ -2641,8 +2710,8 @@ addEvent(JSinput, "invalid", function () {
   //bufferRevealBarCode = 0;
 });
 
-var nameData = "";
-var nameInputCanFocus = true;
+let nameData = "";
+let nameInputCanFocus = true;
 JQcheck.mousedown(function () {
                                                     //&& canChange == 1) {
   if (inputFocused == 1 && JSinput.checkValidity()){ 
@@ -2707,47 +2776,47 @@ function getSignName(){
 
 /************ ***********time input******************************/
 
-var frameRate = 60;
+let frameRate = 60;
 
-var $TIcircle = $("#circle");
-var $TIslider = $("#slider");
-var $TIcontainer = $("#TIcontainer");
-var timeContainer = document.getElementById("timeContainer");
-var $yearMonthButton = $("#yearMonthButton");
-var IDsliderRotate,
+let $TIcircle = $("#circle");
+let $TIslider = $("#slider");
+let $TIcontainer = $("#TIcontainer");
+let timeContainer = document.getElementById("timeContainer");
+let $yearMonthButton = $("#yearMonthButton");
+let IDsliderRotate,
     IDcircleRotate;
 //slider vars    
 const sliderW2 = $TIslider.width() / 2;
 const sliderH2 = $TIslider.height() / 2;
 const sliderRadius = 30;
-var elPos = { x: $("#TIcontainer").offset().left, y: $("#TIcontainer").offset().top };
-var sliderPos = {x: $TIslider.offset().left, y:$TIslider.offset().top};
-var TIsliderX = 0,
+let elPos = { x: $("#TIcontainer").offset().left, y: $("#TIcontainer").offset().top };
+let sliderPos = {x: $TIslider.offset().left, y:$TIslider.offset().top};
+let TIsliderX = 0,
     TIsliderY = 0;
-var sliderMdown = false;
+let sliderMdown = false;
 //circle vars
 const circleW2 = $TIcircle.width() / 2;
 const circleH2 = $TIcircle.height() / 2;
 const circleRdius = 50;
-var circlePos = {x: $TIcircle.offset().left, y: $TIcircle.offset().top};
-var TIcircleX = 0.
+let circlePos = {x: $TIcircle.offset().left, y: $TIcircle.offset().top};
+let TIcircleX = 0.
     TIcircleY = 0;
-var circleMdown = false;
+let circleMdown = false;
 
-var yearSubmitted = "";
-var monthSubmitted = "";
+let yearSubmitted = "";
+let monthSubmitted = "";
 
 //time input funcs
-var curYear = new Date().getFullYear();
-var yearVal = curYear;
-var curMonth = new Date().getMonth() + 1;
-var monthVal = curMonth;
-var lastMonthVal = curMonth;
-var lap = 0;
-var direction = 0;
-var changeVal = 1;
-var monthPadding = monthVal >= 10 ? "" : "0";
-var degIncrement = 30;
+let curYear = new Date().getFullYear();
+let yearVal = curYear;
+let curMonth = new Date().getMonth() + 1;
+let monthVal = curMonth;
+let lastMonthVal = curMonth;
+let lap = 0;
+let direction = 0;
+let changeVal = 1;
+let monthPadding = monthVal >= 10 ? "" : "0";
+let degIncrement = 30;
 
 function rotateSlider(deg){
   if(sliderMdown){
@@ -2810,7 +2879,7 @@ function rotateCircle(deg){
   }
 }
 
-var destMonth = curMonth;
+let destMonth = curMonth;
 $document.ready(function(){$yearMonthButton.text(yearVal + " . " + monthPadding + monthVal);})
 function calculateTime(deg){
   let degMonth = Math.ceil(deg / 30) % 12;
@@ -2855,9 +2924,9 @@ function calculateTime(deg){
 
 //events
 //mouse up window
-var TIcircle = document.getElementById("circle"),
+let TIcircle = document.getElementById("circle"),
     TIslider = document.getElementById("slider");
-var TIMdown = false;
+let TIMdown = false;
 
 $window.mouseup(function () {
   if(moonCount == 2){
@@ -2885,8 +2954,8 @@ $window.mouseup(function () {
 
 let sliderMDPos = { x: sliderPos.x - elPos.x, y: sliderPos.y - elPos.y };
 let sliderAtan = Math.atan2(sliderMDPos.x - sliderRadius, sliderMDPos.y - sliderRadius);
-var sliderDeg = -sliderAtan / (Math.PI / 180) + 180;
-var sliderTimeOut;
+let sliderDeg = -sliderAtan / (Math.PI / 180) + 180;
+let sliderTimeOut;
 
 $TIslider.mousedown(function () {
   clearRequestTimeout(RTOsliderTimeBlur);
@@ -2906,8 +2975,8 @@ $TIslider.mousedown(function () {
 //circle mouse down
 let circleMDPos = { x: circlePos.x - elPos.x, y: circlePos.y - elPos.y };
 let circleAtan = Math.atan2(circleMDPos.x - circleRdius, circleMDPos.y - circleRdius);
-var circleDeg = -circleAtan / (Math.PI / 180) + 180;
-var circleTimeOut;
+let circleDeg = -circleAtan / (Math.PI / 180) + 180;
+let circleTimeOut;
 
 $TIcircle.mousedown(function () {
   clearRequestTimeout(RTOcircleTimeBlur);
@@ -2925,8 +2994,8 @@ $TIcircle.mousedown(function () {
   }, 400);
 });
 
-var RTOcircleTimeBlur;
-var RTOsliderTimeBlur;
+let RTOcircleTimeBlur;
+let RTOsliderTimeBlur;
 $TIcircle.mouseover(function(){
   clearRequestTimeout(RTOcircleTimeBlur);
   if(TIMdown == false){timeContainer.style.setProperty("--timeContainerBlur", "1px");}
@@ -2948,8 +3017,8 @@ $TIslider.mouseleave(function(){
   }, 1200);
 })
 
-//var timeContainerTimeOut;
-var timeButtonMouseOverFunc = 0;
+//let timeContainerTimeOut;
+let timeButtonMouseOverFunc = 0;
 addEvent(timeContainer, "mouseover", function(){
   if(!TIMdown){
     //clearRequestTimeout(timeContainerTimeOut);
@@ -2971,7 +3040,7 @@ addEvent(timeContainer, "mouseleave", function(){
   }
 });
 
-var timeInputSubmitted = false;
+let timeInputSubmitted = false;
 
 $yearMonthButton.click(function(){
   if(canStartScan){
@@ -3012,10 +3081,10 @@ $yearMonthButton.mouseup(function(){
 });
 
 //time sign func
-var curSign;
-var barcodeFinish;
-var codeAlreadyScanned = 0;
-var largerCodeNum = false;
+let curSign;
+let barcodeFinish;
+let codeAlreadyScanned = 0;
+let largerCodeNum = false;
 
 function getSignTime(){
   let c = (yearSubmitted % 356) / monthSubmitted;
@@ -3037,17 +3106,17 @@ function getSignTime(){
 }
 
 /*******************scanArea*************************************/
-var $scan = $("#scanArea");
-// var $allNotScan = $("* :not(#scanArea):not(#redLine):not(#redLightArea):not(#barCodeToScan):not(#barCodeToScan2)\
+let $scan = $("#scanArea");
+// let $allNotScan = $("* :not(#scanArea):not(#redLine):not(#redLightArea):not(#barCodeToScan):not(#barCodeToScan2)\
 // :not(.paperContainer):not(.paper):not(.segment):not(.segment2):not(.icon)\
 // :not(#scrollContainer):not(#bodyRotate):not(.filtered):not(body)");
-var $allNotScan = $bodyRotate;
-var $redLine = $("#redLine");
-var $redLightArea = $("#redLightArea");
-// var $redLightBG = $("#redLightBG");
-var $barCode = $("#barCodeToScan");
-var $barCode2 = $("#barCodeToScan2");
-var signs = {
+let $allNotScan = $bodyRotate;
+let $redLine = $("#redLine");
+let $redLightArea = $("#redLightArea");
+// let $redLightBG = $("#redLightBG");
+let $barCode = $("#barCodeToScan");
+let $barCode2 = $("#barCodeToScan2");
+let signs = {
   0: "c",
   1: "k",
   2: "^",
@@ -3060,17 +3129,17 @@ var signs = {
   9: "j",
   10: "{"
 }
-var curBarCodeNum = 0;
-var $block = $(".block");
+let curBarCodeNum = 0;
+let $block = $(".block");
 
-var $nameSignText = $("#nameSignText");
-var $nameSignPlainText = $nameSignText.children().last();
-var $nameSignHeader = $nameSignText.children().first();
-var $timeSignText = $("#timeSignText");
-var $timeSignPlainText = $timeSignText.children().last();
-var $timeSignHeader = $timeSignText.children().first();
+let $nameSignText = $("#nameSignText");
+let $nameSignPlainTexts = $nameSignText.children(`.plaintext`);
+let $nameSignHeader = $nameSignText.children().first();
+let $timeSignText = $("#timeSignText");
+let $timeSignPlainTexts = $timeSignText.children(`.plaintext`);
+let $timeSignHeader = $timeSignText.children().first();
 
-var canStartScan = true;
+let canStartScan = true;
 
 function redLineAppear(){
   requestTimeout(function(){
@@ -3224,11 +3293,11 @@ function scanBarCode2(){
 }
 
 //paper
-var $segment = $(".segment");
-var $segment2 = $(".segment2");
-var $paper = $(".paper");
-var $icon = $(".icon");
-var $paperContainer = $(".paperContainer");
+let $segment = $(".segment");
+let $segment2 = $(".segment2");
+let $paper = $(".paper");
+let $icon = $(".icon");
+let $paperContainer = $(".paperContainer");
 
 function paperAppear(){
   $paper.removeClass("disappear");
@@ -3314,7 +3383,7 @@ function paperDisappear(){
 }
 
 //barcode get transparent
-var $timeContainer = $("#timeContainer");
+let $timeContainer = $("#timeContainer");
 function barcodeGetTransparent(){
   if(moonCount == 1){
     $rotateTextOne.addClass("barcodeTransparent");
@@ -3406,11 +3475,11 @@ function scanAnim(){
       $scan.css("display", "initial");
       requestTimeout(function(){
         if(moonCount == 1){
-          $nameSignPlainText.html("");
+          $nameSignPlainTexts.html("");
           $nameSignHeader.html("");
         }
         else if(moonCount == 2){
-          $timeSignPlainText.html("");
+          $timeSignPlainTexts.html("");
           $timeSignHeader.html("");
         }
         barcodeGetTransparent();
@@ -3429,11 +3498,11 @@ function scanAnim(){
 function endScan(){
   requestAnimationFrame(function(){
     if(moonCount == 1){
-      $nameSignPlainText.html("THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER");
+      $nameSignPlainTexts.html("THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER");
       $nameSignHeader.text(signs[curSign]);
     }
     else if(moonCount == 2){
-      $timeSignPlainText.html("THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER");
+      $timeSignPlainTexts.html("THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER FOR OTHER TEXT LATER THIS IS PLACEHOLDER");
       $timeSignHeader.text(signs[curSign]);
     }
     
