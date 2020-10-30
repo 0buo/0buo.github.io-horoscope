@@ -7,7 +7,7 @@ function shuffle(array) {
 	while (0 !== currentIndex) {
   
 	  // Pick a remaining element...
-	  var rand = new Math.seedrandom(new Date().getTime().toString(), { entropy: true });
+	  var rand = new Math.seedrandom(new Date().getDate().toString(), { entropy: true });
 	  randomIndex = Math.floor(rand() * currentIndex);
 	  currentIndex -= 1;
   
