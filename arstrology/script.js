@@ -2830,6 +2830,9 @@ let changeVal = 1;
 let monthPadding = monthVal >= 10 ? "" : "0";
 let degIncrement = 30;
 
+let sliderTimeBool = false;
+let circleTimeBool = false;
+
 function rotateSlider(deg){
   if(sliderMdown){
     let curDeg = deg;
@@ -2850,6 +2853,8 @@ function rotateSlider(deg){
       complete: function(){
         destMonth = monthVal + Math.ceil(degIncrement/30);
         destMonth = destMonth > 12 ? destMonth - 12 : destMonth;
+
+        sliderTimeBool = true;
         calculateTime(sliderDeg);
 
         cancelAnimationFrame(IDsliderRotate);
@@ -2880,6 +2885,8 @@ function rotateCircle(deg){
       complete: function(){
         destMonth = monthVal - Math.round(degIncrement/30);
         destMonth = destMonth <= 0 ? destMonth + 12 : destMonth;
+
+        circleTimeBool = true;
         calculateTime(circleDeg);
         
         cancelAnimationFrame(IDcircleRotate);
@@ -2898,7 +2905,7 @@ function calculateTime(deg){
   let monthDiff = destMonth - degMonth;
   monthVal = degMonth + monthDiff;
 
-  if(sliderMdown && circleMdown == false){
+  if(sliderTimeBool && circleTimeBool == false){
     if(lastMonthVal > monthVal){
       yearVal += changeVal;
       lap += 1
@@ -2912,7 +2919,7 @@ function calculateTime(deg){
       //direction = 1;
     }
   }
-  else if(sliderMdown == false && circleMdown){
+  else if(sliderTimeBool == false && circleTimeBool){
     if(lastMonthVal < monthVal){
       yearVal -= changeVal; 
       lap += 1;
@@ -2975,6 +2982,10 @@ $TIslider.mousedown(function () {
   sliderTimeOut = requestTimeout(function(){
     TIMdown = true;
     sliderMdown = true;
+
+    sliderTimeBool = false;
+    circleTimeBool = false;
+
     timeInputSubmitted = false;
     TIslider.style.setProperty("--sliderBlur", "1.25px");
     timeContainer.style.setProperty("--timeContainerBlur", "1px");
@@ -2995,6 +3006,10 @@ $TIcircle.mousedown(function () {
   clearRequestTimeout(circleTimeOut);   
   circleTimeOut = requestTimeout(function(){
     circleMdown = true;
+
+    sliderTimeBool = false;
+    circleTimeBool = false;
+
     TIMdown = true;
     timeInputSubmitted = false;
     TIcircle.style.setProperty("--circleBlur", "1.25px");
