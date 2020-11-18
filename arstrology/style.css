@@ -68,20 +68,6 @@
        url('./fonts/faster-one-v12-latin/faster-one-v12-latin-regular.svg#FasterOne') format('svg'); /* Legacy iOS */
 }
 
-/* montserrat-subrayada-regular - latin */
-@font-face {
-  font-family: 'Montserrat Subrayada';
-  font-style: normal;
-  font-weight: 400;
-  src: url('./fonts/montserrat-subrayada-v10-latin/montserrat-subrayada-v10-latin-regular.eot'); /* IE9 Compat Modes */
-  src: local('MontserratSubrayada-Regular'),
-       url('./fonts/montserrat-subrayada-v10-latin/montserrat-subrayada-v10-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('./fonts/montserrat-subrayada-v10-latin/montserrat-subrayada-v10-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-       url('./fonts/montserrat-subrayada-v10-latin/montserrat-subrayada-v10-latin-regular.woff') format('woff'), /* Modern Browsers */
-       url('./fonts/montserrat-subrayada-v10-latin/montserrat-subrayada-v10-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
-       url('./fonts/montserrat-subrayada-v10-latin/montserrat-subrayada-v10-latin-regular.svg#MontserratSubrayada') format('svg'); /* Legacy iOS */
-}
-
 /* syne-mono-regular - latin */
 @font-face {
   font-family: 'Syne Mono';
@@ -96,18 +82,84 @@
        url('./fonts/syne-mono-v1-latin/syne-mono-v1-latin-regular.svg#SyneMono') format('svg'); /* Legacy iOS */
 }
 
-/* chathura-100 - latin */
+/* TURRET ROAD */
+/* turret-road-200 - latin */
 @font-face {
-  font-family: 'Chathura';
+  font-family: 'Turret Road';
   font-style: normal;
-  font-weight: 100;
-  src: url('./fonts/chathura-v6-latin/chathura-v6-latin-100.eot'); /* IE9 Compat Modes */
+  font-weight: 200;
+  src: url('./fonts/turret-road-v2-latin/turret-road-v2-latin-200.eot'); /* IE9 Compat Modes */
   src: local(''),
-       url('./fonts/chathura-v6-latin/chathura-v6-latin-100.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('./fonts/chathura-v6-latin/chathura-v6-latin-100.woff2') format('woff2'), /* Super Modern Browsers */
-       url('./fonts/chathura-v6-latin/chathura-v6-latin-100.woff') format('woff'), /* Modern Browsers */
-       url('./fonts/chathura-v6-latin/chathura-v6-latin-100.ttf') format('truetype'), /* Safari, Android, iOS */
-       url('./fonts/chathura-v6-latin/chathura-v6-latin-100.svg#Chathura') format('svg'); /* Legacy iOS */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-200.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-200.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-200.woff') format('woff'), /* Modern Browsers */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-200.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-200.svg#TurretRoad') format('svg'); /* Legacy iOS */
+}
+/* turret-road-300 - latin */
+@font-face {
+  font-family: 'Turret Road';
+  font-style: normal;
+  font-weight: 300;
+  src: url('./fonts/turret-road-v2-latin/turret-road-v2-latin-300.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-300.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-300.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-300.woff') format('woff'), /* Modern Browsers */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-300.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-300.svg#TurretRoad') format('svg'); /* Legacy iOS */
+}
+/* turret-road-regular - latin */
+@font-face {
+  font-family: 'Turret Road';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/turret-road-v2-latin/turret-road-v2-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-regular.svg#TurretRoad') format('svg'); /* Legacy iOS */
+}
+/* turret-road-500 - latin */
+@font-face {
+  font-family: 'Turret Road';
+  font-style: normal;
+  font-weight: 500;
+  src: url('./fonts/turret-road-v2-latin/turret-road-v2-latin-500.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-500.woff') format('woff'), /* Modern Browsers */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-500.svg#TurretRoad') format('svg'); /* Legacy iOS */
+}
+/* turret-road-700 - latin */
+@font-face {
+  font-family: 'Turret Road';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./fonts/turret-road-v2-latin/turret-road-v2-latin-700.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-700.woff') format('woff'), /* Modern Browsers */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-700.svg#TurretRoad') format('svg'); /* Legacy iOS */
+}
+/* turret-road-800 - latin */
+@font-face {
+  font-family: 'Turret Road';
+  font-style: normal;
+  font-weight: 800;
+  src: url('./fonts/turret-road-v2-latin/turret-road-v2-latin-800.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-800.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-800.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-800.woff') format('woff'), /* Modern Browsers */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-800.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/turret-road-v2-latin/turret-road-v2-latin-800.svg#TurretRoad') format('svg'); /* Legacy iOS */
 }
 
 :root {
@@ -254,8 +306,8 @@ body {
 
   transition: all 2s ease-in-out, transform 2.5s ease-in-out;
   transform: perspective(10000px) rotateY(var(--bodyRotateY));
-  -webkit-filter: blur(0.9px);
-          filter: blur(0.9px);
+  -webkit-filter: blur(0.4px);
+          filter: blur(0.4px);
 }
 
 .settingText{
@@ -265,6 +317,7 @@ body {
   top: 10vh;
   transition:all 2s ease-in-out, transform 2s ease-in-out, opacity 0.5s ease-in-out;
   font-size: var(--settingFontSize);
+
   opacity: 0;
   /* overflow-y: auto;
   overflow-x: hidden; */
@@ -273,9 +326,9 @@ body {
   padding-right: 4vw;
   text-align: left;
   color: white;
-  font-family: 'Chathura', sans-serif;
+  font-family: 'Turret Road', cursive;
   font-weight: 100;
-  line-height: 0.6;
+  line-height: 1;
 }
 #smallerST{
   transition:all 2s ease-in-out, transform 3.5s ease-in-out, opacity 0.5s ease-in-out;
@@ -289,8 +342,8 @@ body {
   transition:all 2s ease-in-out, transform 2.5s ease-in-out, opacity 1s ease-in-out, -webkit-filter 1s ease-in-out;
   transition:all 2s ease-in-out, transform 2.5s ease-in-out, opacity 1s ease-in-out, filter 1s ease-in-out;
   transition:all 2s ease-in-out, transform 2.5s ease-in-out, opacity 1s ease-in-out, filter 1s ease-in-out, -webkit-filter 1s ease-in-out;
-  -webkit-filter: blur(0.3px);
-          filter: blur(0.3px);
+  -webkit-filter: blur(0.2px);
+          filter: blur(0.2px);
   opacity: 1;
 
   width: 100%;

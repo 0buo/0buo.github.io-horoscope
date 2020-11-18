@@ -850,10 +850,10 @@ function adjustSettingFont(event){
     let modifiedBlur;
     let modifiedButtonFontSize;
 
-    if(window.innerHeight < 1000){settingFontSize = Math.round(window.innerWidth * 0.055);}
-    else{settingFontSize = Math.round(window.innerWidth * 0.058);}
-    if(settingFontSize < 70){settingFontSize = 70;}
-    else if(settingFontSize > 110){settingFontSize = 110;}
+    if(window.innerHeight < 1000){settingFontSize = Math.round(window.innerWidth * 0.024);}
+    else{settingFontSize = Math.round(window.innerWidth * 0.025);}
+    if(settingFontSize < 35){settingFontSize = 35;}
+    else if(settingFontSize > 50){settingFontSize = 50;}
     settingDOM.style.setProperty("--settingFontSize", settingFontSize + "px");
     let smaller = Math.round(settingFontSize*0.75)
     settingDOM.style.setProperty("--smallerSettingFontSize", smaller + "px");
@@ -1232,9 +1232,9 @@ function delete_setting_text(){
   text_arr.forEach((text, index)=>{
     requestTimeout(()=>{
       $settingText.html(text);
-    }, index * 100);
+    }, index * 150);
     if(index == text_arr.length -1){
-      requestTimeout(type_out_aphorism, index*130 + 800);
+      requestTimeout(type_out_aphorism, index*150 + 800);
     }
   });
 }
