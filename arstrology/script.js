@@ -836,17 +836,24 @@ let settingDOM = document.getElementsByClassName("setting")[0];
 let settingFontSize = 59;
 let settingFontOpacity = 0;
 let buttonFontSize = 55;
-let settingBlur = 0.9;
+
+$document.ready(()=>{
+  if(!can_answer){
+    $settingText.html(today_aphorism);
+    $settingButton.css(`display`, `none`);
+  }
+})
+
 //adjust font on window size
 function adjustSettingFont(event){
   if(setting == false){
     let modifiedBlur;
     let modifiedButtonFontSize;
 
-    if(window.innerHeight < 1000){settingFontSize = Math.round(window.innerWidth * 0.025);}
-    else{settingFontSize = Math.round(window.innerWidth * 0.0252);}
-    if(settingFontSize < 25){settingFontSize = 25;}
-    else if(settingFontSize > 55){settingFontSize = 55;}
+    if(window.innerHeight < 1000){settingFontSize = Math.round(window.innerWidth * 0.055);}
+    else{settingFontSize = Math.round(window.innerWidth * 0.058);}
+    if(settingFontSize < 70){settingFontSize = 70;}
+    else if(settingFontSize > 110){settingFontSize = 110;}
     settingDOM.style.setProperty("--settingFontSize", settingFontSize + "px");
     let smaller = Math.round(settingFontSize*0.75)
     settingDOM.style.setProperty("--smallerSettingFontSize", smaller + "px");
@@ -854,23 +861,16 @@ function adjustSettingFont(event){
     if(window.innerWidth < 1960 && window.innerWidth > 1700){
       settingFontOpacity = 0.75 + ((1960 - window.innerWidth)/200) * 0.1;
       settingFontOpacity.toFixed(2);
-      settingBlur = 0.75;
     }
     else if(window.innerWidth < 1700){
       settingFontOpacity = 0.75 + ((1960 - window.innerWidth)/200) * 0.1;
       settingFontOpacity.toFixed(2);
-      settingBlur = 0.75 - ((1700 - window.innerWidth)/250) * 0.25;
-      settingBlur.toFixed(2);
     }
     else{
       settingFontOpacity = 0.75;
-      settingBlur = 0.9;
     }
     if(settingFontOpacity > 1){settingFontOpacity = 1;}
     else if(settingFontOpacity < 0.75){settingFontOpacity = 0.75;}
-    if(settingBlur < 0){settingBlur = 0;}
-    else if(settingBlur > 0.9){settingBlur = 0.9;}
-    modifiedBlur = settingBlur;
 
     if(window.innerWidth < 800 && window.innerWidth >= 700){
       buttonFontSize = 50; 
@@ -904,18 +904,13 @@ function adjustSettingFont(event){
     if(window.innerHeight < 600){
       if(window.innerWidth < 700){buttonFontSize = Math.round(window.innerHeight * 0.1);}
       if(modifiedButtonFontSize < buttonFontSize){buttonFontSize = modifiedButtonFontSize;}
-      settingBlur = modifiedBlur - ((600 - window.innerHeight)/50) * 0.5;
-      settingBlur.toFixed(2);
     }
 
     if(window.innerHeight >= 600 && window.innerWidth >= 1024){buttonFontSize = 55;}
     
-    if(settingBlur < 0){settingBlur = 0;}
-    else if(settingBlur > 0.9){settingBlur = 0.9;}
 
     $settingText.css("opacity", settingFontOpacity);
     $settingButton.css("font-size", buttonFontSize + "px");
-    $settingClass.css("filter", "blur(" + settingBlur + "px)");
   }
   else{$(this).off(event);}
 }
@@ -931,96 +926,129 @@ $settingButton.one("mouseover", settingButtonUnfold);
 function settingButtonUnfold(){
   requestTimeout(function(){
     if(setting == false){
-      $filterOnText.html('lev<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
+      $filterOnText.html('yy<br class="default-font">yy<br class="default-font">yy');
       requestTimeout(function(){
-        $filterOnText.html('leve<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
-      }, 100);
+        $filterOnText.html('ya<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
+      }, 120);
       requestTimeout(function(){
-        $filterOnText.html('leave<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
-      }, 200);
+        $filterOnText.html('yep<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
+      }, 240);
       requestTimeout(function(){
-        $filterOnText.html('l eave<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
-      }, 300);
+        $filterOnText.html('yeah<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
+      }, 360);
       requestTimeout(function(){
-        $filterOnText.html('l eav e<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
-      }, 400);
+        $filterOnText.html('yeaa<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
+      }, 480);
       requestTimeout(function(){
-        $filterOnText.html('l ea v e<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
-      }, 500);
+        $filterOnText.html('yeaah<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
+      }, 600);
       requestTimeout(function(){
-        $filterOnText.html('l e a v e<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
-      }, 600);    
+        $filterOnText.html('yeah<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
+      }, 720);    
       requestTimeout(function(){
-        $filterOnText.html('l e a ve<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
-      }, 700);      
+        $filterOnText.html('yea<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
+      }, 840);      
       requestTimeout(function(){
-        $filterOnText.html('le a ve<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
-      }, 800);    
+        $filterOnText.html('yup<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
+      }, 960);    
       requestTimeout(function(){
-        $filterOnText.html('le ave<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
-      }, 900);
+        $filterOnText.html('yep<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
+      }, 1080);
       requestTimeout(function(){
-        $filterOnText.html('leave<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
-      }, 1000);      
+        $filterOnText.html('yes<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
+      }, 1200);      
 
       
-      $filterOffText.html('tk<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+      $filterOffText.html('nn<br class="default-font">nn<br class="default-font">nn');
       requestTimeout(function(){
-        $filterOffText.html('tak<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
-      }, 100);    
+        $filterOffText.html('na<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
+      }, 120);    
       requestTimeout(function(){
-        $filterOffText.html('take<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
-      }, 200);    
+        $filterOffText.html('nay<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
+      }, 240);    
       requestTimeout(function(){
-        $filterOffText.html('t ake<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
-      }, 300);    
+        $filterOffText.html('nope<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
+      }, 360);    
       requestTimeout(function(){
-        $filterOffText.html('ta ke<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
-      }, 400);    
+        $filterOffText.html('nopee<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
+      }, 480);    
       requestTimeout(function(){
-        $filterOffText.html('ta k e<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
-      }, 500);    
-      requestTimeout(function(){
-        $filterOffText.html('t a k e<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+        $filterOffText.html('nahh<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
       }, 600);    
       requestTimeout(function(){
-        $filterOffText.html('t a ke<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
-      }, 700);    
+        $filterOffText.html('nah<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
+      }, 720);    
       requestTimeout(function(){
-        $filterOffText.html('ta ke<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
-      }, 800);    
+        $filterOffText.html('meh<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
+      }, 840);    
       requestTimeout(function(){
-        $filterOffText.html('t a ke<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
-      }, 900);    
+        $filterOffText.html('not<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
+      }, 960);    
       requestTimeout(function(){
-        $filterOffText.html('t ake<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
-      }, 1000);    
+        $filterOffText.html('na<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
+      }, 1080);     
       requestTimeout(function(){
-        $filterOffText.html('take<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+        $filterOffText.html('n o<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
         settingButtonCanClick = true;
         $filterOn.css("cursor", "grab");
         $filterOff.css("cursor", "grab");
-      }, 1100);    
+      }, 1250);    
     } 
-  }, 250);
+  }, 500);
 }
 
 function settingButtonFold(){
-  $filterOnText.html('leav<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
+  $filterOnText.html('yes<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
   requestTimeout(function(){
-    $filterOnText.html('lev<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
+    $filterOnText.html('yeah<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
   }, 150);
   requestTimeout(function(){
-    $filterOnText.html('lv<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">n</span>');
+    $filterOnText.html('yeaa<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
   }, 300);
-
-  $filterOffText.html('tak<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
   requestTimeout(function(){
-    $filterOffText.html('tke<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span>f<span class="letterToR">f</span>');
+    $filterOnText.html('yeaah<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
+  }, 450);
+  requestTimeout(function(){
+    $filterOnText.html('yepp<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
+  }, 600);
+  requestTimeout(function(){
+    $filterOnText.html('yup<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
+  }, 750);
+  requestTimeout(function(){
+    $filterOnText.html('yay<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
+  }, 900);
+  requestTimeout(function(){
+    $filterOnText.html('ya<br class="default-font"><span class="letterToL">!</span><span class="letterToR">i</span><br class="default-font"><span class="letterToL">d</span><span class="letterToR">o</span>');
+  }, 1050);
+  requestTimeout(function(){
+    $filterOnText.html('yy<br class="default-font"><span class="letterToL">y</span><span class="letterToR">y</span><br class="default-font"><span class="letterToL">y</span><span class="letterToR">y</span>');
+  }, 1200);
+
+  $filterOffText.html('n o<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
+  requestTimeout(function(){
+    $filterOffText.html('nah<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
   }, 150);    
   requestTimeout(function(){
-    $filterOffText.html('tk<br class="default-font"><span class="letterToL">i</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">o</span><span class="letterToR">f</span>');
-  }, 300);    
+    $filterOffText.html('nope<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
+  }, 300);
+  requestTimeout(function(){
+    $filterOffText.html('nayy<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
+  }, 450);
+  requestTimeout(function(){
+    $filterOffText.html('nopee<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
+  }, 600);
+  requestTimeout(function(){
+    $filterOffText.html('nay<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
+  }, 750);
+  requestTimeout(function(){
+    $filterOffText.html('not<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
+  }, 900);
+  requestTimeout(function(){
+    $filterOffText.html('no<br class="default-font"><span class="letterToL">!</span><span class="letterToR">t</span><br class="default-font"><span class="letterToL">h</span><span class="letterToR">x</span>');
+  }, 1050);
+  requestTimeout(function(){
+    $filterOffText.html('nn<br class="default-font"><span class="letterToL">n</span><span class="letterToR">n</span><br class="default-font"><span class="letterToL">n</span><span class="letterToR">n</span>');
+  }, 1200);    
 }
 
 let $filtered = $(".filtered");
@@ -1028,8 +1056,9 @@ let cloudOn = false;
 //click button
 $filterOn.on("click", function(){
   if(setting == false && settingButtonCanClick){
+    settingButtonCanClick = false;
     setting = true;
-    cloudOn = true;
+    if(!isFirefox) cloudOn = true;
     settingButtonFold();
     $settingText.css("opacity", "0");
     $settingButton.css("filter", "blur(6px)");
@@ -1037,7 +1066,7 @@ $filterOn.on("click", function(){
 
     requestTimeout(function(){
       $filtered.css("display", "initial");
-      $filtered.addClass("svgFilter");
+      if(!isFirefox) $filtered.addClass("svgFilter");
 
       requestTimeout(function(){
         document.documentElement.pseudoStyle('before', 'z-index','3');
@@ -1053,10 +1082,34 @@ $filterOn.on("click", function(){
       }, 2500);
       
       /*setting for heavy filter*/
-      filterState = 2;
-      $filterSwitchButton.removeClass("light");
-      $filterSwitchButton.addClass("heavy");
-      $filterSwitchText.text("heavy filter");
+      if(!isFirefox){
+        filterState = 2;
+        $filterSwitchButton.removeClass("light");
+        $filterSwitchButton.addClass("heavy");
+        $filterSwitchText.text("heavy filter");
+      }
+      else if(isFirefox){
+        filterState = 0
+        cloudRequestAnimBool = false;
+        cancelCloudRequestAnim();
+
+        $filterSwitchButton.removeClass("light");
+        $filterSwitchButton.removeClass("heavy");
+        $filterSwitchText.text("no filter");
+
+        $filtered.removeClass("svgFilter");
+        $filtered.removeClass("offFilter");
+
+        twinkleBrighterOpa = 1;
+        twinkleBrightDimOpa = 0.9;
+        defaultTwinklwOpa1 = 0.5;
+        defaultTwinklwOpa2 = 0.65;
+        defaultTwinklwOpa3 = 0.75;
+        if(twinkleOpaState == 1){twinkleOpa = defaultTwinklwOpa1;}
+        else if(twinkleOpaState == 2){twinkleOpa = defaultTwinklwOpa2;}
+        else if(twinkleOpaState == 3){twinkleOpa = defaultTwinklwOpa3;}
+        $(".plaintext").css("font-weight", "1000");
+      }
   
       $filterOn.off();
       $filterOff.off();
@@ -1073,47 +1126,53 @@ $filterOn.mouseover(function(){
 
 $filterOff.on("click", function(){
   if(setting == false && settingButtonCanClick){
-    setting = true;
-    cloudOn = true;
+    settingButtonCanClick = false;
+    // setting = true;
+    // cloudOn = true;
     settingButtonFold();
-    $settingText.css("opacity", "0");
-    $settingButton.css("filter", "blur(6px)");
-    $settingButton.css("opacity", "0");
-
+    //$settingText.css("opacity", "0");
+  
     //~~~~~~~
     cloudRequestAnimBool = false;
-    requestTimeout(function(){
-      $filtered.css("display", "initial");
-      $filtered.addClass("offFilter");
+    delete_setting_text();
+    requestTimeout(()=>{
+      $settingButton.css("filter", "blur(6px)");
+      $settingButton.css("opacity", "0");
+    }, 1000);
+
+    // requestTimeout(function(){
+    //   $filtered.css("display", "initial");
+    //   $filtered.addClass("offFilter");
   
-      requestTimeout(function(){
-        document.documentElement.pseudoStyle('before', 'z-index','3');
-        $settingClass.css("opacity", "0");
-      }, 1100);
-      requestTimeout(function(){
-        $scrollContainer.css("background", "var(--reflectionBG)");
-        $bodyRotate.css("display", "initial");
-      }, 1800);
-      requestTimeout(function(){
-        $settingClass.css("display", "none");
-        $settingClass.children().prop("disabled", true);
-      }, 2500);
+    //   requestTimeout(function(){
+    //     document.documentElement.pseudoStyle('before', 'z-index','3');
+    //     $settingClass.css("opacity", "0");
+    //   }, 1100);
+    //   requestTimeout(function(){
+    //     $scrollContainer.css("background", "var(--reflectionBG)");
+    //     $bodyRotate.css("display", "initial");
+    //   }, 1800);
+    //   requestTimeout(function(){
+    //     $settingClass.css("display", "none");
+    //     $settingClass.children().prop("disabled", true);
+    //   }, 2500);
   
-      /*setting for light filter*/
-      $filterSwitchButton.removeClass("heavy");
-      $filterSwitchButton.addClass("light");
-      $filterSwitchText.text("light filter");
-      filterState = 1;
-      twinkleBrighterOpa = 1;
-      twinkleBrightDimOpa = 0.65;
-      defaultTwinklwOpa1 = 0.29;
-      defaultTwinklwOpa2 = 0.35;
-      defaultTwinklwOpa3 = 0.4;
-      twinkleOpa = defaultTwinklwOpa1;
+    //   /*setting for light filter*/
+    //   $filterSwitchButton.removeClass("heavy");
+    //   $filterSwitchButton.addClass("light");
+    //   $filterSwitchText.text("light filter");
+    //   filterState = 1;
+    //   twinkleBrighterOpa = 1;
+    //   twinkleBrightDimOpa = 0.65;
+    //   defaultTwinklwOpa1 = 0.29;
+    //   defaultTwinklwOpa2 = 0.35;
+    //   defaultTwinklwOpa3 = 0.4;
+    //   twinkleOpa = defaultTwinklwOpa1;
   
-      $filterOn.off();
-      $filterOff.off();
-    }, 500);
+    //   $filterOn.off();
+    //   $filterOff.off();
+    // }, 500);
+    
   }
 });
 $filterOff.mousedown(function(){
@@ -1123,17 +1182,101 @@ $filterOff.mouseover(function(){
   if(settingButtonCanClick){$filterOff.css("cursor", "grab");}
 });
 
+/*****************************Aphorism************************************* */
+function generate_wbw_deletion(cur_text){
+  let cur_text_arr = cur_text.split(' ');
+  let output = [];
+  while (cur_text_arr.length != 0){
+    let popped = cur_text_arr.pop();
+    if (popped.includes(`>`)){
+      let p = cur_text_arr.pop();
+      while (!p.includes(`<`)){
+        p = cur_text_arr.pop();
+      }
+      p = cur_text_arr.pop();
+    }
+
+    while (cur_text_arr.length > 0 && cur_text_arr[cur_text_arr.length-1] == ' '){
+      cur_text_arr.pop();
+    }
+    
+    let toPush = cur_text_arr.join(' ');
+    if(toPush.replace(/[\s\n\r\f\t\v]/g, '').length){output.push(toPush);}
+  }
+  output.push(``);
+  return output;
+}
+
+function generate_wbw_typing(target_text){
+  let target_text_arr = target_text.split(' ');
+  console.log(target_text_arr);
+  let output = [];
+  while (target_text_arr.length != 0){
+    output.unshift(target_text_arr.join(' '));
+    let popped = target_text_arr.pop();
+
+    if (popped.includes(`>`) && !popped.includes(`<`)){
+      let p = target_text_arr.pop();
+      while (!p.includes(`<`)){
+        p = target_text_arr.pop();
+      }
+      p = target_text_arr.pop();
+    }
+  }
+  //console.log(output);
+  return output;
+}
+
+function delete_setting_text(){
+  let text_arr = generate_wbw_deletion($settingText.html());
+  text_arr.forEach((text, index)=>{
+    requestTimeout(()=>{
+      $settingText.html(text);
+    }, index * 100);
+    if(index == text_arr.length -1){
+      requestTimeout(type_out_aphorism, index*130 + 800);
+    }
+  });
+}
+
+function type_out_aphorism(){
+  let text_arr = generate_wbw_typing(today_aphorism);
+  text_arr.forEach((text, index)=>{
+    requestTimeout(()=>{
+      $settingText.html(text);
+    }, index * 200);
+  });
+}
+
 /**********************************filter switch*************************** */
 let $filterSwitch = $(".filterSwitch");
 let $filterSwitchText = $(".filterSwitchText");
 let $filterSwitchButton = $(".filterButton");
+let $filterSwitchIntro = $(`.filter-switch-intro`);
+let duringFilterIntro = false;
 let filterState = 0;
 
 $filterSwitch.mouseover(function(){
-  $filterSwitchText.css("opacity", "1");
+  if(!duringFilterIntro){
+    $filterSwitchText.css("opacity", "1");
+  }
 });
 $filterSwitch.mouseleave(function(){
   $filterSwitchText.css("opacity", "0");
+});
+
+$settingButton.on("click", function(){
+  if(setting){
+    duringFilterIntro = true;
+    $filterSwitchText.css("opacity", "0");
+    requestTimeout(function(){
+      $filterSwitchIntro.css(`opacity`, `1`);
+      requestTimeout(function(){
+        $filterSwitchIntro.css(`opacity`, `0`);
+        duringFilterIntro = false;
+      }, 10000);
+    }, 200);
+  }
 });
 
 $filterSwitchButton.click(function(){
@@ -1151,8 +1294,8 @@ $filterSwitchButton.click(function(){
       $filtered.removeClass("offFilter");
 
       twinkleBrighterOpa = 1;
-      twinkleBrightDimOpa = 0.85;
-      defaultTwinklwOpa1 = 0.45;
+      twinkleBrightDimOpa = 0.9;
+      defaultTwinklwOpa1 = 0.5;
       defaultTwinklwOpa2 = 0.65;
       defaultTwinklwOpa3 = 0.75;
       if(twinkleOpaState == 1){twinkleOpa = defaultTwinklwOpa1;}
@@ -1263,6 +1406,7 @@ let fadeInEcA2 = eclipseA2;
 
 function startAnim(){
   if(start){
+    $filterSwitchButton.css("cursor", "wait");
     requestTimeout(function(){
       mouseY = 0.2 * window.innerHeight;
       cancelAnimationFrame(IDfollowCursor);
@@ -2067,10 +2211,10 @@ let hMarginL = 5;
 let hFontSize = 72;
 let bodyBlur = 0.85;
 function adjustElementSize(){
-  if(window.innerWidth < 2400 && window.innerWidth >= 1000){
+  if(window.innerWidth < 2600 && window.innerWidth >= 2000){
     plaintextFontSize = 27; 
     moonScale = 1; 
-    moonMarginL = 6; 
+    moonMarginL = 7; 
     hMarginL = 5; 
     hFontSize = 80;
     $rotateTextOne.css("display", "inline-block");
@@ -2083,9 +2227,72 @@ function adjustElementSize(){
     bodyBlur = 0.65;
     //scrollinstance.options("overflowBehavior.x", "h");
   }
-  else if(window.innerWidth < 1000 && window.innerWidth >= 800){
+  else if(window.innerWidth < 2000 && window.innerWidth >= 1700){
     plaintextFontSize = 26; 
-    moonMarginL = 5; 
+    moonScale = 1; 
+    moonMarginL = 7; 
+    hMarginL = 5; 
+    hFontSize = 80;
+    $rotateTextOne.css("display", "inline-block");
+    $rotateTextTwo.css("display", "inline-block");
+    $h1.text("Self-Help Guide : Arstrology");
+    $yearMonthButton.css("display", "inline-block");
+    timeButtonMouseOverFunc = 0;
+    $plaintext.css("margin-right", "9%");
+    $timeInput.css("width", "55%");
+    bodyBlur = 0.65;
+    //scrollinstance.options("overflowBehavior.x", "h");
+  }
+  else if(window.innerWidth < 2000 && window.innerWidth >= 1500){
+    plaintextFontSize = 25; 
+    moonScale = 1; 
+    moonMarginL = 7; 
+    hMarginL = 5; 
+    hFontSize = 80;
+    $rotateTextOne.css("display", "inline-block");
+    $rotateTextTwo.css("display", "inline-block");
+    $h1.text("Self-Help Guide : Arstrology");
+    $yearMonthButton.css("display", "inline-block");
+    timeButtonMouseOverFunc = 0;
+    $plaintext.css("margin-right", "9%");
+    $timeInput.css("width", "55%");
+    bodyBlur = 0.65;
+    //scrollinstance.options("overflowBehavior.x", "h");
+  }
+  else if(window.innerWidth < 1500 && window.innerWidth >= 1200){
+    plaintextFontSize = 24; 
+    moonScale = 1; 
+    moonMarginL = 7; 
+    hMarginL = 5; 
+    hFontSize = 80;
+    $rotateTextOne.css("display", "inline-block");
+    $rotateTextTwo.css("display", "inline-block");
+    $h1.text("Self-Help Guide : Arstrology");
+    $yearMonthButton.css("display", "inline-block");
+    timeButtonMouseOverFunc = 0;
+    $plaintext.css("margin-right", "9%");
+    $timeInput.css("width", "55%");
+    bodyBlur = 0.65;
+    //scrollinstance.options("overflowBehavior.x", "h");
+  }
+  else if(window.innerWidth < 1200 && window.innerWidth >= 1000){
+    plaintextFontSize = 24; 
+    moonMarginL = 7; 
+    hFontSize = 72;
+    hMarginL = 5; 
+    $rotateTextOne.css("display", "inline-block");
+    $rotateTextTwo.css("display", "inline-block");
+    $h1.text("Self-Help Guide : Arstrology");
+    $yearMonthButton.css("display", "inline-block");
+    timeButtonMouseOverFunc = 0;
+    $plaintext.css("margin-right", "6%");
+    $timeInput.css("width", "55%");
+    bodyBlur = 0.6;
+    //scrollinstance.options("overflowBehavior.x", "h");
+  }
+  else if(window.innerWidth < 1000 && window.innerWidth >= 800){
+    plaintextFontSize = 23; 
+    moonMarginL = 6; 
     hFontSize = 72;
     hMarginL = 5; 
     $rotateTextOne.css("display", "inline-block");
@@ -2099,8 +2306,8 @@ function adjustElementSize(){
     //scrollinstance.options("overflowBehavior.x", "h");
   }
   else if(window.innerWidth < 800 && window.innerWidth >= 700){
-    plaintextFontSize = 24; 
-    moonMarginL = 5; 
+    plaintextFontSize = 22; 
+    moonMarginL = 6; 
     hFontSize = 66;
     hMarginL = 5; 
     $rotateTextOne.css("display", "inline-block");
@@ -2114,8 +2321,8 @@ function adjustElementSize(){
     //scrollinstance.options("overflowBehavior.x", "h");
   }
   else if(window.innerWidth < 700 && window.innerWidth >= 600){
-    plaintextFontSize = 22;
-    moonMarginL = 20;
+    plaintextFontSize = 21;
+    moonMarginL = 25;
     hMarginL = 4;
     hFontSize = 60; 
     $rotateTextOne.css("display", "none");
@@ -2129,8 +2336,8 @@ function adjustElementSize(){
     //scrollinstance.options("overflowBehavior.x", "h");
   }
   else if(window.innerWidth < 600 && window.innerWidth >= 500){
-    plaintextFontSize = 22;
-    moonMarginL = 16;
+    plaintextFontSize = 20;
+    moonMarginL = 20;
     hMarginL = 3;
     hFontSize = 57; 
     $rotateTextOne.css("display", "none");
@@ -2145,7 +2352,7 @@ function adjustElementSize(){
   }
   else if(window.innerWidth < 500 && window.innerWidth >= 400){
     plaintextFontSize = 20;
-    moonMarginL = 16;
+    moonMarginL = 20;
     hMarginL = 3;
     hFontSize = 53; 
     $rotateTextOne.css("display", "none");
@@ -2160,7 +2367,7 @@ function adjustElementSize(){
   }
   else if(window.innerWidth <400){
     plaintextFontSize = 20; 
-    moonMarginL = 16; 
+    moonMarginL = 20; 
     hMarginL = 3; 
     hFontSize = 50;
     $rotateTextOne.css("display", "none");
@@ -2176,7 +2383,7 @@ function adjustElementSize(){
   else{
     plaintextFontSize = 30; 
     moonScale = 1; 
-    moonMarginL = 6; 
+    moonMarginL = 7; 
     hMarginL = 5; 
     hFontSize = 85;
     $rotateTextOne.css("display", "inline-block");
@@ -2964,7 +3171,7 @@ $window.mouseup(function () {
     TIslider.style.setProperty("--sliderBlur", "4.5px");
     //timeContainer.style.setProperty("--timeContainerBlur", "3px");
 
-    $(document.body).css("cursor", "pointer");
+    $(document.body).css("cursor", "auto"); //was pointer
     $TIslider.css("cursor", "grab");
     $TIcircle.css("cursor", "grab");
   }
@@ -3360,11 +3567,11 @@ function paperDisappear(){
 
     if(moonCount == 1){
       mouseY = $nameSignText.offset().top - 0.15 * window.innerWidth;
-      mouseX = 0.2 * window.innerWidth;
+      mouseX = 0.5 * window.innerWidth;
     }
     else if(moonCount == 2){
       mouseY = $timeSignText.offset().top - 0.15 * window.innerWidth;
-      mouseX = 0.2 * window.innerWidth;
+      mouseX = 0.5 * window.innerWidth;
     }
 
     requestTimeout(function(){
@@ -3539,7 +3746,7 @@ function endScan(){
       }
       $nameSignPlainTexts[2].innerHTML = 
         `<span class="anotherFont">
-        <i class="fas fa-slash"></i>
+        <i class="fas fa-caret-down"></i>
         </span><br> ${$nameSignPlainTexts[2].innerHTML}`;
       //compatibility graph
       $nameSignPlainTexts[6].innerHTML=
@@ -3562,7 +3769,7 @@ function endScan(){
       }
       $timeSignPlainTexts[2].innerHTML = 
         `<span class="anotherFont">
-        <i class="fas fa-slash"></i>
+        <i class="fas fa-caret-down"></i>
         </span><br> ${$timeSignPlainTexts[2].innerHTML}`;
       //compatibility graph
       $timeSignPlainTexts[6].innerHTML = 

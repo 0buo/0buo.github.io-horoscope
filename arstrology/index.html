@@ -10,13 +10,14 @@
 
   <link rel="icon" href="./favicon.ico/favicon.png">
 
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&display=swap" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&display=swap" rel="stylesheet"> -->
 
   <link rel="stylesheet" href="./normalize/normalize.css"/>
   <link type="text/css" href="./overlayScroll/OverlayScrollbars.min.css" rel="stylesheet"/>
   <link type="text/css" href="./overlayScroll/os-theme-round-dark.css" rel="stylesheet"/>
 
-  <link rel="stylesheet" href="./style.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="./style.css" rel="stylesheet"/>
+
 </head>
 
 <body>
@@ -29,25 +30,18 @@
   <div id="scrollContainer">
     <div class="setting noselect">
       <div class="settingText">
-        <p>Hello,<br><br>
-          <span id="smallerST">this site uses an</span> animated SVG fitler <span id="smallerST">, 
-          which may</span> slow down or even crash <span id="smallerST">your browser due to inadequate machine performance.</span><br><br>
-          <span id="smallerST">you can choose to</span> leave it on <span id="smallerST">(heavily filtered)</span> or off <span id="smallerST">(lightly filtered).</span><br>
-          <span id="smallerST">After you enter the site, you can also switch the filter with <i class="fas fa-adjust"></i></span> the button at the upper right corner <span id="smallerST"><i class="fas fa-adjust"></i></span><br><br>
-          <span id="smallerST">
-            <i class="fab fa-chrome"></i> Chrome or Microsoft Edge recommended <i class="fab fa-edge"></i>
-          </span>
-        </p>
-      </div>
+Hello, <br>
+<br> There’s always been a sense of apprehension lurking around ever since I stepped in the world of artistic careers. It is somewhere near as well as farther afield. The process of artmaking pushes and pulls it but doesn't dump it. <br>
+<br> Do</div>
       <div class="settingButton">
         <button id="filterOn">
           <span id="filterOnText">
-            lv<br class="default-font">it<br class="default-font">on
+            yy<br class="default-font">yy<br class="default-font">yy
           </span>
         </button>
         <button id="filterOff">
           <span id="filterOffText">
-            tk<br class="default-font">it<br class="default-font">of
+            nn<br class="default-font">nn<br class="default-font">nn
           </span>
         </button>
       </div>
@@ -86,7 +80,7 @@
       <!--   <div id="scanBar"></div> -->
         <div class="switchDiv">
           <div id="namesDiv">
-            <div class="noselect selectionDivText plaintextWrapper">
+            <div class="noselect selectionDivText plaintextWrapper toMid">
               <div class="selectionDivText">
                 <p class="plaintext" id="4">
                   Name has the power of being convincing as well as being restrictive . Astrology predicts with names . With names , an important part of your role as an artist is known . Instead of using your first and last names , answer the following questions to get the input data :
@@ -117,7 +111,7 @@
             </div>
             <!-- </form> -->
 
-            <div class="noselect selectionDivText plaintextWrapper">
+            <div class="noselect selectionDivText plaintextWrapper toLeft">
               <div id="nameSignText">
                 <p class="signHeader"><p>
                 
@@ -156,7 +150,7 @@
           </div>
         
           <div id="timesDiv">
-            <div class="noselect  plaintextWrapper">
+            <div class="noselect  plaintextWrapper toMid">
               <div class="selectionDivText">
                 <p class="plaintext" id="14">
                   Time is a record . Astrology predicts with time . With time , the marks of your artistic careers are known . Instead of using your birth time :
@@ -186,7 +180,7 @@
               <div id="timeContainer" class="noselect"><button id="yearMonthButton"></button></div>
             </div>
     
-            <div class="noselect selectionDivText plaintextWrapper">
+            <div class="noselect selectionDivText plaintextWrapper toLeft">
               <div id="timeSignText">
                 <p class="signHeader"><p>
                 <!-- gloss -->
@@ -273,6 +267,7 @@
   <div class="filterSwitch">
     <button class="filterButton"></button>
     <div class="filterSwitchText noselect">filter setting</div>
+    <div class="noselect filter-switch-intro"><i class="fas fa-caret-up"></i> switch filter if slow or illegible</div>
   </div>
 
   <!-- filter -->
@@ -334,7 +329,7 @@
   <script type="text/javascript" src='./jquery.ui/jquery-ui.min.js'></script>
   <script src="//cdn.jsdelivr.net/npm/velocity-animate@2.0/velocity.min.js"></script>
   <script type="text/javascript" src="./seedrandom/seedrandom.min.js"></script>
-  <script type="text/javascript" src="./loading.min.js"></script>
+  <script type="text/javascript" src="./loading.js"></script>
 </body>
 
 </html>
