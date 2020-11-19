@@ -150,7 +150,7 @@ function loadAphorism(){
         }
         else{
             today_aphorism = JSON.parse(localStorage.getItem(`today-aphorism`));
-            console.log(today_aphorism);
+            //console.log(today_aphorism);
         }
 
         let aphorism_prefix = `The aphorism of art for the day: <br> <br> <br> <br> <br> <br> &nbsp &nbsp &nbsp `;
