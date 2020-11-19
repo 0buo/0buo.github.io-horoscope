@@ -1795,6 +1795,17 @@ input::-ms-reveal, input::-ms-clear {
           filter: blur(1.5px);
 }
 
+/* *********************citation***************************** */
+.citation:hover:after{
+  content: attr(content);
+
+  font-family: 'Syne Mono', monospace;
+  font-size: calc(var(--settingFontSize) * 0.6);
+  font-weight: 200;
+  /* text-align: right; */
+  color: white;
+}
+
 /* *********************filter switch*********************** */
 .filterSwitch{
   position: fixed;

@@ -1138,7 +1138,7 @@ $filterOff.on("click", function(){
     requestTimeout(()=>{
       $settingButton.css("filter", "blur(6px)");
       $settingButton.css("opacity", "0");
-    }, 1000);
+    }, 1500);
 
     // requestTimeout(function(){
     //   $filtered.css("display", "initial");
@@ -1209,7 +1209,6 @@ function generate_wbw_deletion(cur_text){
 
 function generate_wbw_typing(target_text){
   let target_text_arr = target_text.split(' ');
-  console.log(target_text_arr);
   let output = [];
   while (target_text_arr.length != 0){
     output.unshift(target_text_arr.join(' '));
@@ -1244,6 +1243,9 @@ function type_out_aphorism(){
   text_arr.forEach((text, index)=>{
     requestTimeout(()=>{
       $settingText.html(text);
+      if(index == text_arr.length-1){
+        $settingText.children('.cited').removeClass('cited').addClass('citation');
+      }
     }, index * 200);
   });
 }

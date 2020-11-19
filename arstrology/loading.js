@@ -178,6 +178,9 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 var isFirefox = typeof InstallTrigger !== 'undefined';
 // Safari 3.0+ "[object HTMLElementConstructor]" 
 var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+if(isSafari){
+    alert('This site is not supported on Safari currently.');
+}
 
 //==
 let files_loaded = 0;
