@@ -154,7 +154,7 @@ function loadAphorism(){
         }
 
         let aphorism_prefix = `The aphorism of art for the day: <br> <br> <br> <br> <br> <br> &nbsp &nbsp &nbsp `;
-        let aphorism_postfix = ` <br> <br> <br> <br> <br> <br> right? <br>            . . . Come back tomorrow.`;
+        let aphorism_postfix = ` <br> <br> <br> <br> <br> <br> right ? <br>     .    .    .    Come  back  tomorrow.`;
         today_aphorism = aphorism_prefix + today_aphorism + aphorism_postfix;
     }).done(()=>{
         loadTextFromFiles();

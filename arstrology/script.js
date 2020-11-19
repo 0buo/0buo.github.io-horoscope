@@ -1232,7 +1232,7 @@ function delete_setting_text(){
   text_arr.forEach((text, index)=>{
     requestTimeout(()=>{
       $settingText.html(text);
-    }, index * 150);
+    }, index * 120);
     if(index == text_arr.length -1){
       requestTimeout(type_out_aphorism, index*150 + 800);
     }
