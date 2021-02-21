@@ -127,7 +127,7 @@ function swipedetect(el, callback){
     startY,
     distX,
     distY,
-    threshold = 30, //required min distance traveled to be considered swipe
+    threshold = 50, //required min distance traveled to be considered swipe
     //restraint = 100, // maximum distance allowed at the same time in perpendicular direction
     allowedTime = 200, // maximum time allowed to travel that distance
     elapsedTime,
@@ -416,8 +416,8 @@ class Menus{
             this.isScroll = false;
             this.isSwipe = true;
 
-            if(swipedir == `left`) this.deltaY += -175 * -0.25;
-            if (swipedir == `right`) this.deltaY += 175 * -0.25;
+            if(swipedir == `left`) this.deltaY += -175 * -0.4;
+            if (swipedir == `right`) this.deltaY += 175 * -0.4;
 
             cancelAnimationFrame(this.IDMainScroll);
             cancelAnimationFrame(this.IDMainSwipe);
