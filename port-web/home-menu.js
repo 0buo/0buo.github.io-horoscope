@@ -178,8 +178,6 @@ swipedetect(el, function(swipedir){
 
 //==================================================================
 //************main scripts**************
-let isMobileTablet = mobileAndTabletCheck();
-
 let NOWmainScroll, LASTNOWmainScroll;
 class Menus{
     constructor(){
@@ -281,7 +279,8 @@ class Menus{
     }
 }
 
-
+let isMobileTablet = mobileAndTabletCheck();
+document.getElementById(`test`).innerHTML = `123`
 $(`body`).css("background-color", "red");
 menus = new Menus();
 
