@@ -221,16 +221,14 @@ class Menus{
     }
 
     select(){
-        //hover
-        this.$optionCircles.mouseover(function(){
+        this.$optionCircles.bind(`mousedown touchstart`, function(){
             $(this).css(`background-color`, `black`);
             $(this).css(`transform`, `matrix(1.5,0,0,1.5,0,0)`);
         });
-        this.$optionCircles.mouseleave(function(){
+        this.$optionCircles.bind(`mouseup touchend`, function(){
             $(this).css(`background-color`, `transparent`);
             $(this).css(`transform`, `matrix(1,0,0,1,0,0)`);
         });
-        //mousedown
 
     }
 
