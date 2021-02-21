@@ -237,13 +237,14 @@ class Menus{
         LASTNOWmainScroll = undefined;
         this.isScroll = false;
         this.isSwipe = false;
+        this.deltaY = 0;
         //scroll
         this.mainMenu.addEventListener(`wheel`, function(event){
             this.isSwipe = false;
             this.isScroll = true;
 
             //event.preventDefault();
-            this.deltaY = event.deltaY * -1;
+            this.deltaY += event.deltaY * -0.5;
             cancelAnimationFrame(this.IDMainScroll);
             cancelAnimationFrame(this.IDMainSwipe);
             this.IDMainScroll = requestAnimFrame(this.rotate.bind(this));
@@ -253,8 +254,8 @@ class Menus{
             this.isScroll = false;
             this.isSwipe = true;
 
-            if(swipedir == `left`) this.deltaY = -175 * -1;
-            if (swipedir == `right`) this.deltaY = 175 * -1;
+            if(swipedir == `left`) this.deltaY += -175 * -1;
+            if (swipedir == `right`) this.deltaY += 175 * -1;
 
             cancelAnimationFrame(this.IDMainScroll);
             cancelAnimationFrame(this.IDMainSwipe);
