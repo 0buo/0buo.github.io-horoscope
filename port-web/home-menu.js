@@ -266,6 +266,9 @@ class Menus{
     }
 
     select(){
+        this.$optionCircles.mouseover(function(){
+            console.log($(this).css(`transform`))
+        })
         //down
         this.$optionCircles.bind(`mousedown touchstart`, function(){
             let $thisCircle = $(this);
@@ -280,7 +283,7 @@ class Menus{
             else{
                 if(!isMobileTablet) $thisCircle.css(`transform`, `matrix(9.5,0,0,9.5,0,0)`);
                 else {
-                    $thisCircle.css(`transform`, `matrix(5.5,0,0,5.5,0,0) rotate(90deg)`);
+                    $thisCircle.css(`transform`, `matrix(3.36778e-16, -5.5, 5.5, 3.36778e-16, 0, 0)`);
                 }
                 $thisCircle.css(`background-image`, `url(${preview})`);
             }
