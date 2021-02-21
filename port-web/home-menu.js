@@ -127,9 +127,9 @@ function swipedetect(el, callback){
     startY,
     distX,
     distY,
-    threshold = 60, //required min distance traveled to be considered swipe
+    threshold = 30, //required min distance traveled to be considered swipe
     //restraint = 100, // maximum distance allowed at the same time in perpendicular direction
-    allowedTime = 300, // maximum time allowed to travel that distance
+    allowedTime = 200, // maximum time allowed to travel that distance
     elapsedTime,
     startTime,
     handleswipe = callback || function(swipedir){}
@@ -266,9 +266,11 @@ class Menus{
     }
 
     select(){
-        this.$optionCircles.mouseover(function(){
-            console.log($(this).css(`transform`))
-        })
+        //test transform matrix
+        // this.$optionCircles.mouseover(function(){
+        //     console.log($(this).css(`transform`))
+        // })
+
         //down
         this.$optionCircles.bind(`mousedown touchstart`, function(){
             let $thisCircle = $(this);
@@ -283,7 +285,7 @@ class Menus{
             else{
                 if(!isMobileTablet) $thisCircle.css(`transform`, `matrix(9.5,0,0,9.5,0,0)`);
                 else {
-                    $thisCircle.css(`transform`, `matrix(3.36778e-16, -5.5, 5.5, 3.36778e-16, 0, 0)`);
+                    $thisCircle.css(`transform`, `matrix(3.36778e-16, 5.5, -5.5, 3.36778e-16, 0, 0)`);
                 }
                 $thisCircle.css(`background-image`, `url(${preview})`);
             }
@@ -414,8 +416,8 @@ class Menus{
             this.isScroll = false;
             this.isSwipe = true;
 
-            if(swipedir == `left`) this.deltaY += -175 * -0.5;
-            if (swipedir == `right`) this.deltaY += 175 * -0.5;
+            if(swipedir == `left`) this.deltaY += -175 * -0.25;
+            if (swipedir == `right`) this.deltaY += 175 * -0.25;
 
             cancelAnimationFrame(this.IDMainScroll);
             cancelAnimationFrame(this.IDMainSwipe);
