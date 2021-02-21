@@ -5,7 +5,7 @@ body{
 #main-menu {
     --scrollDeg: 15deg;
     position: fixed;
-    /* perspective: 700px; */
+    -webkit-perspective: 0;
 }
 
 .horizontal{
@@ -25,18 +25,21 @@ body{
     width: 100vh;
     max-width: 650px;
     height: 150px;
+
     transform-origin: center left;
-    transform: rotate(-90deg);
+    transform: rotateZ(-90deg);
+    -webkit-transform-origin: center left;
+    -webkit-transform: rotateZ(-90deg);
 }
-  
+
 .menu {
     width: 100%;
     height: 100%;
     position: relative;
-    /* transition: all 1s ease-in-out; */
-    transform-style: preserve-3d;
-    -webkit-transform: translate3d(0,0,0);
+
+    transform-style: preserve-3d; 
     transform: rotateX(var(--scrollDeg));
+    -webkit-transform: rotateX(var(--scrollDeg));
 }
 
 .face {
@@ -60,10 +63,22 @@ body{
     text-rendering: optimizeLegibility;
 }
 
-.face1 { transform: rotateX(  0deg) translateZ(75px); }
-.face2 { transform: rotateX(180deg) translateZ(75px); }
-.face3 { transform: rotateX( 90deg) translateZ(75px); }
-.face4 { transform: rotateX(-90deg) translateZ(75px); }
+.face1 { 
+    transform: rotateX(0deg) translateZ(75px);
+    -webkit-transform: rotateX(0deg) translateZ(75px);
+}
+.face2 { 
+    transform: rotateX(180deg) translateZ(75px); 
+    -webkit-transform: rotateX(180deg) translateZ(75px); 
+}
+.face3 { 
+    transform: rotateX( 90deg) translateZ(75px); 
+    -webkit-transform: rotateX( 90deg) translateZ(75px);
+}
+.face4 { 
+    transform: rotateX(-90deg) translateZ(75px); 
+    -webkit-transform: rotateX(-90deg) translateZ(75px); 
+}
 /* .face5 { transform: rotateX(-144deg) translateZ(103px); } */
 
 .option-circle{
