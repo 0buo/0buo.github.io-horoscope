@@ -15,47 +15,74 @@
         <!-- <div>345</div> -->
         <div id="main-menu" class="horizontal noselect">
             <div class="menu">
-                <div class="face face1">info
+                <div class="face" id="face1">info
                     <div class="option-circle"></div>   
                 </div>
-                <div class="face face2">undone
+                <div class="face" id="face2">undone
                     <div class="option-circle"></div>
                 </div>
-                <div class="face face3">new
+                <div class="face" id="face3">new
                     <div class="option-circle"></div>
                 </div>
-                <div class="face face4">past
+                <div class="face" id="face4">past
                     <div class="option-circle"></div>
                 </div>
-                <!-- <div class="face face5" style="">
+                <!-- <div class="face" id="face5" style="">
                     <div class="option-circle"></div>
                 </div> -->
             </div>
         </div>
 
+        <div id="past-menu" class="horizontal noselect">
+            <div class="menu">
+                <div class="face" id="face5">5
+                    <div class="option-circle"></div>   
+                </div>
+                <div class="face" id="face6">6
+                    <div class="option-circle"></div>
+                </div>
+                <div class="face" id="face7">7
+                    <div class="option-circle"></div>
+                </div>
+                <div class="face" id="face8">8
+                    <div class="option-circle"></div>
+                </div>
+                <div class="face" id="face9">9
+                    <div class="option-circle"></div>
+                </div>
+                <div class="face" id="face10">10
+                    <div class="option-circle"></div>
+                </div>
+                <div class="face" id="face11">11
+                    <div class="option-circle"></div>
+                </div>
+            </div>
+        </div>
+
+        
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
             <defs>
                 <filter id="squiggly-0">
                     <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="5" result="noise" seed="0" />
-                    <feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="8" />
+                    <feDisplacementMap id="displacement0" in="SourceGraphic" in2="noise" scale="12" />
                 </filter>
                 <filter id="squiggly-1">
                     <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="6" result="noise" seed="1" />
-                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="10" />
+                    <feDisplacementMap id="displacement1" in="SourceGraphic" in2="noise" scale="15" />
                 </filter>
         
                 <filter id="squiggly-2">
                     <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="10" result="noise" seed="2" />
-                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="7" />
+                    <feDisplacementMap id="displacement2" in="SourceGraphic" in2="noise" scale="10" />
                 </filter>
                 <filter id="squiggly-3">
                     <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="7" result="noise" seed="3" />
-                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="9" />
+                    <feDisplacementMap id="displacement3" in="SourceGraphic" in2="noise" scale="12" />
                 </filter>
         
                 <filter id="squiggly-4">
                     <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="4" />
-                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" />
+                    <feDisplacementMap id="displacement4" in="SourceGraphic" in2="noise" scale="9" />
                 </filter>
             </defs>
         </svg>

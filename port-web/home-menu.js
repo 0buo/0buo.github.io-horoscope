@@ -184,6 +184,8 @@ class Menus{
     constructor(){
         this.mainMenu = document.getElementById(`main-menu`);
         this.$mainMenu = $(`#main-menu`);
+        this.pastMenu = document.getElementById(`past-menu`);
+        this.$pastMenu = $(`#past-menu`);
         this.$optionCircles = $(`.option-circle`);
         this.main();
     }
@@ -192,10 +194,14 @@ class Menus{
         if(window.innerWidth < 650 || isMobileTablet){
             this.$mainMenu.removeClass(`horizontal`);
             this.$mainMenu.addClass(`vertical`);
+            this.$pastMenu.removeClass(`horizontal`);
+            this.$pastMenu.addClass(`vertical`);
         }
         else{
             this.$mainMenu.removeClass(`vertical`);
             this.$mainMenu.addClass(`horizontal`);
+            this.$pastMenu.removeClass(`vertical`);
+            this.$pastMenu.addClass(`horizontal`);
         }
     }
 
@@ -207,11 +213,19 @@ class Menus{
         let dt = (NOWmainScroll - LASTNOWmainScroll)/1000;
         LASTNOWmainScroll = NOWmainScroll;
 
-        let currentScroll = parseFloat(getComputedStyle(this.mainMenu).getPropertyValue("--scrollDeg"));
-        let targetScroll = currentScroll + this.deltaY;
+        let currentScrollMain = parseFloat(getComputedStyle(this.mainMenu).getPropertyValue("--scrollDeg"));
+        let currentScrollPast = parseFloat(getComputedStyle(this.pastMenu).getPropertyValue("--scrollDeg"));
+
+        let targetScrollMain = currentScrollMain + this.deltaY;
+        let targetScrollPast = currentScrollPast + this.deltaY;
+
         this.deltaY = lerp(this.deltaY, 0, 1 - Math.pow(0.1,dt));
-        currentScroll = lerp(currentScroll, targetScroll, 1 - Math.pow(0.15, dt));
-        this.mainMenu.style.setProperty(`--scrollDeg`, currentScroll + `deg`);
+
+        currentScrollMain = lerp(currentScrollMain, targetScrollMain, 1 - Math.pow(0.15, dt));
+        currentScrollPast = lerp(currentScrollPast, targetScrollPast, 1 - Math.pow(0.15, dt));
+
+        this.mainMenu.style.setProperty(`--scrollDeg`, currentScrollMain + `deg`);
+        this.pastMenu.style.setProperty(`--scrollDeg`, currentScrollPast + `deg`);
 
         cancelAnimationFrame(this.IDMainScroll);
         cancelAnimationFrame(this.IDMainSwipe);
@@ -242,6 +256,7 @@ class Menus{
         let seedRandom = new Math.seedrandom();
         let randDeg = Math.floor(seedRandom() * 360);
         this.mainMenu.style.setProperty(`--scrollDeg`, randDeg+`deg`);
+        this.pastMenu.style.setProperty(`--scrollDeg`, randDeg+`deg`);
 
         //=========
         //ORIENTATION OF MENU
@@ -256,7 +271,7 @@ class Menus{
         this.isSwipe = false;
         this.deltaY = 0;
         //scroll
-        this.mainMenu.addEventListener(`wheel`, function(event){
+        window.addEventListener(`wheel`, function(event){
             this.isSwipe = false;
             this.isScroll = true;
 
@@ -285,6 +300,15 @@ class Menus{
     }
 }
 
+
 let isMobileTablet = mobileAndTabletCheck();
+//if mobile change html svg displacement attribute sacle
+if(isMobileTablet){
+    document.getElementById(`displacement0`).setAttribute(`scale`, `36`);
+    document.getElementById(`displacement1`).setAttribute(`scale`, `45`);
+    document.getElementById(`displacement2`).setAttribute(`scale`, `30`);
+    document.getElementById(`displacement3`).setAttribute(`scale`, `36`);
+    document.getElementById(`displacement4`).setAttribute(`scale`, `27`);
+}
 menus = new Menus();
 
