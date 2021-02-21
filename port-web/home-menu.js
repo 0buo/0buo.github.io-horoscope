@@ -179,13 +179,17 @@ swipedetect(el, function(swipedir){
 
 //==================================================================
 //************main scripts**************
-let NOWmainScroll, LASTNOWmainScroll;
+let NOWmainScroll, LASTNOWmainScroll, IDmenuDisplay;
 class Menus{
     constructor(){
         this.mainMenu = document.getElementById(`main-menu`);
         this.$mainMenu = $(`#main-menu`);
         this.pastMenu = document.getElementById(`past-menu`);
         this.$pastMenu = $(`#past-menu`);
+        this.newMenu = document.getElementById(`new-menu`);
+        this.$newMenu = $(`#new-menu`);
+        this.undoneMenu = document.getElementById(`undone-menu`);
+        this.$undoneMenu = $(`#undone-menu`);
 
         this.$optionCircles = $(`.option-circle`);
         this.main();
@@ -197,12 +201,20 @@ class Menus{
             this.$mainMenu.addClass(`vertical`);
             this.$pastMenu.removeClass(`horizontal`);
             this.$pastMenu.addClass(`vertical`);
+            this.$newMenu.removeClass(`horizontal`);
+            this.$newMenu.addClass(`vertical`);
+            this.$undoneMenu.removeClass(`horizontal`);
+            this.$undoneMenu.addClass(`vertical`);
         }
         else{
             this.$mainMenu.removeClass(`vertical`);
             this.$mainMenu.addClass(`horizontal`);
             this.$pastMenu.removeClass(`vertical`);
             this.$pastMenu.addClass(`horizontal`);
+            this.$newMenu.removeClass(`vertical`);
+            this.$newMenu.addClass(`horizontal`);
+            this.$undoneMenu.removeClass(`vertical`);
+            this.$undoneMenu.addClass(`horizontal`);
         }
     }
 
@@ -215,18 +227,26 @@ class Menus{
         LASTNOWmainScroll = NOWmainScroll;
 
         let currentScrollMain = parseFloat(getComputedStyle(this.mainMenu).getPropertyValue("--scrollDeg"));
-        let currentScrollPast = parseFloat(getComputedStyle(this.pastMenu).getPropertyValue("--scrollDeg"));
+        // let currentScrollPast = parseFloat(getComputedStyle(this.pastMenu).getPropertyValue("--scrollDeg"));
+        // let currentScrollNew = parseFloat(getComputedStyle(this.newMenu).getPropertyValue("--scrollDeg"));
+        // let currentScrollUndone = parseFloat(getComputedStyle(this.undoneMenu).getPropertyValue("--scrollDeg"));
 
         let targetScrollMain = currentScrollMain + this.deltaY;
-        let targetScrollPast = currentScrollPast + this.deltaY;
+        // let targetScrollPast = currentScrollPast + this.deltaY;
+        // let targetScrollNew = currentScrollNew + this.deltaY;
+        // let targetScrollUndone = currentScrollUndone + this.deltaY;
 
         this.deltaY = lerp(this.deltaY, 0, 1 - Math.pow(0.1,dt));
 
         currentScrollMain = lerp(currentScrollMain, targetScrollMain, 1 - Math.pow(0.15, dt));
-        currentScrollPast = lerp(currentScrollPast, targetScrollPast, 1 - Math.pow(0.15, dt));
+        // currentScrollPast = lerp(currentScrollPast, targetScrollPast, 1 - Math.pow(0.15, dt));
+        // currentScrollNew = lerp(currentScrollNew, targetScrollNew, 1 - Math.pow(0.15, dt));
+        // currentScrollUndone = lerp(currentScrollUndone, targetScrollUndone, 1 - Math.pow(0.15, dt));
 
         this.mainMenu.style.setProperty(`--scrollDeg`, currentScrollMain + `deg`);
-        this.pastMenu.style.setProperty(`--scrollDeg`, currentScrollPast + `deg`);
+        this.pastMenu.style.setProperty(`--scrollDeg`, currentScrollMain + `deg`);
+        this.newMenu.style.setProperty(`--scrollDeg`, currentScrollMain + `deg`);
+        this.undoneMenu.style.setProperty(`--scrollDeg`, currentScrollMain + `deg`);
 
         cancelAnimationFrame(this.IDMainScroll);
         cancelAnimationFrame(this.IDMainSwipe);
@@ -235,6 +255,7 @@ class Menus{
     }
 
     select(){
+        //down
         this.$optionCircles.bind(`mousedown touchstart`, function(){
             let $thisCircle = $(this);
             $thisCircle.css(`background-color`, `black`);
@@ -242,6 +263,8 @@ class Menus{
             $thisCircle.addClass(`squiggle`);
             $thisCircle.parent().addClass(`squiggle`);
         });
+
+        //window up
         $(window).bind(`mouseup touchend`, function(){
             this.$optionCircles.css(`background-color`, `transparent`);
             this.$optionCircles.css(`transform`, `matrix(1,0,0,1,0,0)`);
@@ -249,6 +272,82 @@ class Menus{
             this.$optionCircles.parent().removeClass(`squiggle`);
         }.bind(this));
 
+        //specific circle up
+        this.$optionCircles.bind(`mouseup touchend`, {$main: this.$mainMenu, $new: this.$newMenu, $past: this.$pastMenu, $undone: this.$undoneMenu}, function(e){
+            let $thisCircle = $(this);
+            let $main = e.data.$main;
+            let $past = e.data.$past;
+            let $new = e.data.$new;
+            let $undone = e.data.$undone;
+
+            if(!$thisCircle.parent().parent().parent().attr('class').includes(`menu-disappear`)){
+                console.log($thisCircle.parent().attr('id'));
+                
+                //if hit 'new'
+                if ($thisCircle.parent().attr('id') == `face3`){
+                    $new.css(`display`, `initial`);
+                    $main.addClass(`menu-disappear`);
+                    $past.addClass(`menu-disappear`);
+                    $undone.addClass(`menu-disappear`);
+                    $new.removeClass(`menu-disappear`);
+                    
+                    clearRequestTimeout(IDmenuDisplay);
+                    IDmenuDisplay = requestTimeout(function(){
+                        $main.css(`display`, `none`);
+                        $past.css(`display`, `none`);
+                        $undone.css(`display`, `none`);
+                    }.bind($main), 1100)
+                }
+                //if hit 'past'
+                else if ($thisCircle.parent().attr('id') == `face4`){
+                    $past.css(`display`, `initial`);
+                    $main.addClass(`menu-disappear`);
+                    $new.addClass(`menu-disappear`);
+                    $undone.addClass(`menu-disappear`);
+                    $past.removeClass(`menu-disappear`);
+                    
+                    clearRequestTimeout(IDmenuDisplay);
+                    IDmenuDisplay = requestTimeout(function(){
+                        $main.css(`display`, `none`);
+                        $new.css(`display`, `none`);
+                        $undone.css(`display`, `none`);
+                    }.bind($main), 1100)
+                }
+                //if hit 'undone'
+                else if ($thisCircle.parent().attr('id') == `face2`){
+                    $undone.css(`display`, `initial`);
+                    $main.addClass(`menu-disappear`);
+                    $new.addClass(`menu-disappear`);
+                    $past.addClass(`menu-disappear`);
+                    $undone.removeClass(`menu-disappear`);
+                    
+                    clearRequestTimeout(IDmenuDisplay);
+                    IDmenuDisplay = requestTimeout(function(){
+                        $main.css(`display`, `none`);
+                        $new.css(`display`, `none`);
+                        $past.css(`display`, `none`);
+                    }.bind($main), 1100)
+                }
+                //if hit 'back'
+                else if ($thisCircle.parent().attr('id') == `face12` || 
+                         $thisCircle.parent().attr('id') == `face15` ||
+                         $thisCircle.parent().attr('id') == `face18` ){
+                    $main.css(`display`, `initial`);
+                    $main.removeClass(`menu-disappear`);
+                    $past.addClass(`menu-disappear`);
+                    $new.addClass(`menu-disappear`);
+                    $undone.addClass(`menu-disappear`);
+    
+                    clearRequestTimeout(IDmenuDisplay);
+                    IDmenuDisplay = requestTimeout(function(){
+                        $past.css(`display`, `none`);
+                        $new.css(`display`, `none`);
+                        $undone.css(`display`, `none`);
+                    }.bind($past), 1100)
+                }
+                //
+            }        
+        });
     }
 
     main(){
@@ -258,6 +357,8 @@ class Menus{
         let randDeg = Math.floor(seedRandom() * 360);
         this.mainMenu.style.setProperty(`--scrollDeg`, randDeg+`deg`);
         this.pastMenu.style.setProperty(`--scrollDeg`, randDeg+`deg`);
+        this.newMenu.style.setProperty(`--scrollDeg`, randDeg+`deg`);
+        this.undoneMenu.style.setProperty(`--scrollDeg`, randDeg+`deg`);
 
         //=========
         //ORIENTATION OF MENU
