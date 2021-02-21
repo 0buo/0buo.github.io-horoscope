@@ -243,7 +243,7 @@ class Menus{
             this.isScroll = true;
 
             //event.preventDefault();
-            this.deltaY = event.deltaY * -0.8;
+            this.deltaY = event.deltaY * -1;
             cancelAnimationFrame(this.IDMainScroll);
             cancelAnimationFrame(this.IDMainSwipe);
             this.IDMainScroll = requestAnimFrame(this.rotate.bind(this));
@@ -253,8 +253,8 @@ class Menus{
             this.isScroll = false;
             this.isSwipe = true;
 
-            if(swipedir == `left`) this.deltaY = -175 * -0.8;
-            if (swipedir == `right`) this.deltaY = 175 * -0.8;
+            if(swipedir == `left`) this.deltaY = -175 * -1;
+            if (swipedir == `right`) this.deltaY = 175 * -1;
 
             cancelAnimationFrame(this.IDMainScroll);
             cancelAnimationFrame(this.IDMainSwipe);
