@@ -2,6 +2,35 @@ body{
     overflow-y: hidden;
 }
 
+#buo-video.horizontal-bg{
+    position: fixed;
+    right: -5%;
+    bottom: 0;
+    
+    height: 70vh;
+    width: 124.444444444; /* 100 * 16 / 9 */
+    min-width: 70vw;
+    min-height: 39.375vw; /* 100 * 9 / 16 */
+
+    opacity: 100%;
+    filter: contrast(150%);
+}
+#buo-video.vertical-bg{
+    position: fixed;
+    right: -50%;
+    bottom: 30%;
+    
+    height: 50vh;
+    width: 88.8888888889vh; /* 100 * 16 / 9 */
+    min-width: 50vw;
+    min-height: 28.125vw; /* 100 * 9 / 16 */
+
+    opacity: 100%;
+    filter: contrast(150%);
+
+    transform: rotate(-90deg);
+}
+
 #main-menu {
     --scrollDeg: 15deg;
     position: fixed;

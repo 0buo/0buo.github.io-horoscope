@@ -182,6 +182,8 @@ swipedetect(el, function(swipedir){
 let NOWmainScroll, LASTNOWmainScroll, IDmenuDisplay;
 class Menus{
     constructor(){
+        this.$videoBG = $(`#buo-video`);
+
         this.mainMenu = document.getElementById(`main-menu`);
         this.$mainMenu = $(`#main-menu`);
         this.pastMenu = document.getElementById(`past-menu`);
@@ -196,6 +198,15 @@ class Menus{
     }
 
     reorient(){
+        if(window.innerWidth < 1100 || isMobileTablet){
+            this.$videoBG.removeClass(`horizontal-bg`);
+            this.$videoBG.addClass(`vertical-bg`);
+        }
+        else{
+            this.$videoBG.addClass(`horizontal-bg`);
+            this.$videoBG.removeClass(`vertical-bg`);
+        }
+
         if(window.innerWidth < 650 || isMobileTablet){
             this.$mainMenu.removeClass(`horizontal`);
             this.$mainMenu.addClass(`vertical`);
