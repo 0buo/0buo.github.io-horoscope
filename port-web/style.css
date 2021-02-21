@@ -18,11 +18,11 @@ body{
 }
 
 .vertical{
-    top: calc(99vh - 75px);
+    top: calc(90vh - 75px);
     left: 45vw;
 
     width: 100vh;
-    max-width: 650px;
+    max-width: 600px;
     height: 150px;
 
     transform-origin: center left;

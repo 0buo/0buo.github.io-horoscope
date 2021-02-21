@@ -280,6 +280,5 @@ class Menus{
 }
 
 let isMobileTablet = mobileAndTabletCheck();
-$(`body`).css("background-color", "red");
 menus = new Menus();
 
