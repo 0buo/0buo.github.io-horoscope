@@ -5,18 +5,27 @@ body{
 #main-menu {
     --scrollDeg: 15deg;
     position: fixed;
+    transition: opacity 1s cubic-bezier(.35,.19,.61,1.98);
+
+    opacity: 1;
+    filter: blur(10px);
     /* display: none; */
 }
 #past-menu{
     --scrollDeg: 15deg;
     position: fixed;
 
+    transition: opacity 1s cubic-bezier(.35,.19,.61,1.98);
+
     display: none;
-    opacity: 0;
+    opacity: 1;
 }
 
 .menu-disappear{
+    opacity: 0;
 
+    
+    transform: scaleX(0);
 }
 
 .horizontal{
