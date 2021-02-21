@@ -35,7 +35,8 @@ body{
     position: relative;
     /* transition: all 1s ease-in-out; */
     transform-style: preserve-3d;
-    transform: translateZ(-100px) rotateX(var(--scrollDeg));
+    -webkit-transform: translate3d(0,0,0);
+    transform: rotateX(var(--scrollDeg));
 }
 
 .face {
@@ -46,9 +47,12 @@ body{
     font-size: 150px;
     text-align: left;
     color: black;
-    /* background-color: violet; */
+
+    -webkit-perspective: 0;
     -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
+    -webkit-transform: translate3d(0,0,0);
+    visibility:visible;
+    backface-visibility: hidden;
 
     outline: 1px solid transparent;
     -webkit-font-smoothing: antialiased;
