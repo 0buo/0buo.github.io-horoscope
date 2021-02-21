@@ -103,7 +103,7 @@ var vis = (function(){
       isChromium = window.chrome;
   if (notIE && !isChromium) {
       // checks for Firefox and other  NON IE Chrome versions
-      $window.on("focusout", function () {
+      $(window).on("focusout", function () {
         // blur
         LASTNOWmainScroll = undefined;
       });
@@ -280,7 +280,6 @@ class Menus{
 }
 
 let isMobileTablet = mobileAndTabletCheck();
-document.getElementById(`test`).innerHTML = `123`
 $(`body`).css("background-color", "red");
 menus = new Menus();
 
