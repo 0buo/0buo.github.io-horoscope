@@ -270,15 +270,25 @@ class Menus{
         this.$optionCircles.bind(`mousedown touchstart`, function(){
             let $thisCircle = $(this);
             $thisCircle.css(`background-color`, `black`);
-            $thisCircle.css(`transform`, `matrix(1.5,0,0,1.5,0,0)`);
             $thisCircle.addClass(`squiggle`);
             $thisCircle.parent().addClass(`squiggle`);
+
+            let preview = $thisCircle.parent().attr(`preview`);
+            if(!preview){
+                $thisCircle.css(`transform`, `matrix(1.5,0,0,1.5,0,0)`);
+            }
+            else{
+                if(!isMobileTablet) $thisCircle.css(`transform`, `matrix(9.5,0,0,9.5,0,0)`);
+                else $thisCircle.css(`transform`, `matrix(5.5,0,0,5.5,0,0)`);
+                $thisCircle.css(`background-image`, `url(${preview})`);
+            }
         });
 
         //window up
         $(window).bind(`mouseup touchend`, function(){
             this.$optionCircles.css(`background-color`, `transparent`);
             this.$optionCircles.css(`transform`, `matrix(1,0,0,1,0,0)`);
+            this.$optionCircles.css(`background-image`, `none`);
             this.$optionCircles.removeClass(`squiggle`);
             this.$optionCircles.parent().removeClass(`squiggle`);
         }.bind(this));
