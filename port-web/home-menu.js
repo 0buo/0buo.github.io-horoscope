@@ -279,7 +279,9 @@ class Menus{
             }
             else{
                 if(!isMobileTablet) $thisCircle.css(`transform`, `matrix(9.5,0,0,9.5,0,0)`);
-                else $thisCircle.css(`transform`, `matrix(5.5,0,0,5.5,0,0)`);
+                else {
+                    $thisCircle.css(`transform`, `matrix(5.5,0,0,5.5,0,0) rotate(90deg)`);
+                }
                 $thisCircle.css(`background-image`, `url(${preview})`);
             }
         });
