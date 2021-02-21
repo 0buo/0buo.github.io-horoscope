@@ -13,7 +13,8 @@ body{
     min-height: 39.375vw; /* 100 * 9 / 16 */
 
     opacity: 100%;
-    filter: contrast(150%);
+    -webkit-filter: contrast(150%);
+            filter: contrast(150%);
 }
 #buo-video.vertical-bg{
     position: fixed;
@@ -26,7 +27,8 @@ body{
     min-height: 28.125vw; /* 100 * 9 / 16 */
 
     opacity: 100%;
-    filter: contrast(150%);
+    -webkit-filter: contrast(150%);
+            filter: contrast(150%);
 
     transform: rotate(-90deg);
 }
