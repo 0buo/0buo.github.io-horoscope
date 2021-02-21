@@ -238,7 +238,7 @@ class Menus{
         this.isScroll = false;
         this.isSwipe = false;
         //scroll
-        window.addEventListener(`wheel`, function(event){
+        this.mainMenu.addEventListener(`wheel`, function(event){
             this.isSwipe = false;
             this.isScroll = true;
 
