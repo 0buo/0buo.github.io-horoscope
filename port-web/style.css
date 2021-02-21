@@ -1,12 +1,10 @@
 body{
-    background-color: grey;
-    overflow: hidden;
+    overflow-y: hidden;
 }
 
 #main-menu {
     --scrollDeg: 15deg;
     position: fixed;
-    -webkit-perspective: 0;
 }
 
 .horizontal{
