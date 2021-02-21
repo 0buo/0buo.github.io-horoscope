@@ -47,7 +47,8 @@ body{
     text-align: left;
     color: black;
     /* background-color: violet; */
-    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
 
     outline: 1px solid transparent;
     -webkit-font-smoothing: antialiased;
@@ -64,9 +65,9 @@ body{
 .option-circle{
     position: absolute;
     border-radius: 100%;
-    width: 70px;
-    height: 70px;
-    top: calc(50% - 25px);
+    width: 60px;
+    height: 60px;
+    top: calc(50% - 10px);
     right: 5%;
 
     outline: 1px solid transparent;
@@ -75,6 +76,9 @@ body{
     text-rendering: optimizeLegibility;
 
     border: 4px solid black;
+
+    transition: all 0.25s cubic-bezier(.35,.19,.61,1.98);
+    transform: scale(1);
 }
 
 .noselect {

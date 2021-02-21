@@ -185,6 +185,7 @@ class Menus{
     constructor(){
         this.mainMenu = document.getElementById(`main-menu`);
         this.$mainMenu = $(`#main-menu`);
+        this.$optionCircles = $(`.option-circle`);
         this.main();
     }
 
@@ -217,6 +218,20 @@ class Menus{
         cancelAnimationFrame(this.IDMainSwipe);
         if(this.isScroll && !this.isSwipe) this.IDMainScroll = requestAnimFrame(this.rotate.bind(this));
         else if(this.isSwipe && !this.isScroll) this.IDMainSwipe = requestAnimFrame(this.rotate.bind(this));
+    }
+
+    select(){
+        //hover
+        this.$optionCircles.mouseover(function(){
+            $(this).css(`background-color`, `black`);
+            $(this).css(`transform`, `matrix(1.5,0,0,1.5,0,0)`);
+        });
+        this.$optionCircles.mouseleave(function(){
+            $(this).css(`background-color`, `transparent`);
+            $(this).css(`transform`, `matrix(1,0,0,1,0,0)`);
+        });
+        //mousedown
+
     }
 
     main(){
@@ -261,6 +276,10 @@ class Menus{
             cancelAnimationFrame(this.IDMainSwipe);
             this.IDMainSwipe = requestAnimFrame(this.rotate.bind(this));
         }.bind(this));
+
+        //=========
+        //SELECT CIRCLE
+        this.select();
     }
 }
 
