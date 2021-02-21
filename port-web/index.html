@@ -33,6 +33,33 @@
             </div>
         </div>
 
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <defs>
+                <filter id="squiggly-0">
+                    <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="5" result="noise" seed="0" />
+                    <feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="8" />
+                </filter>
+                <filter id="squiggly-1">
+                    <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="6" result="noise" seed="1" />
+                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="10" />
+                </filter>
+        
+                <filter id="squiggly-2">
+                    <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="10" result="noise" seed="2" />
+                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="7" />
+                </filter>
+                <filter id="squiggly-3">
+                    <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="7" result="noise" seed="3" />
+                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="9" />
+                </filter>
+        
+                <filter id="squiggly-4">
+                    <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="4" />
+                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" />
+                </filter>
+            </defs>
+        </svg>
+
         <script type="text/javascript" src="lib/jquery-3.5.1.min.js"></script>
         <script type="text/javascript" src="lib/seedrandom.min.js"></script>
         <script type="text/javascript" src="home-menu.js"></script>

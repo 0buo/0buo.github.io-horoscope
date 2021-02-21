@@ -221,13 +221,18 @@ class Menus{
 
     select(){
         this.$optionCircles.bind(`mousedown touchstart`, function(){
-            $(this).css(`background-color`, `black`);
-            $(this).css(`transform`, `matrix(1.5,0,0,1.5,0,0)`);
+            let $thisCircle = $(this);
+            $thisCircle.css(`background-color`, `black`);
+            $thisCircle.css(`transform`, `matrix(1.5,0,0,1.5,0,0)`);
+            $thisCircle.addClass(`squiggle`);
+            $thisCircle.parent().addClass(`squiggle`);
         });
-        this.$optionCircles.bind(`mouseup touchend`, function(){
-            $(this).css(`background-color`, `transparent`);
-            $(this).css(`transform`, `matrix(1,0,0,1,0,0)`);
-        });
+        $(window).bind(`mouseup touchend`, function(){
+            this.$optionCircles.css(`background-color`, `transparent`);
+            this.$optionCircles.css(`transform`, `matrix(1,0,0,1,0,0)`);
+            this.$optionCircles.removeClass(`squiggle`);
+            this.$optionCircles.parent().removeClass(`squiggle`);
+        }.bind(this));
 
     }
 

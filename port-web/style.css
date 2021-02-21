@@ -94,6 +94,34 @@ body{
 
     transition: all 0.25s cubic-bezier(.35,.19,.61,1.98);
     transform: scale(1);
+    animation: none;
+}
+
+.squiggle{
+    animation: squiggly-anim 0.15s linear infinite;
+}
+
+@keyframes squiggly-anim {
+    0% {
+      -webkit-filter: url("#squiggly-0");
+              filter: url("#squiggly-0");
+    }
+    25% {
+      -webkit-filter: url("#squiggly-2");
+              filter: url("#squiggly-2");
+    }
+    50% {
+      -webkit-filter: url("#squiggly-1");
+              filter: url("#squiggly-1");
+    }
+    75% {
+      -webkit-filter: url("#squiggly-3");
+              filter: url("#squiggly-3");
+    }
+    100% {
+      -webkit-filter: url("#squiggly-4");
+              filter: url("#squiggly-4");
+    }
 }
 
 .noselect {
