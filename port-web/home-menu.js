@@ -281,6 +281,7 @@ class Menus{
     }
 }
 
-$(document).ready(()=>{
-    menus = new Menus();
-})
+
+$(`body`).css("background-color", "red");
+menus = new Menus();
+
