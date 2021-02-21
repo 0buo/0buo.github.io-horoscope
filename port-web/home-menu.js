@@ -416,8 +416,8 @@ class Menus{
             this.isScroll = false;
             this.isSwipe = true;
 
-            if(swipedir == `left`) this.deltaY += -175 * -0.4;
-            if (swipedir == `right`) this.deltaY += 175 * -0.4;
+            if(swipedir == `left`) this.deltaY += -175 * -0.75;
+            if (swipedir == `right`) this.deltaY += 175 * -0.75;
 
             cancelAnimationFrame(this.IDMainScroll);
             cancelAnimationFrame(this.IDMainSwipe);
