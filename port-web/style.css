@@ -36,7 +36,15 @@ body{
 
     transform: rotate(-90deg);
 }
-#buo-video::-webkit-media-controls-start-playback-button {
+#buo-video::-webkit-media-controls-panel{
+    display: none!important;
+    -webkit-appearance: none;
+}
+#buo-video::--webkit-media-controls-play-button{
+    display: none!important;
+    -webkit-appearance: none;
+}
+#buo-video::-webkit-media-controls-start-playback-button{
     display: none!important;
     -webkit-appearance: none;
 }
