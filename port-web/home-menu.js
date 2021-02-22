@@ -527,11 +527,11 @@ class Menus{
 let isMobileTablet = mobileAndTabletCheck();
 //if mobile change html svg displacement attribute sacle
 if(isMobileTablet){
-    document.getElementById(`displacement0`).setAttribute(`scale`, `26`);
-    document.getElementById(`displacement1`).setAttribute(`scale`, `35`);
-    document.getElementById(`displacement2`).setAttribute(`scale`, `20`);
-    document.getElementById(`displacement3`).setAttribute(`scale`, `26`);
-    document.getElementById(`displacement4`).setAttribute(`scale`, `17`);
+    document.getElementById(`displacement0`).setAttribute(`scale`, `28`);
+    document.getElementById(`displacement1`).setAttribute(`scale`, `36`);
+    document.getElementById(`displacement2`).setAttribute(`scale`, `22`);
+    document.getElementById(`displacement3`).setAttribute(`scale`, `28`);
+    document.getElementById(`displacement4`).setAttribute(`scale`, `19`);
 }
 menus = new Menus();
 
