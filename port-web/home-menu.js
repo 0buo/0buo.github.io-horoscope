@@ -201,7 +201,7 @@ swipedetect(el, function(swipedir){
 
 //==================================================================
 //************main scripts**************
-let NOWmainScroll, LASTNOWmainScroll, IDmenuDisplay;
+let NOWmainScroll, LASTNOWmainScroll, IDmenuDisplay, IDredirect;
 class Menus{
     constructor(){
         this.$videoBG = $(`#buo-video`);
@@ -301,6 +301,7 @@ class Menus{
             $thisCircle.parent().addClass(`squiggle`);
 
             let preview = $thisCircle.parent().attr(`preview`);
+            let preColor = $thisCircle.parent().attr(`pre-color`);
             if(!preview){
                 $thisCircle.css(`transform`, `matrix(1.5,0,0,1.5,0,0)`);
             }
@@ -309,6 +310,7 @@ class Menus{
                 else {
                     $thisCircle.css(`transform`, `matrix(3.36778e-16, 5.5, -5.5, 3.36778e-16, 0, 0)`);
                 }
+                $thisCircle.css(`background-color`, `${preColor}`);
                 $thisCircle.css(`background-image`, `url(${preview})`);
             }
         });
@@ -394,6 +396,15 @@ class Menus{
                         $new.css(`display`, `none`);
                         $undone.css(`display`, `none`);
                     }.bind($past), 1100)
+                }
+                //if hit project
+                else if ($thisCircle.parent().attr(`link`)){
+                    let link = $thisCircle.parent().attr(`link`);
+
+                    clearRequestTimeout(IDredirect);
+                    IDredirect = requestTimeout(function(){
+                        location.href = link;
+                    }.bind(link), 270);
                 }
                 //
             }        
