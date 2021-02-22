@@ -430,6 +430,9 @@ body{
     }
 }
 @keyframes buzz-rotate-anim {
+    0%{
+        transform: rotate(90deg);
+    }
     25%{
         transform: translateY(-3.5px) rotate(87deg);
     }
@@ -439,8 +442,11 @@ body{
     75%{
         transform: translateY(-2.5px) rotate(88deg);
     }
-    100% {
+    98% {
         transform: translateX(2.5px) rotate(92deg);
+    }
+    100%{
+        transform: rotate(90deg);
     }
 }
 
