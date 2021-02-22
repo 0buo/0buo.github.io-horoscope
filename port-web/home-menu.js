@@ -457,7 +457,7 @@ class Menus{
             this.isScroll = true;
 
             // event.preventDefault();
-            this.deltaY += event.deltaY * -0.2;
+            this.deltaY += event.deltaY * -0.3;
             cancelAnimationFrame(this.IDMainScroll);
             cancelAnimationFrame(this.IDMainSwipe);
             this.IDMainScroll = requestAnimFrame(this.rotate.bind(this));
