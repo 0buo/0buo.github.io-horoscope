@@ -400,6 +400,7 @@ class Menus{
         this.isScroll = false;
         this.isSwipe = false;
         this.deltaY = 0;
+        
         //scroll
         window.addEventListener(`wheel`, function(event){
             this.isSwipe = false;
@@ -411,7 +412,13 @@ class Menus{
             cancelAnimationFrame(this.IDMainSwipe);
             this.IDMainScroll = requestAnimFrame(this.rotate.bind(this));
         }.bind(this));
+        
         //touch
+        window.addEventListener(`touchstart`, function(){
+            cancelAnimationFrame(this.IDMainScroll);
+            cancelAnimationFrame(this.IDMainSwipe);
+        }, false);
+
         swipedetect(window, function(swipedir){
             this.isScroll = false;
             this.isSwipe = true;
