@@ -324,6 +324,16 @@ class Menus{
             //=======
             //PREVIEW
             else{
+                if(!isMobileTablet){
+                    document.getElementById(`displacement0`).setAttribute(`scale`, `16`);
+                    document.getElementById(`displacement1`).setAttribute(`scale`, `19`);
+                    document.getElementById(`displacement2`).setAttribute(`scale`, `14`);
+                    document.getElementById(`displacement3`).setAttribute(`scale`, `16`);
+                    document.getElementById(`displacement4`).setAttribute(`scale`, `13`);
+                    
+                    $thisCircle.next().addClass(`squiggle`);
+                }
+
                 if(!isMobileTablet && window.innerWidth >= 650){
                     // $thisCircle.css(`transform`, `matrix(9.5,0,0,9.5,0,0)`);
                     $thisCircle.css(`width`, `580px`);
@@ -332,7 +342,6 @@ class Menus{
                     $thisCircle.css(`right`, `-27%`);
                     $thisCircle.css(`border-width`, `10px`);
 
-                    $thisCircle.next().addClass(`squiggle`);
                     $thisCircle.next().css(`width`, `580px`);
                     $thisCircle.next().css(`height`, `580px`);
                     $thisCircle.next().css(`top`, `calc(50% - 275px)`);
@@ -362,6 +371,14 @@ class Menus{
         //JQUERY UP
         $(window).bind(`mouseup touchend`, function(e){
             if(e.type == `touchend`) e.preventDefault();
+
+            if(!isMobileTablet){
+                document.getElementById(`displacement0`).setAttribute(`scale`, `10`);
+                document.getElementById(`displacement1`).setAttribute(`scale`, `13`);
+                document.getElementById(`displacement2`).setAttribute(`scale`, `8`);
+                document.getElementById(`displacement3`).setAttribute(`scale`, `10`);
+                document.getElementById(`displacement4`).setAttribute(`scale`, `7`);
+            }
 
             this.$optionCircles.css(`width`, `60px`);
             this.$optionCircles.css(`height`, `60px`);
