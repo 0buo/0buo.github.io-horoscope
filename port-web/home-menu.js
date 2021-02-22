@@ -446,6 +446,7 @@ class Menus{
             }).catch(error => {
               // Autoplay not allowed!
               // Mute video and try to play again
+              console.log(error);
               this.videoBG.muted = true;
               this.videoBG.play();
             });
