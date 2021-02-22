@@ -215,6 +215,7 @@ class Menus{
         this.undoneMenu = document.getElementById(`undone-menu`);
         this.$undoneMenu = $(`#undone-menu`);
 
+        this.optionCircles = document.getElementsByClassName(`option-circle`)
         this.$optionCircles = $(`.option-circle`);
         this.main();
     }
@@ -293,8 +294,14 @@ class Menus{
         //     console.log($(this).css(`transform`))
         // })
 
-        //down
-        this.$optionCircles.bind(`mousedown touchstart`, function(){
+        var firstTouch, endTouch, touchDist= 500, smallTouchRestraint = 76, largeTouchRestraint = 245;
+        //JQUERY DOWN
+        this.$optionCircles.bind(`mousedown touchstart`, function(e){
+            if(e.type == `touchend`) {
+                e.preventDefault();
+                firstTouch = e.changedTouches[0];
+            }
+
             let $thisCircle = $(this);
             $thisCircle.css(`background-color`, `black`);
             $thisCircle.addClass(`squiggle`);
@@ -315,8 +322,10 @@ class Menus{
             }
         });
 
-        //window up
-        $(window).bind(`mouseup touchend`, function(){
+        //JQUERY UP
+        $(window).bind(`mouseup touchend`, function(e){
+            if(e.type == `touchend`) e.preventDefault();
+
             this.$optionCircles.css(`background-color`, `transparent`);
             this.$optionCircles.css(`transform`, `matrix(1,0,0,1,0,0)`);
             this.$optionCircles.css(`background-image`, `none`);
@@ -324,19 +333,25 @@ class Menus{
             this.$optionCircles.parent().removeClass(`squiggle`);
         }.bind(this));
 
-        //specific circle up
+        //JQUERY CIRCLE UP
         this.$optionCircles.bind(`mouseup touchend`, {$main: this.$mainMenu, $new: this.$newMenu, $past: this.$pastMenu, $undone: this.$undoneMenu}, function(e){
+            if(e.type == `touchend`){
+                e.preventDefault();
+                endTouch = e.changedTouches[0];
+                touchDist = Math.abs(endTouch.pageY - firstTouch.pageY);
+            }
+            else{
+                touchDist = 0;
+            }
             let $thisCircle = $(this);
             let $main = e.data.$main;
             let $past = e.data.$past;
             let $new = e.data.$new;
             let $undone = e.data.$undone;
 
-            if(!$thisCircle.parent().parent().parent().attr('class').includes(`menu-disappear`)){
-                console.log($thisCircle.parent().attr('id'));
-                
+            if(!$thisCircle.parent().parent().parent().attr('class').includes(`menu-disappear`) && touchDist < largeTouchRestraint){             
                 //if hit 'new'
-                if ($thisCircle.parent().attr('id') == `face3`){
+                if ($thisCircle.parent().attr('id') == `face3` && touchDist < smallTouchRestraint){
                     $new.css(`display`, `initial`);
                     $main.addClass(`menu-disappear`);
                     $past.addClass(`menu-disappear`);
@@ -351,7 +366,7 @@ class Menus{
                     }.bind($main), 1100)
                 }
                 //if hit 'past'
-                else if ($thisCircle.parent().attr('id') == `face4`){
+                else if ($thisCircle.parent().attr('id') == `face4` && touchDist < smallTouchRestraint){
                     $past.css(`display`, `initial`);
                     $main.addClass(`menu-disappear`);
                     $new.addClass(`menu-disappear`);
@@ -366,7 +381,7 @@ class Menus{
                     }.bind($main), 1100)
                 }
                 //if hit 'undone'
-                else if ($thisCircle.parent().attr('id') == `face2`){
+                else if ($thisCircle.parent().attr('id') == `face2` && touchDist < smallTouchRestraint){
                     $undone.css(`display`, `initial`);
                     $main.addClass(`menu-disappear`);
                     $new.addClass(`menu-disappear`);
@@ -381,9 +396,9 @@ class Menus{
                     }.bind($main), 1100)
                 }
                 //if hit 'back'
-                else if ($thisCircle.parent().attr('id') == `face12` || 
+                else if (($thisCircle.parent().attr('id') == `face12` || 
                          $thisCircle.parent().attr('id') == `face15` ||
-                         $thisCircle.parent().attr('id') == `face18` ){
+                         $thisCircle.parent().attr('id') == `face18` )  && touchDist < smallTouchRestraint){
                     $main.css(`display`, `initial`);
                     $main.removeClass(`menu-disappear`);
                     $past.addClass(`menu-disappear`);
@@ -398,7 +413,7 @@ class Menus{
                     }.bind($past), 1100)
                 }
                 //if hit project
-                else if ($thisCircle.parent().attr(`link`)){
+                else if ($thisCircle.parent().attr(`link`) && touchDist < largeTouchRestraint){
                     let link = $thisCircle.parent().attr(`link`);
 
                     clearRequestTimeout(IDredirect);
