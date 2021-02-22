@@ -439,16 +439,26 @@ class Menus{
 
         //=========
         //IF VID NOT PLAYING
-        let promise = this.videoBG.play();
-        if (promise !== undefined) {
-            promise.then(_ => {
-              // Autoplay started!
+        let BGvideoPromise = this.videoBG.play();
+        var BGimage = new Image;
+        var $videoBG = this.$videoBG;
+        BGimage.classList.add(`vertical-bg`);
+        if (BGvideoPromise !== undefined) {
+            BGvideoPromise.then(_ => {
+                // Autoplay started!
             }).catch(error => {
-              // Autoplay not allowed!
-              // Mute video and try to play again
-              console.log(error);
-              this.videoBG.muted = true;
-              this.videoBG.play();
+                // Autoplay not allowed!
+                if(error.name == `NotAllowedError` || error.name == `PermissionDeniedError`){
+                    BGimage.src = `menu-assets/buo-thumbnail.jpg`;
+                    BGimage.onload = ()=>{
+                        document.body.prepend(BGimage);
+                        $videoBG.css(`display`, `none`);
+                    };
+                }
+                else{
+                    this.videoBG.muted = true;
+                    this.videoBG.play();
+                }
             });
           }
 
