@@ -297,7 +297,7 @@ class Menus{
         var firstTouch, endTouch, touchDist= 500, smallTouchRestraint = 76, largeTouchRestraint = 245;
         //JQUERY DOWN
         this.$optionCircles.bind(`mousedown touchstart`, function(e){
-            if(e.type == `touchend`) {
+            if(e.type == `touchstart`) {
                 e.preventDefault();
                 firstTouch = e.changedTouches[0];
             }
