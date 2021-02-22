@@ -286,8 +286,15 @@ class Menus{
 
         cancelAnimationFrame(this.IDMainScroll);
         cancelAnimationFrame(this.IDMainSwipe);
-        if(this.isScroll && !this.isSwipe) this.IDMainScroll = requestAnimFrame(this.rotate.bind(this));
-        else if(this.isSwipe && !this.isScroll) this.IDMainSwipe = requestAnimFrame(this.rotate.bind(this));
+
+        if(Math.abs(currentScrollMain - targetScrollMain) > 0.1){
+            console.log('~')
+            if(this.isScroll && !this.isSwipe) this.IDMainScroll = requestAnimFrame(this.rotate.bind(this));
+            else if(this.isSwipe && !this.isScroll) this.IDMainSwipe = requestAnimFrame(this.rotate.bind(this));    
+        }
+        else{
+            LASTNOWmainScroll = undefined;
+        }
     }
 
     select(){
@@ -554,6 +561,7 @@ class Menus{
 
             // event.preventDefault();
             this.deltaY += event.deltaY * -0.5;
+
             cancelAnimationFrame(this.IDMainScroll);
             cancelAnimationFrame(this.IDMainSwipe);
             this.IDMainScroll = requestAnimFrame(this.rotate.bind(this));
