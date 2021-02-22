@@ -12,8 +12,11 @@ body{
     min-width: 70vw;
     min-height: 39.375vw; /* 100 * 9 / 16 */
 
+    z-index: -1;
+    overflow: hidden;
+
     opacity: 100%;
-    -webkit-filter: contrast(150%);
+    -webkit-filter: contrast(10%);
             filter: contrast(150%);
 }
 #buo-video.vertical-bg{

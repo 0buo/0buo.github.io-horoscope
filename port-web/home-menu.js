@@ -221,7 +221,7 @@ class Menus{
     }
 
     reorient(){
-        if(window.innerWidth < 1100 || isMobileTablet){
+        if(window.innerWidth < 650 || isMobileTablet){
             this.$videoBG.removeClass(`horizontal-bg`);
             this.$videoBG.addClass(`vertical-bg`);
         }
