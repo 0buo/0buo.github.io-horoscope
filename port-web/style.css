@@ -243,9 +243,8 @@ body{
     background-image: none;
     background-size: cover;
 
-    transition: all 0.25s cubic-bezier(.35,.19,.61,1.98);
-    transform: scale(1) translateZ(0) rotate(0deg);
-
+    transition: all 0.25s cubic-bezier(.35,.19,.51,1.5);
+    
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     -webkit-font-smoothing: subpixel-antialiased;

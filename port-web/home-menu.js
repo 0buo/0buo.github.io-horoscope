@@ -315,18 +315,25 @@ class Menus{
                 $thisCircle.css(`width`, `90px`);
                 $thisCircle.css(`height`, `90px`);
                 $thisCircle.css(`top`, `calc(50% - 25px)`);
-                $thisCircle.css(`right`, `2.5%`);
+                $thisCircle.css(`right`, `3%`);
             }
             else{
                 if(!isMobileTablet){
-                    //$thisCircle.css(`transform`, `matrix(9.5,0,0,9.5,0,0)`);
+                    // $thisCircle.css(`transform`, `matrix(9.5,0,0,9.5,0,0)`);
                     $thisCircle.css(`width`, `570px`);
                     $thisCircle.css(`height`, `570px`);
-                    $thisCircle.css(`top`, `calc(50% - 250px)`);
-                    $thisCircle.css(`right`, `-20%`);
+                    $thisCircle.css(`top`, `calc(50% - 270px)`);
+                    $thisCircle.css(`right`, `-30%`);
+                    $thisCircle.css(`border-width`, `10px`);
                 }
                 else {
-                    $thisCircle.css(`transform`, `matrix(3.36778e-16, 5.5, -5.5, 3.36778e-16, 0, 0)`);
+                    $thisCircle.css(`transform`, `rotate(90deg)`);
+                    //
+                    $thisCircle.css(`width`, `330px`);
+                    $thisCircle.css(`height`, `330px`);
+                    $thisCircle.css(`top`, `calc(50% - 165px)`);
+                    $thisCircle.css(`right`, `-16%`);
+                    $thisCircle.css(`border-width`, `8px`);
                 }
                 $thisCircle.css(`background-color`, `${preColor}`);
                 $thisCircle.css(`background-image`, `url(${preview})`);
@@ -341,9 +348,10 @@ class Menus{
             this.$optionCircles.css(`height`, `60px`);
             this.$optionCircles.css(`top`, `calc(50% - 10px)`);
             this.$optionCircles.css(`right`, `5%`);
+            this.$optionCircles.css(`border-width`, `4px`);
 
             this.$optionCircles.css(`background-color`, `transparent`);
-            this.$optionCircles.css(`transform`, `matrix(1,0,0,1,0,0)`);
+            this.$optionCircles.css(`transform`, `scale(1) rotate(0deg)`);
             this.$optionCircles.css(`background-image`, `none`);
             this.$optionCircles.removeClass(`squiggle`);
             this.$optionCircles.parent().removeClass(`squiggle`);
