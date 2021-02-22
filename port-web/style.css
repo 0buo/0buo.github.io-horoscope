@@ -137,6 +137,7 @@ body{
 
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    -webkit-font-smoothing: subpixel-antialiased;
 
     outline: 1px solid transparent;
     -webkit-font-smoothing: antialiased;
@@ -243,8 +244,12 @@ body{
     background-size: cover;
 
     transition: all 0.25s cubic-bezier(.35,.19,.61,1.98);
-    transform: scale(1);
-    z-index: 2;
+    transform: scale(1) translateZ(0) rotate(0deg);
+
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: subpixel-antialiased;
+
     -webkit-animation: none;
             animation: none;
 }

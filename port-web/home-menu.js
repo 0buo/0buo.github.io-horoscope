@@ -311,10 +311,20 @@ class Menus{
             let preview = $thisCircle.parent().attr(`preview`);
             let preColor = $thisCircle.parent().attr(`pre-color`);
             if(!preview){
-                $thisCircle.css(`transform`, `matrix(1.5,0,0,1.5,0,0)`);
+                // $thisCircle.css(`transform`, `matrix(1.5,0,0,1.5,0,0)`);
+                $thisCircle.css(`width`, `90px`);
+                $thisCircle.css(`height`, `90px`);
+                $thisCircle.css(`top`, `calc(50% - 25px)`);
+                $thisCircle.css(`right`, `2.5%`);
             }
             else{
-                if(!isMobileTablet) $thisCircle.css(`transform`, `matrix(9.5,0,0,9.5,0,0)`);
+                if(!isMobileTablet){
+                    //$thisCircle.css(`transform`, `matrix(9.5,0,0,9.5,0,0)`);
+                    $thisCircle.css(`width`, `570px`);
+                    $thisCircle.css(`height`, `570px`);
+                    $thisCircle.css(`top`, `calc(50% - 250px)`);
+                    $thisCircle.css(`right`, `-20%`);
+                }
                 else {
                     $thisCircle.css(`transform`, `matrix(3.36778e-16, 5.5, -5.5, 3.36778e-16, 0, 0)`);
                 }
@@ -326,6 +336,11 @@ class Menus{
         //JQUERY UP
         $(window).bind(`mouseup touchend`, function(e){
             if(e.type == `touchend`) e.preventDefault();
+
+            this.$optionCircles.css(`width`, `60px`);
+            this.$optionCircles.css(`height`, `60px`);
+            this.$optionCircles.css(`top`, `calc(50% - 10px)`);
+            this.$optionCircles.css(`right`, `5%`);
 
             this.$optionCircles.css(`background-color`, `transparent`);
             this.$optionCircles.css(`transform`, `matrix(1,0,0,1,0,0)`);
