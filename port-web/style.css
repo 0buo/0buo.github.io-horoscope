@@ -416,17 +416,23 @@ body{
             animation: buzz-rotate-anim 0.15s linear infinite;
 }
 @-webkit-keyframes buzz-rotate-anim {
+    0%{
+        transform: rotate(90deg);
+    }
     25%{
-        transform: translateY(-3.5px) rotate(87deg);
+        transform: translateY(-5.5px) rotate(86deg);
     }
     50% {
-        transform: translateX(3.5px) rotate(93deg);
+        transform: translateX(5.5px) rotate(95deg);
     }
     75%{
-        transform: translateY(-2.5px) rotate(88deg);
+        transform: translateY(-4.5px) rotate(87deg);
     }
-    100% {
-        transform: translateX(2.5px) rotate(92deg);
+    98% {
+        transform: translateX(4.5px) rotate(92deg);
+    }
+    100%{
+        transform: rotate(90deg);
     }
 }
 @keyframes buzz-rotate-anim {
@@ -434,16 +440,16 @@ body{
         transform: rotate(90deg);
     }
     25%{
-        transform: translateY(-3.5px) rotate(87deg);
+        transform: translateY(-5.5px) rotate(86deg);
     }
     50% {
-        transform: translateX(3.5px) rotate(93deg);
+        transform: translateX(5.5px) rotate(95deg);
     }
     75%{
-        transform: translateY(-2.5px) rotate(88deg);
+        transform: translateY(-4.5px) rotate(87deg);
     }
     98% {
-        transform: translateX(2.5px) rotate(92deg);
+        transform: translateX(4.5px) rotate(92deg);
     }
     100%{
         transform: rotate(90deg);
