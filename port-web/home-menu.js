@@ -355,7 +355,7 @@ class Menus{
                     $thisCircle.css(`border-width`, `10px`);
                 }
                 else {
-                    $thisCircle.css(`transform`, `rotate(90deg)`);
+                    // $thisCircle.css(`transform`, `rotate(90deg)`);
                     $thisCircle.css(`width`, `330px`);
                     $thisCircle.css(`height`, `330px`);
                     $thisCircle.css(`top`, `calc(50% - 165px)`);
