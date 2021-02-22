@@ -225,7 +225,8 @@ body{
     -webkit-transform: rotateX(-120deg) translateZ(43.5px); 
 }
 
-.option-circle{
+.option-circle, .preview-circle{
+
     position: absolute;
     border-radius: 100%;
     width: 60px;
@@ -237,20 +238,27 @@ body{
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-
-    border: 4px solid black;
+    
     background-color: transparent;
     background-image: none;
     background-size: cover;
 
-    transition: all 0.25s cubic-bezier(.35,.19,.51,1.5);
+    transition: all 0.25s cubic-bezier(.35,.19,.51,1.35);
     
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     -webkit-font-smoothing: subpixel-antialiased;
 
+
     -webkit-animation: none;
             animation: none;
+}
+.option-circle{
+    z-index: 2;
+    border: 4px solid black;
+}
+.preview-circle{
+    border: 4px solid transparent;
 }
 
 .squiggle{

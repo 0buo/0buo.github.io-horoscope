@@ -218,6 +218,7 @@ class Menus{
 
         this.optionCircles = document.getElementsByClassName(`option-circle`)
         this.$optionCircles = $(`.option-circle`);
+        this.$prevCircles = $(`.preview-circle`);
         this.main();
     }
 
@@ -304,39 +305,57 @@ class Menus{
             }
 
             let $thisCircle = $(this);
-            $thisCircle.css(`background-color`, `black`);
-            $thisCircle.addClass(`squiggle`);
-            $thisCircle.parent().addClass(`squiggle`);
-
             let preview = $thisCircle.parent().attr(`preview`);
             let preColor = $thisCircle.parent().attr(`pre-color`);
+
+            if (!preview) $thisCircle.css(`background-color`, `black`);
+            $thisCircle.addClass(`squiggle`);
+            $thisCircle.prev().addClass(`squiggle`);
+            
+            //===========
+            //NOT PREVIEW
             if(!preview){
                 // $thisCircle.css(`transform`, `matrix(1.5,0,0,1.5,0,0)`);
                 $thisCircle.css(`width`, `90px`);
                 $thisCircle.css(`height`, `90px`);
-                $thisCircle.css(`top`, `calc(50% - 25px)`);
-                $thisCircle.css(`right`, `3%`);
+                $thisCircle.css(`top`, `calc(50% - 27px)`);
+                $thisCircle.css(`right`, `3.5%`);
             }
+            //=======
+            //PREVIEW
             else{
-                if(!isMobileTablet){
+                if(!isMobileTablet && window.innerWidth >= 650){
                     // $thisCircle.css(`transform`, `matrix(9.5,0,0,9.5,0,0)`);
-                    $thisCircle.css(`width`, `570px`);
-                    $thisCircle.css(`height`, `570px`);
-                    $thisCircle.css(`top`, `calc(50% - 270px)`);
-                    $thisCircle.css(`right`, `-30%`);
+                    $thisCircle.css(`width`, `580px`);
+                    $thisCircle.css(`height`, `580px`);
+                    $thisCircle.css(`top`, `calc(50% - 275px)`);
+                    $thisCircle.css(`right`, `-27%`);
                     $thisCircle.css(`border-width`, `10px`);
+
+                    $thisCircle.next().addClass(`squiggle`);
+                    $thisCircle.next().css(`width`, `580px`);
+                    $thisCircle.next().css(`height`, `580px`);
+                    $thisCircle.next().css(`top`, `calc(50% - 275px)`);
+                    $thisCircle.next().css(`right`, `-27%`);
+                    $thisCircle.next().css(`border-width`, `10px`);
                 }
                 else {
                     $thisCircle.css(`transform`, `rotate(90deg)`);
-                    //
                     $thisCircle.css(`width`, `330px`);
                     $thisCircle.css(`height`, `330px`);
                     $thisCircle.css(`top`, `calc(50% - 165px)`);
                     $thisCircle.css(`right`, `-16%`);
-                    $thisCircle.css(`border-width`, `8px`);
+                    $thisCircle.css(`border-width`, `10px`);
+
+                    $thisCircle.next().css(`transform`, `rotate(90deg)`);
+                    $thisCircle.next().css(`width`, `330px`);
+                    $thisCircle.next().css(`height`, `330px`);
+                    $thisCircle.next().css(`top`, `calc(50% - 165px)`);
+                    $thisCircle.next().css(`right`, `-16%`);
+                    $thisCircle.next().css(`border-width`, `10px`);
                 }
-                $thisCircle.css(`background-color`, `${preColor}`);
-                $thisCircle.css(`background-image`, `url(${preview})`);
+                $thisCircle.next().css(`background-color`, `${preColor}`);
+                $thisCircle.next().css(`background-image`, `url(${preview})`);
             }
         });
 
@@ -354,7 +373,18 @@ class Menus{
             this.$optionCircles.css(`transform`, `scale(1) rotate(0deg)`);
             this.$optionCircles.css(`background-image`, `none`);
             this.$optionCircles.removeClass(`squiggle`);
-            this.$optionCircles.parent().removeClass(`squiggle`);
+            this.$optionCircles.prev().removeClass(`squiggle`);
+
+            this.$prevCircles.css(`width`, `60px`);
+            this.$prevCircles.css(`height`, `60px`);
+            this.$prevCircles.css(`top`, `calc(50% - 10px)`);
+            this.$prevCircles.css(`right`, `5%`);
+            this.$prevCircles.css(`border-width`, `4px`);
+
+            this.$prevCircles.css(`background-color`, `transparent`);
+            this.$prevCircles.css(`transform`, `scale(1) rotate(0deg)`);
+            this.$prevCircles.css(`background-image`, `none`);
+            this.$prevCircles.removeClass(`squiggle`);
         }.bind(this));
 
         //JQUERY CIRCLE UP
