@@ -1,5 +1,5 @@
 body{
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
 #buo-video.horizontal-bg{
@@ -13,7 +13,7 @@ body{
     min-height: 39.375vw; /* 100 * 9 / 16 */
 
     z-index: -1;
-    overflow-y: hidden;
+    overflow: hidden;
 
     opacity: 100%;
     -webkit-filter: contrast(10%);
@@ -28,6 +28,9 @@ body{
     width: 88.8888888889vh; /* 100 * 16 / 9 */
     min-width: 50vw;
     min-height: 28.125vw; /* 100 * 9 / 16 */
+
+    z-index: -1;
+    overflow: hidden;
 
     opacity: 100%;
     -webkit-filter: contrast(150%);
