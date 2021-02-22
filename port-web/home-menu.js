@@ -288,7 +288,6 @@ class Menus{
         cancelAnimationFrame(this.IDMainSwipe);
 
         if(Math.abs(currentScrollMain - targetScrollMain) > 0.1){
-            console.log('~')
             if(this.isScroll && !this.isSwipe) this.IDMainScroll = requestAnimFrame(this.rotate.bind(this));
             else if(this.isSwipe && !this.isScroll) this.IDMainSwipe = requestAnimFrame(this.rotate.bind(this));    
         }
@@ -316,8 +315,16 @@ class Menus{
             let preColor = $thisCircle.parent().attr(`pre-color`);
 
             if (!preview) $thisCircle.css(`background-color`, `black`);
-            $thisCircle.addClass(`squiggle`);
-            $thisCircle.prev().addClass(`squiggle`);
+            else $thisCircle.css(`background-color`, `${preColor}`);
+            
+            if(!isMobileTablet){
+                $thisCircle.addClass(`squiggle-less-rotate`);
+                $thisCircle.prev().addClass(`squiggle`);
+            }
+            else{
+                $thisCircle.addClass(`buzz-rotate`);
+                $thisCircle.prev().addClass(`buzz`);
+            }
             
             //===========
             //NOT PREVIEW
@@ -332,13 +339,11 @@ class Menus{
             //PREVIEW
             else{
                 if(!isMobileTablet){
-                    document.getElementById(`displacement0`).setAttribute(`scale`, `16`);
-                    document.getElementById(`displacement1`).setAttribute(`scale`, `19`);
-                    document.getElementById(`displacement2`).setAttribute(`scale`, `14`);
-                    document.getElementById(`displacement3`).setAttribute(`scale`, `16`);
-                    document.getElementById(`displacement4`).setAttribute(`scale`, `13`);
-                    
-                    $thisCircle.next().addClass(`squiggle`);
+                    document.getElementById(`displacement0`).setAttribute(`scale`, `13`);
+                    document.getElementById(`displacement1`).setAttribute(`scale`, `16`);
+                    document.getElementById(`displacement2`).setAttribute(`scale`, `11`);
+                    document.getElementById(`displacement3`).setAttribute(`scale`, `13`);
+                    document.getElementById(`displacement4`).setAttribute(`scale`, `10`);
                 }
 
                 if(!isMobileTablet && window.innerWidth >= 650){
@@ -348,12 +353,6 @@ class Menus{
                     $thisCircle.css(`top`, `calc(50% - 275px)`);
                     $thisCircle.css(`right`, `-27%`);
                     $thisCircle.css(`border-width`, `10px`);
-
-                    $thisCircle.next().css(`width`, `580px`);
-                    $thisCircle.next().css(`height`, `580px`);
-                    $thisCircle.next().css(`top`, `calc(50% - 275px)`);
-                    $thisCircle.next().css(`right`, `-27%`);
-                    $thisCircle.next().css(`border-width`, `10px`);
                 }
                 else {
                     $thisCircle.css(`transform`, `rotate(90deg)`);
@@ -362,16 +361,9 @@ class Menus{
                     $thisCircle.css(`top`, `calc(50% - 165px)`);
                     $thisCircle.css(`right`, `-16%`);
                     $thisCircle.css(`border-width`, `10px`);
-
-                    $thisCircle.next().css(`transform`, `rotate(90deg)`);
-                    $thisCircle.next().css(`width`, `330px`);
-                    $thisCircle.next().css(`height`, `330px`);
-                    $thisCircle.next().css(`top`, `calc(50% - 165px)`);
-                    $thisCircle.next().css(`right`, `-16%`);
-                    $thisCircle.next().css(`border-width`, `10px`);
                 }
-                $thisCircle.next().css(`background-color`, `${preColor}`);
-                $thisCircle.next().css(`background-image`, `url(${preview})`);
+                // $thisCircle.css(`background-color`, `${preColor}`);
+                $thisCircle.css(`background-image`, `url(${preview})`);
             }
         });
 
@@ -396,19 +388,11 @@ class Menus{
             this.$optionCircles.css(`background-color`, `transparent`);
             this.$optionCircles.css(`transform`, `scale(1) rotate(0deg)`);
             this.$optionCircles.css(`background-image`, `none`);
-            this.$optionCircles.removeClass(`squiggle`);
+            this.$optionCircles.removeClass(`squiggle-less-rotate`);
             this.$optionCircles.prev().removeClass(`squiggle`);
+            this.$optionCircles.removeClass(`buzz-rotate`);
+            this.$optionCircles.prev().removeClass(`buzz`);
             //
-            this.$prevCircles.css(`width`, `60px`);
-            this.$prevCircles.css(`height`, `60px`);
-            this.$prevCircles.css(`top`, `calc(50% - 10px)`);
-            this.$prevCircles.css(`right`, `5%`);
-            this.$prevCircles.css(`border-width`, `4px`);
-
-            this.$prevCircles.css(`background-color`, `transparent`);
-            this.$prevCircles.css(`transform`, `scale(1) rotate(0deg)`);
-            this.$prevCircles.css(`background-image`, `none`);
-            this.$prevCircles.removeClass(`squiggle`);
         }.bind(this));
 
         //JQUERY CIRCLE UP
