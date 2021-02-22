@@ -127,16 +127,21 @@ function swipedetect(el, callback){
     startY,
     distX,
     distY,
-    threshold = 50, //required min distance traveled to be considered swipe
-    //restraint = 100, // maximum distance allowed at the same time in perpendicular direction
-    allowedTime = 200, // maximum time allowed to travel that distance
+    threshold = 150, //required min distance traveled to be considered swipe
+    restraint = 100, // maximum distance allowed at the same time in perpendicular direction
+    allowedTime = 300, // maximum time allowed to travel that distance
     elapsedTime,
     startTime,
     handleswipe = callback || function(swipedir){}
+
+    var movedir, previousMove, currentMove, moveDistX, moveDistY, moveRestraint = 1;
   
     touchsurface.addEventListener('touchstart', function(e){
         var touchobj = e.changedTouches[0]
         swipedir = 'none'
+        movedir = `none`;
+        moveDistX = 0; 
+        moveDistY = 0;
         dist = 0
         startX = touchobj.pageX
         startY = touchobj.pageY
@@ -146,6 +151,23 @@ function swipedetect(el, callback){
   
     touchsurface.addEventListener('touchmove', function(e){
         if(el !== window) e.preventDefault() // prevent scrolling when inside DIV
+        let touches = e.changedTouches;
+        
+
+        let l = touches.length;
+        for (let i = 0; i < l; i++){
+            if(previousMove === undefined) previousMove = touches[i];
+            currentMove = touches[i];
+            moveDistX = currentMove.pageX - previousMove.pageX;
+            moveDistY = currentMove.pageY - previousMove.pageY;
+
+            if(Math.abs(moveDistY) <= moveRestraint){
+                movedir = (moveDistX < 0) ? `left` : `right`;
+            }
+            else movedir = `none`;
+            previousMove = currentMove;
+            handleswipe(swipedir, movedir);
+        }
     }, false)
   
     touchsurface.addEventListener('touchend', function(e){
@@ -162,7 +184,7 @@ function swipedetect(el, callback){
             //     swipedir = (distY < 0)? 'up' : 'down' // if dist traveled is negative, it indicates up swipe
             // }
         }
-        handleswipe(swipedir)
+        handleswipe(swipedir, movedir);
         if(el !== window) e.preventDefault()
     }, false)
 }
@@ -249,7 +271,7 @@ class Menus{
 
         this.deltaY = lerp(this.deltaY, 0, 1 - Math.pow(0.1,dt));
 
-        currentScrollMain = lerp(currentScrollMain, targetScrollMain, 1 - Math.pow(0.15, dt));
+        currentScrollMain = lerp(currentScrollMain, targetScrollMain, 1 - Math.pow(0.35, dt));
         // currentScrollPast = lerp(currentScrollPast, targetScrollPast, 1 - Math.pow(0.15, dt));
         // currentScrollNew = lerp(currentScrollNew, targetScrollNew, 1 - Math.pow(0.15, dt));
         // currentScrollUndone = lerp(currentScrollUndone, targetScrollUndone, 1 - Math.pow(0.15, dt));
@@ -400,6 +422,8 @@ class Menus{
         this.isScroll = false;
         this.isSwipe = false;
         this.deltaY = 0;
+        this.IDMainScroll = undefined;
+        this.IDMainSwipe = undefined;
         
         //scroll
         window.addEventListener(`wheel`, function(event){
@@ -414,21 +438,31 @@ class Menus{
         }.bind(this));
         
         //touch
-        window.addEventListener(`touchstart`, function(){
-            cancelAnimationFrame(this.IDMainScroll);
-            cancelAnimationFrame(this.IDMainSwipe);
-        }, false);
+        swipedetect(window, function(swipedir, movedir){
+            // console.log(swipedir, movedir);
+            if(movedir == `left` || movedir == `right`){
+                this.isScroll = false;
+                this.isSwipe = true;
+    
+                if(movedir == `left`) this.deltaY += -175 * -0.025;
+                if (movedir == `right`) this.deltaY += 175 * -0.025;
+    
+                cancelAnimationFrame(this.IDMainScroll);
+                cancelAnimationFrame(this.IDMainSwipe);
+                this.IDMainSwipe = requestAnimFrame(this.rotate.bind(this));
+            }
 
-        swipedetect(window, function(swipedir){
-            this.isScroll = false;
-            this.isSwipe = true;
-
-            if(swipedir == `left`) this.deltaY += -175 * -0.75;
-            if (swipedir == `right`) this.deltaY += 175 * -0.75;
-
-            cancelAnimationFrame(this.IDMainScroll);
-            cancelAnimationFrame(this.IDMainSwipe);
-            this.IDMainSwipe = requestAnimFrame(this.rotate.bind(this));
+            if(swipedir == `left` || swipedir == `right`){
+                this.isScroll = false;
+                this.isSwipe = true;
+    
+                if(swipedir == `left`) this.deltaY += -175 * -1.25;
+                if (swipedir == `right`) this.deltaY += 175 * -1.25;
+    
+                cancelAnimationFrame(this.IDMainScroll);
+                cancelAnimationFrame(this.IDMainSwipe);
+                this.IDMainSwipe = requestAnimFrame(this.rotate.bind(this));
+            }
         }.bind(this));
 
         //=========
