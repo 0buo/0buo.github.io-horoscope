@@ -295,7 +295,7 @@ class Menus{
         //     console.log($(this).css(`transform`))
         // })
 
-        var firstTouch, endTouch, touchDist= 500, smallTouchRestraint = 76, largeTouchRestraint = 245;
+        var firstTouch, endTouch, touchDist= 500, smallTouchRestraint = 46, largeTouchRestraint = 160;
         //JQUERY DOWN
         this.$optionCircles.bind(`mousedown touchstart`, function(e){
             if(e.type == `touchstart`) {
@@ -527,11 +527,11 @@ class Menus{
 let isMobileTablet = mobileAndTabletCheck();
 //if mobile change html svg displacement attribute sacle
 if(isMobileTablet){
-    document.getElementById(`displacement0`).setAttribute(`scale`, `27`);
-    document.getElementById(`displacement1`).setAttribute(`scale`, `36`);
-    document.getElementById(`displacement2`).setAttribute(`scale`, `21`);
-    document.getElementById(`displacement3`).setAttribute(`scale`, `27`);
-    document.getElementById(`displacement4`).setAttribute(`scale`, `18`);
+    document.getElementById(`displacement0`).setAttribute(`scale`, `26`);
+    document.getElementById(`displacement1`).setAttribute(`scale`, `35`);
+    document.getElementById(`displacement2`).setAttribute(`scale`, `20`);
+    document.getElementById(`displacement3`).setAttribute(`scale`, `26`);
+    document.getElementById(`displacement4`).setAttribute(`scale`, `17`);
 }
 menus = new Menus();
 
