@@ -204,6 +204,7 @@ swipedetect(el, function(swipedir){
 let NOWmainScroll, LASTNOWmainScroll, IDmenuDisplay, IDredirect;
 class Menus{
     constructor(){
+        this.videoBG = document.getElementById(`buo-video`);
         this.$videoBG = $(`#buo-video`);
 
         this.mainMenu = document.getElementById(`main-menu`);
@@ -435,6 +436,20 @@ class Menus{
         this.pastMenu.style.setProperty(`--scrollDeg`, randDeg+`deg`);
         this.newMenu.style.setProperty(`--scrollDeg`, randDeg+`deg`);
         this.undoneMenu.style.setProperty(`--scrollDeg`, randDeg+`deg`);
+
+        //=========
+        //IF VID NOT PLAYING
+        let promise = this.videoBG.play();
+        if (promise !== undefined) {
+            promise.then(_ => {
+              // Autoplay started!
+            }).catch(error => {
+              // Autoplay not allowed!
+              // Mute video and try to play again
+              this.videoBG.muted = true;
+              this.videoBG.play();
+            });
+          }
 
         //=========
         //ORIENTATION OF MENU

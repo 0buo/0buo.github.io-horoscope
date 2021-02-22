@@ -2,7 +2,7 @@ body{
     overflow: hidden;
 }
 
-#buo-video.horizontal-bg{
+.horizontal-bg{
     position: fixed;
     right: -5%;
     bottom: 0;
@@ -18,7 +18,7 @@ body{
     -webkit-filter: contrast(10%);
             filter: contrast(150%);
 }
-#buo-video.vertical-bg{
+.vertical-bg{
     position: fixed;
     right: -50%;
     bottom: 30%;
@@ -35,18 +35,6 @@ body{
             filter: contrast(150%);
 
     transform: rotate(-90deg);
-}
-*::-webkit-media-controls-panel{
-    display: none!important;
-    -webkit-appearance: none;
-}
-*::--webkit-media-controls-play-button{
-    display: none!important;
-    -webkit-appearance: none;
-}
-*::-webkit-media-controls-start-playback-button{
-    display: none!important;
-    -webkit-appearance: none;
 }
 
 #main-menu {
