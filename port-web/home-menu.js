@@ -374,7 +374,7 @@ class Menus{
             this.$optionCircles.css(`background-image`, `none`);
             this.$optionCircles.removeClass(`squiggle`);
             this.$optionCircles.prev().removeClass(`squiggle`);
-
+            //
             this.$prevCircles.css(`width`, `60px`);
             this.$prevCircles.css(`height`, `60px`);
             this.$prevCircles.css(`top`, `calc(50% - 10px)`);
@@ -580,11 +580,11 @@ class Menus{
 let isMobileTablet = mobileAndTabletCheck();
 //if mobile change html svg displacement attribute sacle
 if(isMobileTablet){
-    document.getElementById(`displacement0`).setAttribute(`scale`, `28`);
-    document.getElementById(`displacement1`).setAttribute(`scale`, `36`);
-    document.getElementById(`displacement2`).setAttribute(`scale`, `22`);
-    document.getElementById(`displacement3`).setAttribute(`scale`, `28`);
-    document.getElementById(`displacement4`).setAttribute(`scale`, `19`);
+    document.getElementById(`displacement0`).setAttribute(`scale`, `26`);
+    document.getElementById(`displacement1`).setAttribute(`scale`, `34`);
+    document.getElementById(`displacement2`).setAttribute(`scale`, `20`);
+    document.getElementById(`displacement3`).setAttribute(`scale`, `26`);
+    document.getElementById(`displacement4`).setAttribute(`scale`, `17`);
 }
 menus = new Menus();
 
