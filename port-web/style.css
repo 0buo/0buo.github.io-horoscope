@@ -244,6 +244,7 @@ body{
 
     transition: all 0.25s cubic-bezier(.35,.19,.61,1.98);
     transform: scale(1);
+    z-index: 2;
     -webkit-animation: none;
             animation: none;
 }
