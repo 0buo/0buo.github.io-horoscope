@@ -295,7 +295,7 @@ class Menus{
         //     console.log($(this).css(`transform`))
         // })
 
-        var firstTouch, endTouch, touchDist= 500, smallTouchRestraint = 46, largeTouchRestraint = 125;
+        var firstTouch, endTouch, touchDist= 500, smallTouchRestraint = 46, largeTouchRestraint = 105;
         //JQUERY DOWN
         this.$optionCircles.bind(`mousedown touchstart`, function(e){
             if(e.type == `touchstart`) {
