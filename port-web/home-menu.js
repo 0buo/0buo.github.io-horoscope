@@ -246,7 +246,7 @@ class Menus{
         }
         else{
             this.$title.css(`display`, `initial`);
-
+            
             this.$mainMenu.removeClass(`vertical`);
             this.$mainMenu.addClass(`horizontal`);
             this.$pastMenu.removeClass(`vertical`);
