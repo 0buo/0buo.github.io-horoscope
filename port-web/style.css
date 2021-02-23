@@ -1,4 +1,7 @@
+/* Air */
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+Great+Primer&display=swap');
+/* arstrology */
+@import url('https://fonts.googleapis.com/css2?family=Codystar&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Flamenco&display=swap');
 
@@ -105,8 +108,8 @@ body{
     left: 2vw;
 
     width: 70vw;
-    max-width: 1150px;
-    min-width: 650px;
+    max-width: 1050px;
+    min-width: 750px;
     height: 150px;
 }
 

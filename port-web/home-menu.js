@@ -224,15 +224,6 @@ class Menus{
 
     reorient(){
         if(window.innerWidth < 650 || isMobileTablet){
-            this.$videoBG.removeClass(`horizontal-bg`);
-            this.$videoBG.addClass(`vertical-bg`);
-        }
-        else{
-            this.$videoBG.addClass(`horizontal-bg`);
-            this.$videoBG.removeClass(`vertical-bg`);
-        }
-
-        if(window.innerWidth < 650 || isMobileTablet){
             this.$mainMenu.removeClass(`horizontal`);
             this.$mainMenu.addClass(`vertical`);
             this.$pastMenu.removeClass(`horizontal`);
@@ -241,6 +232,13 @@ class Menus{
             this.$newMenu.addClass(`vertical`);
             this.$undoneMenu.removeClass(`horizontal`);
             this.$undoneMenu.addClass(`vertical`);
+
+            this.$videoBG.removeClass(`horizontal-bg`);
+            this.$videoBG.addClass(`vertical-bg`);
+
+            //font
+            this.$optionCircles.prev().css(`font-size`, `var(--small-font-size)`);
+            this.$optionCircles.prev().css(`line-height`, `var(--small-lineH)`);
         }
         else{
             this.$mainMenu.removeClass(`vertical`);
@@ -251,7 +249,15 @@ class Menus{
             this.$newMenu.addClass(`horizontal`);
             this.$undoneMenu.removeClass(`vertical`);
             this.$undoneMenu.addClass(`horizontal`);
+
+            this.$videoBG.addClass(`horizontal-bg`);
+            this.$videoBG.removeClass(`vertical-bg`);
+
+            //font
+            this.$optionCircles.prev().css(`font-size`, `var(--large-font-size)`);
+            this.$optionCircles.prev().css(`line-height`, `var(--large-lineH)`);
         }
+
     }
 
     rotate(timestamp){
