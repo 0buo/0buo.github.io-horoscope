@@ -344,8 +344,8 @@ class Menus{
                 // $thisCircle.css(`transform`, `matrix(1.5,0,0,1.5,0,0)`);
                 $thisCircle.css(`width`, `90px`);
                 $thisCircle.css(`height`, `90px`);
-                $thisCircle.css(`top`, `calc(50% - 18px)`);
-                $thisCircle.css(`right`, `1.5%`);
+                $thisCircle.css(`top`, `calc(50% - 29px)`);
+                $thisCircle.css(`right`, `-4.5%`);
             }
             //=======
             //PREVIEW
@@ -363,7 +363,7 @@ class Menus{
                     $thisCircle.css(`width`, `580px`);
                     $thisCircle.css(`height`, `580px`);
                     $thisCircle.css(`top`, `calc(50% - 275px)`);
-                    $thisCircle.css(`right`, `-29%`);
+                    $thisCircle.css(`right`, `-30%`);
                     $thisCircle.css(`border-width`, `10px`);
                 }
                 else {
@@ -393,8 +393,8 @@ class Menus{
 
             this.$optionCircles.css(`width`, `60px`);
             this.$optionCircles.css(`height`, `60px`);
-            this.$optionCircles.css(`top`, `calc(50% - 6px)`);
-            this.$optionCircles.css(`right`, `3%`);
+            this.$optionCircles.css(`top`, `calc(50% - 17px)`);
+            this.$optionCircles.css(`right`, `-3%`);
             this.$optionCircles.css(`border-width`, `4px`);
 
             this.$optionCircles.css(`background-color`, `transparent`);
@@ -408,7 +408,7 @@ class Menus{
         }.bind(this));
 
         //JQUERY CIRCLE UP
-        this.$optionCircles.bind(`mouseup touchend`, {$main: this.$mainMenu, $new: this.$newMenu, $past: this.$pastMenu, $undone: this.$undoneMenu}, function(e){
+        this.$optionCircles.bind(`mouseup touchend`, {$main: this.$mainMenu, $new: this.$newMenu, $past: this.$pastMenu, $undone: this.$undoneMenu, $title: this.$title}, function(e){
             if(e.type == `touchend`){
                 e.preventDefault();
                 endTouch = e.changedTouches[0];
@@ -422,10 +422,13 @@ class Menus{
             let $past = e.data.$past;
             let $new = e.data.$new;
             let $undone = e.data.$undone;
+            let $title = e.data.$title;
 
             if(!$thisCircle.parent().parent().parent().attr('class').includes(`menu-disappear`) && touchDist < largeTouchRestraint){             
                 //if hit 'new'
                 if ($thisCircle.parent().attr('id') == `face3` && touchDist < smallTouchRestraint){
+                    $title.html(`New + in Progress`);
+                    
                     $new.css(`display`, `initial`);
                     $main.addClass(`menu-disappear`);
                     $past.addClass(`menu-disappear`);
@@ -441,6 +444,8 @@ class Menus{
                 }
                 //if hit 'past'
                 else if ($thisCircle.parent().attr('id') == `face4` && touchDist < smallTouchRestraint){
+                    $title.html(`Past Projects`);
+
                     $past.css(`display`, `initial`);
                     $main.addClass(`menu-disappear`);
                     $new.addClass(`menu-disappear`);
@@ -456,6 +461,8 @@ class Menus{
                 }
                 //if hit 'undone'
                 else if ($thisCircle.parent().attr('id') == `face2` && touchDist < smallTouchRestraint){
+                    $title.html(`Projects Undone`);
+
                     $undone.css(`display`, `initial`);
                     $main.addClass(`menu-disappear`);
                     $new.addClass(`menu-disappear`);
@@ -473,6 +480,8 @@ class Menus{
                 else if (($thisCircle.parent().attr('id') == `face12` || 
                          $thisCircle.parent().attr('id') == `face15` ||
                          $thisCircle.parent().attr('id') == `face18` )  && touchDist < smallTouchRestraint){
+                    $title.html(`Zhengyang Huang`);
+
                     $main.css(`display`, `initial`);
                     $main.removeClass(`menu-disappear`);
                     $past.addClass(`menu-disappear`);
