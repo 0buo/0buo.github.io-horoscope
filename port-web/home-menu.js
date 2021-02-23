@@ -547,6 +547,9 @@ class Menus{
             });
           }
 
+        //replay video after window out of focus
+        window.addEventListener(`focus`, ()=>{this.videoBG.play();});
+
         //=========
         //ORIENTATION OF MENU
         this.reorient();
