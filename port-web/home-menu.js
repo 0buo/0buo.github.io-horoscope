@@ -220,7 +220,6 @@ class Menus{
 
         this.optionCircles = document.getElementsByClassName(`option-circle`)
         this.$optionCircles = $(`.option-circle`);
-        this.$prevCircles = $(`.preview-circle`);
         this.main();
     }
 
@@ -325,9 +324,11 @@ class Menus{
             let $thisCircle = $(this);
             let preview = $thisCircle.parent().attr(`preview`);
             let preColor = $thisCircle.parent().attr(`pre-color`);
+            let preGradient = $thisCircle.parent().attr(`pre-gradient`);
 
-            if (!preColor) $thisCircle.css(`background-color`, `black`);
-            else $thisCircle.css(`background`, `${preColor}`);
+            if (!preColor && !preGradient) $thisCircle.css(`background-color`, `black`);
+            else if (preColor && !preGradient) $thisCircle.css(`background-color`, `${preColor}`);
+            else if (!preColor && preGradient) $thisCircle.css(`background-image`, `${preGradient}`);
             
             if(!isMobileTablet){
                 $thisCircle.addClass(`squiggle-less-rotate`);
@@ -374,7 +375,6 @@ class Menus{
                     $thisCircle.css(`right`, `-18%`);
                     $thisCircle.css(`border-width`, `10px`);
                 }
-                // $thisCircle.css(`background-color`, `${preColor}`);
                 $thisCircle.css(`background-image`, `url(${preview})`);
             }
         });
