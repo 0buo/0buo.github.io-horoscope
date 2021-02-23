@@ -326,8 +326,8 @@ class Menus{
             let preview = $thisCircle.parent().attr(`preview`);
             let preColor = $thisCircle.parent().attr(`pre-color`);
 
-            if (!preview) $thisCircle.css(`background-color`, `black`);
-            else $thisCircle.css(`background-color`, `${preColor}`);
+            if (!preColor) $thisCircle.css(`background-color`, `black`);
+            else $thisCircle.css(`background`, `${preColor}`);
             
             if(!isMobileTablet){
                 $thisCircle.addClass(`squiggle-less-rotate`);
@@ -496,13 +496,16 @@ class Menus{
                     }.bind($past), 1100)
                 }
                 //if hit project
-                else if ($thisCircle.parent().attr(`link`) && touchDist < largeTouchRestraint){
-                    let link = $thisCircle.parent().attr(`link`);
+                else if ($thisCircle.parent().attr(`link`)){
 
-                    clearRequestTimeout(IDredirect);
-                    IDredirect = requestTimeout(function(){
-                        location.href = link;
-                    }.bind(link), 270);
+                    if( ($thisCircle.parent().attr(`preview`) && touchDist < largeTouchRestraint) || (!$thisCircle.parent().attr(`preview`) && touchDist < smallTouchRestraint) ){
+                        let link = $thisCircle.parent().attr(`link`);
+
+                        clearRequestTimeout(IDredirect);
+                        IDredirect = requestTimeout(function(){
+                            location.href = link;
+                        }.bind(link), 270);
+                    }
                 }
                 //
             }        
