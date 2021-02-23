@@ -204,6 +204,8 @@ swipedetect(el, function(swipedir){
 let NOWmainScroll, LASTNOWmainScroll, IDmenuDisplay, IDredirect;
 class Menus{
     constructor(){
+        this.$title = $(`#title`);
+
         this.videoBG = document.getElementById(`buo-video`);
         this.$videoBG = $(`#buo-video`);
 
@@ -224,6 +226,8 @@ class Menus{
 
     reorient(){
         if(window.innerWidth < 650 || isMobileTablet){
+            this.$title.css(`display`, `none`);
+
             this.$mainMenu.removeClass(`horizontal`);
             this.$mainMenu.addClass(`vertical`);
             this.$pastMenu.removeClass(`horizontal`);
@@ -241,6 +245,8 @@ class Menus{
             this.$optionCircles.prev().css(`line-height`, `var(--small-lineH)`);
         }
         else{
+            this.$title.css(`display`, `initial`);
+
             this.$mainMenu.removeClass(`vertical`);
             this.$mainMenu.addClass(`horizontal`);
             this.$pastMenu.removeClass(`vertical`);
