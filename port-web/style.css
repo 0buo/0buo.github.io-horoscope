@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+Great+Primer&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Flamenco&display=swap');
+
 body{
     overflow: hidden;
 }
@@ -35,6 +39,14 @@ body{
             filter: contrast(150%);
 
     transform: rotate(-90deg);
+}
+
+#title{
+    position: fixed;
+    right: 0;
+    top: 0;
+    padding: 10px;
+    font-size: 30px;
 }
 
 #main-menu {
@@ -126,6 +138,10 @@ body{
     position: absolute;
     width: 100%;
     height: 100%;
+
+    /* font-family: 'Special Elite', cursive; */
+    /* font-family: 'Averia Libre', cursive; */
+    font-family: 'Flamenco', cursive;
 
     font-size: 150px;
     text-align: left;
