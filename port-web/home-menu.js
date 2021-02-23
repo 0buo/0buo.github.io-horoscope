@@ -338,8 +338,8 @@ class Menus{
                 // $thisCircle.css(`transform`, `matrix(1.5,0,0,1.5,0,0)`);
                 $thisCircle.css(`width`, `90px`);
                 $thisCircle.css(`height`, `90px`);
-                $thisCircle.css(`top`, `calc(50% - 27px)`);
-                $thisCircle.css(`right`, `3.5%`);
+                $thisCircle.css(`top`, `calc(50% - 18px)`);
+                $thisCircle.css(`right`, `1.5%`);
             }
             //=======
             //PREVIEW
@@ -357,7 +357,7 @@ class Menus{
                     $thisCircle.css(`width`, `580px`);
                     $thisCircle.css(`height`, `580px`);
                     $thisCircle.css(`top`, `calc(50% - 275px)`);
-                    $thisCircle.css(`right`, `-27%`);
+                    $thisCircle.css(`right`, `-29%`);
                     $thisCircle.css(`border-width`, `10px`);
                 }
                 else {
@@ -365,7 +365,7 @@ class Menus{
                     $thisCircle.css(`width`, `330px`);
                     $thisCircle.css(`height`, `330px`);
                     $thisCircle.css(`top`, `calc(50% - 150px)`);
-                    $thisCircle.css(`right`, `-16%`);
+                    $thisCircle.css(`right`, `-18%`);
                     $thisCircle.css(`border-width`, `10px`);
                 }
                 // $thisCircle.css(`background-color`, `${preColor}`);
@@ -387,8 +387,8 @@ class Menus{
 
             this.$optionCircles.css(`width`, `60px`);
             this.$optionCircles.css(`height`, `60px`);
-            this.$optionCircles.css(`top`, `calc(50% - 10px)`);
-            this.$optionCircles.css(`right`, `5%`);
+            this.$optionCircles.css(`top`, `calc(50% - 6px)`);
+            this.$optionCircles.css(`right`, `3%`);
             this.$optionCircles.css(`border-width`, `4px`);
 
             this.$optionCircles.css(`background-color`, `transparent`);
