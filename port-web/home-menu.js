@@ -372,7 +372,7 @@ class Menus{
                     $thisCircle.css(`width`, `330px`);
                     $thisCircle.css(`height`, `330px`);
                     $thisCircle.css(`top`, `calc(50% - 150px)`);
-                    $thisCircle.css(`right`, `-18%`);
+                    $thisCircle.css(`right`, `-24%`);
                     $thisCircle.css(`border-width`, `10px`);
                 }
                 $thisCircle.css(`background-image`, `url(${preview})`);
