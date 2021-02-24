@@ -6,6 +6,11 @@ body{
     /* --border-width: min( max(calc( min(100vh, 100vw) / 170), 3px), 7px); */
     --border-color: rgba(0,0,0, 1);
     --border-radius: min( max(calc( min(100vh, 100vw) / 25), 10px), 100px);
+
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
     /* overflow: hidden; */
 }
 
