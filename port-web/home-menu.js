@@ -364,7 +364,7 @@ class Menus{
                     $thisCircle.css(`width`, `580px`);
                     $thisCircle.css(`height`, `580px`);
                     $thisCircle.css(`top`, `calc(50% - 275px)`);
-                    $thisCircle.css(`right`, `-30%`);
+                    $thisCircle.css(`right`, `-38%`);
                     $thisCircle.css(`border-width`, `10px`);
                 }
                 else {
