@@ -315,7 +315,7 @@ class Menus{
 
         var firstTouch, endTouch, touchDist= 500, smallTouchRestraint = 46, largeTouchRestraint = 105;
         //JQUERY DOWN
-        this.$optionCircles.bind(`mousedown touchstart`, function(e){
+        this.$optionCircles.on(`mousedown touchstart`, function(e){
             if(e.type == `touchstart`) {
                 e.preventDefault();
                 firstTouch = e.changedTouches[0];
@@ -380,7 +380,7 @@ class Menus{
         });
 
         //JQUERY UP
-        $(window).bind(`mouseup touchend`, function(e){
+        $(window).on(`mouseup touchend`, function(e){
             if(e.type == `touchend`) e.preventDefault();
 
             if(!isMobileTablet){
@@ -408,7 +408,7 @@ class Menus{
         }.bind(this));
 
         //JQUERY CIRCLE UP
-        this.$optionCircles.bind(`mouseup touchend`, {$main: this.$mainMenu, $new: this.$newMenu, $past: this.$pastMenu, $undone: this.$undoneMenu, $title: this.$title}, function(e){
+        this.$optionCircles.on(`mouseup touchend`, {$main: this.$mainMenu, $new: this.$newMenu, $past: this.$pastMenu, $undone: this.$undoneMenu, $title: this.$title}, function(e){
             if(e.type == `touchend`){
                 e.preventDefault();
                 endTouch = e.changedTouches[0];
