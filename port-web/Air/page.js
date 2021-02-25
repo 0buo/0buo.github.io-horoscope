@@ -432,7 +432,7 @@ function mouseupBackbutton(e){
 
         IDredirectBack = requestTimeout(function(){
             location.href = backLink;
-        }, 750);
+        }, 700);
     }
 }
 
