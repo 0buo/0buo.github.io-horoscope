@@ -419,7 +419,7 @@ let $backButton = $(`#back-button`);
 
 let buttonColor = `#a9bab7`;
 let buttonImage = `url("./page-assets/logo.png")`;
-let backButtonImage = `url("../pages-assets/yuan-zhu.jpg")` ;
+let backButtonImage = `url("../pages-assets/zhu-tou.jpg")` ;
 let backButtonColor = `black` ;
 let backLink = `../index.html` ;
 
