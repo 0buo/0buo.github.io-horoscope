@@ -500,16 +500,17 @@ function smoothScrolling(timestamp){
 
     let current = flexContainer.scrollLeft;
     let target = current + scrollDeltaY;
-    target = Math.max(Math.min(target, flexContainer.scrollWidth - window.innerWidth), 0);
-    
+    target = Math.max(Math.min(target, flexContainer.scrollWidth - flexContainer.clientWidth + 17), 0);
 
     scrollDeltaY = lerp(scrollDeltaY, 0, 1 - Math.pow(0.1, dt));
     current = lerp(current, target, 1- Math.pow(0.3, dt));
     flexContainer.scrollLeft = current;
 
+    console.log(target - current)
+
     cancelAnimationFrame(IDscroll);
     cancelAnimationFrame(IDtouchpad);
-    if(Math.abs(current - target) >= 0.5) {
+    if(Math.abs(current - target) >= 0.1) {
         if (isScroll && !isSwipe) IDscroll = requestAnimationFrame(smoothScrolling);
         else if(isSwipe && !isScroll) IDtouchpad = requestAnimationFrame(smoothScrolling);
     }
