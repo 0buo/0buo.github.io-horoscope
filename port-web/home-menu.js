@@ -409,7 +409,7 @@ class Menus{
         }.bind(this));
 
         //JQUERY CIRCLE UP
-        this.$optionCircles.on(`mouseup touchend`, {$main: this.$mainMenu, $new: this.$newMenu, $past: this.$pastMenu, $undone: this.$undoneMenu, $title: this.$title}, function(e){
+        this.$optionCircles.on(`mouseup touchend`, {$main: this.$mainMenu, $new: this.$newMenu, $past: this.$pastMenu, $undone: this.$undoneMenu, $title: this.$title, $video: this.$videoBG}, function(e){
             if(e.type == `touchend`){
                 e.preventDefault();
                 endTouch = e.changedTouches[0];
@@ -424,6 +424,7 @@ class Menus{
             let $new = e.data.$new;
             let $undone = e.data.$undone;
             let $title = e.data.$title;
+            let $video = e.data.$video;
 
             if(!$thisCircle.parent().parent().parent().attr('class').includes(`menu-disappear`) && touchDist < largeTouchRestraint){             
                 //if hit 'new'
@@ -506,8 +507,11 @@ class Menus{
                         clearRequestTimeout(IDredirect);
 
                         $thisCircle.parent().parent().parent().css(`opacity`, `0`);
-                        $thisCircle.css(`filter`, `blur(10px) brightness(50%)`);
+                        $thisCircle.parent().parent().parent().css(`filter`, `blur(10px) brightness(50%)`);
                         $thisCircle.css(`background-color`, `black`);
+
+                        $video.css(`opacity`, `0`);
+                        $title.css(`opacity`, `0`);
 
                         IDredirect = requestTimeout(function(){
                             location.href = link;

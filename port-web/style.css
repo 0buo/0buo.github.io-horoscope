@@ -48,16 +48,28 @@ body{
     transform: rotate(-90deg);
 }
 
+#buo-video{
+    transition: opacity 0.5s ease;
+}
+#transparent-screen{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255,255,255,0.01);
+    z-index: -1;
+}
 #title{
     position: fixed;
     right: 0;
     top: 0;
     padding: 30px;
 
+    z-index: -1;
     /* font-family: 'DotGothic16', sans-serif; */
     font-family: 'Londrina Outline', cursive;
     font-size: 45px;
     color: #877782;
+    transition: opacity 0.5s ease;
 }
 
 #main-menu {
