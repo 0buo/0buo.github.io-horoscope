@@ -502,7 +502,7 @@ function smoothScrolling(timestamp){
 //SCROLL VERTICALLY
 function scrollVerical(){
     sideColumn.addEventListener(`wheel`, function(e){
-        scrollDeltaV += e.deltaY * 0.8;
+        scrollDeltaV += e.deltaY * 0.95;
         
         e.preventDefault();
 
