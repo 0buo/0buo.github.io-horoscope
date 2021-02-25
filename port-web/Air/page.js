@@ -498,27 +498,32 @@ function smoothScrolling(timestamp){
     let dt = (NOWscroll - LASTNOWscroll)/1000;
     LASTNOWscroll = NOWscroll;
 
-    let current = flexContainer.scrollLeft;
+    let current = $(flexContainer).scrollLeft();
     let target = current + scrollDeltaY;
-    target = Math.max(Math.min(target, flexContainer.scrollWidth - flexContainer.clientWidth), 0);
+    //Here the scroll length is not exactly aacurate probably bc of browser
+    let scrollLength = maxScrollLength(flexContainer);
+    target = Math.max(Math.min(target, scrollLength), 0);
 
     scrollDeltaY = lerp(scrollDeltaY, 0, 1 - Math.pow(0.1, dt));
     current = lerp(current, target, 1- Math.pow(0.3, dt));
     flexContainer.scrollLeft = current;
-
-    console.log(Math.pow(0.3, dt))
-
+    
     cancelAnimationFrame(IDscroll);
     cancelAnimationFrame(IDtouchpad);
-    if(Math.abs(current - target) >= 0.1) {
+    if(Math.abs(current - target) >= 0.5) {
         if (isScroll && !isSwipe) IDscroll = requestAnimationFrame(smoothScrolling);
         else if(isSwipe && !isScroll) IDtouchpad = requestAnimationFrame(smoothScrolling);
     }
     else{
-        LASTNOWscroll = undefined
+        LASTNOWscroll = undefined;
     }
 }
 
+
+//===
+function maxScrollLength(el){
+    return Math.max( el.scrollWidth, el.offsetWidth, el.clientWidth) - el.clientWidth;
+}
 
 //********************* */
 //=========

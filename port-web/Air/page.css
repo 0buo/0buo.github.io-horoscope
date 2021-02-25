@@ -29,7 +29,6 @@ body{
 
 .row-flex-item{
     flex: 0 0 auto;
-    padding: 0;
     margin-left: 150px;
     
     border-radius: var(--border-radius);
@@ -52,7 +51,7 @@ body{
     max-height: calc(65vh);
     max-width: calc(195vh);
     background-color: transparent !important;
-    margin: 0 !important;
+    margin-left: 5vh !important;
     /* background-image: none !important; */
 }
 
