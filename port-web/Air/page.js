@@ -77,15 +77,8 @@ function setSideColumnHeight(){
     let toSubtract = scrollH + sideColumn.clientTop*2;
     // $sideColumn.css(`height`, `${window.innerHeight - scrollH}px)`);
     // $sideBorder.css(`height`, `${window.innerHeight - scrollH}px)`);
-
     $sideColumn.css(`height`, `calc(100vh - ${toSubtract}px)`);
     $sideBorder.css(`height`, `calc(100vh - ${toSubtract}px)`);
-
-    console.log(scrollH)
-    console.log($(flexContainer).css(`height`))
-    console.log(flexContainer.offsetHeight);
-    console.log(window.innerHeight);
-    console.log(document.body.clientHeight);
 }
 
 //FOLD / UNFOLD SIDE
