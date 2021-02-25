@@ -462,8 +462,8 @@ function buttonEvents(){
 function scrollHorizontal(){
     flexContainer.addEventListener(`wheel`, function(e){
         let delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-        scrollDeltaY += delta * 1.5;
-        
+        curDeltaH += delta * 0.075;
+
         e.preventDefault();
 
         cancelAnimationFrame(IDscroll);
@@ -471,29 +471,28 @@ function scrollHorizontal(){
     });
 }
 //smoothing
-let NOWscroll, LASTNOWscroll, IDscroll, scrollDeltaY = 0;
+let NOWscroll, LASTNOWscroll, IDscroll, curDeltaH=0, HscrollStopped = true;
 function smoothScrolling(timestamp){
+    if(HscrollStopped){
+        LASTNOWscroll = undefined;
+        HscrollStopped = false;
+    }
     if (LASTNOWscroll === undefined) LASTNOWscroll = timestamp;
     NOWscroll = timestamp;
     let dt = (NOWscroll - LASTNOWscroll)/1000;
     LASTNOWscroll = NOWscroll;
 
     let current = flexContainer.scrollLeft;
-    let target = current + scrollDeltaY;
-    //Here the scroll length is not exactly aacurate probably bc of browser
-    let scrollLength = maxScrollLength(flexContainer);
-    target = Math.max(Math.min(target, scrollLength), 0);
 
-    scrollDeltaY = lerp(scrollDeltaY, 0, 1 - Math.pow(0.1, dt));
-    current = lerp(current, target, 1- Math.pow(0.3, dt));
-    flexContainer.scrollLeft = current;
+    curDeltaH = lerp(curDeltaH, 0, 1 - Math.pow(0.03, dt));
+    flexContainer.scrollLeft = current + curDeltaH;
     
     cancelAnimationFrame(IDscroll);
-    if(Math.abs(current - target) >= 5) {
+    if(Math.abs(curDeltaH) >= 0.05) {
         IDscroll = requestAnimationFrame(smoothScrolling);
     }
     else{
-        LASTNOWscroll = undefined;
+        HscrollStopped = true;
     }
 }
 
@@ -502,7 +501,7 @@ function smoothScrolling(timestamp){
 //SCROLL VERTICALLY
 function scrollVerical(){
     sideColumn.addEventListener(`wheel`, function(e){
-        scrollDeltaV = e.deltaY * 0.3;
+        curDeltaV += e.deltaY * 0.05;
         
         e.preventDefault();
 
@@ -511,29 +510,28 @@ function scrollVerical(){
     });
 }
 //smoothing vertical
-let NOWscrollV, LASTNOWscrollV, IDscrollV, scrollDeltaV = 0, curDeltaV = 0, VscrollStopped = true;;
+let NOWscrollV, LASTNOWscrollV, IDscrollV, curDeltaV = 0, VscrollStopped = true;;
 function smoothScrollingVertical(timestamp){
     if(VscrollStopped){
         LASTNOWscrollV = undefined;
         VscrollStopped = false;
     }
 
-    if (LASTNOWscrollV === undefined) LASTNOWscrollV = timestamp - 1000;
+    if (LASTNOWscrollV === undefined) LASTNOWscrollV = timestamp;
     NOWscrollV = timestamp;
     let dt = (NOWscrollV - LASTNOWscrollV)/1000;
     LASTNOWscrollV = NOWscrollV;
 
     let current = sideColumn.scrollTop;
 
-    curDeltaV = lerp(curDeltaV, scrollDeltaV, 1 - Math.pow(0.001, dt));
-    scrollDeltaV = lerp(scrollDeltaV, 0, 1 - Math.pow(0.0003, dt));
-
+    curDeltaV = lerp(curDeltaV, 0, 1 - Math.pow(0.03, dt));
     sideColumn.scrollTop = current + curDeltaV;
     
     cancelAnimationFrame(IDscrollV);
     if(Math.abs(curDeltaV) >= 0.05) {
         IDscrollV = requestAnimationFrame(smoothScrollingVertical);
     }
+    else VscrollStopped = true;
 }
 
 
