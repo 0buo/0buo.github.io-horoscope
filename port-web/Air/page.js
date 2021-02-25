@@ -401,6 +401,8 @@ function smoothScrolling(timestamp){
     else{
         scrollStopped = true;
     }
+
+    console.log(scrollDeltaY);
 }
 
 
