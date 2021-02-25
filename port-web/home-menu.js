@@ -363,15 +363,15 @@ class Menus{
                     // $thisCircle.css(`transform`, `matrix(9.5,0,0,9.5,0,0)`);
                     $thisCircle.css(`width`, `580px`);
                     $thisCircle.css(`height`, `580px`);
-                    $thisCircle.css(`top`, `calc(50% - 275px)`);
-                    $thisCircle.css(`right`, `-38%`);
+                    $thisCircle.css(`top`, `calc(50% - 280px)`);
+                    $thisCircle.css(`right`, `-34%`);
                     $thisCircle.css(`border-width`, `10px`);
                 }
                 else {
                     // $thisCircle.css(`transform`, `rotate(90deg)`);
                     $thisCircle.css(`width`, `330px`);
                     $thisCircle.css(`height`, `330px`);
-                    $thisCircle.css(`top`, `calc(50% - 150px)`);
+                    $thisCircle.css(`top`, `calc(50% - 165px)`);
                     $thisCircle.css(`right`, `-24%`);
                     $thisCircle.css(`border-width`, `10px`);
                 }
