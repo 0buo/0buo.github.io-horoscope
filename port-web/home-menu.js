@@ -540,6 +540,7 @@ class Menus{
         var BGimage = new Image;
         var $videoBG = this.$videoBG;
         BGimage.classList.add(`vertical-bg`);
+        BGimage.classList.add(`noselect`);
         BGimage.id = `bg-image`;
         if (BGvideoPromise !== undefined) {
             BGvideoPromise.then(_ => {
