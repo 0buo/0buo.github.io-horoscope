@@ -467,8 +467,8 @@ function scrollHorizontal(){
             isScroll = false;
             isSwipe = true;
 
-            if(movedir == `left`) scrollDeltaY += -175 * -0.085;
-            if (movedir == `right`) scrollDeltaY += 175 * -0.085;
+            if(movedir == `left`) scrollDeltaY += -175 * -0.01;
+            if (movedir == `right`) scrollDeltaY += 175 * -0.01;
 
             cancelAnimationFrame(IDscroll);
             cancelAnimationFrame(IDtouchpad);
@@ -479,8 +479,8 @@ function scrollHorizontal(){
             isScroll = false;
             isSwipe = true;
 
-            if(swipedir == `left`) scrollDeltaY += -175 * -6;
-            if (swipedir == `right`) scrollDeltaY += 175 * -6;
+            if(swipedir == `left`) scrollDeltaY += -175 * -8;
+            if (swipedir == `right`) scrollDeltaY += 175 * -8;
 
             cancelAnimationFrame(IDscroll);
             cancelAnimationFrame(IDtouchpad);
