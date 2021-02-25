@@ -25,7 +25,9 @@ body{
     overflow-y: hidden;
     align-items: center;
     /* writing-mode: horizontal-tb; */
+    transition: opacity 1s ease, -webkit-filter 1s ease;
     transition: opacity 1s ease, filter 1s ease;
+    transition: opacity 1s ease, filter 1s ease, -webkit-filter 1s ease;
 }
 
 .row-flex-item{
@@ -85,8 +87,13 @@ body{
     font-size: 25px;
     font-weight: 600;
 
+    transition: all 0.5s ease, transform 1s ease, width 0.25s ease, opacity 1s ease, -webkit-filter 1s ease;
+
     transition: all 0.5s ease, transform 1s ease, width 0.25s ease, opacity 1s ease, filter 1s ease;
-    animation: bg-position-move 120s ease-out infinite;
+
+    transition: all 0.5s ease, transform 1s ease, width 0.25s ease, opacity 1s ease, filter 1s ease, -webkit-filter 1s ease;
+    -webkit-animation: bg-position-move 120s ease-out infinite;
+            animation: bg-position-move 120s ease-out infinite;
 
     color: black;
     mix-blend-mode: exclusion;
@@ -113,8 +120,21 @@ body{
     width: 3.85px;
     background-color: var(--border-color);
 
+    transition: all 0.5s ease, transform 1s ease, left 0.25s ease, opacity 1s ease, -webkit-filter 1s ease;
+
     transition: all 0.5s ease, transform 1s ease, left 0.25s ease, opacity 1s ease, filter 1s ease;
+
+    transition: all 0.5s ease, transform 1s ease, left 0.25s ease, opacity 1s ease, filter 1s ease, -webkit-filter 1s ease;
     z-index: 1;
+}
+
+@-webkit-keyframes bg-position-move {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 250vw 15vh;
+    }
 }
 
 @keyframes bg-position-move {
@@ -142,7 +162,11 @@ body{
     background-size: contain;
     z-index: 2;
 
+    transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 0.75s cubic-bezier(.35,.19,.51,1.35), background-color 0.3s ease, opacity 1s ease, -webkit-filter 1s ease;
+
     transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 0.75s cubic-bezier(.35,.19,.51,1.35), background-color 0.3s ease, opacity 1s ease, filter 1s ease;
+
+    transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 0.75s cubic-bezier(.35,.19,.51,1.35), background-color 0.3s ease, opacity 1s ease, filter 1s ease, -webkit-filter 1s ease;
 }
 #back-button{
     position: fixed;
@@ -160,7 +184,11 @@ body{
     background-size: cover;
     z-index: 2;
 
+    transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 1s cubic-bezier(.35,.19,.51,1.35), background-color 0.75s ease, opacity 1s ease, -webkit-filter 1s ease;
+
     transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 1s cubic-bezier(.35,.19,.51,1.35), background-color 0.75s ease, opacity 1s ease, filter 1s ease;
+
+    transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 1s cubic-bezier(.35,.19,.51,1.35), background-color 0.75s ease, opacity 1s ease, filter 1s ease, -webkit-filter 1s ease;
 }
 
 .squiggle{
@@ -176,27 +204,27 @@ body{
     0% {
         -webkit-filter: url("#squiggly-0");
                 filter: url("#squiggly-0");
-        transform: translateX(2px) translateX(2px) rotate(3deg);
+        transform: translateX(4px) translateX(4px) rotate(6deg);
     }
     25% {
         -webkit-filter: url("#squiggly-2");
                 filter: url("#squiggly-2");
-        transform: translateX(3px) translateY(5px) rotate(4deg);
+        transform: translateX(6px) translateY(10px) rotate(8deg);
     }
     50% {
         -webkit-filter: url("#squiggly-1");
                 filter: url("#squiggly-1");
-        transform: translateX(-2px) translateX(-2px) rotate(3deg);
+        transform: translateX(-4px) translateX(-4px) rotate(6deg);
     }
     75% {
         -webkit-filter: url("#squiggly-3");
                 filter: url("#squiggly-3");
-        transform: translateX(3px) translateY(-3px) rotate(4deg);
+        transform: translateX(6px) translateY(-6px) rotate(8deg);
     }
     100% {
         -webkit-filter: url("#squiggly-4");
                 filter: url("#squiggly-4");
-        transform: translateX(2px) translateX(2px) rotate(3deg);
+        transform: translateX(4px) translateX(4px) rotate(6deg);
     }
 }
 
@@ -204,27 +232,27 @@ body{
     0% {
         -webkit-filter: url("#squiggly-0");
                 filter: url("#squiggly-0");
-        transform: translateX(2px) translateX(2px) rotate(3deg);
+        transform: translateX(4px) translateX(4px) rotate(6deg);
     }
     25% {
         -webkit-filter: url("#squiggly-2");
                 filter: url("#squiggly-2");
-        transform: translateX(3px) translateY(5px) rotate(4deg);
+        transform: translateX(6px) translateY(10px) rotate(8deg);
     }
     50% {
         -webkit-filter: url("#squiggly-1");
                 filter: url("#squiggly-1");
-        transform: translateX(-2px) translateX(-2px) rotate(3deg);
+        transform: translateX(-4px) translateX(-4px) rotate(6deg);
     }
     75% {
         -webkit-filter: url("#squiggly-3");
                 filter: url("#squiggly-3");
-        transform: translateX(3px) translateY(-3px) rotate(4deg);
+        transform: translateX(6px) translateY(-6px) rotate(8deg);
     }
     100% {
         -webkit-filter: url("#squiggly-4");
                 filter: url("#squiggly-4");
-        transform: translateX(2px) translateX(2px) rotate(3deg);
+        transform: translateX(4px) translateX(4px) rotate(6deg);
     }
 }
 
