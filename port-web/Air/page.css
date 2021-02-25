@@ -51,7 +51,7 @@ body{
     max-height: calc(65vh);
     max-width: calc(195vh);
     background-color: transparent !important;
-    margin-left: 5vh !important;
+    margin-left: calc(min(3.5vw, 70px)) !important;
     /* background-image: none !important; */
 }
 
@@ -84,7 +84,7 @@ body{
     font-size: 25px;
     font-weight: 600;
 
-    transition: transform 0.75s ease, width 0.25s ease;
+    transition: all 0.5s ease, transform 1s ease, width 0.25s ease;
     animation: bg-position-move 120s ease-out infinite;
 
     color: black;
@@ -112,7 +112,7 @@ body{
     width: 3.85px;
     background-color: var(--border-color);
 
-    transition: transform 0.75s ease, left 0.25s ease;
+    transition: all 0.5s ease, transform 1s ease, left 0.25s ease;
     z-index: 1;
 }
 
