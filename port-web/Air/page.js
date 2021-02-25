@@ -502,7 +502,7 @@ function smoothScrolling(timestamp){
 //SCROLL VERTICALLY
 function scrollVerical(){
     sideColumn.addEventListener(`wheel`, function(e){
-        scrollDeltaV += e.deltaY * 0.95;
+        scrollDeltaV += e.deltaY * 1.25;
         
         e.preventDefault();
 
@@ -525,7 +525,7 @@ function smoothScrollingVertical(timestamp){
     target = Math.max(Math.min(target, scrollH), 0);
 
     scrollDeltaV = lerp(scrollDeltaV, 0, 1 - Math.pow(0.03, dt));
-    current = lerp(current, target, 1- Math.pow(0.25, dt));
+    current = lerp(current, target, 1- Math.pow(0.2, dt));
     sideColumn.scrollTop = current;
     
     cancelAnimationFrame(IDscrollV);
