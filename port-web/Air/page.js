@@ -73,9 +73,19 @@ function getBottomScrollBarHeight(el){
 }
 
 function setSideColumnHeight(){
-    let scrollH = getBottomScrollBarHeight(flexContainer) + sideColumn.clientTop*2;
-    $sideColumn.css(`height`, `${window.innerHeight - scrollH}px)`);
-    $sideBorder.css(`height`, `${window.innerHeight - scrollH}px)`);
+    let scrollH = getBottomScrollBarHeight(flexContainer)
+    let toSubtract = scrollH + sideColumn.clientTop*2;
+    // $sideColumn.css(`height`, `${window.innerHeight - scrollH}px)`);
+    // $sideBorder.css(`height`, `${window.innerHeight - scrollH}px)`);
+
+    $sideColumn.css(`height`, `calc(100vh - ${toSubtract}px)`);
+    $sideBorder.css(`height`, `calc(100vh - ${toSubtract}px)`);
+
+    console.log(scrollH)
+    console.log($(flexContainer).css(`height`))
+    console.log(flexContainer.offsetHeight);
+    console.log(window.innerHeight);
+    console.log(document.body.clientHeight);
 }
 
 //FOLD / UNFOLD SIDE
@@ -91,8 +101,8 @@ function resizeSide(){
         }
         narrowScreen = true;
 
-        $sideColumn.css(`width`, `${window.innerWidth - 80}px`);
-        $sideBorder.css(`left`, `${window.innerWidth - 80}px`);
+        $sideColumn.css(`width`, `${window.innerWidth - 90}px`);
+        $sideBorder.css(`left`, `${window.innerWidth - 90}px`);
     }
     else{
         if(narrowScreen){
@@ -171,7 +181,7 @@ function mouseupSideButton(e){
         
                 $sideColumn.css(`transform`, ``);
                 $sideBorder.css(`transform`, ``);
-                $sideButton.css(`left`, `calc(calc(100vw - 80px) + 3.5px + 7px)`);
+                $sideButton.css(`left`, `calc(calc(100vw - 90px) + 3.5px + 7px)`);
             }
             else{
                 sideFolded = true;

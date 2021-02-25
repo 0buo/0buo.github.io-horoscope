@@ -7,17 +7,13 @@ body{
     --border-color: rgba(0,0,0, 1);
     --border-radius: min( max(calc( min(100vh, 100vw) / 25), 10px), 100px);
 
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 .row-flex-container{
-    position: relative;
+    /* position: relative;
     top: 0;
-    left: 0;
+    left: 0; */
     height: 100vh;
 
     display: flex;
@@ -26,33 +22,32 @@ body{
     overflow-x: auto;
     overflow-y: hidden;
     align-items: center;
-
-    /* background-color: wheat; */
 }
 
 .row-flex-item{
     flex: 0 0 auto;
-    margin-left: 40vw;
+    padding: 0;
+    margin-left: 150px;
+    
     border-radius: var(--border-radius);
     border: 4px solid var(--border-color);
 
     /* template testing */
     width: 1500px;
     height: 1500px;
-    max-height: 70vh;
-    max-width: 70vh;
+    max-height: calc(65vh);
+    max-width: calc(65vh);
     background-color: palevioletred;
     background-image: url("./page-assets/air-test.png");
     background-size: cover;
     background-repeat: no-repeat;
-    /* background-attachment: scroll; */
 }
 
 .flex-empty-space{
-    width: 2400px;
+    width: 2700px;
     height: 900px;
-    max-height: 70vh;
-    max-width: 248.8888888889vh;
+    max-height: calc(65vh);
+    max-width: calc(195vh);
     background-color: transparent !important;
     margin: 0 !important;
     /* background-image: none !important; */
@@ -77,6 +72,7 @@ body{
     width: 50vw;
     /* min-width: 500px; */
     height: 100vh;
+    max-height: 100vh;
     z-index: 2;
     overflow-y: auto;
 
@@ -123,7 +119,8 @@ body{
     top: 0;
     left: 50%;
     
-    height: 100%;
+    height: 100vh;
+    max-height: 100vh;
     width: 3.85px;
     background-color: var(--border-color);
 
@@ -134,15 +131,6 @@ body{
     0% {
         background-position: 0 0;
     }
-    /* 50% {
-        background-position: 0 -4vh;
-    }
-    75% {
-        background-position: 0 3vh;
-    }
-    95% {
-        background-position: 0 -1vh;
-    } */
     100% {
         background-position: 250vw 15vh;
     }
