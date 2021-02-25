@@ -368,7 +368,8 @@ function buttonEvents(){
 //SCROLL HORIZONTALLY
 function scrollHorizontal(){
     flexContainer.addEventListener(`wheel`, function(e){
-        scrollDeltaY = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+        originalDelta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+        scrollDeltaY = originalDelta;
         e.preventDefault();
 
         if(scrollStopped) LASTNOWscroll = undefined;
@@ -378,7 +379,7 @@ function scrollHorizontal(){
     });
 }
 
-let NOWscroll, LASTNOWscroll, IDscroll, scrollDeltaY, scrollStopped=true;
+let NOWscroll, LASTNOWscroll, IDscroll, scrollDeltaY, originalDelta, scrollStopped=true;
 function smoothScrolling(timestamp){
     if (LASTNOWscroll === undefined) LASTNOWscroll = timestamp;
     NOWscroll = timestamp;
@@ -386,7 +387,8 @@ function smoothScrolling(timestamp){
     LASTNOWscroll = NOWscroll;
 
     let current = flexContainer.scrollLeft;
-    let target = current + scrollDeltaY * 7;
+    let weight = 3.5 * originalDelta / 150;
+    let target = current + scrollDeltaY * weight;
     target = Math.max(Math.min(target, flexContainer.scrollWidth - window.innerWidth), 0);
 
     scrollDeltaY = lerp(scrollDeltaY, 0, 1 - Math.pow(0.05, dt));
@@ -401,8 +403,6 @@ function smoothScrolling(timestamp){
     else{
         scrollStopped = true;
     }
-
-    console.log(scrollDeltaY);
 }
 
 
