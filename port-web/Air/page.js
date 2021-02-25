@@ -462,31 +462,31 @@ function scrollHorizontal(){
         IDscroll = requestAnimationFrame(smoothScrolling);
     });
 
-    swipedetect(flexContainer, function(swipedir, movedir){
-        if(movedir == `left` || movedir == `right`){
-            isScroll = false;
-            isSwipe = true;
+    // swipedetect(flexContainer, function(swipedir, movedir){
+    //     if(movedir == `left` || movedir == `right`){
+    //         isScroll = false;
+    //         isSwipe = true;
 
-            if(movedir == `left`) scrollDeltaY += -175 * -0.1;
-            if (movedir == `right`) scrollDeltaY += 175 * -0.1;
+    //         if(movedir == `left`) scrollDeltaY += -175 * -0.1;
+    //         if (movedir == `right`) scrollDeltaY += 175 * -0.1;
 
-            cancelAnimationFrame(IDscroll);
-            cancelAnimationFrame(IDtouchpad);
-            IDtouchpad = requestAnimationFrame(smoothScrolling);
-        }
+    //         cancelAnimationFrame(IDscroll);
+    //         cancelAnimationFrame(IDtouchpad);
+    //         IDtouchpad = requestAnimationFrame(smoothScrolling);
+    //     }
 
-        if(swipedir == `left` || swipedir == `right`){
-            isScroll = false;
-            isSwipe = true;
+    //     if(swipedir == `left` || swipedir == `right`){
+    //         isScroll = false;
+    //         isSwipe = true;
 
-            if(swipedir == `left`) scrollDeltaY += -175 * -10;
-            if (swipedir == `right`) scrollDeltaY += 175 * -10;
+    //         if(swipedir == `left`) scrollDeltaY += -175 * -10;
+    //         if (swipedir == `right`) scrollDeltaY += 175 * -10;
 
-            cancelAnimationFrame(IDscroll);
-            cancelAnimationFrame(IDtouchpad);
-            IDtouchpad = requestAnimationFrame(smoothScrolling);
-        }
-    });
+    //         cancelAnimationFrame(IDscroll);
+    //         cancelAnimationFrame(IDtouchpad);
+    //         IDtouchpad = requestAnimationFrame(smoothScrolling);
+    //     }
+    // });
 
     
 }
