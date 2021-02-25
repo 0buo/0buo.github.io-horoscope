@@ -74,8 +74,8 @@ function getBottomScrollBarHeight(el){
 
 function setSideColumnHeight(){
     let scrollH = getBottomScrollBarHeight(flexContainer) + sideColumn.clientTop*2;
-    $sideColumn.css(`height`, `calc(100vh - ${scrollH}px)`);
-    $sideBorder.css(`height`, `calc(100vh - ${scrollH}px)`);
+    $sideColumn.css(`height`, `${window.innerHeight - scrollH}px)`);
+    $sideBorder.css(`height`, `${window.innerHeight - scrollH}px)`);
 }
 
 //FOLD / UNFOLD SIDE
