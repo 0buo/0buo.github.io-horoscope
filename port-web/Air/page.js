@@ -498,7 +498,7 @@ function smoothScrolling(timestamp){
     let dt = (NOWscroll - LASTNOWscroll)/1000;
     LASTNOWscroll = NOWscroll;
 
-    let current = $(flexContainer).scrollLeft();
+    let current = flexContainer.scrollLeft;
     let target = current + scrollDeltaY;
     //Here the scroll length is not exactly aacurate probably bc of browser
     let scrollLength = maxScrollLength(flexContainer);
