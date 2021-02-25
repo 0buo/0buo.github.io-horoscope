@@ -511,6 +511,7 @@ class Menus{
                         $thisCircle.css(`background-color`, `black`);
 
                         $video.css(`opacity`, `0`);
+                        $(`#bg-image`).css(`opacity`, `0`);
                         $title.css(`opacity`, `0`);
 
                         IDredirect = requestTimeout(function(){
@@ -539,6 +540,7 @@ class Menus{
         var BGimage = new Image;
         var $videoBG = this.$videoBG;
         BGimage.classList.add(`vertical-bg`);
+        BGimage.id = `bg-image`;
         if (BGvideoPromise !== undefined) {
             BGvideoPromise.then(_ => {
                 // Autoplay started!
