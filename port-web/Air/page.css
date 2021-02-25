@@ -25,6 +25,7 @@ body{
     overflow-y: hidden;
     align-items: center;
     /* writing-mode: horizontal-tb; */
+    transition: opacity 1s ease, filter 1s ease;
 }
 
 .row-flex-item{
@@ -84,7 +85,7 @@ body{
     font-size: 25px;
     font-weight: 600;
 
-    transition: all 0.5s ease, transform 1s ease, width 0.25s ease;
+    transition: all 0.5s ease, transform 1s ease, width 0.25s ease, opacity 1s ease, filter 1s ease;
     animation: bg-position-move 120s ease-out infinite;
 
     color: black;
@@ -112,7 +113,7 @@ body{
     width: 3.85px;
     background-color: var(--border-color);
 
-    transition: all 0.5s ease, transform 1s ease, left 0.25s ease;
+    transition: all 0.5s ease, transform 1s ease, left 0.25s ease, opacity 1s ease, filter 1s ease;
     z-index: 1;
 }
 
@@ -141,7 +142,7 @@ body{
     background-size: contain;
     z-index: 2;
 
-    transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 0.75s cubic-bezier(.35,.19,.51,1.35), background-color 0.3s ease;
+    transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 0.75s cubic-bezier(.35,.19,.51,1.35), background-color 0.3s ease, opacity 1s ease, filter 1s ease;
 }
 #back-button{
     position: fixed;

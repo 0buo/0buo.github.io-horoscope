@@ -421,9 +421,18 @@ function mouseupBackbutton(e){
         $backButton.css(`filter`, `blur(10px)`);
         $backButton.css(`background-image`, `none`);
 
+        $(flexContainer).css(`opacity`, `0`);
+        $(flexContainer).css(`filter`, `blur(10px)`);
+        $sideColumn.css(`opacity`, `0`);
+        $sideColumn.css(`filter`, `blur(10px)`);
+        $sideBorder.css(`opacity`, `0`);
+        $sideBorder.css(`filter`, `blur(10px)`);
+        $sideButton.css(`opacity`, `0`);
+        $sideButton.css(`filter`, `blur(10px)`);
+
         IDredirectBack = requestTimeout(function(){
             location.href = backLink;
-        }, 300);
+        }, 750);
     }
 }
 
@@ -449,49 +458,17 @@ function buttonEvents(){
 //SCROLL HORIZONTALLY
 function scrollHorizontal(){
     flexContainer.addEventListener(`wheel`, function(e){
-        isSwipe = false;
-        isScroll = true;
-
         let delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
         scrollDeltaY += delta * 1.5;
         
         e.preventDefault();
 
         cancelAnimationFrame(IDscroll);
-        cancelAnimationFrame(IDtouchpad);
         IDscroll = requestAnimationFrame(smoothScrolling);
     });
-
-    // swipedetect(flexContainer, function(swipedir, movedir){
-    //     if(movedir == `left` || movedir == `right`){
-    //         isScroll = false;
-    //         isSwipe = true;
-
-    //         if(movedir == `left`) scrollDeltaY += -175 * -0.1;
-    //         if (movedir == `right`) scrollDeltaY += 175 * -0.1;
-
-    //         cancelAnimationFrame(IDscroll);
-    //         cancelAnimationFrame(IDtouchpad);
-    //         IDtouchpad = requestAnimationFrame(smoothScrolling);
-    //     }
-
-    //     if(swipedir == `left` || swipedir == `right`){
-    //         isScroll = false;
-    //         isSwipe = true;
-
-    //         if(swipedir == `left`) scrollDeltaY += -175 * -10;
-    //         if (swipedir == `right`) scrollDeltaY += 175 * -10;
-
-    //         cancelAnimationFrame(IDscroll);
-    //         cancelAnimationFrame(IDtouchpad);
-    //         IDtouchpad = requestAnimationFrame(smoothScrolling);
-    //     }
-    // });
-
-    
 }
 //smoothing
-let NOWscroll, LASTNOWscroll, IDscroll, IDtouchpad, scrollDeltaY = 0, isScroll = false, isSwipe = false;
+let NOWscroll, LASTNOWscroll, IDscroll, scrollDeltaY = 0;
 function smoothScrolling(timestamp){
     if (LASTNOWscroll === undefined) LASTNOWscroll = timestamp;
     NOWscroll = timestamp;
@@ -509,10 +486,8 @@ function smoothScrolling(timestamp){
     flexContainer.scrollLeft = current;
     
     cancelAnimationFrame(IDscroll);
-    cancelAnimationFrame(IDtouchpad);
     if(Math.abs(current - target) >= 0.5) {
-        if (isScroll && !isSwipe) IDscroll = requestAnimationFrame(smoothScrolling);
-        else if(isSwipe && !isScroll) IDtouchpad = requestAnimationFrame(smoothScrolling);
+        IDscroll = requestAnimationFrame(smoothScrolling);
     }
     else{
         LASTNOWscroll = undefined;
