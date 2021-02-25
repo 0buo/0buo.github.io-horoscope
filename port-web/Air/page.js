@@ -387,7 +387,7 @@ function smoothScrolling(timestamp){
     LASTNOWscroll = NOWscroll;
 
     let current = flexContainer.scrollLeft;
-    let weight = 5 * 150 / Math.abs(originalDelta);
+    let weight = Math.max(Math.min(5 * 150 / Math.abs(originalDelta), 20), 1.5);
     console.log(`${Math.abs(originalDelta)}  ::  ${weight}`);
     let target = current + scrollDeltaY * weight;
     target = Math.max(Math.min(target, flexContainer.scrollWidth - window.innerWidth), 0);
