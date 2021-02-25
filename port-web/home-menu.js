@@ -506,7 +506,7 @@ class Menus{
                         clearRequestTimeout(IDredirect);
 
                         $thisCircle.parent().parent().parent().css(`opacity`, `0`);
-                        $thisCircle.parent().parent().parent().css(`filter`, `blur(10px) brightness(50%)`);
+                        $thisCircle.css(`filter`, `blur(10px) brightness(50%)`);
                         $thisCircle.css(`background-color`, `black`);
 
                         IDredirect = requestTimeout(function(){
