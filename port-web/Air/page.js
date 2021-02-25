@@ -386,12 +386,12 @@ function smoothScrolling(timestamp){
     LASTNOWscroll = NOWscroll;
 
     let current = flexContainer.scrollLeft;
-    let target = current + scrollDeltaY * 7.75;
+    let target = current + scrollDeltaY * 3.75;
     target = Math.max(Math.min(target, flexContainer.scrollWidth - window.innerWidth), 0);
 
-    scrollDeltaY = lerp(scrollDeltaY, 0, 1 - Math.pow(0.1, dt));
+    scrollDeltaY = lerp(scrollDeltaY, 0, 1 - Math.pow(0.05, dt));
 
-    current = lerp(current, target, 1- Math.pow(0.425, dt));
+    current = lerp(current, target, 1- Math.pow(0.15, dt));
     flexContainer.scrollLeft = current;
 
     cancelAnimationFrame(IDscroll);
