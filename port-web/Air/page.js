@@ -89,6 +89,7 @@ var vis = (function(){
     if(vis() == false) {
     // tab not focused
         LASTNOWscroll = undefined;
+        LASTNOWscrollV = undefined;
     }
   });
   
@@ -99,6 +100,7 @@ var vis = (function(){
       $(window).on("focusout", function () {
         // blur
         LASTNOWscroll = undefined;
+        LASTNOWscrollV = undefined;
       });
   } 
   else {
@@ -107,6 +109,7 @@ var vis = (function(){
       window.addEventListener("blur", function () {
         // blur
         LASTNOWscroll = undefined;
+        LASTNOWscrollV = undefined;
       });
   }
 
@@ -494,14 +497,59 @@ function smoothScrolling(timestamp){
     }
 }
 
+//-------------------------------------------------------------
+//=============
+//SCROLL VERTICALLY
+function scrollVerical(){
+    sideColumn.addEventListener(`wheel`, function(e){
+        scrollDeltaV += e.deltaY * 1;
+        
+        e.preventDefault();
 
-//===
+        cancelAnimationFrame(IDscrollV);
+        IDscrollV = requestAnimationFrame(smoothScrollingVertical);
+    });
+}
+//smoothing vertical
+let NOWscrollV, LASTNOWscrollV, IDscrollV, scrollDeltaV = 0;
+function smoothScrollingVertical(timestamp){
+    if (LASTNOWscrollV === undefined) LASTNOWscrollV = timestamp;
+    NOWscrollV = timestamp;
+    let dt = (NOWscrollV - LASTNOWscrollV)/1000;
+    LASTNOWscrollV = NOWscrollV;
+
+    let current = sideColumn.scrollTop;
+    let target = current + scrollDeltaV;
+    //Here the scroll length is not exactly aacurate probably bc of browser
+    let scrollH = maxScrollHeight(sideColumn);
+    target = Math.max(Math.min(target, scrollH), 0);
+
+    scrollDeltaV = lerp(scrollDeltaV, 0, 1 - Math.pow(0.05, dt));
+    current = lerp(current, target, 1- Math.pow(0.2, dt));
+    sideColumn.scrollTop = current;
+    
+    cancelAnimationFrame(IDscrollV);
+    if(Math.abs(current - target) >= 0.5) {
+        IDscrollV = requestAnimationFrame(smoothScrollingVertical);
+    }
+    else{
+        LASTNOWscrollV = undefined;
+    }
+}
+
+
+//-------------------------
 function maxScrollLength(el){
     return Math.max( el.scrollWidth, el.offsetWidth, el.clientWidth) - el.clientWidth;
 }
+function maxScrollHeight(el){
+    return Math.max( el.scrollHeight, el.offsetHeight, el.clientHeight) - el.clientHeight;
+}
 
-//********************* */
-//=========
+
+//=============================================================================
+//********************* *****************************************************/
+//===================================
 //variables
 let flexContainer = document.getElementsByClassName(`row-flex-container`)[0];
 
@@ -528,3 +576,4 @@ window.addEventListener(`resize`, resizeSide);
 
 buttonEvents();
 scrollHorizontal();
+scrollVerical();
