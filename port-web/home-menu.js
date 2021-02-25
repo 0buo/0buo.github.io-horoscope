@@ -201,7 +201,7 @@ swipedetect(el, function(swipedir){
 
 //==================================================================
 //************main scripts**************
-let NOWmainScroll, LASTNOWmainScroll, IDmenuDisplay, IDredirect;
+let NOWmainScroll, LASTNOWmainScroll, IDmenuDisplay, IDredirect, redirecting = false;
 class Menus{
     constructor(){
         this.$title = $(`#title`);
@@ -371,7 +371,7 @@ class Menus{
                     // $thisCircle.css(`transform`, `rotate(90deg)`);
                     $thisCircle.css(`width`, `330px`);
                     $thisCircle.css(`height`, `330px`);
-                    $thisCircle.css(`top`, `calc(50% - 165px)`);
+                    $thisCircle.css(`top`, `calc(50% - 155px)`);
                     $thisCircle.css(`right`, `-24%`);
                     $thisCircle.css(`border-width`, `10px`);
                 }
@@ -391,19 +391,20 @@ class Menus{
                 document.getElementById(`displacement4`).setAttribute(`scale`, `7`);
             }
 
-            this.$optionCircles.css(`width`, `60px`);
-            this.$optionCircles.css(`height`, `60px`);
-            this.$optionCircles.css(`top`, `calc(50% - 17px)`);
-            this.$optionCircles.css(`right`, `-3%`);
-            this.$optionCircles.css(`border-width`, `4px`);
-
-            this.$optionCircles.css(`background-color`, `transparent`);
-            this.$optionCircles.css(`transform`, `scale(1) rotate(0deg)`);
             this.$optionCircles.css(`background-image`, `none`);
             this.$optionCircles.removeClass(`squiggle-less-rotate`);
             this.$optionCircles.prev().removeClass(`squiggle`);
             this.$optionCircles.removeClass(`buzz-rotate`);
             this.$optionCircles.prev().removeClass(`buzz`);
+            if(!redirecting){
+                this.$optionCircles.css(`width`, `60px`);
+                this.$optionCircles.css(`height`, `60px`);
+                this.$optionCircles.css(`top`, `calc(50% - 17px)`);
+                this.$optionCircles.css(`right`, `-3%`);
+                this.$optionCircles.css(`border-width`, `4px`);
+                this.$optionCircles.css(`transform`, `scale(1) rotate(0deg)`);
+                this.$optionCircles.css(`background-color`, `transparent`);
+            }
             //
         }.bind(this));
 
@@ -496,15 +497,21 @@ class Menus{
                     }.bind($past), 1100)
                 }
                 //if hit project
-                else if ($thisCircle.parent().attr(`link`)){
+                else if ($thisCircle.parent().attr(`link`) && !redirecting){
 
                     if( ($thisCircle.parent().attr(`preview`) && touchDist < largeTouchRestraint) || (!$thisCircle.parent().attr(`preview`) && touchDist < smallTouchRestraint) ){
+                        redirecting = true;
                         let link = $thisCircle.parent().attr(`link`);
 
                         clearRequestTimeout(IDredirect);
+
+                        $thisCircle.css(`opacity`, `0`);
+                        $thisCircle.css(`filter`, `blur(10px) brightness(50%)`);
+                        $thisCircle.css(`background-color`, `black`);
+
                         IDredirect = requestTimeout(function(){
                             location.href = link;
-                        }.bind(link), 270);
+                        }.bind(link), 300);
                     }
                 }
                 //
