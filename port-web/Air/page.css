@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
 
 
-/* FLEX PART */
+html{
+    scroll-behavior: smooth;
+}
 body{
     /* --border-width: min( max(calc( min(100vh, 100vw) / 170), 3px), 7px); */
     --border-color: rgba(0,0,0, 1);
@@ -10,6 +12,7 @@ body{
     /* overflow: hidden; */
 }
 
+/* FLEX PART */
 .row-flex-container{
     position: relative;
     top: 0;
@@ -70,27 +73,13 @@ body{
     /* min-width: 500px; */
     height: 100vh;
     max-height: 100vh;
-    z-index: 2;
+    z-index: 1;
     overflow-y: auto;
 
-    direction: rtl;
-    /* border: 4px solid var(--border-color); */
+    /* direction: rtl; */
 
-    /* background-image: linear-gradient(
-        var(--gradient-deg),
-        rgba(255,255,255,1) 0%,
-        rgba(255,255,255,1) 28%,
-        rgba(255,255,255,0.5) 28.01%,
-        rgba(255,255,255,0.5) 35%,
-        rgba(255,255,255,0.5) 45%,
-        rgba(255,255,255,0.5) 58%,
-        rgba(255,255,255,0.5) 72%,
-        rgba(255,255,255,1) 72.01%,
-        rgba(255,255,255,1) 100%
-    ); */
-
-    background-color: rgba(255,255,255,0.7);
-    background-image: url('./page-assets/grain.gif');
+    background-color: rgba(255,255,255,0.57);
+    background-image: url('../pages-assets/grain.gif');
     /* opacity: 60%; */
     font-family: 'Source Serif Pro', serif;
     font-size: 25px;
@@ -98,12 +87,15 @@ body{
 
     transition: transform 0.75s ease, width 0.25s ease;
     animation: bg-position-move 120s ease-out infinite;
+
+    color: black;
+    mix-blend-mode: exclusion;
 }
 
 .side-column-container > * {
     direction:ltr;
-    padding-left: calc(min(7vw, 125px));
-    padding-right: calc(min(7vw, 125px));
+    padding-left: calc(min(5vw, 110px));
+    padding-right: calc(min(5vw, 110px));
     opacity: 100% !important;
 }
 
@@ -122,7 +114,7 @@ body{
     background-color: var(--border-color);
 
     transition: transform 0.75s ease, left 0.25s ease;
-    z-index: 2;
+    z-index: 1;
 }
 
 @keyframes bg-position-move {
@@ -150,7 +142,25 @@ body{
     background-size: contain;
     z-index: 2;
 
-    transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 0.75s cubic-bezier(.35,.19,.51,1.35), background-color 0.25s ease;
+    transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 0.75s cubic-bezier(.35,.19,.51,1.35), background-color 0.3s ease;
+}
+#back-button{
+    position: fixed;
+    /* 3.5px is border width of column */
+    left: calc(100vw - 75px);
+    top: calc(50% - 30px);
+
+    width: 60px;
+    height: 60px;
+
+    border: 3.5px solid var(--border-color);
+    border-radius: 100%;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 2;
+
+    transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 1s cubic-bezier(.35,.19,.51,1.35), background-color 0.75s ease, opacity 1s ease, filter 1s ease;
 }
 
 .squiggle{

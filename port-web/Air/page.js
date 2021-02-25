@@ -1,3 +1,9 @@
+const lerp = function (value1, value2, amount) {
+    amount = amount < 0 ? 0 : amount;
+    amount = amount > 1 ? 1 : amount;
+    return value1 + (value2 - value1) * amount;
+};
+
 /**************************request time out****************************** */
 // requestAnimationFrame() shim by Paul Irish
 // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
@@ -55,6 +61,55 @@ window.clearRequestTimeout = function(handle) {
   clearTimeout(handle);
 };
 
+/*********************check tab or window out of focus*********************** */
+var vis = (function(){
+    var stateKey, 
+        eventKey, 
+        keys = {
+                hidden: "visibilitychange",
+                webkitHidden: "webkitvisibilitychange",
+                mozHidden: "mozvisibilitychange",
+                msHidden: "msvisibilitychange"
+    };
+    for (stateKey in keys) {
+        if (stateKey in document) {
+            eventKey = keys[stateKey];
+            break;
+        }
+    }
+    return function(c) {
+        if (c) document.addEventListener(eventKey, c);
+        return !document[stateKey];
+    }
+  })();
+  // check if current tab is active or not
+  vis(function(){
+    // if(vis()){                   
+    // } 
+    if(vis() == false) {
+    // tab not focused
+        LASTNOWscroll = undefined;
+    }
+  });
+  
+  var notIE = (document.documentMode === undefined),
+      isChromium = window.chrome;
+  if (notIE && !isChromium) {
+      // checks for Firefox and other  NON IE Chrome versions
+      $(window).on("focusout", function () {
+        // blur
+        LASTNOWscroll = undefined;
+      });
+  } 
+  else {
+      // checks for IE and Chromium versions
+      // bind blur event
+      window.addEventListener("blur", function () {
+        // blur
+        LASTNOWscroll = undefined;
+      });
+  }
+
 /**************check mobile**********************/
 window.mobileAndTabletCheck = function() {
     let check = false;
@@ -82,7 +137,6 @@ function setSideColumnHeight(){
 
     $(flexContainer).css(`height`, `${window.innerHeight}px`);
     document.body.clientHeight = window.innerHeight;
-    console.log(flexContainer.clientHeight);
 }
 
 //FOLD / UNFOLD SIDE
@@ -117,6 +171,8 @@ function resizeSide(){
 
 //============
 //BUTTON EVETNS
+//------------
+//side button
 let isMouseDown = false;
 function mouseoverSideButton(){
     $sideButton.css(`transform`, `scale(1.15)`);
@@ -130,7 +186,45 @@ function mouseleaveSideButton(){
     $sideButton.css(`background-image`, `none`);
 }
 
-//------
+//------------
+//back button
+function mouseoverBackButton(){
+    $backButton.css(`transform`, `scale(1.15)`);
+    if(!isMouseDown) $backButton.css(`background-color`, `transparent`);
+    else $backButton.css(`background-color`, `${backButtonColor}`);
+    $backButton.css(`background-image`, `${backButtonImage}`);
+}
+function mouseleaveBackButton(){
+    $backButton.css(`transform`, `scale(1)`);
+    $backButton.css(`background-color`, `transparent`);
+    $backButton.css(`background-image`, `none`);
+}
+
+//=====================
+//WINDOW BUTTONS UP
+function windowMouseupButtons(){
+    // if(e.type == `touchend`) e.preventDefault();
+    
+    $sideButton.css(`transform`, `scale(1)`);
+    $sideButton.removeClass(`squiggle`);
+    $sideButton.removeClass(`buzz`);
+
+    isMouseDown = false;
+    $sideButton.css(`background-color`, `transparent`);
+    $sideButton.css(`background-image`, `none`);
+
+    //back button
+    $backButton.removeClass(`squiggle`);
+    $backButton.removeClass(`buzz`);
+    if(!redirecting){
+        $backButton.css(`transform`, `scale(1)`);
+        $backButton.css(`background-color`, `transparent`);
+        $backButton.css(`background-image`, `none`);
+    }
+}
+
+//BUTTONS DOWN
+//side button
 function mousedownSideButton(e){
     if(e.type == `touchstart`){
         e.preventDefault();
@@ -149,17 +243,28 @@ function mousedownSideButton(e){
     $sideButton.css(`background-color`, `${buttonColor}`);
     $sideButton.css(`background-image`, `${buttonImage}`);
 }
-function windowMouseupSideButton(e){
-    // if(e.type == `touchend`) e.preventDefault();
-    
-    $sideButton.css(`transform`, `scale(1)`);
-    $sideButton.removeClass(`squiggle`);
-    $sideButton.removeClass(`buzz`);
+//back button
+function mousedownBackButton(e){
+    if(e.type == `touchstart`){
+        e.preventDefault();
+        firstTouch = e.changedTouches[0];
+    }
 
-    isMouseDown = false;
-    $sideButton.css(`background-color`, `transparent`);
-    $sideButton.css(`background-image`, `none`);
+    $backButton.css(`transform`, `scale(1.25)`);
+    if(isMobileTablet){
+        $backButton.addClass(`buzz`);
+    }
+    else{
+        $backButton.addClass(`squiggle`);
+    }
+
+    isMouseDown = true;
+    $backButton.css(`background-color`, `${backButtonColor}`);
+    $backButton.css(`background-image`, `${backButtonImage}`);
 }
+
+//BUTTONS UP
+//side button
 function mouseupSideButton(e){
     if(e.type == `touchend`){
         e.preventDefault();
@@ -179,6 +284,10 @@ function mouseupSideButton(e){
                 $sideColumn.css(`transform`, ``);
                 $sideBorder.css(`transform`, ``);
                 $sideButton.css(`left`, `calc(calc(100vw - 90px) + 3.5px + 7px)`);
+                //
+                redirectable = true;
+                $backButton.css(`opacity`, `0`);
+                $backButton.css(`filter`, `blur(10px)`);
             }
             else{
                 sideFolded = true;
@@ -186,6 +295,10 @@ function mouseupSideButton(e){
                 $sideColumn.css(`transform`, `translateX(-150vw)`);
                 $sideBorder.css(`transform`, `translateX(-150vw)`);
                 $sideButton.css(`left`, `7px`)
+                //
+                redirectable = false;
+                $backButton.css(`opacity`, `1`);
+                $backButton.css(`filter`, ``);
             }
         }
         else{
@@ -207,19 +320,94 @@ function mouseupSideButton(e){
     }
     //
 }
+//back button
+let IDredirectBack, redirecting = false, redirectable = true;
+function mouseupBackbutton(e){
+    if(e.type == `touchend`){
+        e.preventDefault();
 
-//-------------
+        lastTouch = e.changedTouches[0];
+        touchDist = Math.pow((firstTouch.screenX - lastTouch.screenX), 2) + Math.pow((firstTouch.screenY - lastTouch.screenY), 2);
+    }
+    else{
+        touchDist = 0;
+    }
+
+    if(touchDist < restraint && !redirecting){
+        clearRequestTimeout(IDredirectBack);
+        redirecting = true;
+        $backButton.css(`opacity`, `0`);
+        $backButton.css(`filter`, `blur(10px)`);
+        $backButton.css(`background-image`, `none`);
+
+        IDredirectBack = requestTimeout(function(){
+            location.href = backLink;
+        }, 300);
+    }
+}
+
+//--------------
+//ADD BUTTON EVENT LISTENERS
 let firstTouch, lastTouch, touchDist = 0, restraint = 1250;
 function buttonEvents(){
+    $(window).on(`mouseup touchend`, windowMouseupButtons);
+
     $sideButton.mouseover(mouseoverSideButton);
     $sideButton.mouseleave(mouseleaveSideButton);
     $sideButton.on(`mousedown touchstart`, mousedownSideButton);
-    $(window).on(`mouseup touchend`, windowMouseupSideButton);
     $sideButton.on(`mouseup touchend`, mouseupSideButton);
+
+    $backButton.mouseover(mouseoverBackButton);
+    $backButton.mouseleave(mouseleaveBackButton);
+    $backButton.on(`mousedown touchstart`, mousedownBackButton);
+    $backButton.on(`mouseup touchend`, mouseupBackbutton);
 }
 
 
-//====
+//=============
+//SCROLL HORIZONTALLY
+function scrollHorizontal(){
+    flexContainer.addEventListener(`wheel`, function(e){
+        scrollDeltaY = e.deltaY;
+        e.preventDefault();
+
+        if(scrollStopped) LASTNOWscroll = undefined;
+        scrollStopped = false;
+        cancelAnimationFrame(IDscroll);
+        IDscroll = requestAnimationFrame(smoothScrolling);
+    });
+}
+
+let NOWscroll, LASTNOWscroll, IDscroll, scrollDeltaY, scrollStopped=true;
+function smoothScrolling(timestamp){
+    if (LASTNOWscroll === undefined) LASTNOWscroll = timestamp;
+    NOWscroll = timestamp;
+    let dt = (NOWscroll - LASTNOWscroll)/1000;
+    LASTNOWscroll = NOWscroll;
+
+    let current = flexContainer.scrollLeft;
+    let target = current + scrollDeltaY * 7.75;
+    target = Math.max(Math.min(target, flexContainer.scrollWidth - window.innerWidth), 0);
+
+    scrollDeltaY = lerp(scrollDeltaY, 0, 1 - Math.pow(0.1, dt));
+
+    current = lerp(current, target, 1- Math.pow(0.425, dt));
+    flexContainer.scrollLeft = current;
+
+    cancelAnimationFrame(IDscroll);
+    if(Math.abs(current - target) >= 1) {
+        IDscroll = requestAnimationFrame(smoothScrolling);
+    }
+    else{
+        scrollStopped = true;
+    }
+    console.log(current);
+    console.log(flexContainer.scrollWidth - window.innerWidth);
+}
+
+
+//********************* */
+//=========
 //variables
 let flexContainer = document.getElementsByClassName(`row-flex-container`)[0];
 
@@ -227,9 +415,13 @@ let sideColumn = document.getElementsByClassName(`side-column-container`)[0];
 let $sideColumn = $(`.side-column-container`);
 let $sideButton = $(`#side-button`);
 let $sideBorder = $(`#column-border`);
+let $backButton = $(`#back-button`);
 
 let buttonColor = `#a9bab7`;
 let buttonImage = `url("./page-assets/logo.png")`;
+let backButtonImage = `url("../pages-assets/yuan-zhu.jpg")` ;
+let backButtonColor = `black` ;
+let backLink = `../index.html` ;
 
 //MAIN
 let isMobileTablet = mobileAndTabletCheck();
@@ -241,4 +433,4 @@ window.addEventListener(`resize`, setSideColumnHeight);
 window.addEventListener(`resize`, resizeSide);
 
 buttonEvents();
-
+scrollHorizontal();
