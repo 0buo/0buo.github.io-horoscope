@@ -515,7 +515,7 @@ class Menus{
 
                         IDredirect = requestTimeout(function(){
                             location.href = link;
-                        }.bind(link), 1080);
+                        }.bind(link), 1050);
                     }
                 }
                 //
