@@ -7,21 +7,21 @@ body{
     --border-color: rgba(0,0,0, 1);
     --border-radius: min( max(calc( min(100vh, 100vw) / 25), 10px), 100px);
 
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .row-flex-container{
-    /* position: relative;
+    position: relative;
     top: 0;
-    left: 0; */
+    left: 0;
     height: 100vh;
 
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    overflow-x: auto;
     overflow-y: hidden;
     align-items: center;
+    /* writing-mode: horizontal-tb; */
 }
 
 .row-flex-item{
@@ -59,9 +59,6 @@ body{
 
 /* =========== */
 /* SIDE COLUMN */
-#side{
-    overflow: hidden;
-}
 
 .side-column-container{
     --gradient-deg: 0deg;
@@ -125,6 +122,7 @@ body{
     background-color: var(--border-color);
 
     transition: transform 0.75s ease, left 0.25s ease;
+    z-index: 2;
 }
 
 @keyframes bg-position-move {
@@ -150,6 +148,7 @@ body{
 
     background-repeat: no-repeat;
     background-size: contain;
+    z-index: 2;
 
     transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 0.75s cubic-bezier(.35,.19,.51,1.35), background-color 0.25s ease;
 }
