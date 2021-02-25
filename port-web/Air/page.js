@@ -489,7 +489,7 @@ function smoothScrolling(timestamp){
     flexContainer.scrollLeft = current;
     
     cancelAnimationFrame(IDscroll);
-    if(Math.abs(current - target) >= 0.5) {
+    if(Math.abs(current - target) >= 5) {
         IDscroll = requestAnimationFrame(smoothScrolling);
     }
     else{
@@ -529,7 +529,7 @@ function smoothScrollingVertical(timestamp){
     sideColumn.scrollTop = current;
     
     cancelAnimationFrame(IDscrollV);
-    if(Math.abs(current - target) >= 0.5) {
+    if(Math.abs(current - target) >= 5) {
         IDscrollV = requestAnimationFrame(smoothScrollingVertical);
     }
     else{
