@@ -524,7 +524,7 @@ function smoothScrollingVertical(timestamp){
     let scrollH = maxScrollHeight(sideColumn);
     target = Math.max(Math.min(target, scrollH), 0);
 
-    scrollDeltaV = lerp(scrollDeltaV, 0, 1 - Math.pow(0.075, dt));
+    scrollDeltaV = lerp(scrollDeltaV, 0, 1 - Math.pow(0.03, dt));
     current = lerp(current, target, 1- Math.pow(0.25, dt));
     sideColumn.scrollTop = current;
     
