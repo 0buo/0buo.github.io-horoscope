@@ -462,7 +462,7 @@ function buttonEvents(){
 function scrollHorizontal(){
     flexContainer.addEventListener(`wheel`, function(e){
         let delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-        let w = Math.max(Math.min(150 / Math.abs(delta) * 0.05, 0.1), 0.01);
+        let w = Math.max(Math.min(150 / Math.abs(delta) * 0.05, 0.5), 0.005);
         curDeltaH += delta * w;
         console.log(`${delta} :: ${w}`);
 
@@ -504,9 +504,10 @@ function smoothScrolling(timestamp){
 function scrollVerical(){
     sideColumn.addEventListener(`wheel`, function(e){
         let delta = e.deltaY;
-        let w = Math.max(Math.min(150 / Math.abs(delta) * 0.05, 0.1), 0.01);
+        let w = Math.max(Math.min(150 / Math.abs(delta) * 0.05, 0.5), 0.005);
         curDeltaV += delta * w;
-        
+        console.log(`${delta} :: ${w}`);
+
         e.preventDefault();
 
         cancelAnimationFrame(IDscrollV);
