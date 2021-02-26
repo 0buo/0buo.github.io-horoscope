@@ -462,7 +462,7 @@ function buttonEvents(){
 function scrollHorizontal(){
     flexContainer.addEventListener(`wheel`, function(e){
         let delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-        scrollDeltaH += delta * 0.15;
+        scrollDeltaH += delta * 0.1;
         e.preventDefault();
 
         cancelAnimationFrame(IDscroll);
@@ -479,8 +479,8 @@ function smoothScrolling(timestamp){
 
     let current = flexContainer.scrollLeft;
 
-    curDeltaH = lerp(curDeltaH, scrollDeltaH, 1 - Math.pow(0.03, dt));
-    scrollDeltaH = lerp(scrollDeltaH, 0, 1 - Math.pow(0.005, dt));
+    curDeltaH = lerp(curDeltaH, scrollDeltaH, 1 - Math.pow(0.002, dt));
+    scrollDeltaH = lerp(scrollDeltaH, 0, 1 - Math.pow(0.0005, dt));
 
     flexContainer.scrollLeft = current + curDeltaH;
     
