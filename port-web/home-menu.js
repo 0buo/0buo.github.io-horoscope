@@ -336,8 +336,8 @@ class Menus{
                     }
                 }
                 else{
-                    $(`.vertical`).css(`transform`, ``);
-                    $(`.vertical`).css(`-web-kit-transform`, ``);
+                    // $(`.vertical`).css(`transform`, ``);
+                    // $(`.vertical`).css(`-web-kit-transform`, ``);
                 }
             }
             else{
