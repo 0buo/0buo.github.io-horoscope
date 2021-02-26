@@ -320,21 +320,20 @@ class Menus{
                 this.$optionCircles.prev().css(`line-height`, `var(--small-lineH)`);
                 
                 //if height too small
-                if(window.innerHeight < 785){
-                    let scaleFactor = Math.min(window.innerHeight / 785, 1);
-                    scaleFactor = Math.round(scaleFactor * 10) / 10
+                if(window.innerHeight < 650){
+                    let scaleFactor = Math.min(window.innerHeight / 650, 1);
                     
                     this.$aMenu.css(`transform`, `rotate(-90deg) scale(${scaleFactor})`);
                     $(`#test`).html(`${scaleFactor} + ${window.innerHeight}`);
     
-                    // if(window.innerHeight < 530){
-                    //     let h = 530 - Math.max(window.innerHeight, 465);
-                    //     let redFactor = scale(h, 0, 65, 0, 255);
-                    //     this.$optionCircles.css(`border-color`, `rgb(${redFactor}, 0,0)`);
-                    // }
-                    // else{
-                    //     this.$optionCircles.css(`border-color`, `black`);
-                    // }
+                    if(window.innerHeight < 530){
+                        let h = 530 - Math.max(window.innerHeight, 465);
+                        let redFactor = scale(h, 0, 65, 0, 255);
+                        this.$optionCircles.css(`border-color`, `rgb(${redFactor}, 0,0)`);
+                    }
+                    else{
+                        this.$optionCircles.css(`border-color`, `black`);
+                    }
                 }
                 else{
                     this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);
