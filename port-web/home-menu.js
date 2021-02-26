@@ -299,7 +299,7 @@ class Menus{
         if(isMobileTablet){
             if(window.innerWidth < window.innerHeight){
                 $(`.horizontal`).css(`transform`, ``);
-                $(`.horizontal`).css(`transform-origin`, ``);
+                $(`.horizontal`).css(`-web-kit-transform`, ``);
                 this.$optionCircles.css(`border-color`, `black`);
 
                 // this.$title.css(`display`, `none`);
@@ -324,6 +324,7 @@ class Menus{
                 if(window.innerHeight < 800){
                     let scaleFactor = Math.min(window.innerHeight / 800, 1);
                     $(`.vertical`).css(`transform`, `rotateZ(-90deg) scale(${scaleFactor})`);
+                    $(`.vertical`).css(`-web-kit-transform`, `rotateZ(-90deg) scale(${scaleFactor})`);
     
                     if(window.innerHeight < 530){
                         let h = 530 - Math.max(window.innerHeight, 465);
@@ -335,11 +336,13 @@ class Menus{
                     }
                 }
                 else{
-                    $(`.vertical`).css(`transform`, `rotateZ(-90deg)`);
+                    $(`.vertical`).css(`transform`, ``);
+                    $(`.vertical`).css(`-web-kit-transform`, ``);
                 }
             }
             else{
                 $(`.vertical`).css(`transform`, ``);
+                $(`.vertical`).css(`-web-kit-transform`, ``);
                 this.$optionCircles.css(`border-color`, `black`);
     
                 // this.$title.css(`display`, `initial`);
@@ -363,8 +366,8 @@ class Menus{
                 //if width too small
                 if(window.innerWidth < 785){
                     let scaleFactor = Math.min(window.innerWidth / 785, 1);
-                    $(`.horizontal`).css(`transform-origin`, `left`);
                     $(`.horizontal`).css(`transform`, `scale(${scaleFactor})`);
+                    $(`.horizontal`).css(`-web-kit-transform`, `scale(${scaleFactor})`);
     
                     // if(window.innerWidth < 515){
                     //     let h = 515 - Math.max(window.innerHeight, 450);
@@ -376,8 +379,8 @@ class Menus{
                     // }
                 }
                 else{
-                    $(`.horizontal`).css(`transform-origin`, ``);
                     $(`.horizontal`).css(`transform`, ``);
+                    $(`.horizontal`).css(`-web-kit-transform`, ``);
                 }
             }
         }
