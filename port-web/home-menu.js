@@ -3,6 +3,9 @@ const lerp = function (value1, value2, amount) {
     amount = amount > 1 ? 1 : amount;
     return value1 + (value2 - value1) * amount;
 };
+const scale = (num, in_min, in_max, out_min, out_max) => {
+    return ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
+};
 
 /**************************request time out****************************** */
 // requestAnimationFrame() shim by Paul Irish
@@ -224,45 +227,152 @@ class Menus{
     }
 
     reorient(){
-        if(window.innerWidth < 650 || isMobileTablet){
-            this.$title.css(`display`, `none`);
-
-            this.$mainMenu.removeClass(`horizontal`);
-            this.$mainMenu.addClass(`vertical`);
-            this.$pastMenu.removeClass(`horizontal`);
-            this.$pastMenu.addClass(`vertical`);
-            this.$newMenu.removeClass(`horizontal`);
-            this.$newMenu.addClass(`vertical`);
-            this.$undoneMenu.removeClass(`horizontal`);
-            this.$undoneMenu.addClass(`vertical`);
-
-            this.$videoBG.removeClass(`horizontal-bg`);
-            this.$videoBG.addClass(`vertical-bg`);
-
-            //font
-            this.$optionCircles.prev().css(`font-size`, `var(--small-font-size)`);
-            this.$optionCircles.prev().css(`line-height`, `var(--small-lineH)`);
+        if(!isMobileTablet){
+            if(window.innerWidth < 650){
+                this.$title.css(`display`, `none`);
+    
+                this.$mainMenu.removeClass(`horizontal`);
+                this.$mainMenu.addClass(`vertical`);
+                this.$pastMenu.removeClass(`horizontal`);
+                this.$pastMenu.addClass(`vertical`);
+                this.$newMenu.removeClass(`horizontal`);
+                this.$newMenu.addClass(`vertical`);
+                this.$undoneMenu.removeClass(`horizontal`);
+                this.$undoneMenu.addClass(`vertical`);
+    
+                this.$videoBG.removeClass(`horizontal-bg`);
+                this.$videoBG.addClass(`vertical-bg`);
+    
+                //font
+                this.$optionCircles.prev().css(`font-size`, `var(--small-font-size)`);
+                this.$optionCircles.prev().css(`line-height`, `var(--small-lineH)`);
+    
+                //if height too small
+                if(window.innerHeight < 800){
+                    let scaleFactor = Math.min(window.innerHeight / 800, 1);
+                    $(`.vertical`).css(`transform`, `rotateZ(-90deg) scale(${scaleFactor})`);
+    
+                    if(window.innerHeight < 530){
+                        let h = 530 - Math.max(window.innerHeight, 465);
+                        let redFactor = scale(h, 0, 65, 0, 255);
+                        this.$optionCircles.css(`border-color`, `rgb(${redFactor}, 0,0)`);
+                    }
+                    else{
+                        this.$optionCircles.css(`border-color`, `black`);
+                    }
+                }
+                else{
+                    $(`.vertical`).css(`transform`, ``);
+                }
+            }
+            else{
+                $(`.vertical`).css(`transform`, ``);
+                this.$optionCircles.css(`border-color`, `black`);
+    
+                this.$title.css(`display`, `initial`);
+                
+                this.$mainMenu.removeClass(`vertical`);
+                this.$mainMenu.addClass(`horizontal`);
+                this.$pastMenu.removeClass(`vertical`);
+                this.$pastMenu.addClass(`horizontal`);
+                this.$newMenu.removeClass(`vertical`);
+                this.$newMenu.addClass(`horizontal`);
+                this.$undoneMenu.removeClass(`vertical`);
+                this.$undoneMenu.addClass(`horizontal`);
+    
+                this.$videoBG.addClass(`horizontal-bg`);
+                this.$videoBG.removeClass(`vertical-bg`);
+    
+                //font
+                this.$optionCircles.prev().css(`font-size`, `var(--large-font-size)`);
+                this.$optionCircles.prev().css(`line-height`, `var(--large-lineH)`);
+            }
         }
-        else{
-            this.$title.css(`display`, `initial`);
-            
-            this.$mainMenu.removeClass(`vertical`);
-            this.$mainMenu.addClass(`horizontal`);
-            this.$pastMenu.removeClass(`vertical`);
-            this.$pastMenu.addClass(`horizontal`);
-            this.$newMenu.removeClass(`vertical`);
-            this.$newMenu.addClass(`horizontal`);
-            this.$undoneMenu.removeClass(`vertical`);
-            this.$undoneMenu.addClass(`horizontal`);
+        //==============================================================================
+        if(isMobileTablet){
+            if(window.innerWidth < window.innerHeight){
+                $(`.horizontal`).css(`transform`, ``);
+                this.$optionCircles.css(`border-color`, `black`);
 
-            this.$videoBG.addClass(`horizontal-bg`);
-            this.$videoBG.removeClass(`vertical-bg`);
+                this.$title.css(`display`, `none`);
+    
+                this.$mainMenu.removeClass(`horizontal`);
+                this.$mainMenu.addClass(`vertical`);
+                this.$pastMenu.removeClass(`horizontal`);
+                this.$pastMenu.addClass(`vertical`);
+                this.$newMenu.removeClass(`horizontal`);
+                this.$newMenu.addClass(`vertical`);
+                this.$undoneMenu.removeClass(`horizontal`);
+                this.$undoneMenu.addClass(`vertical`);
+    
+                this.$videoBG.removeClass(`horizontal-bg`);
+                this.$videoBG.addClass(`vertical-bg`);
+    
+                //font
+                this.$optionCircles.prev().css(`font-size`, `var(--small-font-size)`);
+                this.$optionCircles.prev().css(`line-height`, `var(--small-lineH)`);
+                
+                //if height too small
+                if(window.innerHeight < 800){
+                    let scaleFactor = Math.min(window.innerHeight / 800, 1);
+                    $(`.vertical`).css(`transform`, `rotateZ(-90deg) scale(${scaleFactor})`);
+    
+                    if(window.innerHeight < 530){
+                        let h = 530 - Math.max(window.innerHeight, 465);
+                        let redFactor = scale(h, 0, 65, 0, 255);
+                        this.$optionCircles.css(`border-color`, `rgb(${redFactor}, 0,0)`);
+                    }
+                    else{
+                        this.$optionCircles.css(`border-color`, `black`);
+                    }
+                }
+                else{
+                    $(`.vertical`).css(`transform`, ``);
+                }
+            }
+            else{
+                $(`.vertical`).css(`transform`, ``);
+                this.$optionCircles.css(`border-color`, `black`);
+    
+                this.$title.css(`display`, `initial`);
+                
+                this.$mainMenu.removeClass(`vertical`);
+                this.$mainMenu.addClass(`horizontal`);
+                this.$pastMenu.removeClass(`vertical`);
+                this.$pastMenu.addClass(`horizontal`);
+                this.$newMenu.removeClass(`vertical`);
+                this.$newMenu.addClass(`horizontal`);
+                this.$undoneMenu.removeClass(`vertical`);
+                this.$undoneMenu.addClass(`horizontal`);
+    
+                this.$videoBG.addClass(`horizontal-bg`);
+                this.$videoBG.removeClass(`vertical-bg`);
+    
+                //font
+                this.$optionCircles.prev().css(`font-size`, `var(--small-font-size)`);
+                this.$optionCircles.prev().css(`line-height`, `var(--small-lineH)`);
 
-            //font
-            this.$optionCircles.prev().css(`font-size`, `var(--large-font-size)`);
-            this.$optionCircles.prev().css(`line-height`, `var(--large-lineH)`);
+                //if width too small
+                if(window.innerWidth < 785){
+                    let scaleFactor = Math.min(window.innerWidth / 785, 1);
+                    $(`.horizontal`).css(`transform-origin`, `left`);
+                    $(`.horizontal`).css(`transform`, `scale(${scaleFactor})`);
+    
+                    // if(window.innerWidth < 515){
+                    //     let h = 515 - Math.max(window.innerHeight, 450);
+                    //     let redFactor = scale(h, 0, 65, 0, 255);
+                    //     this.$optionCircles.css(`border-color`, `rgb(${redFactor}, 0,0)`);
+                    // }
+                    // else{
+                    //     this.$optionCircles.css(`border-color`, `black`);
+                    // }
+                }
+                else{
+                    $(`.horizontal`).css(`transform`, ``);
+                }
+            }
         }
-
+    //====
     }
 
     rotate(timestamp){
@@ -313,7 +423,7 @@ class Menus{
         //     console.log($(this).css(`transform`))
         // })
 
-        var firstTouch, endTouch, touchDist= 500, smallTouchRestraint = 46, largeTouchRestraint = 105;
+        var firstTouch, endTouch, touchDist= 500, smallTouchRestraint = 46, largeTouchRestraint = 105, originalBorderColor;
         //JQUERY DOWN
         this.$optionCircles.on(`mousedown touchstart`, function(e){
             if(e.type == `touchstart`) {
@@ -326,6 +436,9 @@ class Menus{
             let preColor = $thisCircle.parent().attr(`pre-color`);
             let preGradient = $thisCircle.parent().attr(`pre-gradient`);
 
+            originalBorderColor = $thisCircle.css(`border-color`);
+            $thisCircle.css(`border-color`, `black`)
+
             if (!preColor && !preGradient) $thisCircle.css(`background-color`, `black`);
             else if (preColor && !preGradient) $thisCircle.css(`background-color`, `${preColor}`);
             else if (!preColor && preGradient) $thisCircle.css(`background-image`, `${preGradient}`);
@@ -335,7 +448,8 @@ class Menus{
                 $thisCircle.prev().addClass(`squiggle`);
             }
             else{
-                $thisCircle.addClass(`buzz-rotate`);
+                if(window.innerHeight > window.innerWidth) $thisCircle.addClass(`buzz-rotate`);
+                else $thisCircle.addClass(`buzz`);
                 $thisCircle.prev().addClass(`buzz`);
             }
             
@@ -359,7 +473,8 @@ class Menus{
                     document.getElementById(`displacement4`).setAttribute(`scale`, `10`);
                 }
 
-                if(!isMobileTablet && window.innerWidth >= 650){
+                // if(!isMobileTablet && window.innerWidth >= 575){
+                if( !isMobileTablet && window.innerWidth >= 650){
                     // $thisCircle.css(`transform`, `matrix(9.5,0,0,9.5,0,0)`);
                     $thisCircle.css(`width`, `580px`);
                     $thisCircle.css(`height`, `580px`);
@@ -391,10 +506,12 @@ class Menus{
                 document.getElementById(`displacement4`).setAttribute(`scale`, `7`);
             }
 
+            this.$optionCircles.css(`border-color`, originalBorderColor);
             this.$optionCircles.css(`background-image`, `none`);
             this.$optionCircles.removeClass(`squiggle-less-rotate`);
             this.$optionCircles.prev().removeClass(`squiggle`);
             this.$optionCircles.removeClass(`buzz-rotate`);
+            this.$optionCircles.removeClass(`buzz`);
             this.$optionCircles.prev().removeClass(`buzz`);
             if(!redirecting){
                 this.$optionCircles.css(`width`, `60px`);
@@ -413,7 +530,12 @@ class Menus{
             if(e.type == `touchend`){
                 e.preventDefault();
                 endTouch = e.changedTouches[0];
-                touchDist = Math.abs(endTouch.pageY - firstTouch.pageY);
+
+                if(isMobileTablet){
+                    if(window.innerHeight >= window.innerWidth) touchDist = Math.abs(endTouch.pageY - firstTouch.pageY);
+                    else touchDist = Math.abs(endTouch.pageX - firstTouch.pageX);
+                }
+                else touchDist = 0
             }
             else{
                 touchDist = 0;
@@ -539,7 +661,8 @@ class Menus{
         let BGvideoPromise = this.videoBG.play();
         var BGimage = new Image;
         var $videoBG = this.$videoBG;
-        BGimage.classList.add(`vertical-bg`);
+        if(window.innerWidth < 650) BGimage.classList.add(`vertical-bg`);
+        else BGimage.classList.add(`horizontal-bg`);
         BGimage.classList.add(`noselect`);
         BGimage.id = `bg-image`;
         if (BGvideoPromise !== undefined) {

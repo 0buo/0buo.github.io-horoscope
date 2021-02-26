@@ -129,7 +129,7 @@ body{
 
     width: 70vw;
     max-width: 1050px;
-    min-width: 750px;
+    min-width: 650px;
     height: 150px;
 }
 
@@ -169,6 +169,7 @@ body{
     font-weight: 400;
 
     font-size: 140px;
+    line-height: 1.22;
     text-align: left;
     color: black;
     
