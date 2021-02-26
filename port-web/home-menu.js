@@ -321,8 +321,8 @@ class Menus{
                 
                 //if height too small
                 if(window.innerHeight < 785){
-                    // let scaleFactor = Math.min(window.innerHeight / 785, 1);
-                    // this.$aMenu.css(`transform`, `rotate(-90deg) scale(${scaleFactor})`);
+                    let scaleFactor = Math.min(window.innerHeight / 785, 1);
+                    this.$aMenu.css(`transform`, `rotate(-90deg) scale(0.9)`);
     
                     // if(window.innerHeight < 530){
                     //     let h = 530 - Math.max(window.innerHeight, 465);
