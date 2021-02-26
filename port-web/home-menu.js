@@ -233,7 +233,7 @@ class Menus{
     reorient(){
         if(!isMobileTablet){
             if(window.innerWidth < 650){
-                this.$title.css(`display`, `none`);
+                // this.$title.css(`display`, `none`);
     
                 this.$mainMenu.removeClass(`horizontal`);
                 this.$mainMenu.addClass(`vertical`);
@@ -273,7 +273,7 @@ class Menus{
                 $(`.vertical`).css(`transform`, ``);
                 this.$optionCircles.css(`border-color`, `black`);
     
-                this.$title.css(`display`, `initial`);
+                // this.$title.css(`display`, `initial`);
                 
                 this.$mainMenu.removeClass(`vertical`);
                 this.$mainMenu.addClass(`horizontal`);
@@ -298,7 +298,7 @@ class Menus{
                 $(`.horizontal`).css(`transform`, ``);
                 this.$optionCircles.css(`border-color`, `black`);
 
-                this.$title.css(`display`, `none`);
+                // this.$title.css(`display`, `none`);
     
                 this.$mainMenu.removeClass(`horizontal`);
                 this.$mainMenu.addClass(`vertical`);
@@ -338,7 +338,7 @@ class Menus{
                 $(`.vertical`).css(`transform`, ``);
                 this.$optionCircles.css(`border-color`, `black`);
     
-                this.$title.css(`display`, `initial`);
+                // this.$title.css(`display`, `initial`);
                 
                 this.$mainMenu.removeClass(`vertical`);
                 this.$mainMenu.addClass(`horizontal`);
