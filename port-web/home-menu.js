@@ -255,8 +255,8 @@ class Menus{
                 this.$optionCircles.prev().css(`line-height`, `var(--small-lineH)`);
     
                 //if height too small
-                if(window.innerHeight < 800){
-                    let scaleFactor = Math.min(window.innerHeight / 800, 1);
+                if(window.innerHeight < 785){
+                    let scaleFactor = Math.min(window.innerHeight / 785, 1);
                     $(`.vertical`).css(`transform`, `rotateZ(-90deg) scale(${scaleFactor})`);
     
                     if(window.innerHeight < 530){
@@ -298,8 +298,8 @@ class Menus{
         //==============================================================================
         if(isMobileTablet){
             if(window.innerWidth < window.innerHeight){
-                $(`.horizontal`).css(`transform`, ``);
-                $(`.horizontal`).css(`-web-kit-transform`, ``);
+                // $(`.horizontal`).css(`transform`, ``);
+                // $(`.horizontal`).css(`-web-kit-transform`, ``);
                 this.$optionCircles.css(`border-color`, `black`);
 
                 // this.$title.css(`display`, `none`);
@@ -321,8 +321,8 @@ class Menus{
                 this.$optionCircles.prev().css(`line-height`, `var(--small-lineH)`);
                 
                 //if height too small
-                if(window.innerHeight < 800){
-                    let scaleFactor = Math.min(window.innerHeight / 800, 1);
+                if(window.innerHeight < 785){
+                    let scaleFactor = Math.min(window.innerHeight / 785, 1);
                     $(`.vertical`).css(`transform`, `rotateZ(-90deg) scale(${scaleFactor})`);
                     $(`.vertical`).css(`-web-kit-transform`, `rotateZ(-90deg) scale(${scaleFactor})`);
     
@@ -341,8 +341,8 @@ class Menus{
                 }
             }
             else{
-                $(`.vertical`).css(`transform`, ``);
-                $(`.vertical`).css(`-web-kit-transform`, ``);
+                // $(`.vertical`).css(`transform`, ``);
+                // $(`.vertical`).css(`-web-kit-transform`, ``);
                 this.$optionCircles.css(`border-color`, `black`);
     
                 // this.$title.css(`display`, `initial`);
