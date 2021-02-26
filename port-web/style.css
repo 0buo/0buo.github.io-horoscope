@@ -501,6 +501,20 @@ body{
     }
 }
 
+#transition{
+    position: fixed;
+    top:0;
+    left:0;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    z-index: 3;
+    transition: opacity 0.75s ease;
+}
+#transition.away{
+    opacity: 0;
+}
+
 .noselect {
     -webkit-touch-callout: none;
     /* iOS Safari */

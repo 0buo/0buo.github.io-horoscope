@@ -522,6 +522,12 @@ let backLink = `../index.html` ;
 //MAIN
 let isMobileTablet = mobileAndTabletCheck();
 //===
+requestTimeout(function(){
+    $(`#transition`).addClass(`away`);
+    requestTimeout(function(){$(`#transition`).css(`display`, `none`)}, 750);
+}, 100);
+
+//===
 //resize
 setSideColumnHeight();
 resizeSide();
