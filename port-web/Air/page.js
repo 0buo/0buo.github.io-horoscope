@@ -462,7 +462,7 @@ function buttonEvents(){
 function scrollHorizontal(){
     flexContainer.addEventListener(`wheel`, function(e){
         let delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-        let w = Math.max(Math.min(150 / Math.abs(delta) * 0.05, 0.065), 0.001);
+        let w = Math.max(Math.min(150 / Math.abs(delta) * 0.05, 0.05), 0.001);
         curDeltaH += delta * w;
         console.log(`${delta} :: ${w}`);
 
