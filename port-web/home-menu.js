@@ -233,6 +233,9 @@ class Menus{
     reorient(){
         if(!isMobileTablet){
             if(window.innerWidth < 650){
+                $(`.horizontal`).css(`transform`, ``);
+                $(`.horizontal`).css(`transform-origin`, ``);
+                this.$optionCircles.css(`border-color`, `black`);
                 // this.$title.css(`display`, `none`);
     
                 this.$mainMenu.removeClass(`horizontal`);
@@ -266,7 +269,7 @@ class Menus{
                     }
                 }
                 else{
-                    $(`.vertical`).css(`transform`, ``);
+                    $(`.vertical`).css(`transform`, `rotateZ(-90deg)`);
                 }
             }
             else{
@@ -318,22 +321,22 @@ class Menus{
                 this.$optionCircles.prev().css(`line-height`, `var(--small-lineH)`);
                 
                 //if height too small
-                // if(window.innerHeight < 800){
-                //     let scaleFactor = Math.min(window.innerHeight / 800, 1);
-                //     $(`.vertical`).css(`transform`, `rotateZ(-90deg) scale(${scaleFactor})`);
+                if(window.innerHeight < 800){
+                    let scaleFactor = Math.min(window.innerHeight / 800, 1);
+                    $(`.vertical`).css(`transform`, `rotateZ(-90deg) scale(${scaleFactor})`);
     
-                //     if(window.innerHeight < 530){
-                //         let h = 530 - Math.max(window.innerHeight, 465);
-                //         let redFactor = scale(h, 0, 65, 0, 255);
-                //         this.$optionCircles.css(`border-color`, `rgb(${redFactor}, 0,0)`);
-                //     }
-                //     else{
-                //         this.$optionCircles.css(`border-color`, `black`);
-                //     }
-                // }
-                // else{
-                //     $(`.vertical`).css(`transform`, ``);
-                // }
+                    if(window.innerHeight < 530){
+                        let h = 530 - Math.max(window.innerHeight, 465);
+                        let redFactor = scale(h, 0, 65, 0, 255);
+                        this.$optionCircles.css(`border-color`, `rgb(${redFactor}, 0,0)`);
+                    }
+                    else{
+                        this.$optionCircles.css(`border-color`, `black`);
+                    }
+                }
+                else{
+                    $(`.vertical`).css(`transform`, `rotateZ(-90deg)`);
+                }
             }
             else{
                 $(`.vertical`).css(`transform`, ``);
@@ -373,6 +376,7 @@ class Menus{
                     // }
                 }
                 else{
+                    $(`.horizontal`).css(`transform-origin`, ``);
                     $(`.horizontal`).css(`transform`, ``);
                 }
             }
