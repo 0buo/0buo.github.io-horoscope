@@ -486,7 +486,7 @@ function smoothScrolling(timestamp){
 
     let current = flexContainer.scrollLeft;
 
-    curDeltaH = lerp(curDeltaH, 0, 1 - Math.pow(0.02, dt));
+    curDeltaH = lerp(curDeltaH, 0, 1 - Math.pow(0.03, dt));
     flexContainer.scrollLeft = current + curDeltaH;
     
     cancelAnimationFrame(IDscroll);
@@ -504,7 +504,7 @@ function smoothScrolling(timestamp){
 function scrollVerical(){
     sideColumn.addEventListener(`wheel`, function(e){
         let delta = e.deltaY;
-        let w = Math.max(Math.min(150 / Math.abs(delta) * 0.05, 0.065), 0.001);
+        let w = Math.max(Math.min(150 / Math.abs(delta) * 0.05, 0.05), 0.001);
         curDeltaV += delta * w;
         console.log(`${delta} :: ${w}`);
 
@@ -529,7 +529,7 @@ function smoothScrollingVertical(timestamp){
 
     let current = sideColumn.scrollTop;
 
-    curDeltaV = lerp(curDeltaV, 0, 1 - Math.pow(0.01, dt));
+    curDeltaV = lerp(curDeltaV, 0, 1 - Math.pow(0.005, dt));
     sideColumn.scrollTop = current + curDeltaV;
     
     cancelAnimationFrame(IDscrollV);
@@ -578,4 +578,4 @@ window.addEventListener(`resize`, resizeSide);
 
 buttonEvents();
 scrollHorizontal();
-scrollVerical();
+// scrollVerical();
