@@ -164,8 +164,11 @@ function swipedetect(el, callback){
             moveDistX = currentMove.pageX - previousMove.pageX;
             moveDistY = currentMove.pageY - previousMove.pageY;
 
-            if(Math.abs(moveDistY) <= moveRestraint){
+            if(Math.abs(moveDistY) <= moveRestraint && window.innerHeight >= window.innerWidth){
                 movedir = (moveDistX < 0) ? `left` : `right`;
+            }
+            else if(Math.abs(moveDistX) <= moveRestraint && window.innerHeight < window.innerWidth){ 
+                movedir = (moveDistY < 0) ? `up` : `down`;
             }
             else movedir = `none`;
             previousMove = currentMove;
@@ -180,12 +183,13 @@ function swipedetect(el, callback){
         elapsedTime = new Date().getTime() - startTime // get time elapsed
         if (elapsedTime <= allowedTime){ // first condition for awipe met
                                             //&& Math.abs(distY) <= restraint
-            if (Math.abs(distX) >= threshold                                  ){ // 2nd condition for horizontal swipe met
+            if (Math.abs(distX) >= threshold && window.innerHeight >= window.innerWidth){ // 2nd condition for horizontal swipe met
                 swipedir = (distX < 0)? 'left' : 'right' // if dist traveled is negative, it indicates left swipe
             }
-            // else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint){ // 2nd condition for vertical swipe met
-            //     swipedir = (distY < 0)? 'up' : 'down' // if dist traveled is negative, it indicates up swipe
-            // }
+            // else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint){
+            else if (Math.abs(distY) >= threshold && window.innerHeight < window.innerWidth){ // 2nd condition for vertical swipe met
+                swipedir = (distY < 0)? 'up' : 'down' // if dist traveled is negative, it indicates up swipe
+            }
         }
         handleswipe(swipedir, movedir);
         if(el !== window) e.preventDefault()
@@ -718,24 +722,28 @@ class Menus{
         //touch
         swipedetect(window, function(swipedir, movedir){
             // console.log(swipedir, movedir);
-            if(movedir == `left` || movedir == `right`){
+            if(movedir == `left` || movedir == `right` || movedir == `up` || movedir == `down`){
                 this.isScroll = false;
                 this.isSwipe = true;
     
                 if(movedir == `left`) this.deltaY += -175 * -0.085;
-                if (movedir == `right`) this.deltaY += 175 * -0.085;
+                else if (movedir == `right`) this.deltaY += 175 * -0.085;
+                else if(movedir == `up`) this.deltaY += -175 * -0.085;
+                else if (movedir == `down`) this.deltaY += 175 * -0.085;
     
                 cancelAnimationFrame(this.IDMainScroll);
                 cancelAnimationFrame(this.IDMainSwipe);
                 this.IDMainSwipe = requestAnimFrame(this.rotate.bind(this));
             }
 
-            if(swipedir == `left` || swipedir == `right`){
+            if(swipedir == `left` || swipedir == `right` || swipedir == `up` || swipedir == `down`){
                 this.isScroll = false;
                 this.isSwipe = true;
     
                 if(swipedir == `left`) this.deltaY += -175 * -3;
-                if (swipedir == `right`) this.deltaY += 175 * -3;
+                else if (swipedir == `right`) this.deltaY += 175 * -3;
+                else if(swipedir == `up`) this.deltaY += -175 * -3;
+                else if (swipedir == `down`) this.deltaY += 175 * -3;
     
                 cancelAnimationFrame(this.IDMainScroll);
                 cancelAnimationFrame(this.IDMainSwipe);
