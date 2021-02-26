@@ -11,40 +11,53 @@
 
 body{
     overflow: hidden;
-    background-color: white;
 }
 
 .horizontal-bg{
     position: fixed;
-    right: -5%;
-    bottom: 0;
+    /* right: -5%;
+    bottom: 0; */
     
-    height: 70vh;
-    width: 124.444444444; /* 100 * 16 / 9 */
+    /* height: 70vh;
+    width: 124.444444444; 
     min-width: 70vw;
-    min-height: 39.375vw; /* 100 * 9 / 16 */
+    min-height: 39.375vw;  */
+
+    bottom: 0;
+    right: 0;
+    height: 100vh;
+    width: 177.777777778vh;
+    min-width: 100vw;
+    min-height: 56.25vw;
 
     z-index: -2;
 
-    opacity: 100%;
-    -webkit-filter: contrast(10%);
-            filter: contrast(150%);
+    opacity: 30%;
+    -webkit-filter: contrast(250%);
+            filter: contrast(250%);
 }
 .vertical-bg{
     position: fixed;
-    right: -50%;
-    bottom: 30%;
+    /* right: -50%;
+    bottom: 30%; */
     
-    height: 50vh;
-    width: 88.8888888889vh; /* 100 * 16 / 9 */
+    /* height: 50vh;
+    width: 88.8888888889vh; 
     min-width: 50vw;
-    min-height: 28.125vw; /* 100 * 9 / 16 */
+    min-height: 28.125vw; */
+
+    bottom: 0;
+    right: -100%;
+    height: 100vh;
+    width: 177.777777778vh;
+    min-width: 100vw;
+    min-height: 56.25vw;
 
     z-index: -2;
 
-    opacity: 100%;
-    -webkit-filter: contrast(150%);
-            filter: contrast(150%);
+    opacity: 30%;
+    -webkit-filter: contrast(250%);
+            filter: contrast(250%);
 
     transform: rotate(-90deg);
 }
@@ -70,7 +83,7 @@ body{
     /* font-family: 'DotGothic16', sans-serif; */
     font-family: 'Londrina Outline', cursive;
     font-size: 45px;
-    color: #877782;
+    color: #725569;
     transition: opacity 0.5s ease;
 }
 
