@@ -134,9 +134,9 @@ body{
     height: 150px;
 
     transform-origin: center left;
-    transform: scale(1);
+    /* transform: scale(1); */
     -webkit-transform-origin: center left;
-    -webkit-transform: scale(1);
+    /* -webkit-transform: scale(1); */
 }
 
 .vertical{
@@ -148,9 +148,9 @@ body{
     height: 150px;
 
     transform-origin: center left;
-    transform: rotateZ(-90deg) scale(1);
+    /* transform: rotateZ(-90deg) scale(1); */
     -webkit-transform-origin: center left;
-    -webkit-transform: rotateZ(-90deg) scale(1);
+    /* -webkit-transform: rotateZ(-90deg) scale(1); */
 }
 
 .menu {

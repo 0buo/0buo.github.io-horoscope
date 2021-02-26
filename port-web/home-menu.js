@@ -216,6 +216,7 @@ class Menus{
         this.videoBG = document.getElementById(`buo-video`);
         this.$videoBG = $(`#buo-video`);
 
+        this.$aMenu = $(`.a-menu`);
         this.mainMenu = document.getElementById(`main-menu`);
         this.$mainMenu = $(`#main-menu`);
         this.pastMenu = document.getElementById(`past-menu`);
@@ -233,8 +234,7 @@ class Menus{
     reorient(){
         if(!isMobileTablet){
             if(window.innerWidth < 650){
-                $(`.horizontal`).css(`transform`, ``);
-                $(`.horizontal`).css(`transform-origin`, ``);
+                this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
                 // this.$title.css(`display`, `none`);
     
@@ -257,7 +257,7 @@ class Menus{
                 //if height too small
                 if(window.innerHeight < 785){
                     let scaleFactor = Math.min(window.innerHeight / 785, 1);
-                    $(`.vertical`).css(`transform`, `rotateZ(-90deg) scale(${scaleFactor})`);
+                    this.$aMenu.css(`transform`, `rotate(-90deg) scale(${scaleFactor})`);
     
                     if(window.innerHeight < 530){
                         let h = 530 - Math.max(window.innerHeight, 465);
@@ -269,11 +269,11 @@ class Menus{
                     }
                 }
                 else{
-                    $(`.vertical`).css(`transform`, `rotateZ(-90deg)`);
+                    this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);
                 }
             }
             else{
-                $(`.vertical`).css(`transform`, ``);
+                this.$aMenu.css(`transform`, `rotate(0deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
     
                 // this.$title.css(`display`, `initial`);
@@ -298,8 +298,7 @@ class Menus{
         //==============================================================================
         if(isMobileTablet){
             if(window.innerWidth < window.innerHeight){
-                // $(`.horizontal`).css(`transform`, ``);
-                // $(`.horizontal`).css(`-web-kit-transform`, ``);
+                this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);                
                 this.$optionCircles.css(`border-color`, `black`);
 
                 // this.$title.css(`display`, `none`);
@@ -323,8 +322,7 @@ class Menus{
                 //if height too small
                 if(window.innerHeight < 785){
                     let scaleFactor = Math.min(window.innerHeight / 785, 1);
-                    $(`.vertical`).css(`transform`, `rotateZ(-90deg) scale(${scaleFactor})`);
-                    $(`.vertical`).css(`-web-kit-transform`, `rotateZ(-90deg) scale(${scaleFactor})`);
+                    this.$aMenu.css(`transform`, `rotate(-90deg) scale(${scaleFactor})`);
     
                     if(window.innerHeight < 530){
                         let h = 530 - Math.max(window.innerHeight, 465);
@@ -336,13 +334,12 @@ class Menus{
                     }
                 }
                 else{
-                    // $(`.vertical`).css(`transform`, ``);
-                    // $(`.vertical`).css(`-web-kit-transform`, ``);
+                    this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);
                 }
             }
+            //horizontal
             else{
-                // $(`.vertical`).css(`transform`, ``);
-                // $(`.vertical`).css(`-web-kit-transform`, ``);
+                this.$aMenu.css(`transform`, `rotate(0deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
     
                 // this.$title.css(`display`, `initial`);
@@ -366,23 +363,13 @@ class Menus{
                 //if width too small
                 if(window.innerWidth < 785){
                     let scaleFactor = Math.min(window.innerWidth / 785, 1);
-                    $(`.horizontal`).css(`transform`, `scale(${scaleFactor})`);
-                    $(`.horizontal`).css(`-web-kit-transform`, `scale(${scaleFactor})`);
-    
-                    // if(window.innerWidth < 515){
-                    //     let h = 515 - Math.max(window.innerHeight, 450);
-                    //     let redFactor = scale(h, 0, 65, 0, 255);
-                    //     this.$optionCircles.css(`border-color`, `rgb(${redFactor}, 0,0)`);
-                    // }
-                    // else{
-                    //     this.$optionCircles.css(`border-color`, `black`);
-                    // }
+                    this.$aMenu.css(`transform`, `rotate(0deg) scale(${scaleFactor})`);
                 }
                 else{
-                    $(`.horizontal`).css(`transform`, ``);
-                    $(`.horizontal`).css(`-web-kit-transform`, ``);
+                    this.$aMenu.css(`transform`, `rotate(0deg) scale(1)`);
                 }
             }
+        //
         }
     //====
     }
