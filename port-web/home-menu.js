@@ -296,6 +296,7 @@ class Menus{
         if(isMobileTablet){
             if(window.innerWidth < window.innerHeight){
                 $(`.horizontal`).css(`transform`, ``);
+                $(`.horizontal`).css(`transform-origin`, ``);
                 this.$optionCircles.css(`border-color`, `black`);
 
                 // this.$title.css(`display`, `none`);
@@ -317,22 +318,22 @@ class Menus{
                 this.$optionCircles.prev().css(`line-height`, `var(--small-lineH)`);
                 
                 //if height too small
-                if(window.innerHeight < 800){
-                    let scaleFactor = Math.min(window.innerHeight / 800, 1);
-                    $(`.vertical`).css(`transform`, `rotateZ(-90deg) scale(${scaleFactor})`);
+                // if(window.innerHeight < 800){
+                //     let scaleFactor = Math.min(window.innerHeight / 800, 1);
+                //     $(`.vertical`).css(`transform`, `rotateZ(-90deg) scale(${scaleFactor})`);
     
-                    if(window.innerHeight < 530){
-                        let h = 530 - Math.max(window.innerHeight, 465);
-                        let redFactor = scale(h, 0, 65, 0, 255);
-                        this.$optionCircles.css(`border-color`, `rgb(${redFactor}, 0,0)`);
-                    }
-                    else{
-                        this.$optionCircles.css(`border-color`, `black`);
-                    }
-                }
-                else{
-                    $(`.vertical`).css(`transform`, ``);
-                }
+                //     if(window.innerHeight < 530){
+                //         let h = 530 - Math.max(window.innerHeight, 465);
+                //         let redFactor = scale(h, 0, 65, 0, 255);
+                //         this.$optionCircles.css(`border-color`, `rgb(${redFactor}, 0,0)`);
+                //     }
+                //     else{
+                //         this.$optionCircles.css(`border-color`, `black`);
+                //     }
+                // }
+                // else{
+                //     $(`.vertical`).css(`transform`, ``);
+                // }
             }
             else{
                 $(`.vertical`).css(`transform`, ``);

@@ -124,7 +124,7 @@ body{
 }
 
 .horizontal{
-    top: calc(50vh - 100px);
+    top: calc(50vh - 75px);
     left: 2vw;
 
     width: 70vw;
@@ -134,7 +134,7 @@ body{
 }
 
 .vertical{
-    top: calc(84.5vh - 100px);
+    top: calc(84.5vh - 75px);
     left: 45vw;
 
     width: 100vh;
