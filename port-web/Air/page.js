@@ -530,8 +530,14 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
 }
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
     const newColorScheme = e.matches ? "dark" : "light";
-    if (newColorScheme == `dark`) {backButtonColor = `white`; mode = `dark`;}
-    else {backButtonColor = `black`; mode = `light`;}
+    if (newColorScheme == `dark`) {
+        backButtonColor = `white`; 
+        mode = `dark`;
+    }
+    else {
+        backButtonColor = `black`; 
+        mode = `light`;
+    }
 });
 
 //MAIN
@@ -539,10 +545,6 @@ let isMobileTablet = mobileAndTabletCheck();
 //===
 requestTimeout(function(){
     $(`#transition`).addClass(`away`);
-    requestTimeout(()=>{
-        if(mode == `dark`) $(`body`).css(`background-color`, `rgb(40, 40, 40)`);
-        else $(`body`).css(`background-color`, `rgb(245, 245, 245)`);
-    }, 1000); 
     requestTimeout(function(){$(`#transition`).css(`display`, `none`);}, 750);
 }, 100);
 
