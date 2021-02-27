@@ -300,8 +300,8 @@ class Menus{
         }
         //==============================================================================
         if(isMobileTablet){
-            this.$videoBG.css(`opacity`, `60%`);
-            $(`#bg-image`).css(`opacity`, `60%`);
+            this.$videoBG.css(`opacity`, `50%`);
+            $(`#bg-image`).css(`opacity`, `50%`);
             if(window.innerWidth < window.innerHeight){
                 this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);                
                 this.$optionCircles.css(`border-color`, `black`);
@@ -349,7 +349,7 @@ class Menus{
                 this.$aMenu.css(`transform`, `rotate(0deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
     
-                this.$aMenu.css(`top`, `calc(50vh - 125px)`);
+                this.$aMenu.css(`top`, `calc(50vh - 115px)`);
                 // this.$title.css(`display`, `initial`);
                 
                 this.$mainMenu.removeClass(`vertical`);
@@ -689,8 +689,7 @@ class Menus{
                     this.videoBG.play();
                 }
             });
-          }
-
+        }
         //replay video after window out of focus
         window.addEventListener(`focus`, ()=>{this.videoBG.play();});
 
