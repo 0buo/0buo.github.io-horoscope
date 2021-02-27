@@ -12,7 +12,7 @@
 body{
     --circleColor:black;
     overflow: hidden;
-    /* transition: background-color 0.75s ease; */
+    transition: background-color 0.75s ease;
 }
 @media (prefers-color-scheme: light) {
     body {
@@ -49,8 +49,8 @@ body{
     z-index: -2;
 
     /* opacity: 100%; */
-    /* -webkit-filter: contrast(150%);
-            filter: contrast(150%); */
+    -webkit-filter: contrast(150%);
+            filter: contrast(150%);
 }
 .vertical-bg{
     position: fixed;
@@ -72,8 +72,8 @@ body{
     z-index: -2;
 
     /* opacity: 100%; */
-    /* -webkit-filter: contrast(150%);
-            filter: contrast(150%); */
+    -webkit-filter: contrast(150%);
+            filter: contrast(150%);
 
     transform: rotate(-90deg);
 }
@@ -91,19 +91,20 @@ body{
     z-index: -1;
     width: 100%;
     height: 100%;
-    background-color: rgba(255,255,255,1);
+    background-color: white;
+    transition: opacity 0.5s ease;
 }
 @media (prefers-color-scheme: light) {
-    #buo-video {-webkit-filter: contrast(150%) invert(0);filter: contrast(150%) invert(0);}
-    #bg-image{-webkit-filter: contrast(150%) invert(0);filter: contrast(150%) invert(0);}
+    /* #buo-video {-webkit-filter: contrast(150%) invert(0);filter: contrast(150%) invert(0);}
+    #bg-image{-webkit-filter: contrast(150%) invert(0);filter: contrast(150%) invert(0);} */
     #title{-webkit-filter: invert(0);filter: invert(0);}
-    #screen{background-color: rgba(255,255,255,1);}
+    #screen{mix-blend-mode: color-burn;}
 }
 @media (prefers-color-scheme: dark) {
-    #buo-video {-webkit-filter: contrast(150%) invert(100%);filter: contrast(150%) invert(100%);}
-    #bg-image{-webkit-filter: contrast(150%) invert(100%);filter: contrast(150%) invert(100%);}
+    /* #buo-video {-webkit-filter: contrast(150%) invert(100%);filter: contrast(150%) invert(100%);}
+    #bg-image{-webkit-filter: contrast(150%) invert(100%);filter: contrast(150%) invert(100%);} */
     #title{-webkit-filter: invert(100%);filter: invert(100%);}
-    #screen{background-color: rgba(0,0,0,1);}
+    #screen{mix-blend-mode: difference;}
 }
 
 #title{
