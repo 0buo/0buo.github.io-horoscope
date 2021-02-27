@@ -746,16 +746,20 @@ class Menus{
             // dark mode
             if(this.circleColor === undefined) this.$optionCircles.css(`border-color`, `white`);
             else this.$optionCircles.css(`border-color`, this.circleColor);
+
+            $(`body`).css(`background-color`, `black`);
         }
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
             const newColorScheme = e.matches ? "dark" : "light";
             if (newColorScheme == `dark`) {
                 if(this.circleColor === undefined) this.$optionCircles.css(`border-color`, `white`);
                 else this.$optionCircles.css(`border-color`, this.circleColor);
+                $(`body`).css(`background-color`, `black`);  
             }
             else {
                 if(this.circleColor === undefined) this.$optionCircles.css(`border-color`, `black`);
                 else this.$optionCircles.css(`border-color`, this.circleColor);
+                $(`body`).css(`background-color`, `white`);
             }
         });
 

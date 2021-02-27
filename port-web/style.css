@@ -12,22 +12,20 @@
 body{
     --circleColor:black;
     overflow: hidden;
-    background-color: white;
 }
+
 @media (prefers-color-scheme: light) {
-    body {
+    body{
         --circleColor: black;
-        /* background-color: white; */
-        color: black;
         background-color: white;
+        color: black;
     }
 }
 @media (prefers-color-scheme: dark) {
-    body {
+    body{
         --circleColor: white;
-        /* background-color: black; */
-        color: white;
         background-color: black;
+        color: white;
     }
 }
 
@@ -51,8 +49,8 @@ body{
     z-index: -1;
 
     /* opacity: 100%; */
-    -webkit-filter: contrast(150%);
-            filter: contrast(150%);
+    /* -webkit-filter: contrast(150%);
+            filter: contrast(150%); */
 }
 .vertical-bg{
     position: fixed;
@@ -74,28 +72,27 @@ body{
     z-index: -1;
 
     /* opacity: 100%; */
-    -webkit-filter: contrast(150%);
-            filter: contrast(150%);
+    /* -webkit-filter: contrast(150%);
+            filter: contrast(150%); */
 
     transform: rotate(-90deg);
 }
 
 #buo-video{
     transition: all 0.5s ease;
-    display: none;
 }
 #bg-image{
     transition: all 0.5s ease;
 }
 
 @media (prefers-color-scheme: light) {
-    /* #buo-video {-webkit-filter: contrast(150%) invert(0);filter: contrast(150%) invert(0);}
-    #bg-image{-webkit-filter: contrast(150%) invert(0);filter: contrast(150%) invert(0);} */
+    #buo-video {-webkit-filter: contrast(150%) invert(0);filter: contrast(150%) invert(0);}
+    #bg-image{-webkit-filter: contrast(150%) invert(0);filter: contrast(150%) invert(0);}
     #title{-webkit-filter: invert(0);filter: invert(0);}
 }
 @media (prefers-color-scheme: dark) {
-    /* #buo-video {-webkit-filter: contrast(150%) invert(100%);filter: contrast(150%) invert(100%);}
-    #bg-image{-webkit-filter: contrast(150%) invert(100%);filter: contrast(150%) invert(100%);} */
+    #buo-video {-webkit-filter: contrast(150%) invert(100%);filter: contrast(150%) invert(100%);}
+    #bg-image{-webkit-filter: contrast(150%) invert(100%);filter: contrast(150%) invert(100%);}
     #title{-webkit-filter: invert(100%);filter: invert(100%);}
 }
 
