@@ -433,6 +433,9 @@ function mouseupBackbutton(e){
         $sideButton.css(`opacity`, `0`);
         $sideButton.css(`filter`, `blur(10px)`);
 
+        if(mode == `light`) $(`body`).css(`background-color`, `white`);
+        if(mode == `dark`) $(`body`).css(`background-color`, `black`);
+
         IDredirectBack = requestTimeout(function(){
             location.href = backLink;
         }, 700);
@@ -517,12 +520,30 @@ let backButtonImage = `url("../pages-assets/zhu-tou.jpg")` ;
 let backButtonColor = `black` ;
 let backLink = `../index.html` ;
 
+let mode = `light`;
+//==========
+//LIGHT AND DARK MODE
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    // dark mode
+    mode = `dark`;
+    backButtonColor = `white`;
+}
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    const newColorScheme = e.matches ? "dark" : "light";
+    if (newColorScheme == `dark`) {backButtonColor = `white`; mode = `dark`;}
+    else {backButtonColor = `black`; mode = `light`;}
+});
+
 //MAIN
 let isMobileTablet = mobileAndTabletCheck();
 //===
 requestTimeout(function(){
     $(`#transition`).addClass(`away`);
-    requestTimeout(function(){$(`#transition`).css(`display`, `none`)}, 750);
+    requestTimeout(()=>{
+        if(mode == `dark`) $(`body`).css(`background-color`, `rgb(40, 40, 40)`);
+        else $(`body`).css(`background-color`, `rgb(245, 245, 245)`);
+    }, 1000); 
+    requestTimeout(function(){$(`#transition`).css(`display`, `none`);}, 750);
 }, 100);
 
 //===

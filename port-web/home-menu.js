@@ -496,8 +496,8 @@ class Menus{
                 // $thisCircle.css(`transform`, `matrix(1.5,0,0,1.5,0,0)`);
                 $thisCircle.css(`width`, `90px`);
                 $thisCircle.css(`height`, `90px`);
-                $thisCircle.css(`top`, `calc(50% - 29px)`);
-                $thisCircle.css(`right`, `-4.5%`);
+                $thisCircle.css(`top`, `calc(50% - 33px)`);
+                $thisCircle.css(`right`, `-5.5%`);
             }
             //=======
             //PREVIEW

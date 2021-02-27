@@ -6,10 +6,25 @@ html{
 }
 body{
     /* --border-width: min( max(calc( min(100vh, 100vw) / 170), 3px), 7px); */
-    --border-color: rgba(0,0,0, 1);
+    --border-color: rgb(46, 46, 46);
     --border-radius: min( max(calc( min(100vh, 100vw) / 25), 10px), 100px);
 
+    transition: background-color 0.75s ease;
     /* overflow: hidden; */
+}
+@media (prefers-color-scheme: light) {
+    body {
+        --border-color: rgb(46, 46, 46);
+        background-color:white;
+        color: black;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        --border-color:rgb(236, 236, 236);
+        background-color: black;
+        color: white;
+    }
 }
 
 /* FLEX PART */
@@ -327,6 +342,16 @@ body{
     background-color: white;
     z-index: 3;
     transition: opacity 0.75s ease;
+}
+@media (prefers-color-scheme: light) {
+    #transition {
+        background-color: white;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    #transition {
+        background-color: black;
+    }
 }
 #transition.away{
     opacity: 0;
