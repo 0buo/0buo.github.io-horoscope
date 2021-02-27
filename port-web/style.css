@@ -10,7 +10,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap');
 
 body{
+    --circleColor:black;
     overflow: hidden;
+}
+@media (prefers-color-scheme: light) {
+    body {
+        --circleColor: black;
+        background-color: white;
+        color: black;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        --circleColor: white;
+        background-color: black;
+        color: white;
+    }
 }
 
 .horizontal-bg{
@@ -33,8 +48,8 @@ body{
     z-index: -2;
 
     /* opacity: 100%; */
-    -webkit-filter: contrast(150%);
-            filter: contrast(150%);
+    /* -webkit-filter: contrast(150%);
+            filter: contrast(150%); */
 }
 .vertical-bg{
     position: fixed;
@@ -56,8 +71,8 @@ body{
     z-index: -2;
 
     /* opacity: 100%; */
-    -webkit-filter: contrast(150%);
-            filter: contrast(150%);
+    /* -webkit-filter: contrast(150%);
+            filter: contrast(150%); */
 
     transform: rotate(-90deg);
 }
@@ -67,6 +82,14 @@ body{
 }
 #bg-image{
     transition: opacity 0.5s ease;
+}
+@media (prefers-color-scheme: light) {
+    #buo-video {filter: contrast(150%) invert(0);}
+    #bg-image{filter: contrast(150%) invert(0);}
+}
+@media (prefers-color-scheme: dark) {
+    #buo-video {filter: contrast(150%) invert(100%);}
+    #bg-image{filter: contrast(150%) invert(100%);}
 }
 
 #title{
@@ -186,7 +209,7 @@ body{
     font-size: 140px;
     line-height: 1.22;
     text-align: left;
-    color: black;
+    /* color: black; */
     
     /* for test */
     /* background-color: green;
@@ -317,6 +340,13 @@ body{
     -webkit-animation: none;
             animation: none;
 }
+@media (prefers-color-scheme: light) {
+    .option-circle {border-color: black;}
+}
+@media (prefers-color-scheme: dark) {
+    .option-circle {border-color: white;}
+}
+
 
 .squiggle{
     -webkit-animation: squiggly-anim 0.15s linear infinite;
@@ -526,6 +556,12 @@ body{
     background-color: white;
     z-index: 3;
     transition: opacity 0.75s ease;
+}
+@media (prefers-color-scheme: light) {
+    #transition {background-color: white;}
+}
+@media (prefers-color-scheme: dark) {
+    #transition {background-color:black;}
 }
 #transition.away{
     opacity: 0;

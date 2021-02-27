@@ -228,10 +228,14 @@ class Menus{
 
         this.optionCircles = document.getElementsByClassName(`option-circle`)
         this.$optionCircles = $(`.option-circle`);
+
+        this.circleColor = `???`;
         this.main();
     }
 
     reorient(){
+        let circleColor = getComputedStyle(document.body).getPropertyValue(`--circleColor`);
+
         if(!isMobileTablet){
             this.$aMenu.css(`top`, ``);
             this.$videoBG.css(`opacity`, `90%`);
@@ -242,7 +246,7 @@ class Menus{
                 $(`#bg-image`).removeClass(`horizontal-bg`);
 
                 this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);
-                this.$optionCircles.css(`border-color`, `black`);
+                this.$optionCircles.css(`border-color`, `${circleColor}`);
                 // this.$title.css(`display`, `none`);
     
                 this.$mainMenu.removeClass(`horizontal`);
@@ -269,10 +273,14 @@ class Menus{
                     if(window.innerHeight < 530){
                         let h = 530 - Math.max(window.innerHeight, 465);
                         let redFactor = scale(h, 0, 65, 0, 255);
-                        this.$optionCircles.css(`border-color`, `rgb(${redFactor}, 0,0)`);
+                        if(circleColor.trim() == `black`) this.circleColor = `rgb(${redFactor}, 0,0)`;
+                        else if (circleColor.trim() == `white`) this.circleColor = `rgb(255, ${255 - redFactor}, ${255 - redFactor})`;
+
+                        this.$optionCircles.css(`border-color`, this.circleColor);
                     }
                     else{
-                        this.$optionCircles.css(`border-color`, `black`);
+                        this.circleColor = undefined;
+                        this.$optionCircles.css(`border-color`, `${circleColor}`);
                     }
                 }
                 else{
@@ -280,11 +288,13 @@ class Menus{
                 }
             }
             else{
+                this.circleColor = undefined;
+
                 $(`#bg-image`).addClass(`horizontal-bg`);
                 $(`#bg-image`).removeClass(`vertical-bg`);
 
                 this.$aMenu.css(`transform`, `rotate(0deg) scale(1)`);
-                this.$optionCircles.css(`border-color`, `black`);
+                this.$optionCircles.css(`border-color`, `${circleColor}`);
     
                 // this.$title.css(`display`, `initial`);
                 
@@ -314,7 +324,7 @@ class Menus{
                 $(`#bg-image`).removeClass(`horizontal-bg`);
 
                 this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);                
-                this.$optionCircles.css(`border-color`, `black`);
+                this.$optionCircles.css(`border-color`, `${circleColor}`);
 
                 this.$aMenu.css(`top`, ``);
                 // this.$title.css(`display`, `none`);
@@ -344,10 +354,14 @@ class Menus{
                     if(window.innerHeight < 530){
                         let h = 530 - Math.max(window.innerHeight, 465);
                         let redFactor = scale(h, 0, 65, 0, 255);
-                        this.$optionCircles.css(`border-color`, `rgb(${redFactor}, 0,0)`);
+                        
+                        if(circleColor.trim() == `black`) this.circleColor = `rgb(${redFactor}, 0,0)`;
+                        else if (circleColor.trim() == `white`) this.circleColor = `rgb(255, ${255 - redFactor}, ${255 - redFactor})`;
+                        this.$optionCircles.css(`border-color`, this.circleColor);
                     }
                     else{
-                        this.$optionCircles.css(`border-color`, `black`);
+                        this.circleColor = undefined
+                        this.$optionCircles.css(`border-color`, `${circleColor}`);
                     }
                 }
                 else{
@@ -356,11 +370,13 @@ class Menus{
             }
             //horizontal
             else{
+                this.circleColor = undefined;
+
                 $(`#bg-image`).addClass(`horizontal-bg`);
                 $(`#bg-image`).removeClass(`vertical-bg`);
 
                 this.$aMenu.css(`transform`, `rotate(0deg) scale(1)`);
-                this.$optionCircles.css(`border-color`, `black`);
+                this.$optionCircles.css(`border-color`, `${circleColor}`);
     
                 this.$aMenu.css(`top`, `calc(50vh - 115px)`);
                 // this.$title.css(`display`, `initial`);
@@ -451,15 +467,16 @@ class Menus{
                 firstTouch = e.changedTouches[0];
             }
 
+            let circleColor = getComputedStyle(document.body).getPropertyValue(`--circleColor`);
             let $thisCircle = $(this);
             let preview = $thisCircle.parent().attr(`preview`);
             let preColor = $thisCircle.parent().attr(`pre-color`);
             let preGradient = $thisCircle.parent().attr(`pre-gradient`);
 
             originalBorderColor = $thisCircle.css(`border-color`);
-            $thisCircle.css(`border-color`, `black`)
+            $thisCircle.css(`border-color`, `${circleColor}`);
 
-            if (!preColor && !preGradient) $thisCircle.css(`background-color`, `black`);
+            if (!preColor && !preGradient) $thisCircle.css(`background-color`, `${circleColor}`);
             else if (preColor && !preGradient) $thisCircle.css(`background-color`, `${preColor}`);
             else if (!preColor && preGradient) $thisCircle.css(`background-image`, `${preGradient}`);
             
@@ -567,6 +584,7 @@ class Menus{
             let $undone = e.data.$undone;
             let $title = e.data.$title;
             let $video = e.data.$video;
+            let circleColor = getComputedStyle(document.body).getPropertyValue(`--circleColor`);
 
             if(!$thisCircle.parent().parent().parent().attr('class').includes(`menu-disappear`) && touchDist < largeTouchRestraint){             
                 //if hit 'new'
@@ -650,7 +668,7 @@ class Menus{
 
                         $thisCircle.parent().parent().parent().css(`opacity`, `0`);
                         $thisCircle.parent().parent().parent().css(`filter`, `blur(10px) brightness(50%)`);
-                        $thisCircle.css(`background-color`, `black`);
+                        $thisCircle.css(`background-color`, `${circleColor}`);
 
                         $video.css(`opacity`, `0`);
                         $(`#bg-image`).css(`opacity`, `0`);
@@ -720,6 +738,26 @@ class Menus{
         }
         //replay video after window out of focus
         window.addEventListener(`focus`, ()=>{this.videoBG.play();});
+
+
+        //==========
+        //LIGHT AND DARK MODE
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            // dark mode
+            if(this.circleColor === undefined) this.$optionCircles.css(`border-color`, `white`);
+            else this.$optionCircles.css(`border-color`, this.circleColor);
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            const newColorScheme = e.matches ? "dark" : "light";
+            if (newColorScheme == `dark`) {
+                if(this.circleColor === undefined) this.$optionCircles.css(`border-color`, `white`);
+                else this.$optionCircles.css(`border-color`, this.circleColor);
+            }
+            else {
+                if(this.circleColor === undefined) this.$optionCircles.css(`border-color`, `black`);
+                else this.$optionCircles.css(`border-color`, this.circleColor);
+            }
+        });
 
         //=========
         //ORIENTATION OF MENU
