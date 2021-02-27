@@ -754,12 +754,10 @@ class Menus{
             if (newColorScheme == `dark`) {
                 if(this.circleColor === undefined) this.$optionCircles.css(`border-color`, `white`);
                 else this.$optionCircles.css(`border-color`, this.circleColor);
-                $(`body`).css(`background-color`, `black`);  
             }
             else {
                 if(this.circleColor === undefined) this.$optionCircles.css(`border-color`, `black`);
                 else this.$optionCircles.css(`border-color`, this.circleColor);
-                $(`body`).css(`background-color`, `white`);
             }
         });
 
