@@ -300,8 +300,8 @@ class Menus{
         }
         //==============================================================================
         if(isMobileTablet){
-            this.$videoBG.css(`opacity`, `50%`);
-            $(`#bg-image`).css(`opacity`, `50%`);
+            this.$videoBG.css(`opacity`, `60%`);
+            $(`#bg-image`).css(`opacity`, `60%`);
             if(window.innerWidth < window.innerHeight){
                 this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);                
                 this.$optionCircles.css(`border-color`, `black`);
