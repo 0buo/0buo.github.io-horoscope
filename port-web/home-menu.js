@@ -326,7 +326,6 @@ class Menus{
                     let scaleFactor = Math.min(window.innerHeight / 650, 1);
                     
                     this.$aMenu.css(`transform`, `rotate(-90deg) scale(${scaleFactor})`);
-                    $(`#test`).html(`${scaleFactor} + ${window.innerHeight}`);
     
                     if(window.innerHeight < 530){
                         let h = 530 - Math.max(window.innerHeight, 465);
