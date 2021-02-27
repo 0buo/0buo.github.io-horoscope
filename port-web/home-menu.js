@@ -664,7 +664,7 @@ class Menus{
         });
     }
 
-    main(){
+    async main(){
         //=========
         //START WITH RANDOM DEG
         let seedRandom = new Math.seedrandom();
@@ -678,7 +678,8 @@ class Menus{
         //IF VID NOT PLAYING
         let BGvideoPromise = this.videoBG.play();
         var BGimage = new Image;
-        var $videoBG = this.$videoBG;
+        var $videoBG = await this.$videoBG;
+        console.log(`waited`);
 
         BGimage.classList.add(`noselect`);
         BGimage.id = `bg-image`;
