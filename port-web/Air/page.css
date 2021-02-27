@@ -26,14 +26,14 @@ body{
         background-color: white;
     }
     100%{
-        background-color: rgb(240,240,240);
+        background-color: rgb(243,243,243);
     }
 }
 
 @media (prefers-color-scheme: light) {
     body {
         --border-color: rgb(46, 46, 46);
-        background-color:rgb(240,240,240);
+        background-color:rgb(243,243,243);
         color: black;
         animation: start-bg-light 2s ease 1;
     }
