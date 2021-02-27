@@ -233,12 +233,13 @@ class Menus{
 
     reorient(){
         if(!isMobileTablet){
+            this.$aMenu.css(`top`, ``);
             this.$videoBG.css(`opacity`, `90%`);
             $(`#bg-image`).css(`opacity`, `90%`);
-            this.$aMenu.css(`top`, ``);
 
             if(window.innerWidth < 650){
                 $(`#bg-image`).addClass(`vertical-bg`);
+                $(`#bg-image`).removeClass(`horizontal-bg`);
 
                 this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
@@ -280,6 +281,7 @@ class Menus{
             }
             else{
                 $(`#bg-image`).addClass(`horizontal-bg`);
+                $(`#bg-image`).removeClass(`vertical-bg`);
 
                 this.$aMenu.css(`transform`, `rotate(0deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
@@ -307,10 +309,9 @@ class Menus{
         else if(isMobileTablet){
             this.$videoBG.css(`opacity`, `60%`);
             $(`#bg-image`).css(`opacity`, `60%`);
-            console.log('?')
-
             if(window.innerWidth < window.innerHeight){
                 $(`#bg-image`).addClass(`vertical-bg`);
+                $(`#bg-image`).removeClass(`horizontal-bg`);
 
                 this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);                
                 this.$optionCircles.css(`border-color`, `black`);
@@ -356,6 +357,7 @@ class Menus{
             //horizontal
             else{
                 $(`#bg-image`).addClass(`horizontal-bg`);
+                $(`#bg-image`).removeClass(`vertical-bg`);
 
                 this.$aMenu.css(`transform`, `rotate(0deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
@@ -664,7 +666,7 @@ class Menus{
         });
     }
 
-    async main(){
+    main(){
         //=========
         //START WITH RANDOM DEG
         let seedRandom = new Math.seedrandom();
@@ -678,11 +680,19 @@ class Menus{
         //IF VID NOT PLAYING
         let BGvideoPromise = this.videoBG.play();
         var BGimage = new Image;
-        var $videoBG = await this.$videoBG;
-        console.log(`waited`);
+        var $videoBG = this.$videoBG;
 
         BGimage.classList.add(`noselect`);
+        if(!isMobileTablet){
+            if(window.innerWidth < 650) BGimage.classList.add(`vertical-bg`);
+            else BGimage.classList.add(`horizontal-bg`);
+        }
+        else{
+            if(window.innerWidth < window.innerHeight) BGimage.classList.add(`vertical-bg`);
+            else BGimage.classList.add(`horizontal-bg`);
+        }
         BGimage.id = `bg-image`;
+
         if (BGvideoPromise !== undefined) {
             BGvideoPromise.then(_ => {
                 // Autoplay started!
@@ -693,6 +703,13 @@ class Menus{
                     BGimage.onload = ()=>{
                         document.body.prepend(BGimage);
                         $videoBG.css(`display`, `none`);
+
+                        if(isMobileTablet){
+                            $(`#bg-image`).css(`opacity`, `60%`);
+                        }
+                        else{
+                            $(`#bg-image`).css(`opacity`, `90%`);
+                        }
                     };
                 }
                 else{
