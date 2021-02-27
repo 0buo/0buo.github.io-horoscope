@@ -97,13 +97,13 @@ body{
     #buo-video {-webkit-filter: contrast(150%) invert(0);filter: contrast(150%) invert(0);}
     #bg-image{-webkit-filter: contrast(150%) invert(0);filter: contrast(150%) invert(0);}
     #title{-webkit-filter: invert(0);filter: invert(0);}
-    #screen{background-color: rgba(0,0,0,0.04);}
+    #screen{background-color: rgba(0,0,0, 0.04);}
 }
 @media (prefers-color-scheme: dark) {
     #buo-video {-webkit-filter: contrast(150%) invert(100%);filter: contrast(150%) invert(100%);}
     #bg-image{-webkit-filter: contrast(150%) invert(100%);filter: contrast(150%) invert(100%);}
     #title{-webkit-filter: invert(100%);filter: invert(100%);}
-    #screen{background-color: rgba(255,255,255,0.04);}
+    #screen{background-color: rgba(255,255,255,0.05);}
 }
 
 #title{
