@@ -233,6 +233,7 @@ class Menus{
 
     reorient(){
         if(!isMobileTablet){
+            this.$aMenu.css(`top`, ``);
             if(window.innerWidth < 650){
                 this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
@@ -301,6 +302,7 @@ class Menus{
                 this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);                
                 this.$optionCircles.css(`border-color`, `black`);
 
+                this.$aMenu.css(`top`, ``);
                 // this.$title.css(`display`, `none`);
     
                 this.$mainMenu.removeClass(`horizontal`);
@@ -344,6 +346,7 @@ class Menus{
                 this.$aMenu.css(`transform`, `rotate(0deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
     
+                this.$aMenu.css(`top`, `calc(50vh - 115px)`);
                 // this.$title.css(`display`, `initial`);
                 
                 this.$mainMenu.removeClass(`vertical`);
