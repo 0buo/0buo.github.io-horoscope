@@ -12,7 +12,7 @@
 body{
     --circleColor:black;
     overflow: hidden;
-    transition: background-color 0.75s ease;
+    /* transition: background-color 0.75s ease; */
 }
 @media (prefers-color-scheme: light) {
     body {
