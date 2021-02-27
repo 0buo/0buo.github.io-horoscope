@@ -236,7 +236,10 @@ class Menus{
             this.$videoBG.css(`opacity`, `90%`);
             $(`#bg-image`).css(`opacity`, `90%`);
             this.$aMenu.css(`top`, ``);
+
             if(window.innerWidth < 650){
+                BGimage.classList.add(`vertical-bg`)
+
                 this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
                 // this.$title.css(`display`, `none`);
@@ -276,6 +279,8 @@ class Menus{
                 }
             }
             else{
+                BGimage.classList.add(`horizontal-bg`)
+
                 this.$aMenu.css(`transform`, `rotate(0deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
     
@@ -299,10 +304,14 @@ class Menus{
             }
         }
         //==============================================================================
-        if(isMobileTablet){
+        else if(isMobileTablet){
             this.$videoBG.css(`opacity`, `60%`);
             $(`#bg-image`).css(`opacity`, `60%`);
+            console.log('?')
+
             if(window.innerWidth < window.innerHeight){
+                BGimage.classList.add(`vertical-bg`);
+
                 this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);                
                 this.$optionCircles.css(`border-color`, `black`);
 
@@ -346,6 +355,8 @@ class Menus{
             }
             //horizontal
             else{
+                BGimage.classList.add(`horizontal-bg`)
+
                 this.$aMenu.css(`transform`, `rotate(0deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
     
@@ -653,7 +664,7 @@ class Menus{
         });
     }
 
-    main(){
+    async main(){
         //=========
         //START WITH RANDOM DEG
         let seedRandom = new Math.seedrandom();
@@ -665,11 +676,10 @@ class Menus{
 
         //=========
         //IF VID NOT PLAYING
-        let BGvideoPromise = this.videoBG.play();
+        let BGvideoPromise = await this.videoBG.play();
         var BGimage = new Image;
         var $videoBG = this.$videoBG;
-        if(window.innerWidth < 650) BGimage.classList.add(`vertical-bg`);
-        else BGimage.classList.add(`horizontal-bg`);
+
         BGimage.classList.add(`noselect`);
         BGimage.id = `bg-image`;
         if (BGvideoPromise !== undefined) {
