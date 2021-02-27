@@ -322,8 +322,8 @@ class Menus{
                 this.$optionCircles.prev().css(`line-height`, `var(--small-lineH)`);
                 
                 //if height too small
-                if(window.innerHeight < 700){
-                    let scaleFactor = Math.min(window.innerHeight / 700, 1);
+                if(window.innerHeight < 650){
+                    let scaleFactor = Math.min(window.innerHeight / 650, 1);
                     
                     this.$aMenu.css(`transform`, `rotate(-90deg) scale(${scaleFactor})`);
                     $(`#test`).html(`${scaleFactor} + ${window.innerHeight}`);
@@ -346,7 +346,7 @@ class Menus{
                 this.$aMenu.css(`transform`, `rotate(0deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
     
-                this.$aMenu.css(`top`, `calc(50vh - 115px)`);
+                this.$aMenu.css(`top`, `calc(50vh - 175px)`);
                 // this.$title.css(`display`, `initial`);
                 
                 this.$mainMenu.removeClass(`vertical`);
