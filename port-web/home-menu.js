@@ -673,7 +673,6 @@ class Menus{
                         $video.css(`opacity`, `0`);
                         $(`#bg-image`).css(`opacity`, `0`);
                         $title.css(`opacity`, `0`);
-                        $(`#screen`).css(`opacity`, `0`);
 
                         IDredirect = requestTimeout(function(){
                             location.href = link;
