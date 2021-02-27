@@ -229,7 +229,7 @@ class Menus{
         this.optionCircles = document.getElementsByClassName(`option-circle`)
         this.$optionCircles = $(`.option-circle`);
 
-        this.circleColor = `???`;
+        this.circleColor = undefined;
         this.main();
     }
 

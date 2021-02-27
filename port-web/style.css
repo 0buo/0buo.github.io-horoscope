@@ -91,19 +91,19 @@ body{
     z-index: -1;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.03);
+    background-color: rgba(0,0,0,0.04);
 }
 @media (prefers-color-scheme: light) {
-    #buo-video {filter: contrast(150%) invert(0);}
-    #bg-image{filter: contrast(150%) invert(0);}
-    #title{filter: invert(0);}
-    #screen{background-color: rgba(0,0,0,0.03);}
+    #buo-video {-webkit-filter: contrast(150%) invert(0);filter: contrast(150%) invert(0);}
+    #bg-image{-webkit-filter: contrast(150%) invert(0);filter: contrast(150%) invert(0);}
+    #title{-webkit-filter: invert(0);filter: invert(0);}
+    #screen{background-color: rgba(0,0,0,0.04);}
 }
 @media (prefers-color-scheme: dark) {
-    #buo-video {filter: contrast(150%) invert(100%);}
-    #bg-image{filter: contrast(150%) invert(100%);}
-    #title{filter: invert(100%);}
-    #screen{background-color: rgba(255,255,255,0.035);}
+    #buo-video {-webkit-filter: contrast(150%) invert(100%);filter: contrast(150%) invert(100%);}
+    #bg-image{-webkit-filter: contrast(150%) invert(100%);filter: contrast(150%) invert(100%);}
+    #title{-webkit-filter: invert(100%);filter: invert(100%);}
+    #screen{background-color: rgba(255,255,255,0.05);}
 }
 
 #title{
