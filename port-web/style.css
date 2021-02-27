@@ -80,6 +80,7 @@ body{
 
 #buo-video{
     transition: all 0.5s ease;
+    display: none;
 }
 #bg-image{
     transition: all 0.5s ease;
