@@ -664,7 +664,7 @@ class Menus{
         });
     }
 
-    async main(){
+    main(){
         //=========
         //START WITH RANDOM DEG
         let seedRandom = new Math.seedrandom();
@@ -676,7 +676,7 @@ class Menus{
 
         //=========
         //IF VID NOT PLAYING
-        let BGvideoPromise = await this.videoBG.play();
+        let BGvideoPromise = this.videoBG.play();
         var BGimage = new Image;
         var $videoBG = this.$videoBG;
 
