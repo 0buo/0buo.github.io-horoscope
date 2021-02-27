@@ -238,7 +238,7 @@ class Menus{
             this.$aMenu.css(`top`, ``);
 
             if(window.innerWidth < 650){
-                BGimage.classList.add(`vertical-bg`)
+                $(`#bg-image`).addClass(`vertical-bg`);
 
                 this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
@@ -279,7 +279,7 @@ class Menus{
                 }
             }
             else{
-                BGimage.classList.add(`horizontal-bg`)
+                $(`#bg-image`).addClass(`horizontal-bg`);
 
                 this.$aMenu.css(`transform`, `rotate(0deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
@@ -310,7 +310,7 @@ class Menus{
             console.log('?')
 
             if(window.innerWidth < window.innerHeight){
-                BGimage.classList.add(`vertical-bg`);
+                $(`#bg-image`).addClass(`vertical-bg`);
 
                 this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);                
                 this.$optionCircles.css(`border-color`, `black`);
@@ -355,7 +355,7 @@ class Menus{
             }
             //horizontal
             else{
-                BGimage.classList.add(`horizontal-bg`)
+                $(`#bg-image`).addClass(`horizontal-bg`);
 
                 this.$aMenu.css(`transform`, `rotate(0deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
