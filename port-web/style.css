@@ -79,10 +79,10 @@ body{
 }
 
 #buo-video{
-    transition: opacity 0.5s ease;
+    transition: all 0.5s ease;
 }
 #bg-image{
-    transition: opacity 0.5s ease;
+    transition: all 0.5s ease;
 }
 #screen{
     position: fixed;
