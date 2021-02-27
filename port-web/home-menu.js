@@ -320,8 +320,8 @@ class Menus{
                 this.$optionCircles.prev().css(`line-height`, `var(--small-lineH)`);
                 
                 //if height too small
-                if(window.innerHeight < 650){
-                    let scaleFactor = Math.min(window.innerHeight / 650, 1);
+                if(window.innerHeight < 700){
+                    let scaleFactor = Math.min(window.innerHeight / 700, 1);
                     
                     this.$aMenu.css(`transform`, `rotate(-90deg) scale(${scaleFactor})`);
                     $(`#test`).html(`${scaleFactor} + ${window.innerHeight}`);
