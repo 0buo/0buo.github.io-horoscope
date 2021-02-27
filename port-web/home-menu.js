@@ -233,6 +233,8 @@ class Menus{
 
     reorient(){
         if(!isMobileTablet){
+            this.$videoBG.css(`opacity`, `90%`);
+            $(`#bg-image`).css(`opacity`, `90%`);
             this.$aMenu.css(`top`, ``);
             if(window.innerWidth < 650){
                 this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);
@@ -298,6 +300,8 @@ class Menus{
         }
         //==============================================================================
         if(isMobileTablet){
+            this.$videoBG.css(`opacity`, `60%`);
+            $(`#bg-image`).css(`opacity`, `60%`);
             if(window.innerWidth < window.innerHeight){
                 this.$aMenu.css(`transform`, `rotate(-90deg) scale(1)`);                
                 this.$optionCircles.css(`border-color`, `black`);
@@ -322,8 +326,8 @@ class Menus{
                 this.$optionCircles.prev().css(`line-height`, `var(--small-lineH)`);
                 
                 //if height too small
-                if(window.innerHeight < 675){
-                    let scaleFactor = Math.min(window.innerHeight / 675, 1);
+                if(window.innerHeight < 700){
+                    let scaleFactor = Math.min(window.innerHeight / 700, 1);
                     
                     this.$aMenu.css(`transform`, `rotate(-90deg) scale(${scaleFactor})`);
     
@@ -345,7 +349,7 @@ class Menus{
                 this.$aMenu.css(`transform`, `rotate(0deg) scale(1)`);
                 this.$optionCircles.css(`border-color`, `black`);
     
-                this.$aMenu.css(`top`, `calc(50vh - 175px)`);
+                this.$aMenu.css(`top`, `calc(50vh - 125px)`);
                 // this.$title.css(`display`, `initial`);
                 
                 this.$mainMenu.removeClass(`vertical`);
@@ -674,7 +678,7 @@ class Menus{
             }).catch(error => {
                 // Autoplay not allowed!
                 if(error.name == `NotAllowedError` || error.name == `PermissionDeniedError`){
-                    BGimage.src = `menu-assets/buo-thumbnail.jpg`;
+                    BGimage.src = `menu-assets/buo-wide-thumbnail.jpg`;
                     BGimage.onload = ()=>{
                         document.body.prepend(BGimage);
                         $videoBG.css(`display`, `none`);
