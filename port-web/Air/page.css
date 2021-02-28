@@ -195,7 +195,7 @@ body{
     background-size: contain;
     z-index: 2;
 
-    mix-blend-mode: difference;
+    /* mix-blend-mode: difference; */
     filter: contrast(0%) brightness(70%);
 
     transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 0.75s cubic-bezier(.35,.19,.51,1.35), background-color 0.3s ease, opacity 1s ease, -webkit-filter 1s ease;
@@ -220,7 +220,7 @@ body{
     background-size: cover;
     z-index: 2;
 
-    mix-blend-mode: difference;
+    /* mix-blend-mode: difference; */
     filter: contrast(0%) brightness(70%);
 
     transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 1s cubic-bezier(.35,.19,.51,1.35), background-color 0.75s ease, opacity 1s ease, -webkit-filter 1s ease;
