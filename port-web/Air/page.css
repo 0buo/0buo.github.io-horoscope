@@ -12,12 +12,29 @@ body{
     /* overflow: hidden; */
 }
 
+@-webkit-keyframes start-bg-dark{
+    0%{
+        background-color: black;
+    }
+    100%{
+        background-color: rgb(25,25,25);
+    }
+}
+
 @keyframes start-bg-dark{
     0%{
         background-color: black;
     }
     100%{
         background-color: rgb(25,25,25);
+    }
+}
+@-webkit-keyframes start-bg-light{
+    0%{
+        background-color: white;
+    }
+    100%{
+        background-color: rgb(243,243,243);
     }
 }
 @keyframes start-bg-light{
@@ -34,7 +51,8 @@ body{
         --border-color: rgb(26, 26, 26);
         background-color:rgb(243,243,243);
         color: black;
-        animation: start-bg-light 2s ease 1;
+        -webkit-animation: start-bg-light 2s ease 1;
+                animation: start-bg-light 2s ease 1;
     }
 }
 @media (prefers-color-scheme: dark) {
@@ -42,7 +60,8 @@ body{
         --border-color:rgb(238, 238, 238);
         background-color: rgb(25,25,25);
         color: white;
-        animation: start-bg-dark 2s ease 1;
+        -webkit-animation: start-bg-dark 2s ease 1;
+                animation: start-bg-dark 2s ease 1;
     }
 }
 
@@ -196,7 +215,8 @@ body{
     z-index: 1;
 
     mix-blend-mode: difference;
-    filter: contrast(0%) brightness(70%);
+    -webkit-filter: contrast(0%) brightness(70%);
+            filter: contrast(0%) brightness(70%);
 
     transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 0.75s cubic-bezier(.35,.19,.51,1.35), background-color 0.3s ease, opacity 1s ease, -webkit-filter 1s ease;
 
@@ -220,7 +240,8 @@ body{
     z-index: 1;
 
     mix-blend-mode: difference;
-    filter: contrast(0%) brightness(70%);
+    -webkit-filter: contrast(0%) brightness(70%);
+            filter: contrast(0%) brightness(70%);
 
     transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 1s cubic-bezier(.35,.19,.51,1.35), background-color 0.75s ease, opacity 1s ease, -webkit-filter 1s ease;
 
@@ -230,18 +251,22 @@ body{
 }
 @media (prefers-color-scheme: light) {
     #side-button{
-        filter: contrast(0%) brightness(70%);
+        -webkit-filter: contrast(0%) brightness(70%);
+                filter: contrast(0%) brightness(70%);
     }
     #back-button{
-        filter: contrast(0%) brightness(70%);
+        -webkit-filter: contrast(0%) brightness(70%);
+                filter: contrast(0%) brightness(70%);
     }
 }
 @media (prefers-color-scheme: dark) {
     #side-button{
-        filter: contrast(0%) brightness(180%);
+        -webkit-filter: contrast(0%) brightness(180%);
+                filter: contrast(0%) brightness(180%);
     }
     #back-button{
-        filter: contrast(0%) brightness(180%);
+        -webkit-filter: contrast(0%) brightness(180%);
+                filter: contrast(0%) brightness(180%);
     }
 }
 
@@ -314,78 +339,96 @@ body{
 
 @-webkit-keyframes buzz-anim {
     0%{
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(8px) translateX(8px) rotate(12deg);
     }
     13%{
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(-20px) translateY(-12px) rotate(-16deg);
     }
     28% {
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(12px) translateY(20px) rotate(16deg);
     }
     42%{
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(-20px) translateY(-20px) rotate(-12deg);
     }
     50% {
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(-8px) translateX(-8px) rotate(12deg);
     }
     63%{
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(-20px) translateY(20px) rotate(-16deg);
     }
     78% {
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(12px) translateY(-12px) rotate(16deg);
     }
     92%{
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(-20px) translateY(20px) rotate(-12deg);
     }
     100% {
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(8px) translateX(8px) rotate(12deg);
     }
 }
 
 @keyframes buzz-anim {
     0%{
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(8px) translateX(8px) rotate(12deg);
     }
     13%{
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(-20px) translateY(-12px) rotate(-16deg);
     }
     28% {
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(12px) translateY(20px) rotate(16deg);
     }
     42%{
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(-20px) translateY(-20px) rotate(-12deg);
     }
     50% {
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(-8px) translateX(-8px) rotate(12deg);
     }
     63%{
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(-20px) translateY(20px) rotate(-16deg);
     }
     78% {
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(12px) translateY(-12px) rotate(16deg);
     }
     92%{
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(-20px) translateY(20px) rotate(-12deg);
     }
     100% {
-        filter: brightness(250%);
+        -webkit-filter: brightness(250%);
+                filter: brightness(250%);
         transform: translateX(8px) translateX(8px) rotate(12deg);
     }
 }
