@@ -150,7 +150,7 @@ body{
     width: 3.85px;
     background-color: var(--border-color);
 
-    mix-blend-mode: difference;
+    /* mix-blend-mode: difference; */
     /* filter: brightness(100%); */
 
     transition: all 0.5s ease, transform 1s ease, left 0.25s ease, opacity 1s ease, -webkit-filter 1s ease;
