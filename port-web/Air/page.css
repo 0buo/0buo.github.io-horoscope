@@ -132,7 +132,7 @@ body{
     background-color: rgba(255,255,255,0.55);
     background-image: url('../pages-assets/grain.gif');
     color: black;
-    /* filter: contrast(100%); */
+    filter: contrast(100%);
     
     font-family: 'Space Mono', monospace;
     font-size: 26px;

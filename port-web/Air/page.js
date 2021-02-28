@@ -527,7 +527,8 @@ let backButtonColor = `black` ;
 let backLink = `../index.html` ;
 
 let mode = `light`;
-let buttonFilter = `contrast(0%) brightness(70%)`;
+// let buttonFilter = `contrast(0%) brightness(70%)`;
+let buttonFilter = ``;
 
 //==========
 //LIGHT AND DARK MODE
@@ -535,7 +536,9 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     // dark mode
     mode = `dark`;
     backButtonColor = `white`;
-    buttonFilter = `contrast(0%) brightness(180%)`;
+    // buttonFilter = `contrast(0%) brightness(180%)`;
+    buttonFilter = ``;
+
 }
 $sideButton.css(`filter`, buttonFilter);
 $backButton.css(`filter`, buttonFilter);
@@ -545,14 +548,16 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e =
     if (newColorScheme == `dark`) {
         backButtonColor = `white`; 
         mode = `dark`;
-        buttonFilter = `contrast(0%) brightness(180%)`;
+        // buttonFilter = `contrast(0%) brightness(180%)`;
+        buttonFilter = ``;
         $sideButton.css(`filter`, buttonFilter);
         $backButton.css(`filter`, buttonFilter);    
     }
     else {
         backButtonColor = `black`; 
         mode = `light`;
-        buttonFilter = `contrast(0%) brightness(70%)`;
+        // buttonFilter = `contrast(0%) brightness(70%)`;
+        buttonFilter = ``;
         $sideButton.css(`filter`, buttonFilter);
         $backButton.css(`filter`, buttonFilter);
     }
