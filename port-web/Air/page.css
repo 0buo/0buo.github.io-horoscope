@@ -215,7 +215,7 @@ body{
     background-size: contain;
     z-index: 1;
 
-    mix-blend-mode: difference;
+    /* mix-blend-mode: difference; */
     /* -webkit-filter: contrast(0%) brightness(70%);
             filter: contrast(0%) brightness(70%); */
 
@@ -240,7 +240,7 @@ body{
     background-size: cover;
     z-index: 1;
 
-    mix-blend-mode: difference;
+    /* mix-blend-mode: difference; */
     /* -webkit-filter: contrast(0%) brightness(70%);
             filter: contrast(0%) brightness(70%); */
 
