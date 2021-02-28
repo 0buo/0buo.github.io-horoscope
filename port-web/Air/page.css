@@ -9,6 +9,7 @@ body{
     --border-radius: min( max(calc( min(100vh, 100vw) / 25), 10px), 100px);
 
     transition: background-color 0.75s ease;
+    background-color: transparent;
     /* overflow: hidden; */
 }
 
@@ -147,7 +148,22 @@ body{
 
     mix-blend-mode: exclusion;
 }
-
+@media (prefers-color-scheme: light) {
+    .side-column-container{
+        background-color: rgba(255,255,255,0.55);
+        color: black;
+        /* background-color: rgba(130,130,130,0.3);
+        color: white; */
+    }
+}
+@media (prefers-color-scheme: dark) {
+    .side-column-container{
+        background-color: rgba(80,80,80,1);
+        color: white;
+        /* background-color: rgba(255,255,255,0.55);
+        color: black; */
+    }
+}
 .side-column-container > * {
     direction:ltr;
     padding-left: calc(min(5vw, 110px));
