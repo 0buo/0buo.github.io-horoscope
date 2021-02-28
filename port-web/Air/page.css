@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 html{
     scroll-behavior: smooth;
@@ -115,8 +114,8 @@ body{
     background-image: url('../pages-assets/grain.gif');
     color: black;
     /* opacity: 60%; */
-    font-family: 'Source Serif Pro', serif;
-    font-size: 25px;
+    font-family: 'Space Mono', monospace;
+    font-size: 26px;
     font-weight: 600;
 
     transition: all 0.5s ease, transform 1s ease, width 0.25s ease, opacity 1s ease, -webkit-filter 1s ease;
