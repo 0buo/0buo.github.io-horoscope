@@ -516,7 +516,7 @@ let $backButton = $(`#back-button`);
 
 let buttonColor = `#a9bab7`;
 let buttonImage = `url("./page-assets/logo.png")`;
-let backButtonImage = `url("../pages-assets/zhu-tou.jpg")` ;
+let backButtonImage = `url("../pages-assets/zhu-tou.png")` ;
 let backButtonColor = `black` ;
 let backLink = `../index.html` ;
 

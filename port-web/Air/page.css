@@ -6,7 +6,7 @@ html{
 }
 body{
     /* --border-width: min( max(calc( min(100vh, 100vw) / 170), 3px), 7px); */
-    --border-color: rgb(46, 46, 46);
+    --border-color: rgb(26, 26, 26);
     --border-radius: min( max(calc( min(100vh, 100vw) / 25), 10px), 100px);
 
     transition: background-color 0.75s ease;
@@ -32,7 +32,7 @@ body{
 
 @media (prefers-color-scheme: light) {
     body {
-        --border-color: rgb(46, 46, 46);
+        --border-color: rgb(26, 26, 26);
         background-color:rgb(243,243,243);
         color: black;
         animation: start-bg-light 2s ease 1;
@@ -73,24 +73,20 @@ body{
     border: 4px solid var(--border-color);
 
     /* template testing */
-    width: 1500px;
-    height: 1500px;
-    max-height: calc(65vh);
-    max-width: calc(65vh);
-    background-color: palevioletred;
-    background-image: url("./page-assets/air-test.png");
+    width: 65vh;
+    height: 65vh;
+    background-color: black;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.flex-empty-space{
-    width: 2700px;
-    height: 900px;
-    max-height: calc(65vh);
-    max-width: calc(195vh);
-    background-color: transparent !important;
+#flex-start{
+    width: 649.638888889vh;
+    height: 65vh;
     margin-left: calc(min(3.5vw, 70px)) !important;
-    /* background-image: none !important; */
+
+    background-color: transparent !important;
+    background-image: url('./page-assets/vr.png');
 }
 
 .scrolling-wrapper {
@@ -117,6 +113,7 @@ body{
 
     background-color: rgba(255,255,255,0.56);
     background-image: url('../pages-assets/grain.gif');
+    color: black;
     /* opacity: 60%; */
     font-family: 'Source Serif Pro', serif;
     font-size: 25px;
@@ -130,7 +127,6 @@ body{
     -webkit-animation: bg-position-move 120s ease-out infinite;
             animation: bg-position-move 120s ease-out infinite;
 
-    color: black;
     mix-blend-mode: exclusion;
 }
 
@@ -154,6 +150,9 @@ body{
     max-height: 100vh;
     width: 3.85px;
     background-color: var(--border-color);
+
+    mix-blend-mode: difference;
+    filter: brightness(120%);
 
     transition: all 0.5s ease, transform 1s ease, left 0.25s ease, opacity 1s ease, -webkit-filter 1s ease;
 
@@ -197,6 +196,9 @@ body{
     background-size: contain;
     z-index: 2;
 
+    mix-blend-mode: difference;
+    filter: contrast(0%) brightness(70%);
+
     transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 0.75s cubic-bezier(.35,.19,.51,1.35), background-color 0.3s ease, opacity 1s ease, -webkit-filter 1s ease;
 
     transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 0.75s cubic-bezier(.35,.19,.51,1.35), background-color 0.3s ease, opacity 1s ease, filter 1s ease;
@@ -219,11 +221,30 @@ body{
     background-size: cover;
     z-index: 2;
 
+    mix-blend-mode: difference;
+    filter: contrast(0%) brightness(70%);
+
     transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 1s cubic-bezier(.35,.19,.51,1.35), background-color 0.75s ease, opacity 1s ease, -webkit-filter 1s ease;
 
     transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 1s cubic-bezier(.35,.19,.51,1.35), background-color 0.75s ease, opacity 1s ease, filter 1s ease;
 
     transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 1s cubic-bezier(.35,.19,.51,1.35), background-color 0.75s ease, opacity 1s ease, filter 1s ease, -webkit-filter 1s ease;
+}
+@media (prefers-color-scheme: light) {
+    #side-button{
+        filter: contrast(0%) brightness(70%);
+    }
+    #back-button{
+        filter: contrast(0%) brightness(70%);
+    }
+}
+@media (prefers-color-scheme: dark) {
+    #side-button{
+        filter: contrast(0%) brightness(180%);
+    }
+    #back-button{
+        filter: contrast(0%) brightness(180%);
+    }
 }
 
 .squiggle{
@@ -237,56 +258,56 @@ body{
 
 @-webkit-keyframes squiggly-anim {
     0% {
-        -webkit-filter: url("#squiggly-0");
-                filter: url("#squiggly-0");
+        -webkit-filter: url("#squiggly-0") brightness(250%);
+                filter: url("#squiggly-0") brightness(250%);
         transform: translateX(2px) translateX(2px) rotate(3deg);
     }
     25% {
-        -webkit-filter: url("#squiggly-2");
-                filter: url("#squiggly-2");
+        -webkit-filter: url("#squiggly-2") brightness(250%);
+                filter: url("#squiggly-2") brightness(250%);
         transform: translateX(3px) translateY(5px) rotate(4deg);
     }
     50% {
-        -webkit-filter: url("#squiggly-1");
-                filter: url("#squiggly-1");
+        -webkit-filter: url("#squiggly-1") brightness(250%);
+                filter: url("#squiggly-1") brightness(250%);
         transform: translateX(-2px) translateX(-2px) rotate(3deg);
     }
     75% {
-        -webkit-filter: url("#squiggly-3");
-                filter: url("#squiggly-3");
+        -webkit-filter: url("#squiggly-3") brightness(250%);
+                filter: url("#squiggly-3") brightness(250%);
         transform: translateX(3px) translateY(-3px) rotate(4deg);
     }
     100% {
-        -webkit-filter: url("#squiggly-4");
-                filter: url("#squiggly-4");
+        -webkit-filter: url("#squiggly-4") brightness(250%);
+                filter: url("#squiggly-4") brightness(250%);
         transform: translateX(2px) translateX(2px) rotate(3deg);
     }
 }
 
 @keyframes squiggly-anim {
     0% {
-        -webkit-filter: url("#squiggly-0");
-                filter: url("#squiggly-0");
+        -webkit-filter: url("#squiggly-0") brightness(250%);
+                filter: url("#squiggly-0") brightness(250%);
         transform: translateX(2px) translateX(2px) rotate(3deg);
     }
     25% {
-        -webkit-filter: url("#squiggly-2");
-                filter: url("#squiggly-2");
+        -webkit-filter: url("#squiggly-2") brightness(250%);
+                filter: url("#squiggly-2") brightness(250%);
         transform: translateX(3px) translateY(5px) rotate(4deg);
     }
     50% {
-        -webkit-filter: url("#squiggly-1");
-                filter: url("#squiggly-1");
+        -webkit-filter: url("#squiggly-1") brightness(250%);
+                filter: url("#squiggly-1") brightness(250%);
         transform: translateX(-2px) translateX(-2px) rotate(3deg);
     }
     75% {
-        -webkit-filter: url("#squiggly-3");
-                filter: url("#squiggly-3");
+        -webkit-filter: url("#squiggly-3") brightness(250%);
+                filter: url("#squiggly-3") brightness(250%);
         transform: translateX(3px) translateY(-3px) rotate(4deg);
     }
     100% {
-        -webkit-filter: url("#squiggly-4");
-                filter: url("#squiggly-4");
+        -webkit-filter: url("#squiggly-4") brightness(250%);
+                filter: url("#squiggly-4") brightness(250%);
         transform: translateX(2px) translateX(2px) rotate(3deg);
     }
 }
