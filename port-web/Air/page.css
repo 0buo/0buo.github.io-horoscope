@@ -315,60 +315,78 @@ body{
 
 @-webkit-keyframes buzz-anim {
     0%{
+        filter: brightness(250%);
         transform: translateX(8px) translateX(8px) rotate(12deg);
     }
     13%{
+        filter: brightness(250%);
         transform: translateX(-20px) translateY(-12px) rotate(-16deg);
     }
     28% {
+        filter: brightness(250%);
         transform: translateX(12px) translateY(20px) rotate(16deg);
     }
     42%{
+        filter: brightness(250%);
         transform: translateX(-20px) translateY(-20px) rotate(-12deg);
     }
     50% {
+        filter: brightness(250%);
         transform: translateX(-8px) translateX(-8px) rotate(12deg);
     }
     63%{
+        filter: brightness(250%);
         transform: translateX(-20px) translateY(20px) rotate(-16deg);
     }
     78% {
+        filter: brightness(250%);
         transform: translateX(12px) translateY(-12px) rotate(16deg);
     }
     92%{
+        filter: brightness(250%);
         transform: translateX(-20px) translateY(20px) rotate(-12deg);
     }
     100% {
+        filter: brightness(250%);
         transform: translateX(8px) translateX(8px) rotate(12deg);
     }
 }
 
 @keyframes buzz-anim {
     0%{
+        filter: brightness(250%);
         transform: translateX(8px) translateX(8px) rotate(12deg);
     }
     13%{
+        filter: brightness(250%);
         transform: translateX(-20px) translateY(-12px) rotate(-16deg);
     }
     28% {
+        filter: brightness(250%);
         transform: translateX(12px) translateY(20px) rotate(16deg);
     }
     42%{
+        filter: brightness(250%);
         transform: translateX(-20px) translateY(-20px) rotate(-12deg);
     }
     50% {
+        filter: brightness(250%);
         transform: translateX(-8px) translateX(-8px) rotate(12deg);
     }
     63%{
+        filter: brightness(250%);
         transform: translateX(-20px) translateY(20px) rotate(-16deg);
     }
     78% {
+        filter: brightness(250%);
         transform: translateX(12px) translateY(-12px) rotate(16deg);
     }
     92%{
+        filter: brightness(250%);
         transform: translateX(-20px) translateY(20px) rotate(-12deg);
     }
     100% {
+        filter: brightness(250%);
         transform: translateX(8px) translateX(8px) rotate(12deg);
     }
 }
