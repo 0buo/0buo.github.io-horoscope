@@ -215,8 +215,8 @@ body{
     z-index: 1;
 
     mix-blend-mode: difference;
-    -webkit-filter: contrast(0%) brightness(70%);
-            filter: contrast(0%) brightness(70%);
+    -webkit-filter:brightness(70%);
+            filter:  brightness(70%);
 
     transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 0.75s cubic-bezier(.35,.19,.51,1.35), background-color 0.3s ease, opacity 1s ease, -webkit-filter 1s ease;
 
@@ -240,8 +240,8 @@ body{
     z-index: 1;
 
     mix-blend-mode: difference;
-    -webkit-filter: contrast(0%) brightness(70%);
-            filter: contrast(0%) brightness(70%);
+    -webkit-filter: brightness(70%);
+            filter: brightness(70%);
 
     transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 1s cubic-bezier(.35,.19,.51,1.35), background-color 0.75s ease, opacity 1s ease, -webkit-filter 1s ease;
 
@@ -251,22 +251,22 @@ body{
 }
 @media (prefers-color-scheme: light) {
     #side-button{
-        -webkit-filter: contrast(0%) brightness(70%);
-                filter: contrast(0%) brightness(70%);
+        -webkit-filter:  brightness(70%);
+                filter:  brightness(70%);
     }
     #back-button{
-        -webkit-filter: contrast(0%) brightness(70%);
-                filter: contrast(0%) brightness(70%);
+        -webkit-filter:  brightness(70%);
+                filter:  brightness(70%);
     }
 }
 @media (prefers-color-scheme: dark) {
     #side-button{
-        -webkit-filter: contrast(0%) brightness(180%);
-                filter: contrast(0%) brightness(180%);
+        -webkit-filter: brightness(180%);
+                filter:  brightness(180%);
     }
     #back-button{
-        -webkit-filter: contrast(0%) brightness(180%);
-                filter: contrast(0%) brightness(180%);
+        -webkit-filter: brightness(180%);
+                filter: brightness(180%);
     }
 }
 
