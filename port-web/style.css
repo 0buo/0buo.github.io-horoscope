@@ -230,7 +230,7 @@ body{
     backface-visibility: hidden;
     -webkit-font-smoothing: subpixel-antialiased;
 
-    outline: 1px solid transparent;
+    outline: 1px solid rgba(255,255,255,0);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -325,12 +325,12 @@ body{
     top: calc(50% - 17px);
     right: -3%;
 
-    outline: 1px solid transparent;
+    outline: 1px solid rgba(255,255,255,0);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     
-    background-color: transparent;
+    background-color: rgba(255,255,255,0);
     background-image: none;
     background-size: cover;
 

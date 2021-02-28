@@ -557,7 +557,7 @@ class Menus{
                 this.$optionCircles.css(`right`, `-3%`);
                 this.$optionCircles.css(`border-width`, `4px`);
                 this.$optionCircles.css(`transform`, `scale(1) rotate(0deg)`);
-                this.$optionCircles.css(`background-color`, `transparent`);
+                this.$optionCircles.css(`background-color`, `rgba(255,255,255,0)`);
             }
             //
         }.bind(this));

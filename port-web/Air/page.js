@@ -262,13 +262,13 @@ function resizeSide(){
 let isMouseDown = false;
 function mouseoverSideButton(){
     $sideButton.css(`transform`, `scale(1.15)`);
-    if(!isMouseDown) $sideButton.css(`background-color`, `transparent`);
+    if(!isMouseDown) $sideButton.css(`background-color`, `rgba(255,255,255,0)`);
     else $sideButton.css(`background-color`, `${buttonColor}`);
     $sideButton.css(`background-image`, `${buttonImage}`);
 }
 function mouseleaveSideButton(){
     $sideButton.css(`transform`, `scale(1)`);
-    $sideButton.css(`background-color`, `transparent`);
+    $sideButton.css(`background-color`, `rgba(255,255,255,0)`);
     $sideButton.css(`background-image`, `none`);
 }
 
@@ -276,13 +276,13 @@ function mouseleaveSideButton(){
 //back button
 function mouseoverBackButton(){
     $backButton.css(`transform`, `scale(1.15)`);
-    if(!isMouseDown) $backButton.css(`background-color`, `transparent`);
+    if(!isMouseDown) $backButton.css(`background-color`, `rgba(255,255,255,0)`);
     else $backButton.css(`background-color`, `${backButtonColor}`);
     $backButton.css(`background-image`, `${backButtonImage}`);
 }
 function mouseleaveBackButton(){
     $backButton.css(`transform`, `scale(1)`);
-    $backButton.css(`background-color`, `transparent`);
+    $backButton.css(`background-color`, `rgba(255,255,255,0)`);
     $backButton.css(`background-image`, `none`);
 }
 
@@ -297,7 +297,7 @@ function windowMouseupButtons(){
     $sideButton.css(`filter`, buttonFilter);
 
     isMouseDown = false;
-    $sideButton.css(`background-color`, `transparent`);
+    $sideButton.css(`background-color`, `rgba(255,255,255,0)`);
     $sideButton.css(`background-image`, `none`);
 
     //back button
@@ -306,7 +306,7 @@ function windowMouseupButtons(){
     $backButton.css(`filter`, buttonFilter);
     if(!redirecting){
         $backButton.css(`transform`, `scale(1)`);
-        $backButton.css(`background-color`, `transparent`);
+        $backButton.css(`background-color`, `rgba(255,255,255,0)`);
         $backButton.css(`background-image`, `none`);
     }
 }
@@ -439,7 +439,7 @@ function mouseupBackbutton(e){
         $sideButton.css(`opacity`, `0`);
         $sideButton.css(`filter`, `${buttonFilter} blur(10px)`);
 
-        if(mode == `light`) $(`body`).css(`background-color`, `transparent`);
+        if(mode == `light`) $(`body`).css(`background-color`, `rgba(255,255,255,0)`);
         if(mode == `dark`) $(`body`).css(`background-color`, `black`);
 
         IDredirectBack = requestTimeout(function(){
