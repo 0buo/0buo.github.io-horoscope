@@ -248,7 +248,7 @@ function resizeSide(){
         }
         narrowScreen = false;
         $backButton.css(`opacity`, `1`);
-        $backButton.css(`filter`, ``);
+        $backButton.css(`filter`, buttonFilter);
 
         $sideColumn.css(`width`, `50vw`);
         $sideBorder.css(`left`, `50vw`);
@@ -294,6 +294,7 @@ function windowMouseupButtons(){
     $sideButton.css(`transform`, `scale(1)`);
     $sideButton.removeClass(`squiggle`);
     $sideButton.removeClass(`buzz`);
+    $sideButton.css(`filter`, buttonFilter);
 
     isMouseDown = false;
     $sideButton.css(`background-color`, `transparent`);
@@ -302,6 +303,7 @@ function windowMouseupButtons(){
     //back button
     $backButton.removeClass(`squiggle`);
     $backButton.removeClass(`buzz`);
+    $backButton.css(`filter`, buttonFilter);
     if(!redirecting){
         $backButton.css(`transform`, `scale(1)`);
         $backButton.css(`background-color`, `transparent`);
@@ -317,6 +319,7 @@ function mousedownSideButton(e){
         firstTouch = e.changedTouches[0];
     }
 
+    $sideButton.css(`filter`, `brightness(250%)`);
     $sideButton.css(`transform`, `scale(1.25)`);
     if(isMobileTablet){
         $sideButton.addClass(`buzz`);
@@ -336,6 +339,7 @@ function mousedownBackButton(e){
         firstTouch = e.changedTouches[0];
     }
 
+    $backButton.css(`filter`, `brightness(250%)`);
     $backButton.css(`transform`, `scale(1.25)`);
     if(isMobileTablet){
         $backButton.addClass(`buzz`);
@@ -373,7 +377,7 @@ function mouseupSideButton(e){
                 //
                 redirectable = true;
                 $backButton.css(`opacity`, `0`);
-                $backButton.css(`filter`, `blur(10px)`);
+                $backButton.css(`filter`, `${buttonFilter} blur(10px)`);
             }
             else{
                 sideFolded = true;
@@ -384,7 +388,7 @@ function mouseupSideButton(e){
                 //
                 redirectable = false;
                 $backButton.css(`opacity`, `1`);
-                $backButton.css(`filter`, ``);
+                $backButton.css(`filter`, buttonFilter);
             }
         }
         else{
@@ -423,17 +427,17 @@ function mouseupBackbutton(e){
         clearRequestTimeout(IDredirectBack);
         redirecting = true;
         $backButton.css(`opacity`, `0`);
-        $backButton.css(`filter`, `blur(10px)`);
+        $backButton.css(`filter`, `${buttonFilter} blur(10px)`);
         $backButton.css(`background-image`, `none`);
 
         $(flexContainer).css(`opacity`, `0`);
-        $(flexContainer).css(`filter`, `blur(10px)`);
+        $(flexContainer).css(`filter`, `${buttonFilter} blur(10px)`);
         $sideColumn.css(`opacity`, `0`);
-        $sideColumn.css(`filter`, `blur(10px)`);
+        $sideColumn.css(`filter`, `${buttonFilter} blur(10px)`);
         $sideBorder.css(`opacity`, `0`);
-        $sideBorder.css(`filter`, `blur(10px)`);
+        $sideBorder.css(`filter`, `${buttonFilter} blur(10px)`);
         $sideButton.css(`opacity`, `0`);
-        $sideButton.css(`filter`, `blur(10px)`);
+        $sideButton.css(`filter`, `${buttonFilter} blur(10px)`);
 
         if(mode == `light`) $(`body`).css(`background-color`, `white`);
         if(mode == `dark`) $(`body`).css(`background-color`, `black`);
@@ -523,22 +527,34 @@ let backButtonColor = `black` ;
 let backLink = `../index.html` ;
 
 let mode = `light`;
+let buttonFilter = `contrast(0%) brightness(70%)`;
+
 //==========
 //LIGHT AND DARK MODE
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     // dark mode
     mode = `dark`;
     backButtonColor = `white`;
+    buttonFilter = `contrast(0%) brightness(180%)`;
 }
+$sideButton.css(`filter`, buttonFilter);
+$backButton.css(`filter`, buttonFilter);
+
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
     const newColorScheme = e.matches ? "dark" : "light";
     if (newColorScheme == `dark`) {
         backButtonColor = `white`; 
         mode = `dark`;
+        buttonFilter = `contrast(0%) brightness(180%)`;
+        $sideButton.css(`filter`, buttonFilter);
+        $backButton.css(`filter`, buttonFilter);    
     }
     else {
         backButtonColor = `black`; 
         mode = `light`;
+        buttonFilter = `contrast(0%) brightness(70%)`;
+        $sideButton.css(`filter`, buttonFilter);
+        $backButton.css(`filter`, buttonFilter);
     }
 });
 
