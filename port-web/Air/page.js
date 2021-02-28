@@ -247,6 +247,8 @@ function resizeSide(){
             sideFolded = false;
         }
         narrowScreen = false;
+        $backButton.css(`opacity`, `1`);
+        $backButton.css(`filter`, ``);
 
         $sideColumn.css(`width`, `50vw`);
         $sideBorder.css(`left`, `50vw`);

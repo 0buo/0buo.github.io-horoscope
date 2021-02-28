@@ -150,7 +150,7 @@ body{
     width: 3.85px;
     background-color: var(--border-color);
 
-    /* mix-blend-mode: difference; */
+    mix-blend-mode: difference;
     /* filter: brightness(100%); */
 
     transition: all 0.5s ease, transform 1s ease, left 0.25s ease, opacity 1s ease, -webkit-filter 1s ease;
@@ -193,9 +193,9 @@ body{
 
     background-repeat: no-repeat;
     background-size: contain;
-    z-index: 2;
+    z-index: 1;
 
-    /* mix-blend-mode: difference; */
+    mix-blend-mode: difference;
     filter: contrast(0%) brightness(70%);
 
     transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 0.75s cubic-bezier(.35,.19,.51,1.35), background-color 0.3s ease, opacity 1s ease, -webkit-filter 1s ease;
@@ -206,7 +206,6 @@ body{
 }
 #back-button{
     position: fixed;
-    /* 3.5px is border width of column */
     left: calc(100vw - 75px);
     top: calc(50% - 30px);
 
@@ -218,9 +217,9 @@ body{
 
     background-repeat: no-repeat;
     background-size: cover;
-    z-index: 2;
+    z-index: 1;
 
-    /* mix-blend-mode: difference; */
+    mix-blend-mode: difference;
     filter: contrast(0%) brightness(70%);
 
     transition: all 0.25s cubic-bezier(.35,.19,.61,2.2), left 1s cubic-bezier(.35,.19,.51,1.35), background-color 0.75s ease, opacity 1s ease, -webkit-filter 1s ease;
