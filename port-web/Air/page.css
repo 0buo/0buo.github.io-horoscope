@@ -46,7 +46,7 @@ body{
     }
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
     body {
         --border-color: rgb(26, 26, 26);
         background-color:rgb(243,243,243);
@@ -63,7 +63,7 @@ body{
         -webkit-animation: start-bg-dark 2s ease 1;
                 animation: start-bg-dark 2s ease 1;
     }
-}
+} */
 
 /* FLEX PART */
 .row-flex-container{
@@ -132,7 +132,6 @@ body{
     background-color: rgba(255,255,255,0.55);
     background-image: url('../pages-assets/grain.gif');
     color: black;
-    filter: contrast(100%);
     
     font-family: 'Space Mono', monospace;
     font-size: 26px;
