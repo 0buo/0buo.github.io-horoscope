@@ -220,7 +220,7 @@ function setSideColumnHeight(){
     $sideBorder.css(`height`, `calc(100vh - ${toSubtract}px)`);
 
     $(flexContainer).css(`height`, `${window.innerHeight}px`);
-    document.body.clientHeight = window.innerHeight;
+    // document.body.clientHeight = window.innerHeight;
 }
 
 //FOLD / UNFOLD SIDE
