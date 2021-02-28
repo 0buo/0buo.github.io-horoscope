@@ -34,7 +34,7 @@ body{
         background-color: white;
     }
     100%{
-        background-color: rgb(243,243,243);
+        background-color: transparent;
     }
 }
 @keyframes start-bg-light{
@@ -42,14 +42,14 @@ body{
         background-color: white;
     }
     100%{
-        background-color: rgb(243,243,243);
+        background-color: transparent;
     }
 }
 
-/* @media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: light) {
     body {
         --border-color: rgb(26, 26, 26);
-        background-color:rgb(243,243,243);
+        background-color:transparent;
         color: black;
         -webkit-animation: start-bg-light 2s ease 1;
                 animation: start-bg-light 2s ease 1;
@@ -63,7 +63,7 @@ body{
         -webkit-animation: start-bg-dark 2s ease 1;
                 animation: start-bg-dark 2s ease 1;
     }
-} */
+}
 
 /* FLEX PART */
 .row-flex-container{

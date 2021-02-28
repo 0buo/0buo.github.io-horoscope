@@ -439,7 +439,7 @@ function mouseupBackbutton(e){
         $sideButton.css(`opacity`, `0`);
         $sideButton.css(`filter`, `${buttonFilter} blur(10px)`);
 
-        if(mode == `light`) $(`body`).css(`background-color`, `white`);
+        if(mode == `light`) $(`body`).css(`background-color`, `transparent`);
         if(mode == `dark`) $(`body`).css(`background-color`, `black`);
 
         IDredirectBack = requestTimeout(function(){
@@ -528,8 +528,6 @@ let backLink = `../index.html` ;
 
 let mode = `light`;
 let buttonFilter = `contrast(0%) brightness(70%)`;
-document.body.style.setProperty(`--border-color`, `rgb(26, 26, 26)`);
-document.body.style.setProperty(`color`, `black`);
 //==========
 //LIGHT AND DARK MODE
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -537,7 +535,6 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     mode = `dark`;
     backButtonColor = `white`;
     buttonFilter = `contrast(0%) brightness(180%)`;
-    document.body.style.setProperty(`--border-color`, `rgb(238, 238, 238)`);
 }
 $sideButton.css(`filter`, buttonFilter);
 $backButton.css(`filter`, buttonFilter);
@@ -550,8 +547,6 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e =
         buttonFilter = `contrast(0%) brightness(180%)`;
         $sideButton.css(`filter`, buttonFilter);
         $backButton.css(`filter`, buttonFilter);
-
-        document.body.style.setProperty(`--border-color`, `rgb(238, 238, 238)`);
     }
     else {
         backButtonColor = `black`; 
@@ -559,9 +554,7 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e =
         buttonFilter = `contrast(0%) brightness(70%)`;
         $sideButton.css(`filter`, buttonFilter);
         $backButton.css(`filter`, buttonFilter);
-
-        document.body.style.setProperty(`--border-color`, `rgb(26, 26, 26)`);
-    }
+  }
 });
 
 //MAIN
