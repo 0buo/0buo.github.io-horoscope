@@ -110,7 +110,7 @@ body{
 
     /* direction: rtl; */
 
-    background-color: rgba(255,255,255,0.56);
+    background-color: rgba(255,255,255,0.55);
     background-image: url('../pages-assets/grain.gif');
     color: black;
     /* opacity: 60%; */
@@ -151,7 +151,7 @@ body{
     background-color: var(--border-color);
 
     mix-blend-mode: difference;
-    filter: brightness(120%);
+    /* filter: brightness(100%); */
 
     transition: all 0.5s ease, transform 1s ease, left 0.25s ease, opacity 1s ease, -webkit-filter 1s ease;
 
