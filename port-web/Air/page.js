@@ -528,7 +528,9 @@ let backLink = `../index.html` ;
 
 let mode = `light`;
 let buttonFilter = `contrast(0%) brightness(70%)`;
-
+document.body.style.setProperty(`--border-color`, `rgb(26, 26, 26)`);
+document.body.style.setProperty(`background-color`, `rgb(243,243,243)`);
+// document.body.style.setProperty(`color`, `black`);
 //==========
 //LIGHT AND DARK MODE
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -536,7 +538,8 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     mode = `dark`;
     backButtonColor = `white`;
     buttonFilter = `contrast(0%) brightness(180%)`;
-
+    document.body.style.setProperty(`--border-color`, `rgb(238, 238, 238)`);
+    document.body.style.setProperty(`background-color`, `rgb(25,25,25)`);
 }
 $sideButton.css(`filter`, buttonFilter);
 $backButton.css(`filter`, buttonFilter);
@@ -548,7 +551,10 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e =
         mode = `dark`;
         buttonFilter = `contrast(0%) brightness(180%)`;
         $sideButton.css(`filter`, buttonFilter);
-        $backButton.css(`filter`, buttonFilter);    
+        $backButton.css(`filter`, buttonFilter);
+
+        document.body.style.setProperty(`--border-color`, `rgb(238, 238, 238)`);
+        document.body.style.setProperty(`background-color`, `rgb(25,25,25)`);
     }
     else {
         backButtonColor = `black`; 
@@ -556,6 +562,9 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e =
         buttonFilter = `contrast(0%) brightness(70%)`;
         $sideButton.css(`filter`, buttonFilter);
         $backButton.css(`filter`, buttonFilter);
+
+        document.body.style.setProperty(`--border-color`, `rgb(26, 26, 26)`);
+        document.body.style.setProperty(`background-color`, `rgb(243,243,243)`);
     }
 });
 
