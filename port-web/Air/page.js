@@ -319,7 +319,7 @@ function mousedownSideButton(e){
         firstTouch = e.changedTouches[0];
     }
 
-    $sideButton.css(`filter`, `brightness(250%)`);
+    $sideButton.css(`filter`, `brightness(500%)`);
     $sideButton.css(`transform`, `scale(1.25)`);
     if(isMobileTablet){
         $sideButton.addClass(`buzz`);
@@ -339,7 +339,7 @@ function mousedownBackButton(e){
         firstTouch = e.changedTouches[0];
     }
 
-    $backButton.css(`filter`, `brightness(250%)`);
+    $backButton.css(`filter`, `brightness(500%)`);
     $backButton.css(`transform`, `scale(1.25)`);
     if(isMobileTablet){
         $backButton.addClass(`buzz`);
@@ -527,8 +527,7 @@ let backButtonColor = `black` ;
 let backLink = `../index.html` ;
 
 let mode = `light`;
-// let buttonFilter = `contrast(0%) brightness(70%)`;
-let buttonFilter = ``;
+let buttonFilter = `contrast(0%) brightness(70%)`;
 
 //==========
 //LIGHT AND DARK MODE
@@ -536,8 +535,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     // dark mode
     mode = `dark`;
     backButtonColor = `white`;
-    // buttonFilter = `contrast(0%) brightness(180%)`;
-    buttonFilter = ``;
+    buttonFilter = `contrast(0%) brightness(180%)`;
 
 }
 $sideButton.css(`filter`, buttonFilter);
@@ -548,16 +546,14 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e =
     if (newColorScheme == `dark`) {
         backButtonColor = `white`; 
         mode = `dark`;
-        // buttonFilter = `contrast(0%) brightness(180%)`;
-        buttonFilter = ``;
+        buttonFilter = `contrast(0%) brightness(180%)`;
         $sideButton.css(`filter`, buttonFilter);
         $backButton.css(`filter`, buttonFilter);    
     }
     else {
         backButtonColor = `black`; 
         mode = `light`;
-        // buttonFilter = `contrast(0%) brightness(70%)`;
-        buttonFilter = ``;
+        buttonFilter = `contrast(0%) brightness(70%)`;
         $sideButton.css(`filter`, buttonFilter);
         $backButton.css(`filter`, buttonFilter);
     }

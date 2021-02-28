@@ -214,7 +214,7 @@ body{
     background-size: contain;
     z-index: 1;
 
-    /* mix-blend-mode: difference; */
+    mix-blend-mode: difference;
     /* -webkit-filter: contrast(0%) brightness(70%);
             filter: contrast(0%) brightness(70%); */
 
@@ -239,7 +239,7 @@ body{
     background-size: cover;
     z-index: 1;
 
-    /* mix-blend-mode: difference; */
+    mix-blend-mode: difference;
     /* -webkit-filter: contrast(0%) brightness(70%);
             filter: contrast(0%) brightness(70%); */
 
@@ -281,56 +281,56 @@ body{
 
 @-webkit-keyframes squiggly-anim {
     0% {
-        -webkit-filter: url("#squiggly-0") brightness(250%);
-                filter: url("#squiggly-0") brightness(250%);
+        -webkit-filter: url("#squiggly-0") brightness(500%);
+                filter: url("#squiggly-0") brightness(500%);
         transform: translateX(2px) translateX(2px) rotate(3deg);
     }
     25% {
-        -webkit-filter: url("#squiggly-2") brightness(250%);
-                filter: url("#squiggly-2") brightness(250%);
+        -webkit-filter: url("#squiggly-2") brightness(500%);
+                filter: url("#squiggly-2") brightness(500%);
         transform: translateX(3px) translateY(5px) rotate(4deg);
     }
     50% {
-        -webkit-filter: url("#squiggly-1") brightness(250%);
-                filter: url("#squiggly-1") brightness(250%);
+        -webkit-filter: url("#squiggly-1") brightness(500%);
+                filter: url("#squiggly-1") brightness(500%);
         transform: translateX(-2px) translateX(-2px) rotate(3deg);
     }
     75% {
-        -webkit-filter: url("#squiggly-3") brightness(250%);
-                filter: url("#squiggly-3") brightness(250%);
+        -webkit-filter: url("#squiggly-3") brightness(500%);
+                filter: url("#squiggly-3") brightness(500%);
         transform: translateX(3px) translateY(-3px) rotate(4deg);
     }
     100% {
-        -webkit-filter: url("#squiggly-4") brightness(250%);
-                filter: url("#squiggly-4") brightness(250%);
+        -webkit-filter: url("#squiggly-4") brightness(500%);
+                filter: url("#squiggly-4") brightness(500%);
         transform: translateX(2px) translateX(2px) rotate(3deg);
     }
 }
 
 @keyframes squiggly-anim {
     0% {
-        -webkit-filter: url("#squiggly-0") brightness(250%);
-                filter: url("#squiggly-0") brightness(250%);
+        -webkit-filter: url("#squiggly-0") brightness(500%);
+                filter: url("#squiggly-0") brightness(500%);
         transform: translateX(2px) translateX(2px) rotate(3deg);
     }
     25% {
-        -webkit-filter: url("#squiggly-2") brightness(250%);
-                filter: url("#squiggly-2") brightness(250%);
+        -webkit-filter: url("#squiggly-2") brightness(500%);
+                filter: url("#squiggly-2") brightness(500%);
         transform: translateX(3px) translateY(5px) rotate(4deg);
     }
     50% {
-        -webkit-filter: url("#squiggly-1") brightness(250%);
-                filter: url("#squiggly-1") brightness(250%);
+        -webkit-filter: url("#squiggly-1") brightness(500%);
+                filter: url("#squiggly-1") brightness(500%);
         transform: translateX(-2px) translateX(-2px) rotate(3deg);
     }
     75% {
-        -webkit-filter: url("#squiggly-3") brightness(250%);
-                filter: url("#squiggly-3") brightness(250%);
+        -webkit-filter: url("#squiggly-3") brightness(500%);
+                filter: url("#squiggly-3") brightness(500%);
         transform: translateX(3px) translateY(-3px) rotate(4deg);
     }
     100% {
-        -webkit-filter: url("#squiggly-4") brightness(250%);
-                filter: url("#squiggly-4") brightness(250%);
+        -webkit-filter: url("#squiggly-4") brightness(500%);
+                filter: url("#squiggly-4") brightness(500%);
         transform: translateX(2px) translateX(2px) rotate(3deg);
     }
 }
