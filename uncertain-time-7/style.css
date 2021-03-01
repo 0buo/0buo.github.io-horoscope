@@ -53,7 +53,7 @@ body{
     min-height: 150px;
     max-width: 300px;
     max-height: 300px;
-    border-radius: min( max(calc( max(100vh, 100vw) / 15), 50px), 100px);
+    border-radius: min( max(calc(100vw / 15), 50px), 100px);
     mix-blend-mode: exclusion;
 
     transition: all 0.25s ease;
