@@ -29,13 +29,19 @@ body{
     white-space: nowrap;
     letter-spacing: 0.5px;
     word-spacing: 30px;
+    opacity: 60%;
 }
-#color-matte{
+
+#info{
     position: fixed;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(235, 235, 235, 0.4);
-    /* z-index: -1; */
+    top:0;
+    right:0;
+    font-family: 'Monofett', cursive;
+    font-size: 30px;
+    width: 500px;
+    height: auto;
+    letter-spacing: 0px;
+    word-spacing: 10px;
 }
 
 .sound{
