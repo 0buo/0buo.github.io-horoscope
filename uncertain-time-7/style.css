@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=B612+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lekton:ital,wght@0,400;0,700;1,400&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Monofett&display=swap');
+
+
+body{
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url('assets/grain.gif');
+    background-attachment: fixed;
+    background-repeat: repeat;
+
+    animation: bg-move 300s linear infinite;
+}
+
+@keyframes bg-move{
+    0%{
+        background-position: 0 0;
+    }
+    100%{
+        background-position: 0 10000px;
+    }
+}
+#text{
+    font-family: 'Monofett', cursive;
+    font-size: 70px;
+    font-weight: 400;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+    word-spacing: 30px;
+}
+#color-matte{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(235, 235, 235, 0.4);
+    /* z-index: -1; */
+}
+
+.sound{
+    z-index: 2;
+    position: fixed;
+    width: 20vw;
+    height: 20vw;
+    min-width: 150px;
+    min-height: 150px;
+    max-width: 300px;
+    max-height: 300px;
+    border-radius: min( max(calc( max(100vh, 100vw) / 15), 50px), 100px);
+    mix-blend-mode: exclusion;
+
+    transition: all 0.25s ease;
+}
+.sound:hover{
+    mix-blend-mode: normal;
+}
+
+#sound1{
+    right: calc(100vw - max(min(20vw, 300px), 150px) - 10vw);
+    top: 5vh; 
+}
+
+#sound2{
+    right: calc(100vw - max(min(20vw, 300px), 150px) - 50vw);
+    top: 36vh; 
+}
+
+#sound3{
+    right: calc(100vw - max(min(20vw, 300px), 150px) - 25vw);
+    top: 60vh; 
+}
