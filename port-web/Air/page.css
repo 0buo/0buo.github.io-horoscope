@@ -94,7 +94,7 @@ body{
     /* template testing */
     width: 65vh;
     height: 65vh;
-    background-color: black;
+    background-color: rgba(255,255,255,0);
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -104,7 +104,6 @@ body{
     height: 65vh;
     margin-left: calc(min(3.5vw, 70px)) !important;
 
-    background-color: rgba(255,255,255,0) !important;
     background-image: url('./page-assets/vr.png');
 }
 
@@ -148,6 +147,27 @@ body{
 
     mix-blend-mode: exclusion;
 }
+@media only screen and (max-width: 2560px) {
+    .side-column-container {
+      font-size: 24px;
+    }
+}
+@media only screen and (max-width: 1650px) {
+    .side-column-container {
+      font-size: 22px;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .side-column-container {
+      font-size: 20px;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .side-column-container {
+      font-size: 18px;
+    }
+}
+
 @media (prefers-color-scheme: light) {
     .side-column-container{
         background-color: rgba(255,255,255,0.55);

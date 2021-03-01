@@ -227,7 +227,7 @@ function setSideColumnHeight(){
 let sideFolded = false;
 let narrowScreen = false;
 function resizeSide(){
-    if(window.innerWidth <= 1000){
+    if(window.innerWidth <= 1250){
         if(!narrowScreen){
             $sideColumn.css(`transform`, `translateX(-150vw)`);
             $sideBorder.css(`transform`, `translateX(-150vw)`);
