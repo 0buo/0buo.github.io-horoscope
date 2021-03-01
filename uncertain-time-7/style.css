@@ -35,13 +35,13 @@ body{
 #info{
     position: fixed;
     top:0;
-    right:0;
+    right:1%;
     font-family: 'Monofett', cursive;
     font-size: 30px;
-    width: 500px;
     height: auto;
     letter-spacing: 0px;
     word-spacing: 10px;
+    text-align: right;
 }
 
 .sound{
