@@ -69,10 +69,10 @@ body{
 
 #sound2{
     right: calc(100vw - max(min(20vw, 300px), 150px) - 60vw);
-    top: 36vh; 
+    top: 30vh; 
 }
 
 #sound3{
     right: calc(100vw - max(min(20vw, 300px), 150px) - 35vw);
-    top: 60vh; 
+    bottom: 10vh; 
 }
