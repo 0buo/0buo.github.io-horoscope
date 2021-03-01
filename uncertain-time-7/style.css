@@ -64,12 +64,12 @@ body{
 
 #sound1{
     right: calc(100vw - max(min(20vw, 300px), 150px) - 15vw);
-    top: 5vh; 
+    top: 20vh; 
 }
 
 #sound2{
     right: calc(100vw - max(min(20vw, 300px), 150px) - 60vw);
-    top: 30vh; 
+    top: 40vh; 
 }
 
 #sound3{
