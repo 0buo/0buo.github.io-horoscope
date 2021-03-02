@@ -792,12 +792,13 @@ class Menus{
             //if firefox
             let d = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
             console.log(d)
-            if(Number.isInteger(d)){
-                d = d >= 0 ? 150 : -150;
+            if(Number.isInteger(d) && navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+                d = d > 0 ? 150 
+                  : d < 0 ? -150
+                  : 0;
             }
-            else d *= 2;
             
-            this.deltaY += d * -0.5;
+            this.deltaY += d * -0.75;
 
             cancelAnimationFrame(this.IDMainScroll);
             cancelAnimationFrame(this.IDMainSwipe);
