@@ -789,9 +789,12 @@ class Menus{
             this.isScroll = true;
 
             // event.preventDefault();
+            //if firefox
             let d = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
-            d = d >= 0 ? 1 : -1
-            this.deltaY += 150 * d * -0.5;
+            if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+                d = d >= 0 ? 150 : -150;
+            }
+            this.deltaY += d * -0.5;
 
             cancelAnimationFrame(this.IDMainScroll);
             cancelAnimationFrame(this.IDMainSwipe);
