@@ -428,28 +428,28 @@ body{
 
 @-webkit-keyframes squiggly-less-rotate-anim {
     0% {
-      -webkit-filter: url("#squiggly-0");
-              filter: url("#squiggly-0");
+        -webkit-filter: url("#squiggly-0");
+                filter: url("#squiggly-0");
     }
     25% {
-      -webkit-filter: url("#squiggly-2");
-              filter: url("#squiggly-2");
-      transform: translateY(-1.5px) rotate(-1.25deg);
+    -webkit-filter: url("#squiggly-2");
+            filter: url("#squiggly-2");
+    transform: translateY(-1.5px) rotate(-3deg);
     }
     50% {
-      -webkit-filter: url("#squiggly-1");
-              filter: url("#squiggly-1");
-      transform: translateX(1px) rotate(1deg);
+    -webkit-filter: url("#squiggly-1");
+            filter: url("#squiggly-1");
+    transform: translateX(1px) rotate(2.5deg);
     }
     75% {
-      -webkit-filter: url("#squiggly-3");
-              filter: url("#squiggly-3");
-      transform: translateY(-1.3px) rotate(-1deg);
+    -webkit-filter: url("#squiggly-3");
+            filter: url("#squiggly-3");
+    transform: translateY(-1.3px) rotate(-2.5deg);
     }
     100% {
-      -webkit-filter: url("#squiggly-4");
-              filter: url("#squiggly-4");
-      transform: translateX(0.8px) rotate(0.75deg);
+    -webkit-filter: url("#squiggly-4");
+            filter: url("#squiggly-4");
+    transform: translateX(0.8px) rotate(2deg);
     }
 }
 
@@ -461,22 +461,22 @@ body{
     25% {
       -webkit-filter: url("#squiggly-2");
               filter: url("#squiggly-2");
-      transform: translateY(-1.5px) rotate(-1.25deg);
+      transform: translateY(-1.5px) rotate(-3deg);
     }
     50% {
       -webkit-filter: url("#squiggly-1");
               filter: url("#squiggly-1");
-      transform: translateX(1px) rotate(1deg);
+      transform: translateX(1px) rotate(2.5deg);
     }
     75% {
       -webkit-filter: url("#squiggly-3");
               filter: url("#squiggly-3");
-      transform: translateY(-1.3px) rotate(-1deg);
+      transform: translateY(-1.3px) rotate(-2.5deg);
     }
     100% {
       -webkit-filter: url("#squiggly-4");
               filter: url("#squiggly-4");
-      transform: translateX(0.8px) rotate(0.75deg);
+      transform: translateX(0.8px) rotate(2deg);
     }
 }
 
@@ -485,24 +485,48 @@ body{
             animation: alt-buzz 0.15s linear infinite;
 }
 
+@-webkit-keyframes alt-buzz {
+    0% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+    }
+    10% {
+        transform: translateX(4px) translateY(-4px) rotate(4deg);
+    }
+    25% {
+        transform: translateX(-3.5px) translateY(3.5px) rotate(-3.5deg);
+    }
+    50% {
+        transform: translateX(3.5px) translateY(3px) rotate(3deg);
+    }
+    75% {
+        transform: translateX(-2.5px) translateY(-2.5px) rotate(-2.5deg);
+    }
+    90% {
+        transform: translateX(-2px) translateY(2px) rotate(2deg);
+    }
+    100% {
+      transform: translateX(0) translateY(0) rotate(0deg);
+    }
+}
+
 @keyframes alt-buzz {
     0% {
         transform: translateX(0) translateY(0) rotate(0deg);
     }
     10% {
-        transform: translateX(3px) translateY(-3px) rotate(5deg);
+        transform: translateX(4px) translateY(-4px) rotate(4deg);
     }
     25% {
-        transform: translateX(-2.5px) translateY(2.5px) rotate(-5deg);
+        transform: translateX(-3.5px) translateY(3.5px) rotate(-3.5deg);
     }
     50% {
-        transform: translateX(2.5px) translateY(2px) rotate(3deg);
+        transform: translateX(3.5px) translateY(3px) rotate(3deg);
     }
     75% {
-        transform: translateX(-1.5px) translateY(-1.5px) rotate(-3.5deg);
+        transform: translateX(-2.5px) translateY(-2.5px) rotate(-2.5deg);
     }
     90% {
-        transform: translateX(-1px) translateY(1px) rotate(4.5deg);
+        transform: translateX(-2px) translateY(2px) rotate(2deg);
     }
     100% {
       transform: translateX(0) translateY(0) rotate(0deg);
