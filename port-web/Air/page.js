@@ -319,7 +319,7 @@ function mousedownSideButton(e){
         firstTouch = e.changedTouches[0];
     }
 
-    $sideButton.css(`filter`, `brightness(500%)`);
+    if(isMobileTablet) $sideButton.css(`filter`, `brightness(500%)`);
     $sideButton.css(`transform`, `scale(1.25)`);
     if(isMobileTablet){
         $sideButton.addClass(`buzz`);
@@ -339,7 +339,7 @@ function mousedownBackButton(e){
         firstTouch = e.changedTouches[0];
     }
 
-    $backButton.css(`filter`, `brightness(500%)`);
+    if(isMobileTablet) $backButton.css(`filter`, `brightness(500%)`);
     $backButton.css(`transform`, `scale(1.25)`);
     if(isMobileTablet){
         $backButton.addClass(`buzz`);
@@ -529,7 +529,7 @@ let $backButton = $(`#back-button`);
 
 let buttonColor = `#a9bab7`;
 let buttonImage = `url("./page-assets/logo.png")`;
-let backButtonImage = `url("../pages-assets/zhu-tou.png")` ;
+let backButtonImage = `url("../pages-assets/zhu-yan.png")` ;
 let backButtonColor = `black` ;
 let backLink = `../index.html` ;
 

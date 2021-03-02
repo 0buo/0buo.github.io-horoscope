@@ -798,7 +798,7 @@ class Menus{
                   : 0;
             }
             
-            this.deltaY += d * -0.75;
+            this.deltaY += d * -0.5;
 
             cancelAnimationFrame(this.IDMainScroll);
             cancelAnimationFrame(this.IDMainSwipe);
