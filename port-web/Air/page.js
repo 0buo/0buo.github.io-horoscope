@@ -471,7 +471,8 @@ function buttonEvents(){
 function scrollHorizontal(){
     flexContainer.addEventListener(`wheel`, function(e){
         let delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-        scrollDeltaH += delta * 0.03;
+        delta = delta >= 0 ? 1 : -1;
+        scrollDeltaH += 200 * delta * 0.03;
         e.preventDefault();
 
         cancelAnimationFrame(IDscroll);

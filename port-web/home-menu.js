@@ -481,7 +481,14 @@ class Menus{
             else if (!preColor && preGradient) $thisCircle.css(`background-image`, `${preGradient}`);
             
             if(!isMobileTablet){
-                $thisCircle.addClass(`squiggle-less-rotate`);
+                //if firefox
+                if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+                    if(preview) $thisCircle.addClass(`alt-buzz`);
+                    else $thisCircle.addClass(`squiggle-less-rotate`);
+                }
+                else{
+                    $thisCircle.addClass(`squiggle-less-rotate`);
+                }
                 $thisCircle.prev().addClass(`squiggle`);
             }
             else{
@@ -549,6 +556,7 @@ class Menus{
             this.$optionCircles.prev().removeClass(`squiggle`);
             this.$optionCircles.removeClass(`buzz-rotate`);
             this.$optionCircles.removeClass(`buzz`);
+            this.$optionCircles.removeClass(`alt-buzz`);
             this.$optionCircles.prev().removeClass(`buzz`);
             if(!redirecting){
                 this.$optionCircles.css(`width`, `60px`);
@@ -781,7 +789,9 @@ class Menus{
             this.isScroll = true;
 
             // event.preventDefault();
-            this.deltaY += event.deltaY * -0.5;
+            let d = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+            d = d >= 0 ? 1 : -1
+            this.deltaY += 150 * d * -0.5;
 
             cancelAnimationFrame(this.IDMainScroll);
             cancelAnimationFrame(this.IDMainSwipe);
@@ -795,10 +805,10 @@ class Menus{
                 this.isScroll = false;
                 this.isSwipe = true;
     
-                if(movedir == `left`) this.deltaY += -175 * -0.085;
-                else if (movedir == `right`) this.deltaY += 175 * -0.085;
-                else if(movedir == `up`) this.deltaY += -175 * -0.085;
-                else if (movedir == `down`) this.deltaY += 175 * -0.085;
+                if(movedir == `left`) this.deltaY += -150 * -0.085;
+                else if (movedir == `right`) this.deltaY += 150 * -0.085;
+                else if(movedir == `up`) this.deltaY += -150 * -0.085;
+                else if (movedir == `down`) this.deltaY += 150 * -0.085;
     
                 cancelAnimationFrame(this.IDMainScroll);
                 cancelAnimationFrame(this.IDMainSwipe);

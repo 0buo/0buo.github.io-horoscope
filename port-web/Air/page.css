@@ -18,18 +18,18 @@ body{
         background-color: black;
     }
     100%{
-        background-color: rgb(25,25,25);
+        background-color: rgb(20,20,20);
     }
 }
-
 @keyframes start-bg-dark{
     0%{
         background-color: black;
     }
     100%{
-        background-color: rgb(25,25,25);
+        background-color: rgb(20,20,20);
     }
 }
+
 @-webkit-keyframes start-bg-light{
     0%{
         background-color: white;
@@ -59,7 +59,7 @@ body{
 @media (prefers-color-scheme: dark) {
     body {
         --border-color:rgb(238, 238, 238);
-        background-color: rgb(25,25,25);
+        background-color: rgb(20,20,20);
         color: white;
         -webkit-animation: start-bg-dark 2s ease 1;
                 animation: start-bg-dark 2s ease 1;
