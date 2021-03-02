@@ -474,7 +474,7 @@ function scrollHorizontal(){
         if(Number.isInteger(delta)){
             delta = delta >= 0 ? 200 : -200;
         }
-
+        console.log(delta)
         scrollDeltaH += delta * 0.03;
         e.preventDefault();
 
