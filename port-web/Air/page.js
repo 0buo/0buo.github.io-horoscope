@@ -472,7 +472,7 @@ function scrollHorizontal(){
     flexContainer.addEventListener(`wheel`, function(e){
         let delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
         if(Number.isInteger(delta)){
-            delta = delta >= 0 ? 250 : -250;
+            delta = delta >= 0 ? 200 : -200;
         }
 
         scrollDeltaH += delta * 0.03;
