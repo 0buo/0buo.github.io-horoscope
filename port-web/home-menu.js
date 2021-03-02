@@ -791,7 +791,7 @@ class Menus{
             // event.preventDefault();
             //if firefox
             let d = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
-            console.log(d)
+            // console.log(d)
             if(Number.isInteger(d) && navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
                 d = d > 0 ? 150 
                   : d < 0 ? -150
