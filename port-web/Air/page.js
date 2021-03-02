@@ -471,12 +471,10 @@ function buttonEvents(){
 function scrollHorizontal(){
     flexContainer.addEventListener(`wheel`, function(e){
         let delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-        if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
-            delta = delta >= 0 ? 200 : -200;
+        if(Number.isInteger(delta)){
+            delta = delta >= 0 ? 250 : -250;
         }
-        else{
-            delta *= 1.5;
-        }
+
         scrollDeltaH += delta * 0.03;
         e.preventDefault();
 

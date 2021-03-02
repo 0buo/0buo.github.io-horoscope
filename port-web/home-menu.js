@@ -791,10 +791,11 @@ class Menus{
             // event.preventDefault();
             //if firefox
             let d = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
-            console.log(d);
-            if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+            if(Number.isInteger(d)){
                 d = d >= 0 ? 150 : -150;
             }
+            else d *= 2;
+            
             this.deltaY += d * -0.5;
 
             cancelAnimationFrame(this.IDMainScroll);
