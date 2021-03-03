@@ -86,7 +86,7 @@ body{
 
 .row-flex-item{
     flex: 0 0 auto;
-    margin-left: 150px;
+    margin-left: max(min(calc(0.1 * max(100vh, 100vw)), 150px), 50px);
     
     border-radius: var(--border-radius);
     border: 4px solid var(--border-color);
