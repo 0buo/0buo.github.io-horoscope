@@ -527,7 +527,8 @@ let $sideButton = $(`#side-button`);
 let $sideBorder = $(`#column-border`);
 let $backButton = $(`#back-button`);
 
-let buttonColor = `#a9bab7`;
+//`#a9bab7`
+let buttonColor = `rgba(255,255,255,0)`;
 let buttonImage = `url("./page-assets/logo.png")`;
 let backButtonImage = `url("../pages-assets/zhu-yan.png")` ;
 let backButtonColor = `black` ;

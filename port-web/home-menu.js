@@ -461,11 +461,13 @@ class Menus{
 
         var firstTouch, endTouch, touchDist= 500, smallTouchRestraint = 46, largeTouchRestraint = 105, originalBorderColor;
         //JQUERY DOWN
-        this.$optionCircles.on(`mousedown touchstart`, function(e){
+        this.$optionCircles.on(`mousedown touchstart`,{$title: this.$title}, function(e){
             if(e.type == `touchstart`) {
                 e.preventDefault();
                 firstTouch = e.changedTouches[0];
             }
+
+            let $title = e.data.$title;
 
             let circleColor = getComputedStyle(document.body).getPropertyValue(`--circleColor`);
             let $thisCircle = $(this);
@@ -535,6 +537,11 @@ class Menus{
                     $thisCircle.css(`border-width`, `10px`);
                 }
                 $thisCircle.css(`background-image`, `url(${preview})`);
+            }
+
+            let info = $thisCircle.parent().attr(`info`);
+            if(info){
+                $title.html(info);
             }
         });
 
