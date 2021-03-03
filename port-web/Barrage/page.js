@@ -479,7 +479,7 @@ function scrollHorizontal(){
         }
         
         scrollDeltaH += delta * 0.03;
-        e.preventDefault();
+        // e.preventDefault();
 
         cancelAnimationFrame(IDscroll);
         IDscroll = requestAnimationFrame(smoothScrolling);
