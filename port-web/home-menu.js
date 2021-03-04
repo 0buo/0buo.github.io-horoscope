@@ -475,6 +475,8 @@ class Menus{
             let preColor = $thisCircle.parent().attr(`pre-color`);
             let preGradient = $thisCircle.parent().attr(`pre-gradient`);
 
+            $thisCircle.attr(`downed`, "true");
+
             originalBorderColor = $thisCircle.css(`border-color`);
             $thisCircle.css(`border-color`, `${circleColor}`);
 
@@ -485,11 +487,18 @@ class Menus{
             if(!isMobileTablet){
                 //if firefox
                 if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
-                    if(preview) $thisCircle.addClass(`alt-buzz`);
-                    else $thisCircle.addClass(`squiggle-less-rotate`);
+                    if(window.innerWidth >= 650){
+                        if(preview) $thisCircle.addClass(`alt-buzz`);
+                        else $thisCircle.addClass(`squiggle-less-rotate`);
+                    }
+                    else{
+                        if(preview) $thisCircle.addClass(`alt-buzz-90`);
+                        else $thisCircle.addClass(`squiggle-less-rotate-90`);
+                    }
                 }
                 else{
-                    $thisCircle.addClass(`squiggle-less-rotate`);
+                    if(window.innerWidth >= 650) $thisCircle.addClass(`squiggle-less-rotate`);
+                    else $thisCircle.addClass(`squiggle-less-rotate-90`);
                 }
                 $thisCircle.prev().addClass(`squiggle`);
             }
@@ -549,6 +558,8 @@ class Menus{
         $(window).on(`mouseup touchend`, function(e){
             if(e.type == `touchend`) e.preventDefault();
 
+            this.$optionCircles.attr(`downed`, `false`);
+
             if(!isMobileTablet){
                 document.getElementById(`displacement0`).setAttribute(`scale`, `10`);
                 document.getElementById(`displacement1`).setAttribute(`scale`, `13`);
@@ -560,10 +571,12 @@ class Menus{
             this.$optionCircles.css(`border-color`, originalBorderColor);
             this.$optionCircles.css(`background-image`, `none`);
             this.$optionCircles.removeClass(`squiggle-less-rotate`);
+            this.$optionCircles.removeClass(`squiggle-less-rotate-90`);
             this.$optionCircles.prev().removeClass(`squiggle`);
             this.$optionCircles.removeClass(`buzz-rotate`);
             this.$optionCircles.removeClass(`buzz`);
             this.$optionCircles.removeClass(`alt-buzz`);
+            this.$optionCircles.removeClass(`alt-buzz-90`);
             this.$optionCircles.prev().removeClass(`buzz`);
             if(!redirecting){
                 this.$optionCircles.css(`width`, `60px`);
@@ -601,7 +614,8 @@ class Menus{
             let $video = e.data.$video;
             let circleColor = getComputedStyle(document.body).getPropertyValue(`--circleColor`);
 
-            if(!$thisCircle.parent().parent().parent().attr('class').includes(`menu-disappear`) && touchDist < largeTouchRestraint){             
+            let downed = $thisCircle.attr(`downed`);
+            if(!$thisCircle.parent().parent().parent().attr('class').includes(`menu-disappear`) && downed == `true` && touchDist < largeTouchRestraint){             
                 //if hit 'new'
                 if ($thisCircle.parent().attr('id') == `face3` && touchDist < smallTouchRestraint){
                     $title.html(`New + in Progress`);

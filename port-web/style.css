@@ -4,6 +4,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Codystar&display=swap');
 /* Barrage */
 @import url('https://fonts.googleapis.com/css2?family=Londrina+Shadow&display=swap');
+/* Balck Bg */
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab+Highlight&display=swap');
+/* ubuntu condensed */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap');
 
 /* title */
 @import url('https://fonts.googleapis.com/css2?family=Londrina+Outline&display=swap');
@@ -17,8 +21,16 @@
     src: url("fonts/tilez/Tilez.TTF");
 }
 @font-face {
-    font-family: water;
+    font-family: ink;
     src: url("fonts/black_ink/Blackink.ttf");
+}
+@font-face {
+    font-family: water;
+    src: url("fonts/watermark/watermark.ttf");
+}
+@font-face {
+    font-family: play;
+    src: url("fonts/play_ground/PlayGround.otf");
 }
 
 
@@ -493,6 +505,40 @@ body{
     }
 }
 
+/*  */
+.squiggle-less-rotate-90{
+    -webkit-animation: squiggly-less-rotate-90-anim 0.15s linear infinite;
+            animation: squiggly-less-rotate-90-anim 0.15s linear infinite;
+}
+
+@keyframes squiggly-less-rotate-90-anim {
+    0% {
+      -webkit-filter: url("#squiggly-0");
+              filter: url("#squiggly-0");
+      transform: rotate(90deg);
+    }
+    25% {
+      -webkit-filter: url("#squiggly-2");
+              filter: url("#squiggly-2");
+      transform: translateY(-1.5px) rotate(87deg);
+    }
+    50% {
+      -webkit-filter: url("#squiggly-1");
+              filter: url("#squiggly-1");
+      transform: translateX(1px) rotate(92.5deg);
+    }
+    75% {
+      -webkit-filter: url("#squiggly-3");
+              filter: url("#squiggly-3");
+      transform: translateY(-1.3px) rotate(87.5deg);
+    }
+    100% {
+      -webkit-filter: url("#squiggly-4");
+              filter: url("#squiggly-4");
+      transform: translateX(0.8px) rotate(92deg);
+    }
+}
+
 .alt-buzz{
     -webkit-animation: alt-buzz 0.15s linear infinite;
             animation: alt-buzz 0.15s linear infinite;
@@ -543,6 +589,34 @@ body{
     }
     100% {
       transform: translateX(0) translateY(0) rotate(0deg);
+    }
+}
+/*  */
+.alt-buzz-90{
+    -webkit-animation: alt-buzz-90 0.15s linear infinite;
+            animation: alt-buzz-90 0.15s linear infinite;
+}
+@keyframes alt-buzz-90 {
+    0% {
+        transform: translateX(0) translateY(0) rotate(90deg);
+    }
+    10% {
+        transform: translateX(4px) translateY(-4px) rotate(94deg);
+    }
+    25% {
+        transform: translateX(-3.5px) translateY(3.5px) rotate(86.5deg);
+    }
+    50% {
+        transform: translateX(3.5px) translateY(3px) rotate(93deg);
+    }
+    75% {
+        transform: translateX(-2.5px) translateY(-2.5px) rotate(87.5deg);
+    }
+    90% {
+        transform: translateX(-2px) translateY(2px) rotate(92deg);
+    }
+    100% {
+      transform: translateX(0) translateY(0) rotate(90deg);
     }
 }
 
