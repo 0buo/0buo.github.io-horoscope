@@ -20,13 +20,21 @@
     font-family: mahjong;
     src: url("fonts/tilez/Tilez.TTF");
 }
-@font-face {
+/* @font-face {
     font-family: ink;
     src: url("fonts/black_ink/Blackink.ttf");
-}
+} */
+/* @font-face {
+    font-family: ink2;
+    src: url("fonts/inkburrow/Inkburro.ttf");
+} */
 @font-face {
     font-family: water;
     src: url("fonts/watermark/watermark.ttf");
+}
+@font-face {
+    font-family: fluid;
+    src: url("fonts/fluid_groove/fluidGroove.ttf");
 }
 @font-face {
     font-family: play;
@@ -36,6 +44,7 @@
 
 body{
     --circleColor:black;
+    --shadowColor: rgb(80,80,80);
     overflow: hidden;
     transition: background-color 0.75s ease;
 }
@@ -43,6 +52,7 @@ body{
 @media (prefers-color-scheme: light) {
     body{
         --circleColor: black;
+        --shadowColor: rgb(80,80,80);
         background-color: white;
         color: black;
     }
@@ -50,6 +60,7 @@ body{
 @media (prefers-color-scheme: dark) {
     body{
         --circleColor: white;
+        --shadowColor: rgb(175,175,175);
         background-color: black;
         color: white;
     }

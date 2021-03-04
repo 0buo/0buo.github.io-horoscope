@@ -208,7 +208,7 @@ swipedetect(el, function(swipedir){
 
 //==================================================================
 //************main scripts**************
-let NOWmainScroll, LASTNOWmainScroll, IDmenuDisplay, IDredirect, redirecting = false;
+let NOWmainScroll, LASTNOWmainScroll, IDmenuDisplay, IDredirect, redirecting = false, originalBorderColor;
 class Menus{
     constructor(){
         this.$title = $(`#title`);
@@ -459,7 +459,7 @@ class Menus{
         //     console.log($(this).css(`transform`))
         // })
 
-        var firstTouch, endTouch, touchDist= 500, smallTouchRestraint = 46, largeTouchRestraint = 105, originalBorderColor;
+        var firstTouch, endTouch, touchDist= 500, smallTouchRestraint = 46, largeTouchRestraint = 105;
         //JQUERY DOWN
         this.$optionCircles.on(`mousedown touchstart`,{$title: this.$title}, function(e){
             if(e.type == `touchstart`) {
@@ -587,6 +587,7 @@ class Menus{
                 this.$optionCircles.css(`transform`, `scale(1) rotate(0deg)`);
                 this.$optionCircles.css(`background-color`, `rgba(255,255,255,0)`);
             }
+            originalBorderColor = '';
             //
         }.bind(this));
 
@@ -774,18 +775,37 @@ class Menus{
         //LIGHT AND DARK MODE
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             // dark mode
-            if(this.circleColor === undefined) this.$optionCircles.css(`border-color`, `white`);
-            else this.$optionCircles.css(`border-color`, this.circleColor);
+            if(this.circleColor === undefined){
+                this.$optionCircles.css(`border-color`, `white`);
+                // originalBorderColor = `white`;
+            }
+            else{
+                this.$optionCircles.css(`border-color`, this.circleColor);
+                // originalBorderColor = this.circleColor;
+            }
         }
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
             const newColorScheme = e.matches ? "dark" : "light";
+            this.reorient();
             if (newColorScheme == `dark`) {
-                if(this.circleColor === undefined) this.$optionCircles.css(`border-color`, `white`);
-                else this.$optionCircles.css(`border-color`, this.circleColor);
+                if(this.circleColor === undefined){
+                    this.$optionCircles.css(`border-color`, `white`);
+                    // originalBorderColor = `white`;
+                }
+                else{
+                    this.$optionCircles.css(`border-color`, this.circleColor);
+                    // originalBorderColor = this.circleColor;
+                }
             }
             else {
-                if(this.circleColor === undefined) this.$optionCircles.css(`border-color`, `black`);
-                else this.$optionCircles.css(`border-color`, this.circleColor);
+                if(this.circleColor === undefined){
+                    this.$optionCircles.css(`border-color`, `black`);
+                    // originalBorderColor = `black`
+                }
+                else{
+                    this.$optionCircles.css(`border-color`, this.circleColor);
+                    // originalBorderColor = this.circleColor;
+                }
             }
         });
 
