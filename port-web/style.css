@@ -15,7 +15,11 @@
 @font-face {
     font-family: mahjong;
     src: url("fonts/tilez/Tilez.TTF");
-  }
+}
+@font-face {
+    font-family: water;
+    src: url("fonts/black_ink/Blackink.ttf");
+}
 
 
 body{
