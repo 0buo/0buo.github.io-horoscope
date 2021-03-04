@@ -193,7 +193,6 @@ body{
 
 .column-image{
     max-width: 80%;
-    transform: scale(-1);
 }
 
 #column-border{
@@ -249,6 +248,7 @@ body{
 
     background-repeat: no-repeat;
     background-size: contain;
+    background-position: 50% 0;
     z-index: 1;
 
     mix-blend-mode: difference;

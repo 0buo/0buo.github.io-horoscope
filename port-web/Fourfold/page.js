@@ -479,7 +479,7 @@ function scrollHorizontal(){
         }
         
         scrollDeltaH += delta * 0.03;
-        e.preventDefault();
+        // e.preventDefault();
 
         cancelAnimationFrame(IDscroll);
         IDscroll = requestAnimationFrame(smoothScrolling);
@@ -528,7 +528,7 @@ let $sideBorder = $(`#column-border`);
 let $backButton = $(`#back-button`);
 
 let buttonColor = `rgba(255,255,255,0)`;
-let buttonImage = `url("./page-assets/button.png")`;
+let buttonImage = `url("./page-assets/bird.png")`;
 let backButtonImage = `url("../pages-assets/zhu-yan.png")` ;
 let backButtonColor = `black` ;
 let backLink = `../index.html` ;
