@@ -615,6 +615,7 @@ class Menus{
             let $video = e.data.$video;
             let circleColor = getComputedStyle(document.body).getPropertyValue(`--circleColor`);
 
+            originalBorderColor = '';
             let downed = $thisCircle.attr(`downed`);
             if(!$thisCircle.parent().parent().parent().attr('class').includes(`menu-disappear`) && downed == `true` && touchDist < largeTouchRestraint){             
                 //if hit 'new'
