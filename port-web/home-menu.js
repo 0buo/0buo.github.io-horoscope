@@ -854,10 +854,10 @@ class Menus{
                 this.isScroll = false;
                 this.isSwipe = true;
     
-                if(movedir == `left`) this.deltaY += -150 * -0.085;
-                else if (movedir == `right`) this.deltaY += 150 * -0.085;
-                else if(movedir == `up`) this.deltaY += -150 * -0.085;
-                else if (movedir == `down`) this.deltaY += 150 * -0.085;
+                if(movedir == `left`) this.deltaY += -120 * -0.085;
+                else if (movedir == `right`) this.deltaY += 120 * -0.085;
+                else if(movedir == `up`) this.deltaY += -120 * -0.085;
+                else if (movedir == `down`) this.deltaY += 120 * -0.085;
     
                 cancelAnimationFrame(this.IDMainScroll);
                 cancelAnimationFrame(this.IDMainSwipe);
