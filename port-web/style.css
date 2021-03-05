@@ -17,30 +17,33 @@
 
 
 @font-face {
-    font-family: mahjong;
-    src: url("fonts/tilez/Tilez.TTF");
-}
-/* @font-face {
-    font-family: ink;
-    src: url("fonts/black_ink/Blackink.ttf");
-} */
-/* @font-face {
-    font-family: ink2;
-    src: url("fonts/inkburrow/Inkburro.ttf");
-} */
-@font-face {
-    font-family: water;
-    src: url("fonts/watermark/watermark.ttf");
+    font-family: 'mahjong';
+    src: url('fonts/tilez/tilez-webfont.woff2') format('woff2'),
+         url('fonts/tilez/tilez-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 @font-face {
-    font-family: fluid;
-    src: url("fonts/fluid_groove/fluidGroove.ttf");
+    font-family: 'water';
+    src: url('fonts/bubble_sharp/bubble_sharp-webfont.woff2') format('woff2'),
+         url('fonts/bubble_sharp/bubble_sharp-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 @font-face {
-    font-family: play;
-    src: url("fonts/play_ground/PlayGround.otf");
+    font-family: 'play';
+    src: url('fonts/play_ground/playground-webfont.woff2') format('woff2'),
+         url('fonts/play_ground/playground-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
-
+@font-face {
+    font-family: 'wire';
+    src: url('fonts/hellobubblebutt/hellobubblebutt-webfont.woff2') format('woff2'),
+         url('fonts/hellobubblebutt/hellobubblebutt-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 body{
     --circleColor:black;
@@ -294,36 +297,36 @@ body{
 
 /* PAST MENU */
 #face5 { 
-    transform: rotateX(0deg) translateZ(165px);
-    -webkit-transform: rotateX(0deg) translateZ(165px);
+    transform: rotateX(0deg) translateZ(168px);
+    -webkit-transform: rotateX(0deg) translateZ(168px);
 }
 #face6 { 
-    transform: rotateX(51.4286deg) translateZ(165px); 
-    -webkit-transform: rotateX(51.4286deg) translateZ(165px);
+    transform: rotateX(51.4286deg) translateZ(168px); 
+    -webkit-transform: rotateX(51.4286deg) translateZ(168px);
 }
 #face7 { 
-    transform: rotateX(-51.4286deg) translateZ(165px); 
-    -webkit-transform: rotateX(-51.4286deg) translateZ(165px); 
+    transform: rotateX(-51.4286deg) translateZ(168px); 
+    -webkit-transform: rotateX(-51.4286deg) translateZ(168px); 
 }
 #face8 { 
-    transform: rotateX(102.8571deg) translateZ(165px); 
-    -webkit-transform: rotateX(102.8571deg) translateZ(165px); 
+    transform: rotateX(102.8571deg) translateZ(168px); 
+    -webkit-transform: rotateX(102.8571deg) translateZ(168px); 
 }
 #face9 { 
-    transform: rotateX(-102.8571deg) translateZ(165px); 
-    -webkit-transform: rotateX(-102.8571deg) translateZ(165px); 
+    transform: rotateX(-102.8571deg) translateZ(168px); 
+    -webkit-transform: rotateX(-102.8571deg) translateZ(168px); 
 }
 #face10 { 
-    transform: rotateX(154.2857deg) translateZ(165px); 
-    -webkit-transform: rotateX(154.2857deg) translateZ(165px); 
+    transform: rotateX(154.2857deg) translateZ(168px); 
+    -webkit-transform: rotateX(154.2857deg) translateZ(168px); 
 }
 /* #face11 { 
     transform: rotateX(-135deg) translateZ(181px); 
     -webkit-transform: rotateX(-135deg) translateZ(181px); 
 } */
 #face12 { 
-    transform: rotateX(-154.2857deg) translateZ(165px); 
-    -webkit-transform: rotateX(-154.2857deg) translateZ(165px); 
+    transform: rotateX(-154.2857deg) translateZ(168px); 
+    -webkit-transform: rotateX(-154.2857deg) translateZ(168px); 
 }
 
 /* NEW MENU */

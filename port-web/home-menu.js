@@ -459,7 +459,7 @@ class Menus{
         //     console.log($(this).css(`transform`))
         // })
 
-        var firstTouch, endTouch, touchDist= 500, smallTouchRestraint = 46, largeTouchRestraint = 105;
+        var firstTouch, endTouch, touchDist= 500, smallTouchRestraint = 46, largeTouchRestraint = 105, mouseDownCircleStyleChanged = false;
         //JQUERY DOWN
         this.$optionCircles.on(`mousedown touchstart`,{$title: this.$title}, function(e){
             if(e.type == `touchstart`) {
@@ -477,6 +477,7 @@ class Menus{
 
             $thisCircle.attr(`downed`, "true");
 
+            mouseDownCircleStyleChanged = true;
             originalBorderColor = $thisCircle.css(`border-color`);
             $thisCircle.css(`border-color`, `${circleColor}`);
 
@@ -560,34 +561,37 @@ class Menus{
 
             this.$optionCircles.attr(`downed`, `false`);
 
-            if(!isMobileTablet){
-                document.getElementById(`displacement0`).setAttribute(`scale`, `10`);
-                document.getElementById(`displacement1`).setAttribute(`scale`, `13`);
-                document.getElementById(`displacement2`).setAttribute(`scale`, `8`);
-                document.getElementById(`displacement3`).setAttribute(`scale`, `10`);
-                document.getElementById(`displacement4`).setAttribute(`scale`, `7`);
+            if(mouseDownCircleStyleChanged){
+                mouseDownCircleStyleChanged = false;
+                if(!isMobileTablet){
+                    document.getElementById(`displacement0`).setAttribute(`scale`, `10`);
+                    document.getElementById(`displacement1`).setAttribute(`scale`, `13`);
+                    document.getElementById(`displacement2`).setAttribute(`scale`, `8`);
+                    document.getElementById(`displacement3`).setAttribute(`scale`, `10`);
+                    document.getElementById(`displacement4`).setAttribute(`scale`, `7`);
+                }
+    
+                this.$optionCircles.css(`border-color`, originalBorderColor);
+                this.$optionCircles.css(`background-image`, `none`);
+                this.$optionCircles.removeClass(`squiggle-less-rotate`);
+                this.$optionCircles.removeClass(`squiggle-less-rotate-90`);
+                this.$optionCircles.prev().removeClass(`squiggle`);
+                this.$optionCircles.removeClass(`buzz-rotate`);
+                this.$optionCircles.removeClass(`buzz`);
+                this.$optionCircles.removeClass(`alt-buzz`);
+                this.$optionCircles.removeClass(`alt-buzz-90`);
+                this.$optionCircles.prev().removeClass(`buzz`);
+                if(!redirecting){
+                    this.$optionCircles.css(`width`, `60px`);
+                    this.$optionCircles.css(`height`, `60px`);
+                    this.$optionCircles.css(`top`, `calc(50% - 17px)`);
+                    this.$optionCircles.css(`right`, `-3%`);
+                    this.$optionCircles.css(`border-width`, `4px`);
+                    this.$optionCircles.css(`transform`, `scale(1) rotate(0deg)`);
+                    this.$optionCircles.css(`background-color`, `rgba(255,255,255,0)`);
+                }
+                originalBorderColor = '';
             }
-
-            this.$optionCircles.css(`border-color`, originalBorderColor);
-            this.$optionCircles.css(`background-image`, `none`);
-            this.$optionCircles.removeClass(`squiggle-less-rotate`);
-            this.$optionCircles.removeClass(`squiggle-less-rotate-90`);
-            this.$optionCircles.prev().removeClass(`squiggle`);
-            this.$optionCircles.removeClass(`buzz-rotate`);
-            this.$optionCircles.removeClass(`buzz`);
-            this.$optionCircles.removeClass(`alt-buzz`);
-            this.$optionCircles.removeClass(`alt-buzz-90`);
-            this.$optionCircles.prev().removeClass(`buzz`);
-            if(!redirecting){
-                this.$optionCircles.css(`width`, `60px`);
-                this.$optionCircles.css(`height`, `60px`);
-                this.$optionCircles.css(`top`, `calc(50% - 17px)`);
-                this.$optionCircles.css(`right`, `-3%`);
-                this.$optionCircles.css(`border-width`, `4px`);
-                this.$optionCircles.css(`transform`, `scale(1) rotate(0deg)`);
-                this.$optionCircles.css(`background-color`, `rgba(255,255,255,0)`);
-            }
-            originalBorderColor = '';
             //
         }.bind(this));
 
@@ -615,7 +619,6 @@ class Menus{
             let $video = e.data.$video;
             let circleColor = getComputedStyle(document.body).getPropertyValue(`--circleColor`);
 
-            originalBorderColor = '';
             let downed = $thisCircle.attr(`downed`);
             if(!$thisCircle.parent().parent().parent().attr('class').includes(`menu-disappear`) && downed == `true` && touchDist < largeTouchRestraint){             
                 //if hit 'new'
