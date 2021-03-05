@@ -840,7 +840,7 @@ class Menus{
                   : 0;
             }
             
-            this.deltaY += d * -0.5;
+            this.deltaY += d * -0.2;
 
             cancelAnimationFrame(this.IDMainScroll);
             cancelAnimationFrame(this.IDMainSwipe);
@@ -854,10 +854,10 @@ class Menus{
                 this.isScroll = false;
                 this.isSwipe = true;
     
-                if(movedir == `left`) this.deltaY += -120 * -0.085;
-                else if (movedir == `right`) this.deltaY += 120 * -0.085;
-                else if(movedir == `up`) this.deltaY += -120 * -0.085;
-                else if (movedir == `down`) this.deltaY += 120 * -0.085;
+                if(movedir == `left`) this.deltaY += -80 * -0.085;
+                else if (movedir == `right`) this.deltaY += 80 * -0.085;
+                else if(movedir == `up`) this.deltaY += -80 * -0.085;
+                else if (movedir == `down`) this.deltaY += 80 * -0.085;
     
                 cancelAnimationFrame(this.IDMainScroll);
                 cancelAnimationFrame(this.IDMainSwipe);
