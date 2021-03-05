@@ -44,6 +44,28 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'system';
+    src: url('fonts/hydraulics_system/hydraulics_system-webfont.woff2') format('woff2'),
+         url('fonts/hydraulics_system/hydraulics_system-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'systemOutline';
+    src: url('fonts/hydraulics_system/hydraulics_system-outline-webfont.woff2') format('woff2'),
+         url('fonts/hydraulics_system/hydraulics_system-outline-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'blocks';
+    src: url('fonts/babyblocks/baby_blocks-webfont.woff2') format('woff2'),
+         url('fonts/babyblocks/baby_blocks-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 body{
     --circleColor:black;
