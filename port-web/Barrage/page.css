@@ -100,11 +100,12 @@ body{
 }
 
 #flex-start{
-    width: 84.6483vh;
+    /* width: 84.6483vh; */
+    width: 115.66vh;
     height: 65vh;
     margin-left: calc(min(3.5vw, 70px)) !important;
 
-    background-image: url('./page-assets/start.png');
+    background-image: url('./page-assets/text.jpg');
 }
 
 .scrolling-wrapper {
