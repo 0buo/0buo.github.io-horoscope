@@ -6,7 +6,7 @@ html{
 body{
     /* --border-width: min( max(calc( min(100vh, 100vw) / 170), 3px), 7px); */
     --border-color: rgb(26, 26, 26);
-    --border-radius: min( max(calc( min(100vh, 100vw) / 25), 10px), 100px);
+    --border-radius: min( max(calc( min(100vh, 100vw) / 25), 20px), 100px);
 
     transition: background-color 0.75s ease;
     background-color: rgba(255,255,255,0);
