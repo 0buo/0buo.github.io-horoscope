@@ -102,11 +102,8 @@ body{
 }
 
 #flex-start{
-    /* width: 649.638888889vh; */
     height: 65vh;
     margin-left: calc(min(3.5vw, 70px)) !important;
-
-    /* background-image: url('./page-assets/vr.png'); */
 }
 
 .scrolling-wrapper {
@@ -134,7 +131,7 @@ body{
     /* direction: rtl; */
 
     background-color: rgba(255,255,255,0.55);
-    background-image: url('../pages-assets/grain.gif');
+    background-image: url('./pages-assets/grain.gif');
     color: black;
     
     font-family: 'Space Mono', monospace;
