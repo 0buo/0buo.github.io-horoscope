@@ -219,7 +219,7 @@ function setSideColumnHeight(){
     $sideColumn.css(`height`, `calc(100vh - ${toSubtract}px)`);
     $sideBorder.css(`height`, `calc(100vh - ${toSubtract}px)`);
 
-    $(flexContainer).css(`height`, `${window.innerHeight}px`);
+    // $(flexContainer).css(`height`, `${window.innerHeight}px`);
     // document.body.clientHeight = window.innerHeight;
 }
 
