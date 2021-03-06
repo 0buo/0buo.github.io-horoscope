@@ -72,6 +72,7 @@ body{
     --shadowColor: rgb(80,80,80);
     overflow: hidden;
     transition: background-color 0.75s ease;
+    touch-action: none;
 }
 
 @media (prefers-color-scheme: light) {
