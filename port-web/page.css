@@ -68,6 +68,8 @@ body{
 
 /* FLEX PART */
 .row-flex-container{
+    touch-action: pan-x;
+
     position: relative;
     top: 0;
     left: 0;
@@ -116,6 +118,7 @@ body{
 
 .side-column-container{
     --gradient-deg: 0deg;
+    touch-action: pan-y;
 
     /* position: fixed; */
     position: absolute;
