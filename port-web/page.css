@@ -68,7 +68,7 @@ body{
 
 /* FLEX PART */
 .row-flex-container{
-    touch-action: pan-x;
+    touch-action: pan-x pan-y pinch-zoom;
 
     position: relative;
     top: 0;
