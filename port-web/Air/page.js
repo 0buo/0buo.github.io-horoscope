@@ -229,8 +229,10 @@ let narrowScreen = false;
 function resizeSide(){
     if(window.innerWidth <= 1250){
         if(!narrowScreen){
-            $sideColumn.css(`transform`, `translateX(-150vw)`);
-            $sideBorder.css(`transform`, `translateX(-150vw)`);
+            // $sideColumn.css(`transform`, `translateX(-150vw)`);
+            // $sideBorder.css(`transform`, `translateX(-150vw)`);
+            $sideColumn.css(`left`, `-150vw`);
+            $sideBorder.css(`left`, `-150vw`);
             $sideButton.css(`left`, `8px`);
             sideFolded = true;
         }
@@ -241,8 +243,10 @@ function resizeSide(){
     }
     else{
         if(narrowScreen){
-            $sideColumn.css(`transform`, ``);
-            $sideBorder.css(`transform`, ``);
+            // $sideColumn.css(`transform`, ``);
+            // $sideBorder.css(`transform`, ``);
+            $sideColumn.css(`left`, ``);
+            $sideBorder.css(`left`, ``);
             $sideButton.css(`left`, `calc(50vw + 3.5px + 7px)`);
             sideFolded = false;
         }
@@ -371,8 +375,10 @@ function mouseupSideButton(e){
             if(sideFolded){
                 sideFolded = false;
         
-                $sideColumn.css(`transform`, ``);
-                $sideBorder.css(`transform`, ``);
+                // $sideColumn.css(`transform`, ``);
+                // $sideBorder.css(`transform`, ``);
+                $sideColumn.css(`left`, ``);
+                $sideBorder.css(`left`, ``);
                 $sideButton.css(`left`, `calc(calc(100vw - 90px) + 3.5px + 7px)`);
                 //
                 redirectable = true;
@@ -382,8 +388,10 @@ function mouseupSideButton(e){
             else{
                 sideFolded = true;
         
-                $sideColumn.css(`transform`, `translateX(-150vw)`);
-                $sideBorder.css(`transform`, `translateX(-150vw)`);
+                // $sideColumn.css(`transform`, `translateX(-150vw)`);
+                // $sideBorder.css(`transform`, `translateX(-150vw)`);
+                $sideColumn.css(`left`, `-150vw`);
+                $sideBorder.css(`left`, `-150vw`);
                 $sideButton.css(`left`, `7px`)
                 //
                 redirectable = false;
@@ -395,15 +403,19 @@ function mouseupSideButton(e){
             if(sideFolded){
                 sideFolded = false;
         
-                $sideColumn.css(`transform`, ``);
-                $sideBorder.css(`transform`, ``);
+                // $sideColumn.css(`transform`, ``);
+                // $sideBorder.css(`transform`, ``);
+                $sideColumn.css(`left`, ``);
+                $sideBorder.css(`left`, ``);
                 $sideButton.css(`left`, `calc(50vw + 3.5px + 8px)`);
             }
             else{
                 sideFolded = true;
         
-                $sideColumn.css(`transform`, `translateX(-150vw)`);
-                $sideBorder.css(`transform`, `translateX(-150vw)`);
+                // $sideColumn.css(`transform`, `translateX(-150vw)`);
+                // $sideBorder.css(`transform`, `translateX(-150vw)`);
+                $sideColumn.css(`left`, `-150vw`);
+                $sideBorder.css(`left`, `-150vw`);
                 $sideButton.css(`left`, `8px`)
             }
         }
