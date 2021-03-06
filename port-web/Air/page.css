@@ -7,6 +7,7 @@ body{
     /* --border-width: min( max(calc( min(100vh, 100vw) / 170), 3px), 7px); */
     --border-color: rgb(26, 26, 26);
     --border-radius: min( max(calc( min(100vh, 100vw) / 25), 20px), 100px);
+    --scrollbarH: 17px
 
     transition: background-color 0.75s ease;
     background-color: rgba(255,255,255,0);
@@ -90,6 +91,8 @@ body{
     flex-grow: 0;
     flex-shrink: 0;
     flex-basis: auto;
+    margin-top: calc(17.5vh - 3.5px - var(--scrollbarH) / 2);
+    margin-bottom: calc(17.5vh - 3.5px - var(--scrollbarH) / 2);
     margin-left: max(min(calc(0.1 * max(100vh, 100vw)), 150px), 50px);
     
     border-radius: var(--border-radius);
