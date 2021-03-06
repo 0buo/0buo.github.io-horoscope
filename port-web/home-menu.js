@@ -901,8 +901,10 @@ let ua = window.navigator.userAgent;
 let iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
 let webkit = !!ua.match(/WebKit/i);
 let iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
+
+let IDreload;
 if(!iOSSafari){
     window.addEventListener(`orientationchange`, function(){
-        location.reload();
+        IDreload = setTimeout(()=>{location.reload();}, 100);
     });
 }

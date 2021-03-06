@@ -214,8 +214,8 @@ function getBottomScrollBarHeight(el){
 function setSideColumnHeight(){
     let scrollH = getBottomScrollBarHeight(flexContainer)
     let toSubtract = scrollH + sideColumn.clientTop*2;
-    // $sideColumn.css(`height`, `${window.innerHeight - scrollH}px)`);
-    // $sideBorder.css(`height`, `${window.innerHeight - scrollH}px)`);
+    // $sideColumn.css(`height`, `${window.innerHeight - toSubtract}px)`);
+    // $sideBorder.css(`height`, `${window.innerHeight - toSubtract}px)`);
     $sideColumn.css(`height`, `calc(100vh - ${toSubtract}px)`);
     $sideBorder.css(`height`, `calc(100vh - ${toSubtract}px)`);
 
@@ -589,8 +589,9 @@ let iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
 let webkit = !!ua.match(/WebKit/i);
 let iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
 
+let IDreload;
 if(!iOSSafari){
     window.addEventListener(`orientationchange`, function(){
-        location.reload();
+        IDreload = setTimeout(()=>{location.reload();}, 100);
     });
 }
