@@ -250,8 +250,8 @@ function resizeSide(){
         $backButton.css(`opacity`, `1`);
         $backButton.css(`filter`, buttonFilter);
 
-        $sideColumn.css(`width`, `50vw`);
-        $sideBorder.css(`left`, `50vw`);
+        $sideColumn.css(`width`, `${0.5*window.innerWidth}px`);
+        $sideBorder.css(`left`, `${0.5*window.innerWidth}px`);
     }
 }
 
@@ -384,7 +384,7 @@ function mouseupSideButton(e){
         
                 $sideColumn.css(`transform`, `translateX(-150vw)`);
                 $sideBorder.css(`transform`, `translateX(-150vw)`);
-                $sideButton.css(`left`, `7px`)
+                $sideButton.css(`left`, `7px`);
                 //
                 redirectable = false;
                 $backButton.css(`opacity`, `1`);
