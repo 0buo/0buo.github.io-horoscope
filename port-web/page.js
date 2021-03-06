@@ -584,6 +584,6 @@ window.addEventListener(`resize`, resizeSide);
 buttonEvents();
 scrollHorizontal();
 
-window.addEventListener(`onorientationchange`, function(){
+window.addEventListener(`orientationchange`, function(){
     location.reload();
 });
