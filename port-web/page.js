@@ -584,6 +584,13 @@ window.addEventListener(`resize`, resizeSide);
 buttonEvents();
 scrollHorizontal();
 
-window.addEventListener(`orientationchange`, function(){
-    location.reload();
-});
+let ua = window.navigator.userAgent;
+let iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
+let webkit = !!ua.match(/WebKit/i);
+let iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
+
+if(!iOSSafari){
+    window.addEventListener(`orientationchange`, function(){
+        location.reload();
+    });
+}
