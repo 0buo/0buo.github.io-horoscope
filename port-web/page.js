@@ -375,7 +375,7 @@ function mouseupSideButton(e){
                 $sideBorder.css(`transform`, ``);
                 $sideButton.css(`left`, `calc(calc(100vw - 90px) + 3.5px + 7px)`);
                 //
-                redirectable = true;
+                redirectable = false;
                 $backButton.css(`opacity`, `0`);
                 $backButton.css(`filter`, `${buttonFilter} blur(10px)`);
             }
@@ -386,7 +386,7 @@ function mouseupSideButton(e){
                 $sideBorder.css(`transform`, `translateX(-150vw)`);
                 $sideButton.css(`left`, `7px`)
                 //
-                redirectable = false;
+                redirectable = true;
                 $backButton.css(`opacity`, `1`);
                 $backButton.css(`filter`, buttonFilter);
             }
@@ -407,8 +407,9 @@ function mouseupSideButton(e){
                 $sideButton.css(`left`, `8px`)
             }
         }
-    }
     //
+    }
+//
 }
 //back button
 let IDredirectBack, redirecting = false, redirectable = true;
@@ -423,7 +424,7 @@ function mouseupBackbutton(e){
         touchDist = 0;
     }
 
-    if(touchDist < restraint && !redirecting){
+    if(touchDist < restraint && !redirecting && redirectable){
         clearRequestTimeout(IDredirectBack);
         redirecting = true;
         $backButton.css(`opacity`, `0`);
