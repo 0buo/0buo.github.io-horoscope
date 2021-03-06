@@ -903,7 +903,7 @@ let webkit = !!ua.match(/WebKit/i);
 let iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
 
 // if(!iOSSafari){
-    window.addEventListener(`orientationchange`, function(){
-        location.reload();
-    });
+//     window.addEventListener(`orientationchange`, function(){
+//         location.reload();
+//     });
 // }
