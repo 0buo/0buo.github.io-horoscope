@@ -212,14 +212,14 @@ function getBottomScrollBarHeight(el){
 }
 
 function setSideColumnHeight(){
-    let scrollH = getBottomScrollBarHeight(flexContainer);
+    let scrollH = getBottomScrollBarHeight(flexContainer)
     let toSubtract = scrollH + sideColumn.clientTop*2;
     // $sideColumn.css(`height`, `${window.innerHeight - scrollH}px)`);
     // $sideBorder.css(`height`, `${window.innerHeight - scrollH}px)`);
     $sideColumn.css(`height`, `calc(100vh - ${toSubtract}px)`);
     $sideBorder.css(`height`, `calc(100vh - ${toSubtract}px)`);
 
-    // $(flexContainer).css(`height`, `${window.innerHeight}px`);
+    $(flexContainer).css(`height`, `${window.innerHeight}px`);
     // document.body.clientHeight = window.innerHeight;
 }
 
