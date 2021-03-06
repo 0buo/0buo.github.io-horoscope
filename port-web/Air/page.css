@@ -103,7 +103,7 @@ body{
 }
 
 #flex-start{
-    flex-basis: 649.638888889vh;
+    width: 649.638888889vh;
     height: 65vh;
     margin-left: calc(min(3.5vw, 70px)) !important;
 
