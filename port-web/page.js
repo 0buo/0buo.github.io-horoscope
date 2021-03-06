@@ -582,4 +582,7 @@ window.addEventListener(`resize`, resizeSide);
 
 buttonEvents();
 scrollHorizontal();
-// scrollVerical();
+
+window.addEventListener(`onorientationchange`, function(){
+    location.reload();
+});
