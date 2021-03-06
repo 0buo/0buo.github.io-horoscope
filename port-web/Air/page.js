@@ -221,8 +221,6 @@ function setSideColumnHeight(){
 
     // $(flexContainer).css(`height`, `${window.innerHeight}px`);
     // document.body.clientHeight = window.innerHeight;
-
-    // document.body.style.setProperty(`--scrollbarH`, `${scrollH}px`);
 }
 
 //FOLD / UNFOLD SIDE
