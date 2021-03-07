@@ -235,6 +235,8 @@ function resizeSide(){
             $sideButton.css(`left`, `8px`);
             $flexBlog.css(`background-color`, ``);
             sideFolded = true;
+            
+            redirectable = true;
         }
         narrowScreen = true;
 
@@ -471,6 +473,42 @@ function buttonEvents(){
     $backButton.mouseleave(mouseleaveBackButton);
     $backButton.on(`mousedown touchstart`, mousedownBackButton);
     $backButton.on(`mouseup touchend`, mouseupBackbutton);
+
+    var flexClickTimeStart;
+    var flexClickTime;
+    flexContainer.addEventListener(`mousedown`, function(){
+        flexClickTimeStart = new Date().getTime();
+    });
+    flexContainer.addEventListener(`mouseup`, function(){
+        flexClickTime = new Date().getTime() - flexClickTimeStart;
+        if(flexClickTime < 150){
+            if(narrowScreen){
+                if(!sideFolded){
+                    sideFolded = true;
+            
+                    $sideColumn.css(`transform`, `translateX(-150vw)`);
+                    $sideBorder.css(`transform`, `translateX(-150vw)`);
+                    $flexBlog.css(`background-color`, ``);
+                    $sideButton.css(`left`, `7px`)
+                    //
+                    redirectable = true;
+                    $backButton.css(`opacity`, `1`);
+                    $backButton.css(`filter`, buttonFilter);
+                }
+            }
+            else{
+                if(!sideFolded){
+                    sideFolded = true;
+            
+                    $sideColumn.css(`transform`, `translateX(-150vw)`);
+                    $sideBorder.css(`transform`, `translateX(-150vw)`);
+                    $sideButton.css(`left`, `8px`);
+                    $flexBlog.css(`background-color`, ``);
+                }
+            }
+        //
+        }
+    });
 }
 
 
@@ -478,16 +516,7 @@ function buttonEvents(){
 //SCROLL HORIZONTALLY
 let canHscroll = true;
 function scrollHorizontal(){
-    $flexBlog.on(`mouseover`, function(){
-        if(this.scrollHeight > this.offsetHeight) canHscroll = false;
-        else canHscroll = true;
-    });
-    $flexBlog.on(`mouseleave`, function(){
-        canHscroll = true;
-    });
     $flexBlog.on(`scroll`, function(){
-        console.log(this.scrollTop)
-        console.log(this.scrollHeight - this.offsetHeight)
         if( this.scrollTop >= (this.scrollHeight - this.offsetHeight)){
             canHscroll = true;
         }
