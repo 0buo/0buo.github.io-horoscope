@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 html{
     scroll-behavior: smooth;
@@ -10,7 +11,7 @@ body{
 
     transition: background-color 0.75s ease;
     background-color: rgba(255,255,255,0);
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 @-webkit-keyframes start-bg-dark{
@@ -106,10 +107,65 @@ body{
     margin-left: calc(min(3.5vw, 70px)) !important;
 }
 
+.info-start{
+    background-image: url('./info/page-assets/LAday.jpg');
+    transition: background-image 1s ease;
+}
+@media (prefers-color-scheme: light) {
+    .info-start{
+        background-image: url('./info/page-assets/LAday.jpg');
+    }
+}
+@media (prefers-color-scheme: dark) {
+    .info-start{
+        background-image: url('./info/page-assets/LAnight.jpg');
+    }
+}
+
 .scrolling-wrapper {
     -webkit-overflow-scrolling: touch;
 }
 
+.flex-blog{
+    width: auto !important; 
+    height: auto !important;
+    max-height: calc(65vh - var(--border-radius)*2);
+    max-width: 75vh;
+    margin-left: calc(0.5 * max(min(calc(0.1 * max(100vh, 100vw)), 150px), 50px)) !important;
+    color: var(--border-color);
+    overflow: auto;
+    border-radius: 0%;
+
+    transition: background-color 1s ease;
+}
+.flex-text{
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 30px;
+    margin-top: min( max(calc( min(100vh, 100vw) / 25), 20px), 100px);
+    margin-bottom: min( max(calc( min(100vh, 100vw) / 25), 20px), 100px);
+    margin-left: min( max(calc( min(100vh, 100vw) / 25), 20px), 100px);
+    margin-right: min( max(calc( min(100vh, 100vw) / 25), 20px), 100px);
+}
+@media only screen and (max-width: 2560px) {
+    .flex-text {
+      font-size: 28px;
+    }
+}
+@media only screen and (max-width: 1650px) {
+    .flex-text {
+      font-size: 26px;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .flex-text {
+      font-size: 24px;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .flex-text {
+      font-size: 22px;
+    }
+}
 /* =========== */
 /* SIDE COLUMN */
 
@@ -189,8 +245,8 @@ body{
     direction:ltr;
     /* padding-left: calc(min(5vw, 110px));
     padding-right: calc(min(5vw, 110px)); */
-    margin-left: calc(min(5vw, 110px));
-    margin-right: calc(min(5vw, 110px));
+    margin-left: min(5vw, 110px);
+    margin-right: min(5vw, 110px);
     opacity: 100% !important;
 }
 

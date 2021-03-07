@@ -233,6 +233,7 @@ function resizeSide(){
             $sideColumn.css(`transform`, `translateX(-150vw)`);
             $sideBorder.css(`transform`, `translateX(-150vw)`);
             $sideButton.css(`left`, `8px`);
+            $flexBlog.css(`background-color`, ``);
             sideFolded = true;
         }
         narrowScreen = true;
@@ -245,6 +246,7 @@ function resizeSide(){
             $sideColumn.css(`transform`, ``);
             $sideBorder.css(`transform`, ``);
             $sideButton.css(`left`, `calc(50vw + 3.5px + 7px)`);
+            $flexBlog.css(`background-color`, `var(--border-color)`);
             sideFolded = false;
         }
         narrowScreen = false;
@@ -375,6 +377,7 @@ function mouseupSideButton(e){
                 $sideColumn.css(`transform`, ``);
                 $sideBorder.css(`transform`, ``);
                 $sideButton.css(`left`, `calc(calc(100vw - 90px) + 3.5px + 7px)`);
+                $flexBlog.css(`background-color`, `var(--border-color)`);
                 //
                 redirectable = false;
                 $backButton.css(`opacity`, `0`);
@@ -385,6 +388,7 @@ function mouseupSideButton(e){
         
                 $sideColumn.css(`transform`, `translateX(-150vw)`);
                 $sideBorder.css(`transform`, `translateX(-150vw)`);
+                $flexBlog.css(`background-color`, ``);
                 $sideButton.css(`left`, `7px`)
                 //
                 redirectable = true;
@@ -399,13 +403,15 @@ function mouseupSideButton(e){
                 $sideColumn.css(`transform`, ``);
                 $sideBorder.css(`transform`, ``);
                 $sideButton.css(`left`, `calc(50vw + 3.5px + 8px)`);
+                $flexBlog.css(`background-color`, `var(--border-color)`);
             }
             else{
                 sideFolded = true;
         
                 $sideColumn.css(`transform`, `translateX(-150vw)`);
                 $sideBorder.css(`transform`, `translateX(-150vw)`);
-                $sideButton.css(`left`, `8px`)
+                $sideButton.css(`left`, `8px`);
+                $flexBlog.css(`background-color`, ``);
             }
         }
     //
@@ -470,21 +476,41 @@ function buttonEvents(){
 
 //=============
 //SCROLL HORIZONTALLY
+let canHscroll = true;
 function scrollHorizontal(){
-    flexContainer.addEventListener(`wheel`, function(e){
-        let delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-        // console.log(delta)
-        if(Number.isInteger(delta) && navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
-            delta = delta > 0 ? 150 
-                  : delta < 0 ? -150
-                  : 0;
+    $flexBlog.on(`mouseover`, function(){
+        if(this.scrollHeight > this.offsetHeight) canHscroll = false;
+        else canHscroll = true;
+    });
+    $flexBlog.on(`mouseleave`, function(){
+        canHscroll = true;
+    });
+    $flexBlog.on(`scroll`, function(){
+        console.log(this.scrollTop)
+        console.log(this.scrollHeight - this.offsetHeight)
+        if( this.scrollTop >= (this.scrollHeight - this.offsetHeight)){
+            canHscroll = true;
         }
-        
-        scrollDeltaH += delta * 0.03;
-        // e.preventDefault();
+        else if(this.scrollTop == 0) canHscroll = true;
+        else canHscroll = false;
+    });
 
-        cancelAnimationFrame(IDscroll);
-        IDscroll = requestAnimationFrame(smoothScrolling);
+    flexContainer.addEventListener(`wheel`, function(e){
+        if(canHscroll){
+            let delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+            // console.log(delta)
+            if(Number.isInteger(delta) && navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+                delta = delta > 0 ? 150 
+                      : delta < 0 ? -150
+                      : 0;
+            }
+            
+            scrollDeltaH += delta * 0.03;
+            // e.preventDefault();
+    
+            cancelAnimationFrame(IDscroll);
+            IDscroll = requestAnimationFrame(smoothScrolling);
+        }
     });
 }
 //smoothing
@@ -528,6 +554,8 @@ let $sideColumn = $(`.side-column-container`);
 let $sideButton = $(`#side-button`);
 let $sideBorder = $(`#column-border`);
 let $backButton = $(`#back-button`);
+let $flexBlog = $(`.flex-blog`);
+$flexBlog.css(`background-color`, `var(--border-color)`);
 
 let buttonColor = `rgba(255,255,255,0)`;
 let buttonImage = `url("./page-assets/button.png")`;
