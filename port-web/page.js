@@ -523,6 +523,7 @@ let canHscroll = true;
 let canVscroll = false;
 function scrollHorizontal(){
     $flexBlog.on(`scroll`, function(){
+        // console.log(this.scrollTop)
         if(canVscroll){
             if( this.scrollTop >= (this.scrollHeight - this.offsetHeight)){
                 canHscroll = true;
