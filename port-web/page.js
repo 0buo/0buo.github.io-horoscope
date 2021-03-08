@@ -3,6 +3,9 @@ const lerp = function (value1, value2, amount) {
     amount = amount > 1 ? 1 : amount;
     return value1 + (value2 - value1) * amount;
 };
+const scale = (num, in_min, in_max, out_min, out_max) => {
+    return ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
+};
 
 /**************************request time out****************************** */
 // requestAnimationFrame() shim by Paul Irish
@@ -261,8 +264,16 @@ function resizeSide(){
 }
 
 function resizeBlogMaxWidth(){
-    if (window.innerWidth >= window.innerHeight) $flexBlog.css(`max-width`, `75vh`);
-    else $flexBlog.css(`max-width`, `75vw`);
+    if (window.innerWidth >= window.innerHeight) $flexBlog.css(`max-width`, `100vh`);
+    else $flexBlog.css(`max-width`, `90vw`);
+
+    let windowSize = Math.min(window.innerWidth, window.innerHeight);
+    let $flexText = $(`.flex-text`);
+    if(windowSize >= 2560) $flexText.css(`font-size`, `30px`);
+    else if(windowSize < 2560 && windowSize >= 1650) $flexText.css(`font-size`, `28px`);
+    else if(windowSize < 1650 && windowSize >= 750) $flexText.css(`font-size`, `26px`);
+    else if(windowSize < 750 && windowSize >= 450) $flexText.css(`font-size`, `24px`);
+    else $flexText.css(`font-size`, `22px`);
 }
 
 //============
@@ -552,7 +563,9 @@ function scrollHorizontal(){
                       : 0;
             }
             
-            scrollDeltaH += delta * 0.02;
+            let windowWidth = Math.max(Math.min(window.innerWidth, 2560), 320);
+            let speedWeight = scale(windowWidth, 320, 2560, 0.02, 0.035);
+            scrollDeltaH += delta * speedWeight;
             // e.preventDefault();
     
             cancelAnimationFrame(IDscroll);
@@ -610,7 +623,7 @@ let buttonColor = `rgba(255,255,255,0)`;
 let buttonImage = `url("./page-assets/button.png")`;
 let backButtonImage = `url("../pages-assets/zhu-yan.png")` ;
 let backButtonColor = `black` ;
-let backLink = `../index.html` ;
+let backLink = `/` ;
 
 let mode = `light`;
 let buttonFilter = `contrast(0%) brightness(70%)`;
@@ -655,6 +668,7 @@ requestTimeout(function(){
 //resize
 setSideColumnHeight();
 resizeSide();
+resizeBlogMaxWidth();
 window.addEventListener(`resize`, setSideColumnHeight);
 window.addEventListener(`resize`, resizeSide);
 window.addEventListener(`resize`, resizeBlogMaxWidth);

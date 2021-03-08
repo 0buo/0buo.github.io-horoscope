@@ -66,6 +66,13 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'hollow-chinese';
+    src: url('fonts/hollow-chinese/hollow-chinese.woff2') format('woff2'),
+         url('fonts/hollow-chinese/hollow-chinese.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 body{
     --circleColor:black;
