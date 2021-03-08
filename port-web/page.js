@@ -546,12 +546,12 @@ function scrollHorizontal(){
             let delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
             // console.log(delta)
             if(Number.isInteger(delta) && navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
-                delta = delta > 0 ? 150 
-                      : delta < 0 ? -150
+                delta = delta > 0 ? 200 
+                      : delta < 0 ? -200
                       : 0;
             }
             
-            scrollDeltaH += delta * 0.015;
+            scrollDeltaH += delta * 0.02;
             // e.preventDefault();
     
             cancelAnimationFrame(IDscroll);
