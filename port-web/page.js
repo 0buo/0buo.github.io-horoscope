@@ -642,7 +642,7 @@ setSideColumnHeight();
 resizeSide();
 window.addEventListener(`resize`, setSideColumnHeight);
 window.addEventListener(`resize`, resizeSide);
-window.addEventListener(`resize`, resizeBlogMaxWidth);
+// window.addEventListener(`resize`, resizeBlogMaxWidth);
 
 buttonEvents();
 scrollHorizontal();
