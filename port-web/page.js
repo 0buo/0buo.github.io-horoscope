@@ -260,6 +260,11 @@ function resizeSide(){
     }
 }
 
+function resizeBlogMaxWidth(){
+    if (window.innerWidth >= window.innerHeight) $flexBlog.css(`max-width`, `75vh`);
+    else $flexBlog.css(`max-width`, `75vw`);
+}
+
 //============
 //BUTTON EVETNS
 //------------
@@ -637,6 +642,7 @@ setSideColumnHeight();
 resizeSide();
 window.addEventListener(`resize`, setSideColumnHeight);
 window.addEventListener(`resize`, resizeSide);
+window.addEventListener(`resize`, resizeBlogMaxWidth);
 
 buttonEvents();
 scrollHorizontal();
