@@ -520,16 +520,24 @@ function buttonEvents(){
 //=============
 //SCROLL HORIZONTALLY
 let canHscroll = true;
+let canVscroll = false;
 function scrollHorizontal(){
     $flexBlog.on(`scroll`, function(){
-        if( this.scrollTop >= (this.scrollHeight - this.offsetHeight)){
-            canHscroll = true;
+        if(canVscroll){
+            if( this.scrollTop >= (this.scrollHeight - this.offsetHeight)){
+                canHscroll = true;
+            }
+            else if(this.scrollTop == 0) canHscroll = true;
+            else canHscroll = false;
         }
-        else if(this.scrollTop == 0) canHscroll = true;
-        else canHscroll = false;
+    });
+    $flexBlog.on(`mouseenter`, function(){
+        canHscroll = false;
+        canVscroll = true;
     });
     $flexBlog.on(`mouseleave`, function(){
         canHscroll = true;
+        canVscroll = false;
     });
 
     flexContainer.addEventListener(`wheel`, function(e){
