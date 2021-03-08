@@ -539,7 +539,7 @@ function scrollHorizontal(){
                       : 0;
             }
             
-            scrollDeltaH += delta * 0.03;
+            scrollDeltaH += delta * 0.015;
             // e.preventDefault();
     
             cancelAnimationFrame(IDscroll);
