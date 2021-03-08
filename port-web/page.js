@@ -528,6 +528,9 @@ function scrollHorizontal(){
         else if(this.scrollTop == 0) canHscroll = true;
         else canHscroll = false;
     });
+    $flexBlog.on(`mouseleave`, function(){
+        canHscroll = true;
+    });
 
     flexContainer.addEventListener(`wheel`, function(e){
         if(canHscroll){
