@@ -520,25 +520,26 @@ function buttonEvents(){
 //=============
 //SCROLL HORIZONTALLY
 let canHscroll = true;
-let canVscroll = false;
+// let canVscroll = false;
 function scrollHorizontal(){
-    $flexBlog.on(`scroll`, function(){
-        // console.log(this.scrollTop)
-        if(canVscroll){
-            if( this.scrollTop >= (this.scrollHeight - this.offsetHeight)){
-                canHscroll = true;
-            }
-            else if(this.scrollTop == 0) canHscroll = true;
-            else canHscroll = false;
-        }
-    });
+    // $flexBlog.on(`scroll`, function(){
+    //     // console.log(this.scrollTop)
+    //     if(canVscroll){
+    //         if( this.scrollTop >= (this.scrollHeight - this.offsetHeight)){
+    //             canHscroll = true;
+    //         }
+    //         else if(this.scrollTop == 0) canHscroll = true;
+    //         else canHscroll = false;
+    //     }
+    // });
     $flexBlog.on(`mouseenter`, function(){
-        canHscroll = false;
-        canVscroll = true;
+        if(this.scrollHeight < this.offsetHeight) canHscroll = true;
+        else canHscroll = false;
+        // canVscroll = true;
     });
     $flexBlog.on(`mouseleave`, function(){
         canHscroll = true;
-        canVscroll = false;
+        // canVscroll = false;
     });
 
     flexContainer.addEventListener(`wheel`, function(e){
