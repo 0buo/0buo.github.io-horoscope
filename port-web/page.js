@@ -557,7 +557,9 @@ function scrollHorizontal(){
             IDscroll = requestAnimationFrame(smoothScrolling);
         }
     });
+//
 }
+
 //smoothing
 let NOWscroll, LASTNOWscroll, IDscroll, curDeltaH=0, scrollDeltaH=0;
 function smoothScrolling(timestamp){
