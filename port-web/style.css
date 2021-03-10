@@ -67,9 +67,9 @@
     font-style: normal;
 }
 @font-face {
-    font-family: 'hollow-chinese';
-    src: url('fonts/hollow-chinese/hollow-chinese.woff2') format('woff2'),
-         url('fonts/hollow-chinese/hollow-chinese.woff') format('woff');
+    font-family:'kongxin';
+    src: url('fonts/SuXinShiShuang/SXSSGT.woff2') format('woff2'),
+         url('fonts/SuXinShiShuang/SXSSGT.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }

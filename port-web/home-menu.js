@@ -676,7 +676,7 @@ class Menus{
                 else if (($thisCircle.parent().attr('id') == `face12` || 
                          $thisCircle.parent().attr('id') == `face15` ||
                          $thisCircle.parent().attr('id') == `face18` )  && touchDist < smallTouchRestraint){
-                    $title.html(`Zhengyang Huang <span style="font-family: 'hollow-chinese'; font-size: 35px; opacity: 0.45;">黄钲洋</span>`);
+                    $title.html(`Zhengyang Huang <span style="font-family: 'kongxin'; font-size: 35px;">黄钲洋</span>`);
 
                     $main.css(`display`, `initial`);
                     $main.removeClass(`menu-disappear`);
