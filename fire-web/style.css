@@ -33,59 +33,18 @@ p{
 }
 
 
-@media only screen and (max-width: 2560px) {
-  .paragraph {
-    width: 60vw;
-  }
-  p{
-    font-size: 22px;
-  }
+
+
+#shuoming-image{
+  width: 35vw;
+  height: 14.3245vw;
+
+  background-image: url("images/shuoming.png");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
-@media only screen and (max-width: 1750px) {
-  .paragraph {
-    width: 65vw;
-  }
-  p{
-    font-size: 22px;
-  }
-}
 
-@media only screen and (max-width: 1200px) {
-  .paragraph {
-    width: 70vw;
-  }
-  p{
-    font-size: 20px;
-  }
-}
-
-@media only screen and (max-width: 800px) {
-  .paragraph {
-    width: 75vw;
-  }
-  p{
-    font-size: 20px;
-  }
-}
-
-@media only screen and (max-width: 650px) {
-  .paragraph {
-    width: 80vw;
-  }
-  p{
-    font-size: 18px;
-  }
-}
-
-@media only screen and (max-width: 440px) {
-  .paragraph {
-    width: 90vw;
-  }
-  p{
-    font-size: 18px;
-  }
-}
 
 #photo{
   position: relative;
@@ -107,16 +66,7 @@ p{
   animation-play-state: paused;
 }
 
-#shuoming-image{
-  width: 30vw;
-  height: 12.2781vw;
-  min-width: 512px;
-  min-height: 209.5470198px;
 
-  background-image: url("images/shuoming.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-}
 
 .scan-image{
   background-size: contain;
@@ -153,5 +103,87 @@ p{
 
 a{
   filter: invert(100%);
+}
+
+
+
+/* ====== */
+@media only screen and (max-width: 2560px) {
+  .paragraph {
+    width: 60vw;
+  }
+  p{
+    font-size: 22px;
+  }
+  #shuoming-image{
+    width: 35vw;
+    height: 14.3245vw;
+  }
+}
+@media only screen and (max-width: 1750px) {
+  .paragraph {
+    width: 65vw;
+  }
+  p{
+    font-size: 22px;
+  }
+  #shuoming-image{
+    width: 40vw;
+    height: 16.37086vw;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .paragraph {
+    width: 70vw;
+  }
+  p{
+    font-size: 20px;
+  }
+
+  #shuoming-image{
+    width: 50vw;
+    height: 20.4635vw;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .paragraph {
+    width: 75vw;
+  }
+  p{
+    font-size: 20px;
+  }
+
+  #shuoming-image{
+    width: 50vw;
+    height: 20.4635vw;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .paragraph {
+    width: 80vw;
+  }
+  p{
+    font-size: 18px;
+  }
+  #shuoming-image{
+    width: 65vw;
+    height: 26.6026vw;
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  .paragraph {
+    width: 90vw;
+  }
+  p{
+    font-size: 18px;
+  }
+  #shuoming-image{
+    width: 80vw;
+    height: 32.7417vw;
+  }
 }
   
