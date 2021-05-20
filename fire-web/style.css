@@ -118,6 +118,30 @@ p{
   background-repeat: no-repeat;
 }
 
+.scan-image{
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-top: 2%;
+}
+
+#scan-image-small{
+  width: 80vw;
+  height: 21.14815vw;
+  background-image: url('images/scan-small.png');
+}
+
+#scan-image-medium{
+  width: 80vw;
+  height: 26.851852vw;
+  background-image: url('images/scan-medium.png');
+}
+
+#scan-image-large{
+  width: 80vw;
+  height: 33.85185vw;
+  background-image: url('images/scan-large.png');
+}
+
 @keyframes slidePhotos{
   0%{
     background-position: 0% 0%;
