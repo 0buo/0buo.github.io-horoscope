@@ -107,7 +107,29 @@ a{
 
 .vid{
   width: 60vw;
+  height: 54vw;
   max-height: 90vh;
+  max-width: 100vh;
+  margin-bottom: 10vh;
+
+  background: rgb(0,0,0);
+  background: linear-gradient(90deg, rgba(0,0,0,0.023313549052433435) 12%, rgba(185,178,147,1) 51%, rgba(0,0,0,0) 88%);
+  background-size: 600% 600%;
+  animation: loadVideo 5s ease-out infinite;
+}
+
+@keyframes loadVideo{
+  0%{
+    background-position: 0%, 0%;
+  }
+
+  50%{
+    background-position: 100% 100%;
+  }
+
+  100%{
+    background-position: 0%, 0%;
+  }
 }
 
 
