@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
+html{
+}
+body{
+  background-color: rgb(0,0,0);
+  background-image: url("images/filler.png");
+  background-attachment: fixed;
+  background-position: 80% 0%;
+}
+
+#logo{
+  position: relative;
+  width: 100vw;
+  max-height: 100vh;
+  max-width: 99.88377vh;
+
+  margin-bottom: 5%;
+}
+
+p{
+  font-family: 'Fira Code', monospace;
+  color: rgb(185, 178, 147);
+  font-size: 24px;
+}
+
+.paragraph{
+  position: relative;
+
+  width: 55vw;
+  letter-spacing: .125rem;
+  word-spacing: .25rem;
+}
+
+
+
+
+#shuoming-image{
+  width: 35vw;
+  height: 14.3245vw;
+
+  background-image: url("images/shuoming.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+
+#photo{
+  position: relative;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left:0;
+  height: 90vh;
+  width: 100vw;
+
+
+  background-image: url("images/triangles.png");
+  background-size: cover;
+  animation: slidePhotos 100s ease infinite alternate;
+
+  cursor: pointer;
+}
+
+.photo:active{
+  animation-play-state: paused;
+}
+
+
+
+.scan-image{
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-top: 2%;
+}
+
+#scan-image-small{
+  width: 80vw;
+  height: 21.14815vw;
+  background-image: url('images/scan-small.png');
+}
+
+#scan-image-medium{
+  width: 80vw;
+  height: 26.851852vw;
+  background-image: url('images/scan-medium.png');
+}
+
+#scan-image-large{
+  width: 80vw;
+  height: 33.85185vw;
+  background-image: url('images/scan-large.png');
+}
+
+@keyframes slidePhotos{
+  0%{
+    background-position: 0% 0%;
+  }
+  100%{
+    background-position: 100% 0%;
+  }
+}
+
+a{
+  filter: invert(100%);
+}
+
+.vid{
+  width: 60vw;
+  max-height: 90vh;
+}
+
+
+/* ====== */
+@media only screen and (max-width: 2560px) {
+  .paragraph {
+    width: 60vw;
+  }
+  p{
+    font-size: 22px;
+  }
+  #shuoming-image{
+    width: 35vw;
+    height: 14.3245vw;
+  }
+}
+@media only screen and (max-width: 1750px) {
+  .paragraph {
+    width: 65vw;
+  }
+  p{
+    font-size: 22px;
+  }
+  #shuoming-image{
+    width: 40vw;
+    height: 16.37086vw;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .paragraph {
+    width: 70vw;
+  }
+  p{
+    font-size: 20px;
+  }
+
+  #shuoming-image{
+    width: 50vw;
+    height: 20.4635vw;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .paragraph {
+    width: 75vw;
+  }
+  p{
+    font-size: 20px;
+  }
+
+  #shuoming-image{
+    width: 50vw;
+    height: 20.4635vw;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .paragraph {
+    width: 80vw;
+  }
+  p{
+    font-size: 18px;
+  }
+  #shuoming-image{
+    width: 65vw;
+    height: 26.6026vw;
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  .paragraph {
+    width: 90vw;
+  }
+  p{
+    font-size: 18px;
+  }
+  #shuoming-image{
+    width: 80vw;
+    height: 32.7417vw;
+  }
+}
+  
