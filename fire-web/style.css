@@ -3,69 +3,131 @@
 html{
 }
 body{
-    background-color: rgb(0,0,0);
+  background-color: rgb(0,0,0);
+  background-image: url("images/filler.png");
+  background-attachment: fixed;
+  background-position: 80% 0%;
 }
 
 #logo{
-    position: relative;
-    width: 145vw;
-    max-height: 100vh;
-    max-width: 99.88377vh;
+  position: relative;
+  width: 100vw;
+  max-height: 100vh;
+  max-width: 99.88377vh;
 
-    margin-bottom: 5%;
+  margin-bottom: 5%;
 }
 
 p{
-    position: relative;
-    font-family: 'Fira Code', monospace;
-    color: rgb(185, 178, 147);
-    font-size: 24px;
+  font-family: 'Fira Code', monospace;
+  color: rgb(185, 178, 147);
+  font-size: 24px;
+}
 
-    width: 50vw;
-    letter-spacing: .125rem;
-    word-spacing: .25rem;
+.paragraph{
+  position: relative;
+
+  width: 55vw;
+  letter-spacing: .125rem;
+  word-spacing: .25rem;
 }
 
 
 @media only screen and (max-width: 2560px) {
-    p {
-      font-size: 22px;
-      width: 60vw;
-    }
+  .paragraph {
+    width: 60vw;
+  }
+  p{
+    font-size: 22px;
+  }
 }
 
 @media only screen and (max-width: 1750px) {
-    p {
-      font-size: 22px;
-      width: 65vw;
-    }
+  .paragraph {
+    width: 65vw;
+  }
+  p{
+    font-size: 22px;
+  }
 }
 
 @media only screen and (max-width: 1200px) {
-    p {
-      font-size: 20px;
-      width: 70vw;
-    }
+  .paragraph {
+    width: 70vw;
+  }
+  p{
+    font-size: 20px;
+  }
 }
 
 @media only screen and (max-width: 800px) {
-    p {
-      font-size: 20px;
-      width: 80vw;
-    }
+  .paragraph {
+    width: 75vw;
+  }
+  p{
+    font-size: 20px;
+  }
 }
 
 @media only screen and (max-width: 650px) {
-    p {
-      font-size: 20px;
-      width: 90vw;
-    }
+  .paragraph {
+    width: 80vw;
+  }
+  p{
+    font-size: 18px;
+  }
 }
 
 @media only screen and (max-width: 440px) {
-    p {
-      font-size: 20px;
-      width: 100vw;
-    }
+  .paragraph {
+    width: 90vw;
+  }
+  p{
+    font-size: 18px;
+  }
+}
+
+#photo{
+  position: relative;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left:0;
+  height: 90vh;
+  width: 100vw;
+
+
+  background-image: url("images/triangles.png");
+  background-size: cover;
+  animation: slidePhotos 100s ease infinite alternate;
+
+  cursor: pointer;
+}
+
+.photo:active{
+  animation-play-state: paused;
+}
+
+#shuoming-image{
+  width: 30vw;
+  height: 12.2781vw;
+  min-width: 512px;
+  min-height: 209.5470198px;
+
+  background-image: url("images/shuoming.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+@keyframes slidePhotos{
+  0%{
+    background-position: 0% 0%;
+  }
+  100%{
+    background-position: 100% 0%;
+  }
+}
+
+a{
+  filter: invert(100%);
 }
   

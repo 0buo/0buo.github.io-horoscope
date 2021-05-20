@@ -1,20 +1,18 @@
 function main(){
-    let logo = document.getElementById(`logo`);
-    let paragraph = document.getElementsByTagName(`p`);
+    let centers = document.getElementsByClassName(`center`);
 
-    function centerContent(){
-        let margin = (window.innerWidth - logo.offsetWidth) / 2;
-        logo.style.setProperty(`margin-left`, `${margin}px`);
+    let photo = document.getElementById(`photo`);
 
-        for(let i = 0; i < paragraph.length; i++){
-            let margin = (window.innerWidth - paragraph[i].offsetWidth) / 2;
-            paragraph[i].style.setProperty(`margin-left`, `${margin}px`);
+    function onResize(){
+        for(let i = 0; i < centers.length; i++){
+            let margin = (window.innerWidth - centers[i].offsetWidth) / 2;
+            centers[i].style.setProperty(`margin-left`, `${margin}px`);
             console.log(margin)
         }
     }
 
-    centerContent();
-    window.addEventListener(`resize`, centerContent);
+    onResize();
+    window.addEventListener(`resize`, onResize);
 }
 
 main();
