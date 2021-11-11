@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
 
-:root{font-size: 14px;}
+:root{font-size: 15px;}
 html,body{
     width: 100%;
     height: 100%;
@@ -79,7 +79,8 @@ html,body{
     /* width: auto; */
 }
 
-@media only screen and (max-width: 1250px) {
+/* media query for screen width */
+@media only screen and (max-height: 1250px) {
     .title{
         --main-fs: 3rem;
         --sub-fs: 1.35rem;
@@ -103,7 +104,10 @@ html,body{
         --sub-fs: 0.95rem;
     }
 }
-@media only screen and (max-width: 720px) {
+
+/* change flex when too narrow */
+@media only screen and (max-width: 720px),
+            screen and (max-height: 550px){
     .title-container{
         display: flex;
         flex-direction: column-reverse;
@@ -141,4 +145,3 @@ html,body{
         }
     }
 }
-

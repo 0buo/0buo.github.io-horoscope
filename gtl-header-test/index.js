@@ -36,12 +36,18 @@ const panHeaderPeople = () => {
 //set lottie div size responsively
 const setLottieDivSize = () => {
     if (window.innerWidth >= window.innerHeight) {
-        lottieDiv.style.setProperty(`height`, `100vh`);
-        lottieDiv.style.setProperty(`width`, `auto`);
+        if(window.innerHeight > 430){
+            lottieDiv.style.setProperty(`height`, `100vh`);
+            lottieDiv.style.setProperty(`width`, `auto`);
+        }
+        else{
+            lottieDiv.style.setProperty(`width`, `50vw`);
+            lottieDiv.style.setProperty(`height`, `auto`);
+        }
     }
     else {
-        lottieDiv.style.setProperty(`height`, `auto`);
-        lottieDiv.style.setProperty(`width`, `100vw`);
+            lottieDiv.style.setProperty(`height`, `auto`);
+            lottieDiv.style.setProperty(`width`, `100vw`);
     }
 };
 setLottieDivSize();
