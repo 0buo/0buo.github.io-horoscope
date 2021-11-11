@@ -1,6 +1,0 @@
-{
-    "description": "genFace256",
-    "model": "./model/genFace256/model.json",
-    "modelSize": 256,
-    "modelLatentDim": 512
-}
