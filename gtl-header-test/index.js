@@ -3,17 +3,17 @@ const lottieDiv = document.querySelector(`.header-lottie`);
 const setLottieDivSize = () => {
     if (window.innerWidth >= window.innerHeight) {
         if (window.innerHeight > 430) {
-            lottieDiv.style.setProperty(`height`, `100vh`);
+            lottieDiv.style.setProperty(`height`, `100%`);
             lottieDiv.style.setProperty(`width`, `auto`);
         }
         else {
-            lottieDiv.style.setProperty(`width`, `50vw`);
+            lottieDiv.style.setProperty(`width`, `50%`);
             lottieDiv.style.setProperty(`height`, `auto`);
         }
     }
     else {
         lottieDiv.style.setProperty(`height`, `auto`);
-        lottieDiv.style.setProperty(`width`, `100vw`);
+        lottieDiv.style.setProperty(`width`, `100%`);
     }
 };
 setLottieDivSize();

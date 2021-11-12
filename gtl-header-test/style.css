@@ -146,8 +146,8 @@ html,body{
 
 .header-lottie{
     margin-top: 2%;
-    /* height: 100vh; */
-    /* width: auto; */
+    height: auto;
+    width: auto;
 }
 
 /* media query for screen width */
