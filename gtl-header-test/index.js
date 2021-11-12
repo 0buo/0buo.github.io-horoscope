@@ -23,7 +23,6 @@ const setLottieDivSize = () => {
 const setHeaderPeopleHeight = () => {
     const headerBg = document.querySelector(`.header-bg`);
     const titleFlexHeight = parseFloat(getComputedStyle(document.querySelector(`.title-container`)).getPropertyValue(`height`));
-    console.log(titleFlexHeight);
     headerBg.style.setProperty(`height`, `${titleFlexHeight}px`);
 }
 
