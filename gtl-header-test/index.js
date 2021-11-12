@@ -1,9 +1,10 @@
 const lottieDiv = document.querySelector(`.header-lottie`);
 //set lottie div size responsively
 const setLottieDivSize = () => {
+    const navBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--nav-bar-height`));
     if (window.innerWidth >= window.innerHeight) {
         if (window.innerHeight > 430) {
-            lottieDiv.style.setProperty(`height`, `100%`);
+            lottieDiv.style.setProperty(`height`, `calc(100vh - ${navBarHeight}px)`);
             lottieDiv.style.setProperty(`width`, `auto`);
         }
         else {
@@ -13,7 +14,7 @@ const setLottieDivSize = () => {
     }
     else {
         lottieDiv.style.setProperty(`height`, `auto`);
-        lottieDiv.style.setProperty(`width`, `100%`);
+        lottieDiv.style.setProperty(`width`, `calc(100% - ${navBarHeight}px)`);
     }
 };
 setLottieDivSize();
