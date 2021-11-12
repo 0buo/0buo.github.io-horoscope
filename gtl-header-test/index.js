@@ -17,8 +17,7 @@ const setLottieDivSize = () => {
         lottieDiv.style.setProperty(`width`, `calc(100% - ${navBarHeight}px)`);
     }
 };
-setLottieDivSize();
-window.addEventListener(`resize`, setLottieDivSize);
+
 
 //set header background height responsively
 const setHeaderPeopleHeight = () => {
@@ -51,6 +50,9 @@ const playHeaderAnim = () => {
         }
         headerAnim.addEventListener(`complete`, loopHeaderAnim);
 
+        //set size of lottie div
+        setLottieDivSize();
+        window.addEventListener(`resize`, setLottieDivSize);
         //set height of header background after lottie is loaded
         setHeaderPeopleHeight();
         window.addEventListener(`resize`, setHeaderPeopleHeight);

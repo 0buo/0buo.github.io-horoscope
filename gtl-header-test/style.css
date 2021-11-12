@@ -172,37 +172,37 @@ html,body{
 }
 @media only screen and (max-width: 950px) {
     .title{
-        --main-fs: 2.5rem;
+        --main-fs: 2rem;
         --sub-fs: 1.25rem;
     }
 }
 @media only screen and (max-width: 850px) {
     .title{
-        --main-fs: 2.25rem;
+        --main-fs: 1.75rem;
         --sub-fs: 1.2rem;
     }
 }
 @media only screen and (max-width: 650px) {
         .title{
-            --main-fs: 2rem;
-            --sub-fs: 1.15rem;
+            --main-fs: 1.6rem;
+            --sub-fs: 1.1rem;
         }
 }
 @media only screen and (max-width: 550px) {
     .title{
-        --main-fs: 1.75rem;
-        --sub-fs: 1.1rem;
+        --main-fs: 1.5rem;
+        --sub-fs: 1rem;
     }
 }
 @media only screen and (max-width: 450px) {
     .title{
-        --main-fs: 1.65rem;
-        --sub-fs: 1rem;
+        --main-fs: 1.4rem;
+        --sub-fs: 0.9rem;
     }
 }
 
 /* change flex when too narrow */
-@media only screen and (max-width: 1050px),
+@media only screen and (max-width: 950px),
             screen and (max-height: 550px){
     #circle1{
         left: 15%;
@@ -217,14 +217,10 @@ html,body{
         /* justify-content: flex-start; */
     }
     .title{
-        /* --main-fs: 1.75rem;
-        --sub-fs: 1.25rem; */
         width: 100%;
         text-align: center;
         padding: 0;
     }
     .main-title{ white-space: normal; padding-left: 4%; padding-right: 4%; }
     .sub-title{ padding-left: 8%; padding-right: 8%; }
-
-    
 }
