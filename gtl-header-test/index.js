@@ -4,7 +4,7 @@ const setLottieDivSize = () => {
     const navBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--nav-bar-height`));
     if (window.innerWidth >= window.innerHeight) {
         if (window.innerHeight > 430) {
-            lottieDiv.style.setProperty(`height`, `calc(100vh - ${navBarHeight}px)`);
+            lottieDiv.style.setProperty(`height`, `${window.innerHeight - navBarHeight}px`);
             lottieDiv.style.setProperty(`width`, `auto`);
         }
         else {
