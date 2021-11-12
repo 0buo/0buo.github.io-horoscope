@@ -153,8 +153,8 @@ html,body{
     margin-top: 2%;
     margin-left: auto;
     margin-right: auto;
-    /* height: auto;
-    width: auto; */
+    height: auto;
+    width: auto;
 }
 
 /* media query for screen width */
