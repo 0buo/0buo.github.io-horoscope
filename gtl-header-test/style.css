@@ -142,18 +142,28 @@ html,body{
     -webkit-filter: drop-shadow(-10px -5px 1px #abb0db6e);
             filter: drop-shadow(-10px -5px 1px #abb0db6e);
     white-space: pre;
+    transform: perspective(800px) rotateY(0deg);
+    opacity: 1;
+    transition: transform 1s ease, opacity 1s ease;
 }
 .sub-title{
     color: #3a3a3a;
     font-size: var(--sub-fs);
     font-weight: 400;
+    transform: perspective(800px) rotateY(0deg);
+    opacity: 1;
+    transition: transform 1s ease, opacity 1s ease;
+}
+.title-hidden{
+    transform: perspective(800px) rotateY(30deg);
+    opacity: 0;
 }
 
 .header-lottie{
     margin-top: 2%;
     margin-left: auto;
     margin-right: auto;
-    height: auto;
+    height: 100vh;
     width: auto;
 }
 

@@ -67,5 +67,17 @@ const panHeaderPeople = () => {
     requestAnimationFrame(panHeaderPeople);
 }
 
+
+//TITLE TRANSITION
+const titleTransition = () => {
+    const mainTitle = document.querySelector(`.main-title`);
+    const subTitle = document.querySelector(`.sub-title`);
+
+    mainTitle.classList.remove(`title-hidden`);
+    subTitle.classList.remove(`title-hidden`);
+}
+
+
 requestAnimationFrame(panHeaderPeople);
 playHeaderAnim();
+setTimeout(titleTransition, 500);
