@@ -153,6 +153,7 @@ html,body{
     transform: perspective(800px) rotateY(0deg);
     opacity: 1;
     transition: transform 1s ease, opacity 1s ease;
+    transition-delay: 0.15s;
 }
 .title-hidden{
     transform: perspective(800px) rotateY(30deg);
