@@ -4,41 +4,41 @@
  * @param {int} delay The delay in milliseconds
  */
 
- window.requestTimeout = function(fn, delay) {
-	if( !window.requestAnimationFrame      	&& 
-		!window.webkitRequestAnimationFrame && 
-		!(window.mozRequestAnimationFrame && window.mozCancelRequestAnimationFrame) && // Firefox 5 ships without cancel support
-		!window.oRequestAnimationFrame      && 
-		!window.msRequestAnimationFrame)
-			return window.setTimeout(fn, delay);
-			
-	var start = new Date().getTime(),
-		handle = new Object();
-		
-	function loop(){
-		var current = new Date().getTime(),
-			delta = current - start;
-			
-		delta >= delay ? fn.call() : handle.value = requestAnimationFrame(loop);
-	};
-	
-	handle.value = requestAnimationFrame(loop);
-	return handle;
+window.requestTimeout = function (fn, delay) {
+    if (!window.requestAnimationFrame &&
+        !window.webkitRequestAnimationFrame &&
+        !(window.mozRequestAnimationFrame && window.mozCancelRequestAnimationFrame) && // Firefox 5 ships without cancel support
+        !window.oRequestAnimationFrame &&
+        !window.msRequestAnimationFrame)
+        return window.setTimeout(fn, delay);
+
+    var start = new Date().getTime(),
+        handle = new Object();
+
+    function loop() {
+        var current = new Date().getTime(),
+            delta = current - start;
+
+        delta >= delay ? fn.call() : handle.value = requestAnimationFrame(loop);
+    };
+
+    handle.value = requestAnimationFrame(loop);
+    return handle;
 };
 
 /**
  * Behaves the same as clearTimeout except uses cancelRequestAnimationFrame() where possible for better performance
  * @param {int|object} fn The callback function
  */
-window.clearRequestTimeout = function(handle) {
-  if(handle === undefined){handle = {value: undefined};}
-  window.cancelAnimationFrame ? window.cancelAnimationFrame(handle.value) :
-  window.webkitCancelAnimationFrame ? window.webkitCancelAnimationFrame(handle.value) :
-  window.webkitCancelRequestAnimationFrame ? window.webkitCancelRequestAnimationFrame(handle.value) : /* Support for legacy API */
-  window.mozCancelRequestAnimationFrame ? window.mozCancelRequestAnimationFrame(handle.value) :
-  window.oCancelRequestAnimationFrame	? window.oCancelRequestAnimationFrame(handle.value) :
-  window.msCancelRequestAnimationFrame ? window.msCancelRequestAnimationFrame(handle.value) :
-  clearTimeout(handle);
+window.clearRequestTimeout = function (handle) {
+    if (handle === undefined) { handle = { value: undefined }; }
+    window.cancelAnimationFrame ? window.cancelAnimationFrame(handle.value) :
+        window.webkitCancelAnimationFrame ? window.webkitCancelAnimationFrame(handle.value) :
+            window.webkitCancelRequestAnimationFrame ? window.webkitCancelRequestAnimationFrame(handle.value) : /* Support for legacy API */
+                window.mozCancelRequestAnimationFrame ? window.mozCancelRequestAnimationFrame(handle.value) :
+                    window.oCancelRequestAnimationFrame ? window.oCancelRequestAnimationFrame(handle.value) :
+                        window.msCancelRequestAnimationFrame ? window.msCancelRequestAnimationFrame(handle.value) :
+                            clearTimeout(handle);
 };
 
 
@@ -66,9 +66,10 @@ const setLottieDivSize = () => {
 
 
 //set header background height responsively
+const titleFlexContainer = document.querySelector(`.title-container`);
 const setHeaderPeopleHeight = () => {
     const headerBg = document.querySelector(`.header-bg`);
-    const titleFlexHeight = parseFloat(getComputedStyle(document.querySelector(`.title-container`)).getPropertyValue(`height`));
+    const titleFlexHeight = parseFloat(getComputedStyle(titleFlexContainer).getPropertyValue(`height`));
     headerBg.style.setProperty(`height`, `${titleFlexHeight}px`);
 }
 
@@ -115,15 +116,32 @@ const panHeaderPeople = () => {
 
 
 //TITLE TRANSITION
-const titleTransition = () => {
-    const mainTitle = document.querySelector(`.main-title`);
-    const subTitle = document.querySelector(`.sub-title`);
+const mainTitle = document.querySelector(`.main-title`);
+const subTitle = document.querySelector(`.sub-title`);
 
+const showTitle = () => {
     mainTitle.classList.remove(`title-hidden`);
     subTitle.classList.remove(`title-hidden`);
 }
 
+const hideTitle = () => {
+    mainTitle.classList.add(`title-hidden`);
+    subTitle.classList.add(`title-hidden`);
+}
+
+const titleTransitionWhenScroll = () => {
+    window.addEventListener(`scroll`, ()=>{
+        const titleFlexHeight = parseFloat(getComputedStyle(titleFlexContainer).getPropertyValue(`height`));
+        if(window.scrollY > titleFlexHeight/1.5) {
+            hideTitle();
+        }
+        else {
+            showTitle();
+        }
+    });
+}
 
 requestAnimationFrame(panHeaderPeople);
 playHeaderAnim();
-requestTimeout(titleTransition, 500);
+requestTimeout(showTitle, 500);
+titleTransitionWhenScroll();

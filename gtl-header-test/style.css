@@ -12,6 +12,9 @@ html,body{
     margin: 0px;
     padding: 0px;
 }
+body{
+    height: 200vh;
+}
 
 .header-bg{
     position: absolute;
@@ -144,7 +147,7 @@ html,body{
     white-space: pre;
     transform: perspective(800px) rotateY(0deg);
     opacity: 1;
-    transition: transform 1s ease, opacity 1s ease;
+    transition: transform 2s ease, opacity 1s ease;
 }
 .sub-title{
     color: #3a3a3a;
@@ -152,7 +155,7 @@ html,body{
     font-weight: 400;
     transform: perspective(800px) rotateY(0deg);
     opacity: 1;
-    transition: transform 1s ease, opacity 1s ease;
+    transition: transform 2s ease, opacity 1s ease;
     transition-delay: 0.15s;
 }
 .title-hidden{
@@ -172,6 +175,42 @@ html,body{
 @media only screen and (max-height: 1250px) {
     .title{
         --main-fs: 3rem;
+        --sub-fs: 1.35rem;
+    }
+}
+@media only screen and (min-width: 4300px) {
+    .title{
+        --main-fs: 9.5rem;
+        --sub-fs: 4.1rem;
+    }
+}
+@media only screen and (max-width: 4300px) {
+    .title{
+        --main-fs: 7.5rem;
+        --sub-fs: 3.1rem;
+    }
+}
+@media only screen and (max-width: 3200px) {
+    .title{
+        --main-fs: 5.5rem;
+        --sub-fs: 2rem;
+    }
+}
+@media only screen and (max-width: 2400px) {
+    .title{
+        --main-fs: 4rem;
+        --sub-fs: 1.5rem;
+    }
+}
+@media only screen and (max-width: 1800px) {
+    .title{
+        --main-fs: 3.5rem;
+        --sub-fs: 1.45rem;
+    }
+}
+@media only screen and (max-width: 1350px) {
+    .title{
+        --main-fs: 3.25rem;
         --sub-fs: 1.35rem;
     }
 }
