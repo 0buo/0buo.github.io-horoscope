@@ -48,9 +48,11 @@ const lottieDiv = document.querySelector(`.header-lottie`);
 //set lottie div size responsively
 const setLottieDivSize = () => {
     const navBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--nav-bar-height`));
+    console.log(window.innerHeight);
     if (window.innerWidth >= window.innerHeight) {
         if (window.innerHeight > 430) {
-            lottieDiv.style.setProperty(`height`, `${window.innerHeight - navBarHeight}px`);
+            //0.97 * window height because the lottie animation has 2% margin top
+            lottieDiv.style.setProperty(`height`, `${window.innerHeight * 0.97 - navBarHeight}px`);
             lottieDiv.style.setProperty(`width`, `auto`);
         }
         else {
@@ -130,9 +132,9 @@ const hideTitle = () => {
 }
 
 const titleTransitionWhenScroll = () => {
-    window.addEventListener(`scroll`, ()=>{
+    window.addEventListener(`scroll`, () => {
         const titleFlexHeight = parseFloat(getComputedStyle(titleFlexContainer).getPropertyValue(`height`));
-        if(window.scrollY > titleFlexHeight/1.5) {
+        if (window.scrollY > titleFlexHeight / 1.5) {
             hideTitle();
         }
         else {

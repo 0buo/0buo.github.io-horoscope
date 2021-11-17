@@ -12,9 +12,6 @@ html,body{
     margin: 0px;
     padding: 0px;
 }
-body{
-    height: 200vh;
-}
 
 .header-bg{
     position: absolute;
