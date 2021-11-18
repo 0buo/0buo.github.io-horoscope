@@ -44,10 +44,12 @@ window.clearRequestTimeout = function (handle) {
 
 //======================================================================
 //main header functions
+const navBarHeight = 100;
 const lottieDiv = document.querySelector(`.header-lottie`);
 //set lottie div size responsively
 const setLottieDivSize = () => {
-    const navBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--nav-bar-height`));
+    //get nav bar height from css
+    // const navBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--nav-bar-height`));
     console.log(window.innerHeight);
     if (window.innerWidth >= window.innerHeight) {
         if (window.innerHeight > 430) {
