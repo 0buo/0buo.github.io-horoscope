@@ -138,15 +138,6 @@ const playHeaderAnim = () => {
     }
 }
 
-//PAN PEOPLE
-const panHeaderPeople = () => {
-    const headerPeople = document.querySelector(`.header-people-container`);
-    let curPosition = parseFloat(getComputedStyle(headerPeople).getPropertyValue(`background-position`));
-    headerPeople.style.setProperty(`background-position`, `${curPosition + -0.25 * window.devicePixelRatio}px`);
-
-    requestAnimationFrame(panHeaderPeople);
-}
-
 
 //TITLE TRANSITION
 const mainTitle = document.querySelector(`.main-title`);
@@ -174,7 +165,7 @@ const titleTransitionWhenScroll = () => {
     });
 }
 
-requestAnimationFrame(panHeaderPeople);
-playHeaderAnim();
+
+requestTimeout(playHeaderAnim, 600);
 requestTimeout(showTitle, 500);
 titleTransitionWhenScroll();

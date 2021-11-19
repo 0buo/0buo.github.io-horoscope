@@ -30,6 +30,7 @@ html,body{
     background-position: 0;
     opacity: 30%;
     box-sizing: border-box;
+    animation: header-people-pan 50s linear infinite;
 }
 
 @media only screen and (max-width: 900px) {
@@ -43,6 +44,10 @@ html,body{
     }
 }
 
+@keyframes header-people-pan{
+    from{background-position: 0 0;}
+    to{background-position: calc(100% - 100vw) 0;}
+}
 
 .floating-circle{
     position: absolute;
