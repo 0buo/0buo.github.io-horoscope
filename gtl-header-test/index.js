@@ -165,7 +165,6 @@ const titleTransitionWhenScroll = () => {
     });
 }
 
-
 requestTimeout(playHeaderAnim, 600);
 requestTimeout(showTitle, 500);
 titleTransitionWhenScroll();
