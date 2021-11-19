@@ -42,8 +42,7 @@ window.clearRequestTimeout = function (handle) {
 };
 
 
-//DETECT MOBILE
-//=============
+//***CHANGE "isMbile" TO WORDPRESS WAY OF DETECTING MOBILE
 var isMobile = false; //initiate as false
 // device detection
 if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
@@ -52,128 +51,135 @@ if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elain
 }
 
 //======================================================================
-//main header functions
-const navBarHeight = 100;
-const lottieDiv = document.querySelector(`.header-lottie`);
-//set lottie div size responsively
-const setLottieDivSize = () => {
-    //get nav bar height from css
-    // const navBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--nav-bar-height`));
-    if (window.innerWidth >= window.innerHeight) {
-        if (window.innerHeight > 430) {
-            //0.97 * window height because the lottie animation has 2% margin top
-            lottieDiv.style.setProperty(`height`, `${window.innerHeight * 0.97 - navBarHeight}px`);
-            lottieDiv.style.setProperty(`width`, `auto`);
-        }
-        else {
-            lottieDiv.style.setProperty(`width`, `50%`);
-            lottieDiv.style.setProperty(`height`, `auto`);
-        }
-    }
-    else {
-        lottieDiv.style.setProperty(`height`, `auto`);
-        lottieDiv.style.setProperty(`width`, `100%`);
-    }
-};
 
-
-//set header background height responsively
-const titleFlexContainer = document.querySelector(`.title-container`);
-const setHeaderPeopleHeight = () => {
-    const headerBg = document.querySelector(`.header-bg`);
-    const titleFlexHeight = parseFloat(getComputedStyle(titleFlexContainer).getPropertyValue(`height`));
-    headerBg.style.setProperty(`height`, `${titleFlexHeight}px`);
-}
-
-
-//LOTTIE
-//Lottie web doc: https://airbnb.io/lottie/#/web
-const lottieData = isMobile ? "header-lottie/mobile/mobile-header-anim.json" : "header-lottie/desktop/desktop-header-anim.json"
-const playHeaderAnim = () => {
-    const headerAnim = bodymovin.loadAnimation({
-        container: lottieDiv,
-        path: lottieData,
-        renderer: `svg`,
-        autoplay: false,
-        loop: false,
-        name: `HeaderImageAnimation`,
-    });
-
-    //DESKTOP
-    if (!isMobile) {
-        //opening animation
-        headerAnim.addEventListener(`DOMLoaded`, function () {
-            headerAnim.playSegments([0, 320], true);
-
-            //looping animation
-            const loopHeaderAnim = () => {
-                headerAnim.playSegments([321, 1200], true);
+const headerLottieMain = () => {
+    const navBarHeight = 100;
+    const lottieDiv = document.querySelector(`.headerLottie-lottie`);
+    //set lottie div size responsively
+    const setLottieDivSize = () => {
+        //get nav bar height from css
+        // const navBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--nav-bar-height`));
+        if (window.innerWidth >= window.innerHeight) {
+            if (window.innerHeight > 430) {
+                //0.97 * window height because the lottie animation has 2% margin top
+                lottieDiv.style.setProperty(`height`, `${window.innerHeight * 0.97 - navBarHeight}px`);
+                lottieDiv.style.setProperty(`width`, `auto`);
             }
-            headerAnim.addEventListener(`complete`, loopHeaderAnim);
-
-            //set size of lottie div
-            setLottieDivSize();
-            window.addEventListener(`resize`, setLottieDivSize);
-            //set height of header background after lottie is loaded
-            setHeaderPeopleHeight();
-            window.addEventListener(`resize`, setHeaderPeopleHeight);
-        })
-    }
-    //MOBILE
-    else {
-        //disable people bg when playing mobile anim
-        const headerPeople = document.querySelector(`.header-people-container`);
-        const headerPeopleAnimationCSS = getComputedStyle(headerPeople).getPropertyValue(`animation`);
-        headerPeople.style.setProperty(`animation`, `none`);
-        headerPeople.style.setProperty(`opacity`, `0`);
-
-        headerAnim.addEventListener(`DOMLoaded`, function () {
-            headerAnim.playSegments([0, 349], true);
-            headerAnim.addEventListener(`complete`, () => {
-                headerAnim.pause();
-                //enable people bg after mobile anim completed
-                headerPeople.style.setProperty(`transition`, `opacity 2s ease`);
-                headerPeople.style.setProperty(`animation`, headerPeopleAnimationCSS);
-                headerPeople.style.setProperty(`opacity`, `0.3`);
-            });
-
-            //set size of lottie div
-            setLottieDivSize();
-            window.addEventListener(`resize`, setLottieDivSize);
-            //set height of header background after lottie is loaded
-            setHeaderPeopleHeight();
-            window.addEventListener(`resize`, setHeaderPeopleHeight);
-        })
-    }
-}
-
-
-//TITLE TRANSITION
-const mainTitle = document.querySelector(`.main-title`);
-const subTitle = document.querySelector(`.sub-title`);
-
-const showTitle = () => {
-    mainTitle.classList.remove(`title-hidden`);
-    subTitle.classList.remove(`title-hidden`);
-}
-
-const hideTitle = () => {
-    mainTitle.classList.add(`title-hidden`);
-    subTitle.classList.add(`title-hidden`);
-}
-
-const titleTransitionWhenScroll = () => {
-    window.addEventListener(`scroll`, () => {
-        const titleFlexHeight = parseFloat(getComputedStyle(titleFlexContainer).getPropertyValue(`height`));
-        if (window.scrollY > titleFlexHeight / 1.5) {
-            hideTitle();
+            else {
+                lottieDiv.style.setProperty(`width`, `50%`);
+                lottieDiv.style.setProperty(`height`, `auto`);
+            }
         }
         else {
-            showTitle();
+            lottieDiv.style.setProperty(`height`, `auto`);
+            lottieDiv.style.setProperty(`width`, `100%`);
         }
-    });
+    };
+    
+    
+    //set header background height responsively
+    const titleFlexContainer = document.querySelector(`.headerLottie-title-container`);
+    const setHeaderPeopleHeight = () => {
+        const headerBg = document.querySelector(`.headerLottie-bg`);
+        const titleFlexHeight = parseFloat(getComputedStyle(titleFlexContainer).getPropertyValue(`height`));
+        headerBg.style.setProperty(`height`, `${titleFlexHeight}px`);
+    }
+    
+    
+    //LOTTIE
+    //Lottie web doc: https://airbnb.io/lottie/#/web
+    //***CHANGE "isMbile" TO WORDPRESS WAY OF DETECTING MOBILE
+    const lottieData = isMobile ? "header-lottie/mobile/mobile-header-anim.json" : "header-lottie/desktop/desktop-header-anim.json"
+    const playHeaderAnim = () => {
+        const headerAnim = bodymovin.loadAnimation({
+            container: lottieDiv,
+            path: lottieData,
+            renderer: `svg`,
+            autoplay: false,
+            loop: false,
+            name: `HeaderImageAnimation`,
+        });
+    
+        //***CHANGE "isMbile" TO WORDPRESS WAY OF DETECTING MOBILE
+        //DESKTOP
+        if (!isMobile) {
+            //opening animation
+            headerAnim.addEventListener(`DOMLoaded`, function () {
+                headerAnim.playSegments([0, 320], true);
+    
+                //looping animation
+                const loopHeaderAnim = () => {
+                    headerAnim.playSegments([321, 1200], true);
+                }
+                headerAnim.addEventListener(`complete`, loopHeaderAnim);
+    
+                //set size of lottie div
+                setLottieDivSize();
+                window.addEventListener(`resize`, setLottieDivSize);
+                //set height of header background after lottie is loaded
+                setHeaderPeopleHeight();
+                window.addEventListener(`resize`, setHeaderPeopleHeight);
+            })
+        }
+        //MOBILE
+        else {
+            //disable people bg when playing mobile anim
+            const headerPeople = document.querySelector(`.headerLottie-people-container`);
+            const headerPeopleAnimationCSS = getComputedStyle(headerPeople).getPropertyValue(`animation`);
+            headerPeople.style.setProperty(`animation`, `none`);
+            headerPeople.style.setProperty(`opacity`, `0`);
+    
+            headerAnim.addEventListener(`DOMLoaded`, function () {
+                headerAnim.playSegments([0, 349], true);
+                headerAnim.addEventListener(`complete`, () => {
+                    headerAnim.pause();
+                    //enable people bg after mobile anim completed
+                    headerPeople.style.setProperty(`transition`, `opacity 2s ease`);
+                    headerPeople.style.setProperty(`animation`, headerPeopleAnimationCSS);
+                    headerPeople.style.setProperty(`opacity`, `0.3`);
+                });
+    
+                //set size of lottie div
+                setLottieDivSize();
+                window.addEventListener(`resize`, setLottieDivSize);
+                //set height of header background after lottie is loaded
+                setHeaderPeopleHeight();
+                window.addEventListener(`resize`, setHeaderPeopleHeight);
+            })
+        }
+    }
+    
+    
+    //TITLE TRANSITION
+    const mainTitle = document.querySelector(`.headerLottie-main-title`);
+    const subTitle = document.querySelector(`.headerLottie-sub-title`);
+    
+    const showTitle = () => {
+        mainTitle.classList.remove(`headerLottie-title-hidden`);
+        subTitle.classList.remove(`headerLottie-title-hidden`);
+    }
+    
+    const hideTitle = () => {
+        mainTitle.classList.add(`headerLottie-title-hidden`);
+        subTitle.classList.add(`headerLottie-title-hidden`);
+    }
+    
+    const titleTransitionWhenScroll = () => {
+        window.addEventListener(`scroll`, () => {
+            const titleFlexHeight = parseFloat(getComputedStyle(titleFlexContainer).getPropertyValue(`height`));
+            if (window.scrollY > titleFlexHeight / 1.5) {
+                hideTitle();
+            }
+            else {
+                showTitle();
+            }
+        });
+    }
+    
+    requestTimeout(playHeaderAnim, 600);
+    requestTimeout(showTitle, 500);
+    titleTransitionWhenScroll();
 }
 
-requestTimeout(playHeaderAnim, 600);
-requestTimeout(showTitle, 500);
-titleTransitionWhenScroll();
+headerLottieMain();
+

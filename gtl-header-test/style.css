@@ -13,12 +13,12 @@ html,body{
     padding: 0px;
 }
 
-.header-bg{
+.headerLottie-bg{
     position: absolute;
     width: 100%;
     overflow: hidden;
 }
-.header-people-container{
+.headerLottie-people-container{
     position: absolute;
     left: 0;
     top: 0;
@@ -34,12 +34,12 @@ html,body{
 }
 
 @media only screen and (max-width: 900px) {
-    .header-people-container{
+    .headerLottie-people-container{
         background-image: url("header-images/header-people-1080w.jpg");
     }
 }
 @media only screen and (max-height: 900px) {
-    .header-people-container{
+    .headerLottie-people-container{
         background-image: url("header-images/header-people-1080w.jpg");
     }
 }
@@ -49,7 +49,7 @@ html,body{
     to{background-position: calc(100% - 100vw) 0;}
 }
 
-.floating-circle{
+.headerLottie-floating-circle{
     position: absolute;
     border-radius: 100%;
     transition: left ease 0.5s, right ease 0.5s, background-color ease 0.5s;
@@ -116,7 +116,7 @@ html,body{
     }
 }
 
-.title-container{
+.headerLottie-title-container{
     display: flex;
     flex-direction: row;
     /* justify-content: space-around; */
@@ -126,7 +126,7 @@ html,body{
     margin: 0;
 }
 
-.title{
+.headerLottie-title{
     --main-fs: 3.5rem;
     --sub-fs: 1.45rem;
     width: 35%;
@@ -137,10 +137,10 @@ html,body{
     word-wrap: break-word;
     z-index: 1;
 }
-.main-title::before{
+.headerLottie-main-title::before{
     content: "PERSONALIZED\A LEARNING\A IN A GLOBAL\A COMMUNITY";
 }
-.main-title{
+.headerLottie-main-title{
     color: #70468c; 
     font-size: var(--main-fs); 
     font-weight: 600;
@@ -151,7 +151,7 @@ html,body{
     opacity: 1;
     transition: transform 2s ease, opacity 1s ease;
 }
-.sub-title{
+.headerLottie-sub-title{
     color: #3a3a3a;
     font-size: var(--sub-fs);
     font-weight: 400;
@@ -160,12 +160,12 @@ html,body{
     transition: transform 2s ease, opacity 1s ease;
     transition-delay: 0.15s;
 }
-.title-hidden{
+.headerLottie-title-hidden{
     transform: perspective(800px) rotateY(30deg);
     opacity: 0;
 }
 
-.header-lottie{
+.headerLottie-lottie{
     margin-top: 2%;
     margin-left: auto;
     margin-right: auto;
@@ -175,79 +175,79 @@ html,body{
 
 /* media query for screen width */
 @media only screen and (max-height: 1250px) {
-    .title{
+    .headerLottie-title{
         --main-fs: 3rem;
         --sub-fs: 1.35rem;
     }
 }
 @media only screen and (min-width: 4300px) {
-    .title{
+    .headerLottie-title{
         --main-fs: 9.5rem;
         --sub-fs: 4.1rem;
     }
 }
 @media only screen and (max-width: 4300px) {
-    .title{
+    .headerLottie-title{
         --main-fs: 7.5rem;
         --sub-fs: 3.1rem;
     }
 }
 @media only screen and (max-width: 3200px) {
-    .title{
+    .headerLottie-title{
         --main-fs: 5.5rem;
         --sub-fs: 2rem;
     }
 }
 @media only screen and (max-width: 2400px) {
-    .title{
+    .headerLottie-title{
         --main-fs: 4rem;
         --sub-fs: 1.5rem;
     }
 }
 @media only screen and (max-width: 1800px) {
-    .title{
+    .headerLottie-title{
         --main-fs: 3.5rem;
         --sub-fs: 1.45rem;
     }
 }
 @media only screen and (max-width: 1350px) {
-    .title{
+    .headerLottie-title{
         --main-fs: 3.25rem;
         --sub-fs: 1.35rem;
     }
 }
 @media only screen and (max-width: 1050px) {
-    .title{
+    .headerLottie-title{
         --main-fs: 2.75rem;
         --sub-fs: 1.25rem;
     }
 }
 @media only screen and (max-width: 950px) {
-    .title{
+    .headerLottie-title{
         --main-fs: 2rem;
         --sub-fs: 1.25rem;
     }
 }
 @media only screen and (max-width: 850px) {
-    .title{
+    .headerLottie-title{
         --main-fs: 1.75rem;
         --sub-fs: 1.2rem;
     }
 }
 @media only screen and (max-width: 650px) {
-        .title{
+        .headerLottie-title{
             --main-fs: 1.6rem;
             --sub-fs: 1.1rem;
         }
 }
 @media only screen and (max-width: 550px) {
-    .title{
+    .headerLottie-title{
         --main-fs: 1.5rem;
         --sub-fs: 1rem;
     }
 }
 @media only screen and (max-width: 450px) {
-    .title{
+    .headerLottie-title{
         --main-fs: 1.4rem;
         --sub-fs: 0.9rem;
     }
@@ -264,15 +264,15 @@ html,body{
         right: 15%;
         background-color: #8676c29d;
     }
-    .title-container{
+    .headerLottie-title-container{
         flex-direction: column-reverse;
         /* justify-content: flex-start; */
     }
-    .title{
+    .headerLottie-title{
         width: 100%;
         text-align: center;
         padding: 0;
     }
-    .main-title{ white-space: normal; padding-left: 4%; padding-right: 4%; }
-    .sub-title{ padding-left: 8%; padding-right: 8%; }
+    .headerLottie-main-title{ white-space: normal; padding-left: 4%; padding-right: 4%; }
+    .headerLottie-sub-title{ padding-left: 8%; padding-right: 8%; }
 }
