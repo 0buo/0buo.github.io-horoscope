@@ -59,7 +59,6 @@ const lottieDiv = document.querySelector(`.header-lottie`);
 const setLottieDivSize = () => {
     //get nav bar height from css
     // const navBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--nav-bar-height`));
-    console.log(window.innerHeight);
     if (window.innerWidth >= window.innerHeight) {
         if (window.innerHeight > 430) {
             //0.97 * window height because the lottie animation has 2% margin top
@@ -124,17 +123,18 @@ const playHeaderAnim = () => {
     else {
         //disable people bg when playing mobile anim
         const headerPeople = document.querySelector(`.header-people-container`);
-        headerPeople.style.setProperty(`display`,`none`);
+        const headerPeopleAnimationCSS = getComputedStyle(headerPeople).getPropertyValue(`animation`);
+        headerPeople.style.setProperty(`animation`, `none`);
         headerPeople.style.setProperty(`opacity`, `0`);
-        headerPeople.style.setProperty(`transition`, `opacity 1s ease`);
 
         headerAnim.addEventListener(`DOMLoaded`, function () {
             headerAnim.playSegments([0, 349], true);
             headerAnim.addEventListener(`complete`, () => {
                 headerAnim.pause();
                 //enable people bg after mobile anim completed
-                headerPeople.style.setProperty(`display`,`default`);
-                headerPeople.style.setProperty(`opacity`, `1`);
+                headerPeople.style.setProperty(`transition`, `opacity 2s ease`);
+                headerPeople.style.setProperty(`animation`, headerPeopleAnimationCSS);
+                headerPeople.style.setProperty(`opacity`, `0.3`);
             });
 
             //set size of lottie div
