@@ -93,7 +93,7 @@ const lottieData = isMobile ? "header-lottie/mobile/mobile-header-anim.json" : "
 const playHeaderAnim = () => {
     const headerAnim = bodymovin.loadAnimation({
         container: lottieDiv,
-        path: lottieData,
+        path: "header-lottie/desktop/desktop-header-anim.json",
         renderer: `svg`,
         autoplay: false,
         loop: false,
