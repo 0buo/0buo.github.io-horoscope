@@ -57,8 +57,6 @@ const headerLottieMain = () => {
     const lottieDiv = document.querySelector(`.headerLottie-lottie`);
     //set lottie div size responsively
     const setLottieDivSize = () => {
-        //get nav bar height from css
-        // const navBarHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--nav-bar-height`));
         if (window.innerWidth >= window.innerHeight) {
             if (window.innerHeight > 430) {
                 //0.97 * window height because the lottie animation has 2% margin top

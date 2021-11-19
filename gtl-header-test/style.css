@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
 
 :root{
-    /* put nav bar height (float) here */
-    /* --nav-bar-height: 100.0px; */
     font-size: 15px;
 }
 
@@ -30,7 +28,7 @@ html,body{
     background-position: 0;
     opacity: 30%;
     box-sizing: border-box;
-    animation: header-people-pan 50s linear infinite;
+    animation: headerLottie-people-pan 50s linear infinite;
 }
 
 @media only screen and (max-width: 900px) {
@@ -44,7 +42,7 @@ html,body{
     }
 }
 
-@keyframes header-people-pan{
+@keyframes headerLottie-people-pan{
     from{background-position: 0 0;}
     to{background-position: calc(100% - 100vw) 0;}
 }
@@ -54,20 +52,20 @@ html,body{
     border-radius: 100%;
     transition: left ease 0.5s, right ease 0.5s, background-color ease 0.5s;
 }
-#circle1{
+#headerLottie-circle1{
     width: calc(0.3*min(100vw, 100vh));
     height: calc(0.3*min(100vw, 100vh));
     top: 100%;
     left: 15%;
     background-color: #8676c29d;
     transform: translate(0,0) scale(0);
-    animation-name: circle-float1;
+    animation-name: headerLottie-circle-float1;
     animation-duration: 20s;
     animation-iteration-count: infinite;
     animation-timing-function: cubic-bezier(.37,.75,.76,.36);
     animation-delay: 8s;
 }
-@keyframes circle-float1 {
+@keyframes headerLottie-circle-float1 {
     0%{
         transform: translate(0,0) scale(1);
         opacity: 0;
@@ -85,20 +83,20 @@ html,body{
     }
 }
 
-#circle2{
+#headerLottie-circle2{
     width: calc(0.2*min(100vw, 100vh));
     height: calc(0.2*min(100vw, 100vh));
     top: 0;
     right: 45%;
     background-color: #ddbe69a2;
     transform: translate(0,0) scale(0);
-    animation-name: circle-float2;
+    animation-name: headerLottie-circle-float2;
     animation-duration: 17s;
     animation-iteration-count: infinite;
     animation-timing-function: cubic-bezier(.59,1.03,.31,-0.21);
     animation-delay: 7.5s;
 }
-@keyframes circle-float2 {
+@keyframes headerLottie-circle-float2 {
     0%{
         transform: translate(0,0) scale(1);
         opacity: 0;
@@ -127,8 +125,8 @@ html,body{
 }
 
 .headerLottie-title{
-    --main-fs: 3.5rem;
-    --sub-fs: 1.45rem;
+    --headerLottie-main-fs: 3.5rem;
+    --headerLottie-sub-fs: 1.45rem;
     width: 35%;
     padding-left: 7%;
 
@@ -142,7 +140,7 @@ html,body{
 }
 .headerLottie-main-title{
     color: #70468c; 
-    font-size: var(--main-fs); 
+    font-size: var(--headerLottie-main-fs); 
     font-weight: 600;
     -webkit-filter: drop-shadow(-10px -5px 1px #abb0db6e);
             filter: drop-shadow(-10px -5px 1px #abb0db6e);
@@ -153,7 +151,7 @@ html,body{
 }
 .headerLottie-sub-title{
     color: #3a3a3a;
-    font-size: var(--sub-fs);
+    font-size: var(--headerLottie-sub-fs);
     font-weight: 400;
     transform: perspective(800px) rotateY(0deg);
     opacity: 1;
@@ -176,91 +174,91 @@ html,body{
 /* media query for screen width */
 @media only screen and (max-height: 1250px) {
     .headerLottie-title{
-        --main-fs: 3rem;
-        --sub-fs: 1.35rem;
+        --headerLottie-main-fs: 3rem;
+        --headerLottie-sub-fs: 1.35rem;
     }
 }
 @media only screen and (min-width: 4300px) {
     .headerLottie-title{
-        --main-fs: 9.5rem;
-        --sub-fs: 4.1rem;
+        --headerLottie-main-fs: 9.5rem;
+        --headerLottie-sub-fs: 4.1rem;
     }
 }
 @media only screen and (max-width: 4300px) {
     .headerLottie-title{
-        --main-fs: 7.5rem;
-        --sub-fs: 3.1rem;
+        --headerLottie-main-fs: 7.5rem;
+        --headerLottie-sub-fs: 3.1rem;
     }
 }
 @media only screen and (max-width: 3200px) {
     .headerLottie-title{
-        --main-fs: 5.5rem;
-        --sub-fs: 2rem;
+        --headerLottie-main-fs: 5.5rem;
+        --headerLottie-sub-fs: 2rem;
     }
 }
 @media only screen and (max-width: 2400px) {
     .headerLottie-title{
-        --main-fs: 4rem;
-        --sub-fs: 1.5rem;
+        --headerLottie-main-fs: 4rem;
+        --headerLottie-sub-fs: 1.5rem;
     }
 }
 @media only screen and (max-width: 1800px) {
     .headerLottie-title{
-        --main-fs: 3.5rem;
-        --sub-fs: 1.45rem;
+        --headerLottie-main-fs: 3.5rem;
+        --headerLottie-sub-fs: 1.45rem;
     }
 }
 @media only screen and (max-width: 1350px) {
     .headerLottie-title{
-        --main-fs: 3.25rem;
-        --sub-fs: 1.35rem;
+        --headerLottie-main-fs: 3.25rem;
+        --headerLottie-sub-fs: 1.35rem;
     }
 }
 @media only screen and (max-width: 1050px) {
     .headerLottie-title{
-        --main-fs: 2.75rem;
-        --sub-fs: 1.25rem;
+        --headerLottie-main-fs: 2.75rem;
+        --headerLottie-sub-fs: 1.25rem;
     }
 }
 @media only screen and (max-width: 950px) {
     .headerLottie-title{
-        --main-fs: 2rem;
-        --sub-fs: 1.25rem;
+        --headerLottie-main-fs: 2rem;
+        --headerLottie-sub-fs: 1.25rem;
     }
 }
 @media only screen and (max-width: 850px) {
     .headerLottie-title{
-        --main-fs: 1.75rem;
-        --sub-fs: 1.2rem;
+        --headerLottie-main-fs: 1.75rem;
+        --headerLottie-sub-fs: 1.2rem;
     }
 }
 @media only screen and (max-width: 650px) {
         .headerLottie-title{
-            --main-fs: 1.6rem;
-            --sub-fs: 1.1rem;
+            --headerLottie-main-fs: 1.6rem;
+            --headerLottie-sub-fs: 1.1rem;
         }
 }
 @media only screen and (max-width: 550px) {
     .headerLottie-title{
-        --main-fs: 1.5rem;
-        --sub-fs: 1rem;
+        --headerLottie-main-fs: 1.5rem;
+        --headerLottie-sub-fs: 1rem;
     }
 }
 @media only screen and (max-width: 450px) {
     .headerLottie-title{
-        --main-fs: 1.4rem;
-        --sub-fs: 0.9rem;
+        --headerLottie-main-fs: 1.4rem;
+        --headerLottie-sub-fs: 0.9rem;
     }
 }
 
 /* change flex when too narrow */
 @media only screen and (max-width: 950px),
             screen and (max-height: 550px){
-    #circle1{
+    #headerLottie-circle1{
         left: 15%;
         background-color: #ddbe69a2;
     }
-    #circle2{
+    #headerLottie-circle2{
         right: 15%;
         background-color: #8676c29d;
     }
