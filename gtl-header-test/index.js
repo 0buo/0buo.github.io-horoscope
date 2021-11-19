@@ -122,11 +122,19 @@ const playHeaderAnim = () => {
     }
     //MOBILE
     else {
-        document.querySelector(`.header-people-container`).style.setProperty(`display`,`none`);
+        //disable people bg when playing mobile anim
+        const headerPeople = document.querySelector(`.header-people-container`);
+        headerPeople.style.setProperty(`display`,`none`);
+        headerPeople.style.setProperty(`opacity`, `0`);
+        headerPeople.style.setProperty(`transition`, `opacity 1s ease`);
+
         headerAnim.addEventListener(`DOMLoaded`, function () {
             headerAnim.playSegments([0, 349], true);
             headerAnim.addEventListener(`complete`, () => {
                 headerAnim.pause();
+                //enable people bg after mobile anim completed
+                headerPeople.style.setProperty(`display`,`default`);
+                headerPeople.style.setProperty(`opacity`, `1`);
             });
 
             //set size of lottie div
