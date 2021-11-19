@@ -86,7 +86,6 @@ const headerLottieMain = () => {
     
     //LOTTIE
     //Lottie web doc: https://airbnb.io/lottie/#/web
-    //***CHANGE "isMbile" TO WORDPRESS WAY OF DETECTING MOBILE
     const lottieData = isMobile ? "header-lottie/mobile/mobile-header-anim.json" : "header-lottie/desktop/desktop-header-anim.json"
     const playHeaderAnim = () => {
         const headerAnim = bodymovin.loadAnimation({
@@ -97,8 +96,7 @@ const headerLottieMain = () => {
             loop: false,
             name: `HeaderImageAnimation`,
         });
-    
-        //***CHANGE "isMbile" TO WORDPRESS WAY OF DETECTING MOBILE
+
         //DESKTOP
         if (!isMobile) {
             //opening animation
