@@ -122,6 +122,7 @@ const playHeaderAnim = () => {
     }
     //MOBILE
     else {
+        document.querySelector(`.header-people-container`).style.setProperty(`display`,`none`);
         headerAnim.addEventListener(`DOMLoaded`, function () {
             headerAnim.playSegments([0, 349], true);
             headerAnim.addEventListener(`complete`, () => {
