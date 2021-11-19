@@ -24,7 +24,7 @@ html,body{
     top: 0;
     height: 100%;
     width: 100%;
-    background-image: url("header-people-1920w.jpg");
+    background-image: url("header-images/header-people-1920w.jpg");
     background-size: cover;
     background-repeat: repeat-x;
     background-position: 0;
@@ -34,12 +34,12 @@ html,body{
 
 @media only screen and (max-width: 900px) {
     .header-people-container{
-        background-image: url("header-people-1080w.jpg");
+        background-image: url("header-images/header-people-1080w.jpg");
     }
 }
 @media only screen and (max-height: 900px) {
     .header-people-container{
-        background-image: url("header-people-1080w.jpg");
+        background-image: url("header-images/header-people-1080w.jpg");
     }
 }
 
