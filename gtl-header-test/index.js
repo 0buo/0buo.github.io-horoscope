@@ -59,7 +59,7 @@ const headerLottieMain = () => {
     const setLottieDivSize = () => {
         if (window.innerWidth >= window.innerHeight) {
             if (window.innerHeight > 430) {
-                //0.97 * window height because the lottie animation has 2% margin top
+                //0.97 * window height because to leave space at bottom of anim
                 lottieDiv.style.setProperty(`height`, `${window.innerHeight * 0.97 - navBarHeight}px`);
                 lottieDiv.style.setProperty(`width`, `auto`);
             }
@@ -80,7 +80,7 @@ const headerLottieMain = () => {
     const setHeaderPeopleHeight = () => {
         const headerBg = document.querySelector(`.headerLottie-bg`);
         const titleFlexHeight = parseFloat(getComputedStyle(titleFlexContainer).getPropertyValue(`height`));
-        //add 0.03 window height bc of a margintop on lottie anim
+        //add 0.03 window height bc of a margintop on lottie anim, see line 62
         headerBg.style.setProperty(`height`, `${titleFlexHeight + 0.03 * window.innerHeight}px`);
     }
     
