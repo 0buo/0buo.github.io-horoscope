@@ -53,7 +53,7 @@ if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elain
 //======================================================================
 
 const headerLottieMain = () => {
-    const navBarHeight = 100;
+    const navBarHeight = 0;
     const lottieDiv = document.querySelector(`.headerLottie-lottie`);
     //set lottie div size responsively
     const setLottieDivSize = () => {
@@ -80,13 +80,14 @@ const headerLottieMain = () => {
     const setHeaderPeopleHeight = () => {
         const headerBg = document.querySelector(`.headerLottie-bg`);
         const titleFlexHeight = parseFloat(getComputedStyle(titleFlexContainer).getPropertyValue(`height`));
-        headerBg.style.setProperty(`height`, `${titleFlexHeight}px`);
+        //add 0.03 window height bc of a margintop on lottie anim
+        headerBg.style.setProperty(`height`, `${titleFlexHeight + 0.03 * window.innerHeight}px`);
     }
     
     
     //LOTTIE
     //Lottie web doc: https://airbnb.io/lottie/#/web
-    const lottieData = isMobile ? "header-lottie/mobile/mobile-header-anim.json" : "header-lottie/desktop/desktop-header-anim.json"
+    const lottieData = isMobile ? "header-lottie/mobile/mobile-header-anim.json" : "header-lottie/desktop/desktop-header-anim-no-logo.json"
     const playHeaderAnim = () => {
         const headerAnim = bodymovin.loadAnimation({
             container: lottieDiv,
