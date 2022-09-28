@@ -57,7 +57,7 @@ const headerLottieMain = () => {
     const lottieDiv = document.querySelector(`.headerLottie-lottie`);
     //set lottie div size responsively
     const setLottieDivSize = () => {
-        if (window.innerWidth >= window.innerHeight) {
+        // if (window.innerWidth >= window.innerHeight) {
             // if (window.innerHeight > 430) {
                 //0.97 * window height because to leave space at bottom of anim
                 // lottieDiv.style.setProperty(`height`, `${window.innerHeight * 0.97 - navBarHeight}px`);
@@ -69,10 +69,10 @@ const headerLottieMain = () => {
             //     lottieDiv.style.setProperty(`height`, `auto`);
             // }
         }
-        else {
-            lottieDiv.style.setProperty(`height`, `auto`);
-            lottieDiv.style.setProperty(`width`, `100%`);
-        }
+        // else {
+        //     lottieDiv.style.setProperty(`height`, `auto`);
+        //     lottieDiv.style.setProperty(`width`, `100%`);
+        // }
     };
     
     
