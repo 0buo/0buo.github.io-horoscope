@@ -169,7 +169,7 @@ body{
 }
 
 .headerLottie-lottie{
-    /* margin-top: 2%; */
+    margin-top: -1%;
     margin-left: auto;
     margin-right: auto;
     height: 100vh;
