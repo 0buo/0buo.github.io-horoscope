@@ -72,18 +72,18 @@ body{
 }
 @keyframes headerLottie-circle-float1 {
     0%{
-        transform: translate(0,0) scale(1);
+        transform: translate(0,-60vh) scale(1);
         opacity: 0;
     }
     15%{opacity: 1;}
     40%{opacity: 1;}
     45%{opacity: 0.75;}
     50%{
-        transform: translate(-12vw,-60vh) scale(1);
+        transform: translate(-12vw,-5vh) scale(1);
         opacity: 0;
     }
     100%{
-        transform: translate(-12vw,-60vh) scale(1);
+        transform: translate(-12vw,-5vh) scale(1);
         opacity: 0;
     }
 }
