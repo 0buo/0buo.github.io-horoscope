@@ -68,7 +68,7 @@ const headerLottieMain = () => {
             //     lottieDiv.style.setProperty(`width`, `50%`);
             //     lottieDiv.style.setProperty(`height`, `auto`);
             // }
-        }
+        // }
         // else {
         //     lottieDiv.style.setProperty(`height`, `auto`);
         //     lottieDiv.style.setProperty(`width`, `100%`);
