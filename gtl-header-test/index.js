@@ -58,16 +58,16 @@ const headerLottieMain = () => {
     //set lottie div size responsively
     const setLottieDivSize = () => {
         if (window.innerWidth >= window.innerHeight) {
-            if (window.innerHeight > 430) {
+            // if (window.innerHeight > 430) {
                 //0.97 * window height because to leave space at bottom of anim
                 // lottieDiv.style.setProperty(`height`, `${window.innerHeight * 0.97 - navBarHeight}px`);
                 lottieDiv.style.setProperty(`height`, `${window.innerHeight * 1.02 - navBarHeight}px`);
                 lottieDiv.style.setProperty(`width`, `auto`);
-            }
-            else {
-                lottieDiv.style.setProperty(`width`, `50%`);
-                lottieDiv.style.setProperty(`height`, `auto`);
-            }
+            // }
+            // else {
+            //     lottieDiv.style.setProperty(`width`, `50%`);
+            //     lottieDiv.style.setProperty(`height`, `auto`);
+            // }
         }
         else {
             lottieDiv.style.setProperty(`height`, `auto`);
