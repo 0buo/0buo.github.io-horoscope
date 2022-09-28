@@ -11,6 +11,11 @@ html,body{
     padding: 0px;
 }
 
+body{
+    overflow: hidden;
+    background-color: rgb(245,245,245);
+}
+
 .headerLottie-bg{
     position: absolute;
     width: 100%;
