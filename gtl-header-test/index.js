@@ -90,9 +90,9 @@ const headerLottieMain = () => {
     
     //LOTTIE
     //Lottie web doc: https://airbnb.io/lottie/#/web
-    // const lottieData = isMobile ? "header-lottie/mobile/mobile-header-anim.json" : "header-lottie/desktop/desktop-header-anim-no-logo.json"
-    const lottieData = "header-lottie/desktop/desktop-header-anim-no-logo.json"
-    
+    const lottieData = isMobile ? "header-lottie/mobile/mobile-header-anim.json" : "header-lottie/desktop/desktop-header-anim-no-logo.json"
+    // const lottieData = "header-lottie/desktop/desktop-header-anim-no-logo.json"
+
     const playHeaderAnim = () => {
         const headerAnim = bodymovin.loadAnimation({
             container: lottieDiv,
