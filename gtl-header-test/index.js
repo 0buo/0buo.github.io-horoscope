@@ -61,7 +61,7 @@ const headerLottieMain = () => {
             // if (window.innerHeight > 430) {
                 //0.97 * window height because to leave space at bottom of anim
                 // lottieDiv.style.setProperty(`height`, `${window.innerHeight * 0.97 - navBarHeight}px`);
-                lottieDiv.style.setProperty(`height`, `${window.innerHeight * 1.1}px`);
+                lottieDiv.style.setProperty(`height`, `${window.innerHeight * 1.2}px`);
                 lottieDiv.style.setProperty(`width`, `auto`);
             // }
             // else {
