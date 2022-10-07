@@ -61,7 +61,7 @@ const headerLottieMain = () => {
             // if (window.innerHeight > 430) {
                 //0.97 * window height because to leave space at bottom of anim
                 // lottieDiv.style.setProperty(`height`, `${window.innerHeight * 0.97 - navBarHeight}px`);
-                lottieDiv.style.setProperty(`height`, `${window.innerHeight * 1.2}px`);
+                lottieDiv.style.setProperty(`height`, `${window.innerHeight * 1.02}px`);
                 lottieDiv.style.setProperty(`width`, `auto`);
             // }
             // else {
@@ -71,7 +71,16 @@ const headerLottieMain = () => {
         }
         else {
             lottieDiv.style.setProperty(`height`, `auto`);
-            lottieDiv.style.setProperty(`width`, `100%`);
+            // lottieDiv.style.setProperty(`width`, `100%`);
+
+            if(!isMobile) {
+                lottieDiv.style.setProperty(`width`, `${window.innerWidth * 1.02}px`);
+                lottieDiv.style.setProperty(`left`, `calc(0 - 100vw*1.02/2)`);
+            }
+            else {
+                lottieDiv.style.setProperty(`width`, `${window.innerWidth * 1.22}px`);
+                lottieDiv.style.setProperty(`left`, `calc(0 - 100vw*1.22/2)`);
+            };
         }
     };
     
