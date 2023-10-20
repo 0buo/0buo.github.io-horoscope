@@ -2,10 +2,22 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/RGBELoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { BloomEffect, EffectComposer, EffectPass, RenderPass } from "postprocessing";
 
 export function Pig() {
     const canvas = document.querySelector('.three-canvas');
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+
+    //renderer
+    const renderer = new THREE.WebGLRenderer({
+        powerPreference: "high-performance",
+        antialias: false,
+        stencil: false,
+        depth: false
+    });
+
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.NoToneMapping
+
 
     //scene
     const scene = new THREE.Scene();
@@ -38,4 +50,20 @@ export function Pig() {
     controls.autoRotateSpeed = 0.5;
     controls.target.set(0, 0, 0);
     // controls.enabled = false;
+
+    //postprocessing
+    const composer = new EffectComposer(renderer, {
+        frameBufferType: HalfFloatType
+    });
+    composer.addPass(new RenderPass(scene, camera));
+    composer.addPass(new EffectPass(camera, new BloomEffect()));
+
+
+    //play
+    requestAnimationFrame(function render() {
+
+        requestAnimationFrame(render);
+        composer.render();
+
+    });
 }
