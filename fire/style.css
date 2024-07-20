@@ -14,7 +14,7 @@ body{
 
 /* === scrollbar */
 body::-webkit-scrollbar {
-  width: 0.35em;
+  width: 0.45em;
   background-color: transparent;
 }
  
